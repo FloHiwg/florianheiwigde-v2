@@ -11,6 +11,11 @@ html, body {
   float: right;
   cursor: pointer;
   margin-right: 50px; }
+  @media only screen and (max-width: 768px) {
+    .fh-tint {
+      margin: 50px auto;
+      float: none;
+      width: 200px; } }
   .fh-tint.fh-orange:before {
     background: rgba(214, 122, 45, 0.5); }
   .fh-tint.fh-blue:before {
@@ -36,12 +41,21 @@ html, body {
     border-radius: 50%;
     height: 300px;
     width: 300px; }
+    @media only screen and (max-width: 768px) {
+      .fh-tint .fh-profile-image {
+        width: 200px;
+        height: 200px; } }
 
 .fh-description {
   margin-top: 30vh;
   color: #2f2f2f;
   margin-left: 50px;
   height: 300px; }
+  @media only screen and (max-width: 768px) {
+    .fh-description {
+      margin-top: 0px;
+      margin-left: 0px;
+      padding-left: 50px; } }
   .fh-description .fh-name {
     font-size: 4em; }
   .fh-description .fh-skill {

@@ -67,3 +67,23 @@ html, body {
       color: #789364; }
     .fh-description .fh-skill.fh-red {
       color: #af2418; }
+
+.fh-social-links {
+  margin-top: 50px;
+  text-align: center;
+  font-size: 2em;
+  position: absolute;
+  width: 100%; }
+  @media only screen and (min-width: 768px) {
+    .fh-social-links {
+      bottom: 20px; } }
+  .fh-social-links a.fh-orange {
+    color: #d67a2d; }
+  .fh-social-links a.fh-blue {
+    color: #789364; }
+  .fh-social-links a.fh-red {
+    color: #af2418; }
+  .fh-social-links a:hover {
+    color: #474747; }
+  .fh-social-links a i {
+    margin-right: 15px; }

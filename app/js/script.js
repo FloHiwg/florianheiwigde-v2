@@ -18,6 +18,8 @@ function changeSkill(){
     $('.fh-tint').addClass(skillColor[roundCounter % skillColor.length]);
     $('.fh-skill').removeClass(skillColor[(roundCounter - 1) % skillColor.length]);
     $('.fh-skill').addClass(skillColor[roundCounter % skillColor.length]);
+    $('.fh-social-links > a').removeClass(skillColor[(roundCounter - 1) % skillColor.length]);
+    $('.fh-social-links > a').addClass(skillColor[roundCounter % skillColor.length]);
     $('.fh-skill').text(skillName[roundCounter % skillColor.length]);
     setTimeout(function(){
       changeSkill();

@@ -84,3 +84,31 @@ html, body {
     }
   }
 }
+
+.fh-social-links {
+  margin-top: 50px;
+  text-align: center;
+  font-size: 2em;
+  position: absolute;
+  width: 100%;
+  @media only screen and (min-width : 768px) {
+    bottom: 20px;
+  }
+  a {
+    &.fh-orange {
+      color: rgb(214,122,45);
+    }
+    &.fh-blue {
+      color: rgb(120,147,100);
+    }
+    &.fh-red {
+      color: rgb(175,36,24);
+    }
+    &:hover {
+      color: #474747;
+    }
+    i {
+      margin-right: 15px;
+    }
+  }
+}

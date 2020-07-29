@@ -4,7 +4,7 @@ $( document ).ready(function() {
 
 });
 
-var skillName = ['developer,', 'creative-mind,', 'digital all-rounder,']
+var skillName = ['product,', 'tech,', 'startups,']
 
 var skillColor = ['fh-orange', 'fh-blue', 'fh-red'];
 

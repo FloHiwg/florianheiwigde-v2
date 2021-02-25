@@ -5,48 +5,292 @@
     <title>Florian Heiwig</title>
 
     <!-- Latest compiled and minified CSS -->
-    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Montserrat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
           integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
 
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <!-- Optional theme -->
 </head>
-<body>
-<div class="container">
-    <div class="row vcenter">
-        <div class="col-lg-5 col-md-6 col-sm-12">
-            <figure class="fh-tint fh-orange">
-                <img class="img-fluid fh-profile-image" src="images/profile-picture-min.jpg">
-            </figure>
-        </div>
-        <div class="col-lg-7 col-md-6 col-sm-12">
-            <div class="fh-description">
-                <div class="block-effect" style="--td: 1.2s">
-                    <div class="fh-name block-reveal" style="--bc: #DE7A22; --d: .1s">florian heiwig</div>
-                </div>
-                <div class="block-effect" style="--td: 1.2s">
-                    <div class="block-reveal" style="--bc: #20948B; --d: .5s">
-                        <span class="fh-skill fh-orange">developer,</span>
-                    </div>
+<body style="background-color: #0f0f0f; color: #fff; font-family: 'Montserrat', sans-serif;" data-spy="scroll" data-target="#myScrollspy">
+<script>
+    var scroll = new SmoothScroll('a[href*="#"]');
+</script>
+<div class="page-wrapper">
+    <main>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col col-12 col-md-9">
+                    <section id="section-01" style="padding: 0 25px; display: flex; flex-direction: column; justify-content: space-between; min-height: 100vh">
+                        <div class="section-body" style="padding-top: 80px">
+                            <div class="profile-image-wrapper">
+                                <img class="img-fluid" style="border-radius: 50%; border: 2px solid white; height: 11em; max-height: 200px;" src="images/geco.jpg">
+                            </div>
+                            <style>
+                                @media (max-width: 480px) {
+                                    #name {
+                                        font-size: 4em !important;
+                                    }
+                                }
+                            </style>
+                            <div id="name" style="font-weight: 700; font-size: 8em; line-height: 1; margin-top: 35px">
+                                Florian <br>
+                                Heiwig
+                            </div>
+                            <div style="border-bottom: 2px solid #fff; width: 6em; margin-top: 25px; margin-bottom: 25px"></div>
+                            <div class="sub-headline" style="font-size: 1rem; font-weight: 700;">
+                                MAKER
+                            </div>
+                        </div>
+                        <div class="section-footer" style="padding-bottom: 20px;">
+                            <a data-scroll href="#section-02" style="color: #fff">
+                                <span style="opacity: 0.6">01/10</span>
+                                <span style="font-size: .75rem; font-weight: 700; text-transform: uppercase;">Next chapter</span>
+                                <span>Icon</span>
+                            </a>
+                        </div>
+                    </section>
+                    <section id="section-02" style="padding: 0 25px; display: flex; flex-direction: column; justify-content: space-between; min-height: 100vh">
+                        <div class="section-body" style="padding-top: 80px">
+                            <div style="font-size: 3em; font-weight: 700">
+                                ABOUT ME
+                            </div>
+                            <div style="border-bottom: 2px solid #fff; width: 6em; margin-top: 25px; margin-bottom: 25px"></div>
+                            <p>
+                                My name is Florian and i'm a passionated product person. I love building products close
+                                together with a highly skilled team in different context. Getting my hands dirty by
+                                understanding new domains and the problems of the users and start testing right away.
+                                Rapid prototyping and the lean startup approach were my door into the startup scene.
+                            </p>
+                        </div>
+                        <div class="section-footer" style="padding-bottom: 20px;">
+                            <a data-scroll href="#section-03" style="color: #fff">
+                                <span style="opacity: 0.6">02/10</span>
+                                <span style="font-size: .75rem; font-weight: 700; text-transform: uppercase;">Next chapter</span>
+                                <span>Icon</span>
+                            </a>
+                        </div>
+                    </section>
+                    <section id="section-03" style="padding: 0 25px; display: flex; flex-direction: column; justify-content: space-between; min-height: 100vh">
+                        <div class="section-body" style="padding-top: 80px">
+                            <div style="font-size: 3em; font-weight: 700">
+                                RESUME
+                            </div>
+                            <div style="border-bottom: 2px solid #fff; width: 6em; margin-top: 25px; margin-bottom: 25px"></div>
+
+                        </div>
+                        <div class="section-footer" style="padding-bottom: 20px;">
+                            <a data-scroll href="#section-04" style="color: #fff">
+                                <span style="opacity: 0.6">03/10</span>
+                                <span style="font-size: .75rem; font-weight: 700; text-transform: uppercase;">Next chapter</span>
+                                <span>Icon</span>
+                            </a>
+                        </div>
+                    </section>
+                    <section id="section-04" style="padding: 0 25px; display: flex; flex-direction: column; justify-content: space-between; min-height: 100vh">
+                        <style>
+                            .service-wrapper:hover {
+                                text-decoration: none;
+                                -webkit-transform: translateY(-.5rem);
+                                -ms-transform: translateY(-.5rem);
+                                transform: translateY(-.5rem);
+                            }
+                        </style>
+                        <div class="section-body" style="padding-top: 80px">
+                            <div style="font-size: 3em; font-weight: 700">
+                                MY SERVICES
+                            </div>
+                            <div style="border-bottom: 2px solid #fff; width: 6em; margin-top: 25px; margin-bottom: 25px"></div>
+                            <div class="row">
+                                <div class="col-12 col-md-4">
+                                    <div class="service-wrapper">
+                                        <div style="font-size: 3em; opacity: 0.6; font-weight: 700">
+                                            #1
+                                        </div>
+                                        <div style="font-size: 2em; font-weight: 700">
+                                            Product
+                                        </div>
+                                        <p>
+                                            Developing products and supporting you during the whole journey from discovering a problem until delivering a fully fedged solution.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <div class="service-wrapper">
+                                        <div style="font-size: 3em; opacity: 0.6; font-weight: 700">
+                                            #2
+                                        </div>
+                                        <div style="font-size: 2em; font-weight: 700">
+                                            Tech
+                                        </div>
+                                        <p>
+                                            Developing products and supporting you during the whole journey from discovering a problem until delivering a fully fedged solution.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <div class="service-wrapper">
+                                        <div style="font-size: 3em; opacity: 0.6; font-weight: 700">
+                                            #3
+                                        </div>
+                                        <div style="font-size: 2em; font-weight: 700">
+                                            Startup
+                                        </div>
+                                        <p>
+                                            Developing products and supporting you during the whole journey from discovering a problem until delivering a fully fedged solution.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="section-footer" style="padding-bottom: 20px;">
+                            <a data-scroll href="#section-05" style="color: #fff">
+                                <span style="opacity: 0.6">04/10</span>
+                                <span style="font-size: .75rem; font-weight: 700; text-transform: uppercase;">Next chapter</span>
+                                <span>Icon</span>
+                            </a>
+                        </div>
+                    </section>
+                    <section id="section-05" style="padding: 0 25px; display: flex; flex-direction: column; justify-content: space-between; min-height: 100vh">
+                        <div class="section-body" style="padding-top: 80px">
+                            <div style="font-size: 3em; font-weight: 700">
+                                CONTACT
+                            </div>
+                            <div style="border-bottom: 2px solid #fff; width: 6em; margin-top: 25px; margin-bottom: 25px"></div>
+                            <div class="row" style="margin-top: 75px">
+                                <div class="col-12 col-md-4" style="margin-bottom: 25px">
+                                    <div style="text-transform: uppercase; opacity: 0.85; font-weight: 700;">
+                                        Stay in touch
+                                    </div>
+                                    <p style="font-size: 1.4em; margin-top: 25px">
+                                        <a href="mailto:florian@heiwig.com" style="color: #fff">florian@heiwig.com</a><br>
+                                    </p>
+                                </div>
+                                <div class="col-12 col-md-4" style="margin-bottom: 25px">
+                                    <div style="text-transform: uppercase; opacity: 0.85; font-weight: 700;">
+                                        Social
+                                    </div>
+                                    <p style="font-size: 1.4em; margin-top: 25px">
+                                        <a href="https://www.linkedin.com/in/florian-heiwig/" target="_blank" style="color: #fff">Linked In</a><br>
+                                        <a href="https://github.com/FloHiwg/" target="_blank" style="color: #fff">GitHub</a><br>
+                                        <a href="https://twitter.com/flohiwg" target="_blank" style="color: #fff">Twitter</a><br>
+                                    </p>
+                                </div>
+                                <div class="col-12 col-md-4" style="margin-bottom: 25px">
+                                    <div style="text-transform: uppercase; opacity: 0.85; font-weight: 700;">
+                                        Address
+                                    </div>
+                                    <p style="font-size: 1.4em; margin-top: 25px">
+                                        Simplonstr 38<br>
+                                        10245 Berlin
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="section-footer" style="padding-bottom: 20px;">
+                            <a data-scroll href="#section-06" style="color: #fff">
+                                <span style="opacity: 0.6">05/10</span>
+                                <span style="font-size: .75rem; font-weight: 700; text-transform: uppercase;">Next chapter</span>
+                                <span>Icon</span>
+                            </a>
+                        </div>
+                    </section>
+                    <section id="section-06" style="padding: 0 25px; display: flex; flex-direction: column; justify-content: space-between; min-height: 100vh">
+                        <div class="section-body" style="padding-top: 80px">
+                            <div style="font-size: 3em; font-weight: 700">
+                                IMPRINT
+                            </div>
+                            <div style="border-bottom: 2px solid #fff; width: 6em; margin-top: 25px; margin-bottom: 25px"></div>
+                            <p>
+                                Information pursuant to Sect. 5 German Telemedia Act (TMG)<br>
+                                Florian Heiwig<br>
+                                Simplonstr 38<br>
+                                10245 Berlin<br>
+                                <br>
+                                Contact<br>
+                                E-mail: info@heiwig.com<br>
+                                <br>
+                                Person responsible for editorial<br>
+                                Florian Heiwig<br>
+                                Simplonstr 38<br>
+                                10245 Berlin<br>
+                                <br>
+                                <span style="font-size: 1.5em">EU dispute resolution</span> <br>
+                                The European Commission provides a platform for online dispute resolution (ODR): https://ec.europa.eu/consumers/odr.<br>
+                                Our e-mail address can be found above in the site notice.<br>
+                                <br>
+                                <span style="font-size: 1.5em">Dispute resolution proceedings in front of a consumer arbitration board</span><br>
+                                We are not willing or obliged to participate in dispute resolution proceedings in front of a consumer arbitration board.<br>
+                                <br>
+                                <span style="font-size: 1.5em">Liability for Contents</span><br>
+                                As service providers, we are liable for own contents of these websites according to Paragraph 7, Sect. 1 German Telemedia Act (TMG). However, according to Paragraphs 8 to 10 German Telemedia Act (TMG), service providers are not obligated to permanently monitor submitted or stored information or to search for evidences that indicate illegal activities.<br>
+                                Legal obligations to removing information or to blocking the use of information remain unchallenged. In this case, liability is only possible at the time of knowledge about a specific violation of law. Illegal contents will be removed immediately at the time we get knowledge of them.<br>
+                                <br>
+                                <span style="font-size: 1.5em">Liability for Links</span>
+                                Our offer includes links to external third-party websites. We have no influence on the contents of those websites, therefore we cannot guarantee for those contents. Providers or administrators of linked websites are always responsible for their own contents.<br>
+                                The linked websites had been checked for possible violations of law at the time of the establishment of the link. Illegal contents were not detected at the time of the linking. A permanent monitoring of the contents of linked websites cannot be imposed without reasonable indications that there has been a violation of law. Illegal links will be removed immediately at the time we get knowledge of them.<br>
+                                <br>
+                                <span style="font-size: 1.5em">Copyright</span><br>
+                                Contents and compilations published on these websites by the providers are subject to German copyright laws. Reproduction, editing, distribution as well as the use of any kind outside the scope of the copyright law require a written permission of the author or originator. Downloads and copies of these websites are permitted for private use only.<br>
+                                The commercial use of our contents without permission of the originator is prohibited.<br>
+                                <br>
+                                Copyright laws of third parties are respected as long as the contents on these websites do not originate from the provider. Contributions of third parties on this site are indicated as such. However, if you notice any violations of copyright law, please inform us. Such contents will be removed immediately.<br>
+                            </p>
+                        </div>
+                        <div class="section-footer" style="padding-bottom: 20px;">
+                            <span style="opacity: 0.6">06/10</span>
+                        </div>
+                    </section>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-<div class="fh-social-links">
-    <a href="https://www.linkedin.com/in/florian-heiwig/" target="_blank" class="fh-orange">
-      <i class="fa fa-linkedin" aria-hidden="true"></i>
-    </a>
-    <a href="https://github.com/FloHiwg/" target="_blank" class="fh-orange">
-      <i class="fa fa-github-alt" aria-hidden="true"></i>
-    </a>
-    <a href="https://twitter.com/flohiwg" target="_blank" class="fh-orange">
-      <i class="fa fa-twitter" aria-hidden="true"></i>
-    </a>
+    </main>
+    <nav class="d-none d-md-block navbar" style="width: 25%; position: fixed; right: 0; top: 50px;" id="myScrollspy">
+        <style>
+            a.active {
+                border-left-color: #fff !important;
+            }
+        </style>
+        <div>
+            <ul style="padding-left: 0;">
+                <li style="list-style: none;">
+                    <a class="nav-link active" data-scroll href="#section-01" style="display:block; color: #fff; font-size: 1.25em; padding: 10px 25px; border-left: 2px solid rgba(255,255,255,0.5);">
+                        01 <span style="text-transform: uppercase; font-weight: 700">Top</span>
+                    </a>
+                </li>
+                <li style="list-style: none;">
+                    <a class="nav-link" data-scroll href="#section-02" style="display:block; color: #fff; font-size: 1.25em; padding: 10px 25px; border-left: 2px solid rgba(255,255,255,0.5);">
+                        02 <span style="text-transform: uppercase; font-weight: 700">About me</span>
+                    </a>
+                </li>
+                <li style="list-style: none;">
+                    <a class="nav-link" data-scroll href="#section-03" style="display:block; color: #fff; font-size: 1.25em; padding: 10px 25px; border-left: 2px solid rgba(255,255,255,0.5);">
+                        03 <span style="text-transform: uppercase; font-weight: 700">Resume</span>
+                    </a>
+                </li>
+                <li style="list-style: none;">
+                    <a class="nav-link" data-scroll href="#section-04" style="display:block; color: #fff; font-size: 1.25em; padding: 10px 25px; border-left: 2px solid rgba(255,255,255,0.5);">
+                        04 <span style="text-transform: uppercase; font-weight: 700">My Service</span>
+                    </a>
+                </li>
+                <li style="list-style: none;">
+                    <a class="nav-link" data-scroll href="#section-05" style="display:block; color: #fff; font-size: 1.25em; padding: 10px 25px; border-left: 2px solid rgba(255,255,255,0.5);">
+                        05 <span style="text-transform: uppercase; font-weight: 700">Contact</span>
+                    </a>
+                </li>
+                <li style="list-style: none;">
+                    <a class="nav-link" data-scroll href="#section-06" style="display:block; color: #fff; font-size: 1.25em; padding: 10px 25px; border-left: 2px solid rgba(255,255,255,0.5);">
+                        06 <span style="text-transform: uppercase; font-weight: 700">Imprint</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -58,6 +302,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-<script type="text/javascript" src="js/script.js"></script>
+
 </body>
 </html>

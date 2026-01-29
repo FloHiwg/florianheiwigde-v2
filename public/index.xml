@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Welcome on Florian Heiwig</title>
+    <link>https://florianheiwig.de/blog/</link>
+    <description>Recent content in Welcome on Florian Heiwig</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <atom:link href="https://florianheiwig.de/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Resume</title>
+      <link>https://florianheiwig.de/blog/resume/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://florianheiwig.de/blog/resume/</guid>
+      <description>&lt;h1 id=&#34;florian-heiwig&#34;&gt;Florian Heiwig&lt;a class=&#34;anchor&#34; href=&#34;#florian-heiwig&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xA;&lt;p&gt;&lt;strong&gt;Software Engineer | Thinker | Traveler&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;h3 id=&#34;experience&#34;&gt;Experience&lt;a class=&#34;anchor&#34; href=&#34;#experience&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;Company A&lt;/strong&gt; (2024 - Present)&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Company B&lt;/strong&gt; (2020 - 2024)&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;skills&#34;&gt;Skills&lt;a class=&#34;anchor&#34; href=&#34;#skills&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Technical: Python, Firebase, Hugo&lt;/li&gt;&#xA;&lt;li&gt;Languages: German, English&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
+    </item>
+  </channel>
+</rss>

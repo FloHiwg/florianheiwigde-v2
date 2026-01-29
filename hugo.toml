@@ -1,0 +1,14 @@
+baseURL = 'https://florianheiwig.de/blog/'
+languageCode = 'en-us'
+title = 'Florian Heiwig'
+theme = 'github.com/alex-shpak/hugo-book'
+
+[module]
+  [[module.imports]]
+    path = 'github.com/alex-shpak/hugo-book'
+
+[params]
+  # (Optional) Enable search
+  BookSearch = true
+  # This makes the sidebar menu auto-generate from your folders
+  BookSectionEnumerable = true

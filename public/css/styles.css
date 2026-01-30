@@ -27,6 +27,7 @@
   --accent-foreground: #FFFFFF;
   --border: #D1D1C7;
   --ring: #D97757;
+  --header-background: rgba(244, 242, 235, 0.9);
 
   /* Typography */
   --font-serif: 'Merriweather', serif;
@@ -51,6 +52,7 @@
   --accent-foreground: #1C1C1C;
   --border: #333333;
   --ring: #E08866;
+  --header-background: rgba(28, 28, 28, 0.9);
 }
 
 /* Base Styles */
@@ -134,7 +136,7 @@ button {
   z-index: 50;
   width: 100%;
   border-bottom: 1px solid transparent;
-  background-color: rgba(244, 242, 235, 0.9);
+  background-color: var(--header-background);
   backdrop-filter: blur(8px);
 }
 
@@ -535,17 +537,16 @@ main {
 .nav-card {
   display: block;
   padding: 1.5rem;
-  border: 1px solid transparent;
+  border: 1px solid var(--border);
   border-radius: var(--radius);
-  background-color: transparent;
+  background-color: var(--card);
   transition: all 0.3s;
 }
 
 .nav-card:hover {
-  background-color: var(--card);
-  border-color: var(--border);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-color: var(--primary);
+  transform: translateY(-0.25rem);
+  box-shadow: 0 10px 25px -5px rgba(217, 119, 87, 0.15);
 }
 
 .nav-card-icon {
@@ -1329,7 +1330,7 @@ main {
 .service-card:hover {
   border-color: var(--primary);
   transform: translateY(-0.25rem);
-  box-shadow: 0 10px 25px -5px hsla(175, 59%, 40%, 0.1);
+  box-shadow: 0 10px 25px -5px rgba(217, 119, 87, 0.15);
 }
 
 .service-card-icon {

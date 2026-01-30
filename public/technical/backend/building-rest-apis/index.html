@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=55824&amp;path=livereload" data-no-instant defer></script>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Building RESTful APIs That Don&#39;t Suck | Florian Heiwig</title>
@@ -34,7 +34,7 @@
 <body>
   <header class="header">
   <div class="container header-inner">
-    <a href="https://florianheiwig.de/" class="logo">
+    <a href="http://localhost:55824/" class="logo">
       <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <polyline points="4 17 10 11 4 5"></polyline>
         <line x1="12" y1="19" x2="20" y2="19"></line>
@@ -46,14 +46,14 @@
 
     
     <nav class="nav-desktop">
-      <a href="https://florianheiwig.de/" class="nav-link">Home</a>
+      <a href="http://localhost:55824/" class="nav-link">Home</a>
       
-        <a href="https://florianheiwig.de/resume/" class="nav-link">Resume</a>
+        <a href="http://localhost:55824/resume/" class="nav-link">Resume</a>
       
       
-        <a href="https://florianheiwig.de/services/" class="nav-link">Services</a>
+        <a href="http://localhost:55824/services/" class="nav-link">Services</a>
       
-      <a href="https://florianheiwig.de/technical/" class="nav-link">Blog</a>
+      <a href="http://localhost:55824/technical/" class="nav-link">Blog</a>
       <button class="theme-toggle" aria-label="Toggle theme">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
@@ -81,14 +81,14 @@
   
   <nav class="nav-mobile">
     <div class="nav-mobile-inner">
-      <a href="https://florianheiwig.de/" class="nav-mobile-link">Home</a>
+      <a href="http://localhost:55824/" class="nav-mobile-link">Home</a>
       
-        <a href="https://florianheiwig.de/resume/" class="nav-mobile-link">Resume</a>
+        <a href="http://localhost:55824/resume/" class="nav-mobile-link">Resume</a>
       
       
-        <a href="https://florianheiwig.de/services/" class="nav-mobile-link">Services</a>
+        <a href="http://localhost:55824/services/" class="nav-mobile-link">Services</a>
       
-      <a href="https://florianheiwig.de/technical/" class="nav-mobile-link">Blog</a>
+      <a href="http://localhost:55824/technical/" class="nav-mobile-link">Blog</a>
     </div>
   </nav>
 </header>
@@ -97,12 +97,12 @@
   <main>
     <article class="container page-section">
       <nav class="breadcrumb" style="max-width: 56rem; margin: 0 auto 2rem;">
-        <a href="https://florianheiwig.de/">Home</a>
+        <a href="http://localhost:55824/">Home</a>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="9 18 15 12 9 6"></polyline>
         </svg>
         
-        <a href="https://florianheiwig.de/technical/backend/">Backend</a>
+        <a href="http://localhost:55824/technical/backend/">Backend</a>
         
       </nav>
 
@@ -125,7 +125,7 @@
                   <circle cx="12" cy="12" r="10"></circle>
                   <polyline points="12 6 12 12 16 14"></polyline>
                 </svg>
-                1 min read
+                0 min read
               </span>
             </div>
             
@@ -147,69 +147,13 @@
 
           <div class="blog-post-content">
             <h2 id="introduction">Introduction</h2>
-<p>After building dozens of APIs over the years, I&rsquo;ve learned that the difference between a good API and a great one often comes down to a few key principles.</p>
-<h2 id="design-principles">Design Principles</h2>
-<h3 id="be-consistent">Be Consistent</h3>
-<p>Consistency is the single most important aspect of API design. If you use <code>snake_case</code> in one endpoint, use it everywhere. If you return arrays wrapped in a <code>data</code> key, do it everywhere.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#75715e">// Good - consistent structure
-</span></span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;data&#34;</span>: [<span style="color:#960050;background-color:#1e0010">...</span>],
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;meta&#34;</span>: {
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;total&#34;</span>: <span style="color:#ae81ff">100</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;page&#34;</span>: <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// Bad - inconsistent
-</span></span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;users&#34;</span>: [<span style="color:#960050;background-color:#1e0010">...</span>],  <span style="color:#75715e">// sometimes &#39;data&#39;, sometimes the resource name
-</span></span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;count&#34;</span>: <span style="color:#ae81ff">100</span>     <span style="color:#75715e">// sometimes &#39;meta.total&#39;, sometimes &#39;count&#39;
-</span></span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h3 id="use-proper-http-status-codes">Use Proper HTTP Status Codes</h3>
-<p>Don&rsquo;t return 200 for everything. Status codes exist for a reason:</p>
-<ul>
-<li><code>200</code> - Success</li>
-<li><code>201</code> - Created</li>
-<li><code>400</code> - Bad Request (client error)</li>
-<li><code>401</code> - Unauthorized</li>
-<li><code>403</code> - Forbidden</li>
-<li><code>404</code> - Not Found</li>
-<li><code>500</code> - Server Error</li>
-</ul>
-<h3 id="version-your-api">Version Your API</h3>
-<p>Always version your API from day one. It&rsquo;s much easier to add versioning early than to retrofit it later.</p>
-<pre tabindex="0"><code>GET /v1/users
-GET /v2/users
-</code></pre><h2 id="error-handling">Error Handling</h2>
-<p>Good error responses are crucial for developer experience:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;error&#34;</span>: {
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;code&#34;</span>: <span style="color:#e6db74">&#34;VALIDATION_ERROR&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;message&#34;</span>: <span style="color:#e6db74">&#34;Invalid email format&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;field&#34;</span>: <span style="color:#e6db74">&#34;email&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;documentation&#34;</span>: <span style="color:#e6db74">&#34;https://docs.example.com/errors/validation&#34;</span>
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h2 id="pagination">Pagination</h2>
-<p>For any endpoint that returns lists, implement pagination from the start:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;data&#34;</span>: [<span style="color:#960050;background-color:#1e0010">...</span>],
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;pagination&#34;</span>: {
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;total&#34;</span>: <span style="color:#ae81ff">1000</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;page&#34;</span>: <span style="color:#ae81ff">1</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;per_page&#34;</span>: <span style="color:#ae81ff">20</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;next&#34;</span>: <span style="color:#e6db74">&#34;/v1/users?page=2&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;prev&#34;</span>: <span style="color:#66d9ef">null</span>
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h2 id="conclusion">Conclusion</h2>
-<p>Building great APIs is about empathy—put yourself in the shoes of the developers who will use your API, and design accordingly.</p>
+<p>Placeholder</p>
 
           </div>
 
           <div class="divider"></div>
 
-          <a href="https://florianheiwig.de/" class="back-link">
+          <a href="http://localhost:55824/" class="back-link">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="19" y1="12" x2="5" y2="12"></line>
               <polyline points="12 19 5 12 12 5"></polyline>
@@ -243,12 +187,12 @@ GET /v2/users
 
       <nav class="footer-nav">
         
-        <a href="https://florianheiwig.de/resume/">Resume</a>
+        <a href="http://localhost:55824/resume/">Resume</a>
         
         
-        <a href="https://florianheiwig.de/services/">Services</a>
+        <a href="http://localhost:55824/services/">Services</a>
         
-        <a href="https://florianheiwig.de/technical/">Blog</a>
+        <a href="http://localhost:55824/technical/">Blog</a>
       </nav>
     </div>
 

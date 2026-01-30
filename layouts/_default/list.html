@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="{{ .Site.Language.Lang }}" dir="ltr">
+
 <head>
   {{ partial "head.html" . }}
 </head>
+
 <body>
   {{ partial "header.html" . }}
 
   <main>
     <div class="container page-section">
       <section class="page-header fade-in" style="max-width: 56rem;">
-        <code class="page-code-comment">// {{ .Title | lower }}/index.tsx</code>
         <h1 class="page-title">{{ .Title }}</h1>
         {{ with .Description }}
         <p class="page-subtitle">{{ . }}</p>
@@ -24,8 +25,10 @@
           <ul class="category-list">
             {{ range .Site.Sections.ByWeight }}
             <li class="category-item">
-              <a href="{{ .Permalink }}" class="category-link{{ if eq $.CurrentSection . }} active{{ else if eq $.FirstSection . }} active{{ end }}">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <a href="{{ .Permalink }}"
+                class="category-link{{ if eq $.CurrentSection . }} active{{ else if eq $.FirstSection . }} active{{ end }}">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
                 </svg>
                 {{ .Title }}
@@ -55,14 +58,15 @@
               <div class="blog-card-tags">
                 {{ with .CurrentSection }}<span class="tag">{{ .Title }}</span>{{ end }}
                 {{ with .Params.tags }}
-                  {{ range first 2 . }}
-                  <span class="tag">{{ . }}</span>
-                  {{ end }}
+                {{ range first 2 . }}
+                <span class="tag">{{ . }}</span>
+                {{ end }}
                 {{ end }}
               </div>
               <h2 class="blog-card-title">
                 {{ .Title }}
-                <svg class="blog-card-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="blog-card-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <line x1="5" y1="12" x2="19" y2="12"></line>
                   <polyline points="12 5 19 12 12 19"></polyline>
                 </svg>
@@ -70,7 +74,8 @@
               {{ with .Description }}<p class="blog-card-excerpt">{{ . }}</p>{{ end }}
               <div class="blog-card-meta">
                 <span>
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                     <line x1="16" y1="2" x2="16" y2="6"></line>
                     <line x1="8" y1="2" x2="8" y2="6"></line>
@@ -79,7 +84,8 @@
                   {{ .Date.Format "January 2, 2006" }}
                 </span>
                 <span>
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="10"></circle>
                     <polyline points="12 6 12 12 16 14"></polyline>
                   </svg>
@@ -101,4 +107,5 @@
 
   {{ partial "footer.html" . }}
 </body>
+
 </html>

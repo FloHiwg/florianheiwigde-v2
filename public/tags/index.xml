@@ -2,80 +2,59 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Florian Heiwig</title>
-    <link>https://florianheiwig.de/tags/</link>
+    <link>http://localhost:55824/tags/</link>
     <description>Recent content in Tags on Florian Heiwig</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 15 Jan 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://florianheiwig.de/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:55824/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Best Practices</title>
-      <link>https://florianheiwig.de/tags/best-practices/</link>
+      <link>http://localhost:55824/tags/best-practices/</link>
       <pubDate>Mon, 15 Jan 2024 00:00:00 +0000</pubDate>
-      <guid>https://florianheiwig.de/tags/best-practices/</guid>
+      <guid>http://localhost:55824/tags/best-practices/</guid>
       <description></description>
     </item>
     <item>
       <title>Code Quality</title>
-      <link>https://florianheiwig.de/tags/code-quality/</link>
+      <link>http://localhost:55824/tags/code-quality/</link>
       <pubDate>Mon, 15 Jan 2024 00:00:00 +0000</pubDate>
-      <guid>https://florianheiwig.de/tags/code-quality/</guid>
+      <guid>http://localhost:55824/tags/code-quality/</guid>
       <description></description>
     </item>
     <item>
       <title>TypeScript</title>
-      <link>https://florianheiwig.de/tags/typescript/</link>
+      <link>http://localhost:55824/tags/typescript/</link>
       <pubDate>Mon, 15 Jan 2024 00:00:00 +0000</pubDate>
-      <guid>https://florianheiwig.de/tags/typescript/</guid>
+      <guid>http://localhost:55824/tags/typescript/</guid>
       <description></description>
     </item>
     <item>
       <title>API</title>
-      <link>https://florianheiwig.de/tags/api/</link>
+      <link>http://localhost:55824/tags/api/</link>
       <pubDate>Wed, 10 Jan 2024 00:00:00 +0000</pubDate>
-      <guid>https://florianheiwig.de/tags/api/</guid>
+      <guid>http://localhost:55824/tags/api/</guid>
       <description></description>
     </item>
     <item>
       <title>Backend</title>
-      <link>https://florianheiwig.de/tags/backend/</link>
+      <link>http://localhost:55824/tags/backend/</link>
       <pubDate>Wed, 10 Jan 2024 00:00:00 +0000</pubDate>
-      <guid>https://florianheiwig.de/tags/backend/</guid>
+      <guid>http://localhost:55824/tags/backend/</guid>
       <description></description>
     </item>
     <item>
       <title>Node.js</title>
-      <link>https://florianheiwig.de/tags/node.js/</link>
+      <link>http://localhost:55824/tags/node.js/</link>
       <pubDate>Wed, 10 Jan 2024 00:00:00 +0000</pubDate>
-      <guid>https://florianheiwig.de/tags/node.js/</guid>
+      <guid>http://localhost:55824/tags/node.js/</guid>
       <description></description>
     </item>
     <item>
       <title>REST</title>
-      <link>https://florianheiwig.de/tags/rest/</link>
+      <link>http://localhost:55824/tags/rest/</link>
       <pubDate>Wed, 10 Jan 2024 00:00:00 +0000</pubDate>
-      <guid>https://florianheiwig.de/tags/rest/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Frontend</title>
-      <link>https://florianheiwig.de/tags/frontend/</link>
-      <pubDate>Mon, 08 Jan 2024 00:00:00 +0000</pubDate>
-      <guid>https://florianheiwig.de/tags/frontend/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>React</title>
-      <link>https://florianheiwig.de/tags/react/</link>
-      <pubDate>Mon, 08 Jan 2024 00:00:00 +0000</pubDate>
-      <guid>https://florianheiwig.de/tags/react/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>State Management</title>
-      <link>https://florianheiwig.de/tags/state-management/</link>
-      <pubDate>Mon, 08 Jan 2024 00:00:00 +0000</pubDate>
-      <guid>https://florianheiwig.de/tags/state-management/</guid>
+      <guid>http://localhost:55824/tags/rest/</guid>
       <description></description>
     </item>
   </channel>

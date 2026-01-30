@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=55824&amp;path=livereload" data-no-instant defer></script>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TypeScript Best Practices for 2024 | Florian Heiwig</title>
@@ -34,7 +34,7 @@
 <body>
   <header class="header">
   <div class="container header-inner">
-    <a href="https://florianheiwig.de/" class="logo">
+    <a href="http://localhost:55824/" class="logo">
       <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <polyline points="4 17 10 11 4 5"></polyline>
         <line x1="12" y1="19" x2="20" y2="19"></line>
@@ -46,14 +46,14 @@
 
     
     <nav class="nav-desktop">
-      <a href="https://florianheiwig.de/" class="nav-link">Home</a>
+      <a href="http://localhost:55824/" class="nav-link">Home</a>
       
-        <a href="https://florianheiwig.de/resume/" class="nav-link">Resume</a>
+        <a href="http://localhost:55824/resume/" class="nav-link">Resume</a>
       
       
-        <a href="https://florianheiwig.de/services/" class="nav-link">Services</a>
+        <a href="http://localhost:55824/services/" class="nav-link">Services</a>
       
-      <a href="https://florianheiwig.de/technical/" class="nav-link">Blog</a>
+      <a href="http://localhost:55824/technical/" class="nav-link">Blog</a>
       <button class="theme-toggle" aria-label="Toggle theme">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
@@ -81,14 +81,14 @@
   
   <nav class="nav-mobile">
     <div class="nav-mobile-inner">
-      <a href="https://florianheiwig.de/" class="nav-mobile-link">Home</a>
+      <a href="http://localhost:55824/" class="nav-mobile-link">Home</a>
       
-        <a href="https://florianheiwig.de/resume/" class="nav-mobile-link">Resume</a>
+        <a href="http://localhost:55824/resume/" class="nav-mobile-link">Resume</a>
       
       
-        <a href="https://florianheiwig.de/services/" class="nav-mobile-link">Services</a>
+        <a href="http://localhost:55824/services/" class="nav-mobile-link">Services</a>
       
-      <a href="https://florianheiwig.de/technical/" class="nav-mobile-link">Blog</a>
+      <a href="http://localhost:55824/technical/" class="nav-mobile-link">Blog</a>
     </div>
   </nav>
 </header>
@@ -97,12 +97,12 @@
   <main>
     <article class="container page-section">
       <nav class="breadcrumb" style="max-width: 56rem; margin: 0 auto 2rem;">
-        <a href="https://florianheiwig.de/">Home</a>
+        <a href="http://localhost:55824/">Home</a>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="9 18 15 12 9 6"></polyline>
         </svg>
         
-        <a href="https://florianheiwig.de/technical/frontend/">Frontend</a>
+        <a href="http://localhost:55824/technical/frontend/">Frontend</a>
         
       </nav>
 
@@ -125,7 +125,7 @@
                   <circle cx="12" cy="12" r="10"></circle>
                   <polyline points="12 6 12 12 16 14"></polyline>
                 </svg>
-                1 min read
+                0 min read
               </span>
             </div>
             
@@ -145,58 +145,13 @@
 
           <div class="blog-post-content">
             <h2 id="introduction">Introduction</h2>
-<p>TypeScript has evolved significantly over the years. Here are the patterns and practices I&rsquo;ve found most valuable in 2024.</p>
-<h2 id="type-safety-fundamentals">Type Safety Fundamentals</h2>
-<p>Getting the basics right is crucial for a healthy TypeScript codebase.</p>
-<h3 id="strict-mode-is-non-negotiable">Strict Mode is Non-Negotiable</h3>
-<p>Always enable strict mode in your tsconfig. Yes, it&rsquo;s more work initially, but it catches bugs before they reach production.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;compilerOptions&#34;</span>: {
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;strict&#34;</span>: <span style="color:#66d9ef">true</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;noImplicitAny&#34;</span>: <span style="color:#66d9ef">true</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;strictNullChecks&#34;</span>: <span style="color:#66d9ef">true</span>
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h3 id="prefer-interfaces-for-objects">Prefer Interfaces for Objects</h3>
-<p>Use interfaces for object shapes and types for unions and primitives. This isn&rsquo;t just stylistic—interfaces have better error messages and are more extensible.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#75715e">// Good
-</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">User</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">string</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">string</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">email</span>: <span style="color:#66d9ef">string</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// Also good for unions
-</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Status</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;pending&#39;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#39;active&#39;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#39;inactive&#39;</span>;
-</span></span></code></pre></div><h2 id="advanced-patterns">Advanced Patterns</h2>
-<p>Once you&rsquo;ve mastered the basics, these patterns will take your code to the next level.</p>
-<h3 id="discriminated-unions">Discriminated Unions</h3>
-<p>One of TypeScript&rsquo;s most powerful features for handling different states:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Result</span>&lt;<span style="color:#f92672">T</span>&gt; <span style="color:#f92672">=</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> { <span style="color:#a6e22e">success</span>: <span style="color:#66d9ef">true</span>; <span style="color:#a6e22e">data</span>: <span style="color:#66d9ef">T</span> }
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> { <span style="color:#a6e22e">success</span>: <span style="color:#66d9ef">false</span>; <span style="color:#a6e22e">error</span>: <span style="color:#66d9ef">string</span> };
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">handleResult</span>&lt;<span style="color:#f92672">T</span>&gt;(<span style="color:#a6e22e">result</span>: <span style="color:#66d9ef">Result</span>&lt;<span style="color:#f92672">T</span>&gt;) {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">success</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">data</span>); <span style="color:#75715e">// TypeScript knows data exists
-</span></span></span><span style="display:flex;"><span>  } <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">error</span>); <span style="color:#75715e">// TypeScript knows error exists
-</span></span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h3 id="template-literal-types">Template Literal Types</h3>
-<p>Create precise string types that catch typos at compile time:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Route</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`/users/</span><span style="color:#e6db74">${</span><span style="color:#66d9ef">string</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">`/posts/</span><span style="color:#e6db74">${</span><span style="color:#66d9ef">string</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">validRoute</span>: <span style="color:#66d9ef">Route</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;/users/123&#39;</span>; <span style="color:#75715e">// OK
-</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">invalidRoute</span>: <span style="color:#66d9ef">Route</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;/invalid&#39;</span>; <span style="color:#75715e">// Error!
-</span></span></span></code></pre></div><h2 id="conclusion">Conclusion</h2>
-<p>TypeScript is a journey, not a destination. Keep learning, keep refining your patterns, and your codebase will thank you.</p>
+<p>another palceholder</p>
 
           </div>
 
           <div class="divider"></div>
 
-          <a href="https://florianheiwig.de/" class="back-link">
+          <a href="http://localhost:55824/" class="back-link">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="19" y1="12" x2="5" y2="12"></line>
               <polyline points="12 19 5 12 12 5"></polyline>
@@ -230,12 +185,12 @@
 
       <nav class="footer-nav">
         
-        <a href="https://florianheiwig.de/resume/">Resume</a>
+        <a href="http://localhost:55824/resume/">Resume</a>
         
         
-        <a href="https://florianheiwig.de/services/">Services</a>
+        <a href="http://localhost:55824/services/">Services</a>
         
-        <a href="https://florianheiwig.de/technical/">Blog</a>
+        <a href="http://localhost:55824/technical/">Blog</a>
       </nav>
     </div>
 

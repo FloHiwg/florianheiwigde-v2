@@ -13,4 +13,4 @@ I am a [Job Title] based in [Location]. This site is a collection of my technica
 - **[Latest Technical Post](technical/latest-post)**
 
 ---
-*Feel free to explore the categories in the sidebar!*
+*Feel free to explore the categories in the nav above.*

@@ -1,0 +1,16 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ if .IsHome }}{{ .Site.Title }} - Product & Code{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+<meta name="description" content="Berlin-based product professional, software developer, and entrepreneur. Bridging the gap between technical development and business strategy.">
+<meta name="author" content="Florian Heiwig">
+
+<meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }} - Product & Code{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}">
+<meta property="og:description" content="Berlin-based product professional, software developer, and entrepreneur.">
+<meta property="og:type" content="website">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ if .IsHome }}{{ .Site.Title }} - Product & Code{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}">
+<meta name="twitter:description" content="Berlin-based product professional, software developer, and entrepreneur.">
+
+<link rel="icon" href="{{ .Site.BaseURL }}favicon.ico">
+<link rel="stylesheet" href="{{ .Site.BaseURL }}css/styles.css">

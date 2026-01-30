@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Code Quality on Florian Heiwig</title>
-    <link>http://localhost:59883/tags/code-quality/</link>
+    <link>https://florianheiwig.de/tags/code-quality/</link>
     <description>Recent content in Code Quality on Florian Heiwig</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 15 Jan 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:59883/tags/code-quality/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://florianheiwig.de/tags/code-quality/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>TypeScript Best Practices for 2024</title>
-      <link>http://localhost:59883/technical/frontend/typescript-best-practices/</link>
+      <link>https://florianheiwig.de/technical/frontend/typescript-best-practices/</link>
       <pubDate>Mon, 15 Jan 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:59883/technical/frontend/typescript-best-practices/</guid>
+      <guid>https://florianheiwig.de/technical/frontend/typescript-best-practices/</guid>
       <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;TypeScript has evolved significantly over the years. Here are the patterns and practices I&amp;rsquo;ve found most valuable in 2024.&lt;/p&gt;&#xA;&lt;h2 id=&#34;type-safety-fundamentals&#34;&gt;Type Safety Fundamentals&lt;/h2&gt;&#xA;&lt;p&gt;Getting the basics right is crucial for a healthy TypeScript codebase.&lt;/p&gt;&#xA;&lt;h3 id=&#34;strict-mode-is-non-negotiable&#34;&gt;Strict Mode is Non-Negotiable&lt;/h3&gt;&#xA;&lt;p&gt;Always enable strict mode in your tsconfig. Yes, it&amp;rsquo;s more work initially, but it catches bugs before they reach production.&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;compilerOptions&amp;#34;&lt;/span&gt;: {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;strict&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;noImplicitAny&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;strictNullChecks&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  }&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;prefer-interfaces-for-objects&#34;&gt;Prefer Interfaces for Objects&lt;/h3&gt;&#xA;&lt;p&gt;Use interfaces for object shapes and types for unions and primitives. This isn&amp;rsquo;t just stylistic—interfaces have better error messages and are more extensible.&lt;/p&gt;</description>
     </item>
   </channel>

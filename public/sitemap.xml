@@ -2,68 +2,68 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:59883/technical/frontend/</loc>
+    <loc>https://florianheiwig.de/technical/frontend/</loc>
     <lastmod>2024-01-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:59883/technical/</loc>
+    <loc>https://florianheiwig.de/technical/</loc>
     <lastmod>2024-01-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:59883/travel/</loc>
+    <loc>https://florianheiwig.de/travel/</loc>
   </url><url>
-    <loc>http://localhost:59883/philosophy/</loc>
+    <loc>https://florianheiwig.de/philosophy/</loc>
   </url><url>
-    <loc>http://localhost:59883/technical/backend/</loc>
+    <loc>https://florianheiwig.de/technical/backend/</loc>
     <lastmod>2024-01-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:59883/tags/best-practices/</loc>
+    <loc>https://florianheiwig.de/tags/best-practices/</loc>
     <lastmod>2024-01-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:59883/tags/code-quality/</loc>
+    <loc>https://florianheiwig.de/tags/code-quality/</loc>
     <lastmod>2024-01-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:59883/tags/</loc>
+    <loc>https://florianheiwig.de/tags/</loc>
     <lastmod>2024-01-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:59883/tags/typescript/</loc>
+    <loc>https://florianheiwig.de/tags/typescript/</loc>
     <lastmod>2024-01-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:59883/technical/frontend/typescript-best-practices/</loc>
+    <loc>https://florianheiwig.de/technical/frontend/typescript-best-practices/</loc>
     <lastmod>2024-01-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:59883/</loc>
+    <loc>https://florianheiwig.de/</loc>
     <lastmod>2024-01-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:59883/tags/api/</loc>
+    <loc>https://florianheiwig.de/tags/api/</loc>
     <lastmod>2024-01-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:59883/tags/backend/</loc>
+    <loc>https://florianheiwig.de/tags/backend/</loc>
     <lastmod>2024-01-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:59883/technical/backend/building-rest-apis/</loc>
+    <loc>https://florianheiwig.de/technical/backend/building-rest-apis/</loc>
     <lastmod>2024-01-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:59883/tags/node.js/</loc>
+    <loc>https://florianheiwig.de/tags/node.js/</loc>
     <lastmod>2024-01-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:59883/tags/rest/</loc>
+    <loc>https://florianheiwig.de/tags/rest/</loc>
     <lastmod>2024-01-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:59883/tags/frontend/</loc>
+    <loc>https://florianheiwig.de/tags/frontend/</loc>
     <lastmod>2024-01-08T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:59883/tags/react/</loc>
+    <loc>https://florianheiwig.de/tags/react/</loc>
     <lastmod>2024-01-08T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:59883/technical/frontend/react-state-management/</loc>
+    <loc>https://florianheiwig.de/technical/frontend/react-state-management/</loc>
     <lastmod>2024-01-08T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:59883/tags/state-management/</loc>
+    <loc>https://florianheiwig.de/tags/state-management/</loc>
     <lastmod>2024-01-08T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:59883/categories/</loc>
+    <loc>https://florianheiwig.de/categories/</loc>
   </url><url>
-    <loc>http://localhost:59883/resume/</loc>
+    <loc>https://florianheiwig.de/resume/</loc>
   </url><url>
-    <loc>http://localhost:59883/services/</loc>
+    <loc>https://florianheiwig.de/services/</loc>
   </url>
 </urlset>

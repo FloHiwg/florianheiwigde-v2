@@ -326,14 +326,14 @@ main {
 }
 
 .footer-inner {
-  padding: 2rem 0;
+  padding: 1rem 0;
 }
 
 .footer-content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 @media (min-width: 768px) {
@@ -403,8 +403,8 @@ main {
 }
 
 .footer-quote {
-  margin-top: 1.5rem;
-  padding-top: 1.5rem;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
   border-top: 1px solid var(--border);
   text-align: center;
 }
@@ -426,7 +426,7 @@ main {
 }
 
 .page-header {
-  max-width: 48rem;
+  max-width: 56rem;
   margin: 0 auto 3rem;
 }
 
@@ -1073,7 +1073,7 @@ main {
 
 /* Resume Styles */
 .resume-content {
-  max-width: 48rem;
+  max-width: 56rem;
   margin: 0 auto;
 }
 

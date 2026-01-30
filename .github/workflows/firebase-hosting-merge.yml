@@ -14,24 +14,24 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
-          go-version: '1.21'
+          go-version: "1.21"
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: '0.128.0'
+          hugo-version: "0.128.0"
           extended: true
 
       - name: Fetch Hugo modules
         run: hugo mod get
 
       - name: Build Hugo Site
-        run: hugo --minify -d public/blog --baseURL "https://florianheiwig.de/blog/"
+        run: hugo --minify
 
       - name: Deploy to Firebase
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_FLORIANHEIWIGDE }}'
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_FLORIANHEIWIGDE }}"
           channelId: live
           projectId: florianheiwigde

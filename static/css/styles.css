@@ -157,16 +157,17 @@ button {
 }
 
 .logo-icon {
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 1.5rem;
+  height: 1.5rem;
   color: var(--primary);
   transition: color 0.2s;
 }
 
 .logo-text {
-  font-size: 0.875rem;
-  font-weight: 600;
+  font-size: 1.25rem;
+  font-weight: 700;
   letter-spacing: -0.025em;
+  font-family: var(--font-serif);
 }
 
 .logo-muted {
@@ -507,7 +508,7 @@ main {
 
 .hero-desc {
   color: var(--muted-foreground);
-  max-width: 48rem;
+  max-width: 56rem;
   margin: 0;
   /* Left align */
   line-height: 1.6;
@@ -516,7 +517,7 @@ main {
 
 /* Navigation Cards */
 .nav-cards {
-  max-width: 48rem;
+  max-width: 56rem;
   margin: 0 auto;
 }
 
@@ -597,7 +598,7 @@ main {
 
 .stat-value {
   font-family: var(--font-mono);
-  font-size: 1.75rem;
+  font-size: 2rem;
   font-weight: 700;
   color: var(--foreground);
 }

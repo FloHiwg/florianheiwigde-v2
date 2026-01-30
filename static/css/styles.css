@@ -709,6 +709,30 @@ main {
   height: 1rem;
 }
 
+.subcategory-list {
+  list-style: none;
+  padding-left: 1.5rem;
+  margin-top: 0.25rem;
+}
+
+.subcategory-link {
+  display: block;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  border-radius: var(--radius);
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.subcategory-link:hover {
+  color: var(--foreground);
+  background-color: var(--secondary);
+}
+
+.subcategory-link.active {
+  color: var(--primary);
+}
+
 /* Blog Posts List */
 .blog-posts {
   flex: 1;

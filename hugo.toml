@@ -1,6 +1,8 @@
-baseURL = 'https://florianheiwig.de/blog/'
+baseURL = 'https://florianheiwig.de/'
 languageCode = 'en-us'
 title = 'Florian Heiwig'
+relativeURLs = true
+uglyURLs = false
 
 [params]
   description = "Berlin-based product professional, software developer, and entrepreneur."

@@ -49,4 +49,16 @@
   </div>
 </footer>
 
-<script src="{{ .Site.BaseURL }}js/main.js"></script>
+{{ $prefix := "" }}
+{{ if not .IsHome }}
+  {{ $basePath := strings.TrimSuffix "/" (urls.Parse .Site.BaseURL).Path }}
+  {{ $fullPath := strings.TrimSuffix "/" (urls.Parse .Permalink).Path }}
+  {{ $path := strings.TrimPrefix $basePath $fullPath }}
+  {{ $path = strings.TrimPrefix "/" $path }}
+  {{ $path = strings.TrimSuffix "/" $path }}
+  {{ if $path }}
+    {{ $depth := len (split $path "/") }}
+    {{ $prefix = strings.Repeat $depth "../" }}
+  {{ end }}
+{{ end }}
+<script src="{{ $prefix }}js/main.js"></script>

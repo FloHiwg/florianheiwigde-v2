@@ -1,0 +1,28 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ if .IsHome }}{{ .Site.Title }} - Product & Code{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+<meta name="description" content="Berlin-based product professional, software developer, and entrepreneur. Bridging the gap between technical development and business strategy.">
+<meta name="author" content="Florian Heiwig">
+
+<meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }} - Product & Code{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}">
+<meta property="og:description" content="Berlin-based product professional, software developer, and entrepreneur.">
+<meta property="og:type" content="website">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ if .IsHome }}{{ .Site.Title }} - Product & Code{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}">
+<meta name="twitter:description" content="Berlin-based product professional, software developer, and entrepreneur.">
+
+{{ $prefix := "" }}
+{{ if not .IsHome }}
+  {{ $basePath := strings.TrimSuffix "/" (urls.Parse .Site.BaseURL).Path }}
+  {{ $fullPath := strings.TrimSuffix "/" (urls.Parse .Permalink).Path }}
+  {{ $path := strings.TrimPrefix $basePath $fullPath }}
+  {{ $path = strings.TrimPrefix "/" $path }}
+  {{ $path = strings.TrimSuffix "/" $path }}
+  {{ if $path }}
+    {{ $depth := len (split $path "/") }}
+    {{ $prefix = strings.Repeat $depth "../" }}
+  {{ end }}
+{{ end }}
+<link rel="icon" href="{{ $prefix }}favicon.ico">
+<link rel="stylesheet" href="{{ $prefix }}css/styles.css">

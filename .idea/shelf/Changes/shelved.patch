@@ -1,0 +1,318 @@
+Index: public/index.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\n<html lang=\"en-us\" dir=\"ltr\">\n<head>\n\t<meta name=\"generator\" content=\"Hugo 0.155.0\">\n  <!--\nMade with Book Theme\nhttps://github.com/alex-shpak/hugo-book\n-->\n\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<meta name=\"description\" content=\"Hi, I’m Florian \uD83D\uDC4B# I am a [Job Title] based in [Location]. This site is a collection of my technical notes, philosophical musings, and travel stories with my wife.\n\uD83D\uDCCD Quick Links# View my Resume Pet Projects Latest Technical Post Feel free to explore the categories in the sidebar!\n\">\n<meta name=\"theme-color\" media=\"(prefers-color-scheme: light)\" content=\"#ffffff\">\n<meta name=\"theme-color\" media=\"(prefers-color-scheme: dark)\" content=\"#343a40\">\n<meta name=\"color-scheme\" content=\"light dark\"><meta property=\"og:url\" content=\"https://florianheiwig.de/blog/\">\n  <meta property=\"og:site_name\" content=\"Florian Heiwig\">\n  <meta property=\"og:title\" content=\"Welcome\">\n  <meta property=\"og:description\" content=\"Hi, I’m Florian \uD83D\uDC4B# I am a [Job Title] based in [Location]. This site is a collection of my technical notes, philosophical musings, and travel stories with my wife.\n\uD83D\uDCCD Quick Links# View my Resume Pet Projects Latest Technical Post Feel free to explore the categories in the sidebar!\">\n  <meta property=\"og:locale\" content=\"en_us\">\n  <meta property=\"og:type\" content=\"website\">\n\n\n  <meta itemprop=\"name\" content=\"Welcome\">\n  <meta itemprop=\"description\" content=\"Hi, I’m Florian \uD83D\uDC4B# I am a [Job Title] based in [Location]. This site is a collection of my technical notes, philosophical musings, and travel stories with my wife.\n\uD83D\uDCCD Quick Links# View my Resume Pet Projects Latest Technical Post Feel free to explore the categories in the sidebar!\">\n  <meta itemprop=\"wordCount\" content=\"49\">\n\n<title>Welcome | Florian Heiwig</title>\n<link rel=\"icon\" href=\"/blog/favicon.png\" >\n<link rel=\"manifest\" href=\"/blog/manifest.json\">\n<link rel=\"canonical\" href=\"https://florianheiwig.de/blog/\">\n<link rel=\"stylesheet\" href=\"/blog/book.min.cc2c524ed250aac81b23d1f4af87344917b325208841feca0968fe450f570575.css\" integrity=\"sha256-zCxSTtJQqsgbI9H0r4c0SRezJSCIQf7KCWj&#43;RQ9XBXU=\" crossorigin=\"anonymous\">\n\n\n  <script defer src=\"/blog/fuse.min.js\"></script>\n  <script defer src=\"/blog/en.search.min.e53f3d3dc929b5303134988fe59341c348cbcb381f973ed3bd8825aca11a7e01.js\" integrity=\"sha256-5T89PckptTAxNJiP5ZNBw0jLyzgflz7TvYglrKEafgE=\" crossorigin=\"anonymous\"></script>\n\n\n<link rel=\"alternate\" type=\"application/rss+xml\" href=\"https://florianheiwig.de/blog/index.xml\" title=\"Florian Heiwig\" />\n\n  \n</head>\n<body dir=\"ltr\" class=\"book-kind-home book-type-docs\">\n  <input type=\"checkbox\" class=\"hidden toggle\" id=\"menu-control\" />\n  <input type=\"checkbox\" class=\"hidden toggle\" id=\"toc-control\" />\n  <main class=\"container flex\">\n    \n<aside class=\"book-menu\">\n  <div class=\"book-menu-content\">\n    \n  <nav>\n<h2 class=\"book-brand\">\n  <a class=\"flex align-center\" href=\"/blog/\"><span>Florian Heiwig</span>\n  </a>\n</h2>\n\n\n<div class=\"book-search hidden\">\n  <input id=\"book-search-input\" type=\"text\" \n    placeholder=\"Search\"\n    aria-label=\"Search\"\n    maxlength=\"64\" data-hotkeys=\"s/\" />\n  <div class=\"book-search-spinner hidden\"></div>\n  <ul id=\"book-search-results\"></ul>\n</div>\n<script>document.querySelector(\".book-search\").classList.remove(\"hidden\")</script>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n</nav>\n\n\n\n\n  <script>(function(){var e=document.querySelector(\"aside .book-menu-content\");addEventListener(\"beforeunload\",function(){localStorage.setItem(\"menu.scrollTop\",e.scrollTop)}),e.scrollTop=localStorage.getItem(\"menu.scrollTop\")})()</script>\n\n\n\n  </div>\n</aside>\n \n\n    <div class=\"book-page\">\n      <header class=\"book-header hidden\">\n        \n  <div class=\"flex align-center justify-between\">\n  <label for=\"menu-control\">\n    <img src=\"/blog/icons/menu.svg\" class=\"book-icon\" alt=\"Menu\" />\n  </label>\n\n  <h3>Welcome</h3>\n\n  <label for=\"toc-control\">\n    \n    <img src=\"/blog/icons/toc.svg\" class=\"book-icon\" alt=\"Table of Contents\" />\n    \n  </label>\n</div>\n\n\n  \n  <aside class=\"hidden\">\n    \n  \n<nav id=\"TableOfContents\">\n  <ul>\n    <li>\n      <ul>\n        <li><a href=\"#-quick-links\">\uD83D\uDCCD Quick Links</a></li>\n      </ul>\n    </li>\n  </ul>\n</nav>\n\n\n\n  </aside>\n  \n \n      </header>\n\n      \n      \n  <article class=\"markdown book-article\"><h1 id=\"hi-im-florian-\">Hi, I&rsquo;m Florian \uD83D\uDC4B<a class=\"anchor\" href=\"#hi-im-florian-\">#</a></h1>\n<p>I am a [Job Title] based in [Location]. This site is a collection of my technical notes, philosophical musings, and travel stories with my wife.</p>\n<h3 id=\"-quick-links\">\uD83D\uDCCD Quick Links<a class=\"anchor\" href=\"#-quick-links\">#</a></h3>\n<ul>\n<li><strong><a href=\"resume\">View my Resume</a></strong></li>\n<li><strong><a href=\"pet-projects\">Pet Projects</a></strong></li>\n<li><strong><a href=\"technical/latest-post\">Latest Technical Post</a></strong></li>\n</ul>\n<hr>\n<p><em>Feel free to explore the categories in the sidebar!</em></p>\n</article>\n \n      \n\n      <footer class=\"book-footer\">\n        \n  <div class=\"flex flex-wrap justify-between\">\n\n<div>\n\n</div>\n\n<div>\n\n</div>\n\n</div>\n\n\n\n\n\n\n\n \n        \n  \n  <div class=\"book-comments\">\n\n</div>\n  \n \n        \n        \n  \n \n        \n  \n  \n    <script>(function(){document.querySelectorAll(\"pre:has(code)\").forEach(e=>{e.addEventListener(\"click\",e.focus),e.addEventListener(\"copy\",function(t){if(t.preventDefault(),navigator.clipboard){const t=window.getSelection().toString()||e.textContent;navigator.clipboard.writeText(t)}})})})()</script>\n  \n\n      </footer>\n\n      <label for=\"menu-control\" class=\"hidden book-menu-overlay\"></label>\n    </div>\n\n    \n  \n  <aside class=\"book-toc\">\n    <div class=\"book-toc-content\">\n      \n  \n<nav id=\"TableOfContents\">\n  <ul>\n    <li>\n      <ul>\n        <li><a href=\"#-quick-links\">\uD83D\uDCCD Quick Links</a></li>\n      </ul>\n    </li>\n  </ul>\n</nav>\n\n\n\n    </div>\n  </aside>\n  \n \n  </main>\n\n  \n</body>\n</html>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/public/index.html b/public/index.html
+--- a/public/index.html	(revision cd87ad7b62b019a37288a1d987c9c7a947f1b2c1)
++++ b/public/index.html	(date 1769760083642)
+@@ -1,151 +1,39 @@
+ <!DOCTYPE html>
+-<html lang="en-us" dir="ltr">
++<html lang="en" dir="ltr">
+ <head>
+ 	<meta name="generator" content="Hugo 0.155.0">
+-  <!--
+-Made with Book Theme
+-https://github.com/alex-shpak/hugo-book
+--->
+-
+-<meta charset="UTF-8">
++  <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+-<meta name="description" content="Hi, I’m Florian 👋# I am a [Job Title] based in [Location]. This site is a collection of my technical notes, philosophical musings, and travel stories with my wife.
+-📍 Quick Links# View my Resume Pet Projects Latest Technical Post Feel free to explore the categories in the sidebar!
+-">
+-<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+-<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+-<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://florianheiwig.de/blog/">
+-  <meta property="og:site_name" content="Florian Heiwig">
+-  <meta property="og:title" content="Welcome">
+-  <meta property="og:description" content="Hi, I’m Florian 👋# I am a [Job Title] based in [Location]. This site is a collection of my technical notes, philosophical musings, and travel stories with my wife.
+-📍 Quick Links# View my Resume Pet Projects Latest Technical Post Feel free to explore the categories in the sidebar!">
+-  <meta property="og:locale" content="en_us">
+-  <meta property="og:type" content="website">
+-
+-
+-  <meta itemprop="name" content="Welcome">
+-  <meta itemprop="description" content="Hi, I’m Florian 👋# I am a [Job Title] based in [Location]. This site is a collection of my technical notes, philosophical musings, and travel stories with my wife.
+-📍 Quick Links# View my Resume Pet Projects Latest Technical Post Feel free to explore the categories in the sidebar!">
+-  <meta itemprop="wordCount" content="49">
+-
+-<title>Welcome | Florian Heiwig</title>
+-<link rel="icon" href="/blog/favicon.png" >
+-<link rel="manifest" href="/blog/manifest.json">
+-<link rel="canonical" href="https://florianheiwig.de/blog/">
+-<link rel="stylesheet" href="/blog/book.min.cc2c524ed250aac81b23d1f4af87344917b325208841feca0968fe450f570575.css" integrity="sha256-zCxSTtJQqsgbI9H0r4c0SRezJSCIQf7KCWj&#43;RQ9XBXU=" crossorigin="anonymous">
++<title>Florian Heiwig</title>
++<link rel="icon" href="/blog/favicon.png">
++<link rel="stylesheet" href="/blog/css/apple90s.css">
+ 
+-
+-  <script defer src="/blog/fuse.min.js"></script>
+-  <script defer src="/blog/en.search.min.e53f3d3dc929b5303134988fe59341c348cbcb381f973ed3bd8825aca11a7e01.js" integrity="sha256-5T89PckptTAxNJiP5ZNBw0jLyzgflz7TvYglrKEafgE=" crossorigin="anonymous"></script>
+-
+-
+-<link rel="alternate" type="application/rss+xml" href="https://florianheiwig.de/blog/index.xml" title="Florian Heiwig" />
+-
+-  
+ </head>
+-<body dir="ltr" class="book-kind-home book-type-docs">
+-  <input type="checkbox" class="hidden toggle" id="menu-control" />
+-  <input type="checkbox" class="hidden toggle" id="toc-control" />
+-  <main class="container flex">
+-    
+-<aside class="book-menu">
+-  <div class="book-menu-content">
+-    
+-  <nav>
+-<h2 class="book-brand">
+-  <a class="flex align-center" href="/blog/"><span>Florian Heiwig</span>
+-  </a>
+-</h2>
+-
+-
+-<div class="book-search hidden">
+-  <input id="book-search-input" type="text" 
+-    placeholder="Search"
+-    aria-label="Search"
+-    maxlength="64" data-hotkeys="s/" />
+-  <div class="book-search-spinner hidden"></div>
+-  <ul id="book-search-results"></ul>
+-</div>
+-<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-</nav>
+-
+-
+-
+-
+-  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+-
+-
+-
++<body>
++  <header class="site-header">
++  <div class="wrap">
++    <h1 class="site-title"><a href="https://florianheiwig.de/blog/">Florian Heiwig</a></h1>
++    <nav class="site-nav">
++      <a href="https://florianheiwig.de/blog/">Home</a>
++      <a href="https://florianheiwig.de/blog/#blog">Blog</a>
++      
++        <a href="https://florianheiwig.de/blog/travel/">Travel with my Wife</a>
++      
++        <a href="https://florianheiwig.de/blog/philosophy/">Philosophy</a>
++      
++        <a href="https://florianheiwig.de/blog/technical/">Technical Topics</a>
++      
++      
++        <a href="https://florianheiwig.de/blog/resume/">Resume</a>
++      
++    </nav>
+   </div>
+-</aside>
+- 
+-
+-    <div class="book-page">
+-      <header class="book-header hidden">
+-        
+-  <div class="flex align-center justify-between">
+-  <label for="menu-control">
+-    <img src="/blog/icons/menu.svg" class="book-icon" alt="Menu" />
+-  </label>
+-
+-  <h3>Welcome</h3>
+-
+-  <label for="toc-control">
+-    
+-    <img src="/blog/icons/toc.svg" class="book-icon" alt="Table of Contents" />
+-    
+-  </label>
+-</div>
+-
+-
+-  
+-  <aside class="hidden">
+-    
+-  
+-<nav id="TableOfContents">
+-  <ul>
+-    <li>
+-      <ul>
+-        <li><a href="#-quick-links">📍 Quick Links</a></li>
+-      </ul>
+-    </li>
+-  </ul>
+-</nav>
+-
+-
+-
+-  </aside>
+-  
+- 
+-      </header>
++</header>
+ 
+-      
+-      
+-  <article class="markdown book-article"><h1 id="hi-im-florian-">Hi, I&rsquo;m Florian 👋<a class="anchor" href="#hi-im-florian-">#</a></h1>
++
++  <main class="wrap">
++    <section class="hero page-content">
++      <h1 id="hi-im-florian-">Hi, I&rsquo;m Florian 👋<a class="anchor" href="#hi-im-florian-">#</a></h1>
+ <p>I am a [Job Title] based in [Location]. This site is a collection of my technical notes, philosophical musings, and travel stories with my wife.</p>
+ <h3 id="-quick-links">📍 Quick Links<a class="anchor" href="#-quick-links">#</a></h3>
+ <ul>
+@@ -154,98 +42,40 @@
+ <li><strong><a href="technical/latest-post">Latest Technical Post</a></strong></li>
+ </ul>
+ <hr>
+-<p><em>Feel free to explore the categories in the sidebar!</em></p>
+-</article>
+- 
+-      
++<p><em>Feel free to explore the categories in the nav above.</em></p>
++
++    </section>
++
++    <section id="blog">
++      <h2 class="section-title">Blog</h2>
++      <p class="blog-overview">
++        Notes and essays across technical, travel, and philosophy. Newest entries below; browse by category in the nav.
++      </p>
+ 
+-      <footer class="book-footer">
+-        
+-  <div class="flex flex-wrap justify-between">
+-
+-<div>
++      
++      
+ 
+-</div>
+-
+-<div>
+-
+-</div>
++      
++        <p class="empty-state">No posts yet. Check back later or explore the categories above.</p>
++      
+ 
+-</div>
+-
+-
+-
+-
+-
+-
++      <div class="categories">
++        
++          <a href="https://florianheiwig.de/blog/travel/">Travel with my Wife</a>
++        
++          <a href="https://florianheiwig.de/blog/philosophy/">Philosophy</a>
++        
++          <a href="https://florianheiwig.de/blog/technical/">Technical Topics</a>
++        
++      </div>
++    </section>
+ 
+- 
+-        
+-  
+-  <div class="book-comments">
+-
+-</div>
+-  
+- 
+-        
+-        
+-  
+- 
+-        
+-  
+-  
+-    <script>(function(){document.querySelectorAll("pre:has(code)").forEach(e=>{e.addEventListener("click",e.focus),e.addEventListener("copy",function(t){if(t.preventDefault(),navigator.clipboard){const t=window.getSelection().toString()||e.textContent;navigator.clipboard.writeText(t)}})})})()</script>
+-  
+-
+-      </footer>
++    <footer class="site-footer">
++  <div class="wrap">
++    <a href="https://florianheiwig.de/blog/">← Florian Heiwig</a>
++  </div>
++</footer>
+ 
+-      <label for="menu-control" class="hidden book-menu-overlay"></label>
+-    </div>
+-
+-    
+-  
+-  <aside class="book-toc">
+-    <div class="book-toc-content">
+-      
+-  
+-<nav id="TableOfContents">
+-  <ul>
+-    <li>
+-      <ul>
+-        <li><a href="#-quick-links">📍 Quick Links</a></li>
+-      </ul>
+-    </li>
+-  </ul>
+-</nav>
+-
+-
+-
+-    </div>
+-  </aside>
+-  
+- 
+   </main>
+-
+-  
+ </body>
+ </html>
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-

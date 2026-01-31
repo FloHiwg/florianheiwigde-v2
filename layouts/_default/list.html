@@ -23,7 +23,7 @@
         <aside class="category-sidebar">
           <h3 class="category-title">Categories</h3>
           <ul class="category-list">
-            {{ range .Site.Sections.ByWeight }}
+            {{ with .FirstSection }}
             <li class="category-item">
               <a href="{{ .Permalink }}"
                 class="category-link{{ if eq $.CurrentSection . }} active{{ else if eq $.FirstSection . }} active{{ end }}">
@@ -40,6 +40,17 @@
                   <a href="{{ .Permalink }}" class="subcategory-link{{ if eq $.CurrentSection . }} active{{ end }}">
                     {{ .Title }}
                   </a>
+                  {{ if .Sections }}
+                  <ul class="subcategory-list nested">
+                    {{ range .Sections }}
+                    <li>
+                      <a href="{{ .Permalink }}" class="subcategory-link{{ if eq $.CurrentSection . }} active{{ end }}">
+                        {{ .Title }}
+                      </a>
+                    </li>
+                    {{ end }}
+                  </ul>
+                  {{ end }}
                 </li>
                 {{ end }}
               </ul>

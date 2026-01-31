@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang }}" dir="ltr">
+
+<head>
+    {{ partial "head.html" . }}
+</head>
+
+<body>
+    {{ partial "header.html" . }}
+
+    <main>
+        <div class="container page-section">
+            <section class="page-header fade-in">
+                <h1 class="page-title">{{ .Title }}</h1>
+                {{ with .Description }}
+                <p class="page-subtitle">{{ . }}</p>
+                {{ end }}
+            </section>
+
+            <div class="services-content">
+                <section class="mb-16">
+                    <div class="services-grid">
+                        {{ range where .Site.Sections "Section" "in" (slice "technical" "philosophy" "travel") }}
+                        <a href="{{ .Permalink }}" class="service-card" style="text-decoration: none; display: block;">
+                            <svg class="service-card-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                {{ .Params.icon | safeHTML }}
+                            </svg>
+                            <h3 class="service-card-title">{{ .Title }}</h3>
+                            {{ with .Description }}
+                            <p class="service-card-desc">{{ . }}</p>
+                            {{ else }}
+                            <p class="service-card-desc">{{ .Summary | truncate 100 }}</p>
+                            {{ end }}
+                        </a>
+                        {{ end }}
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    {{ partial "footer.html" . }}
+</body>
+
+</html>

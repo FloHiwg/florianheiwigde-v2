@@ -56,20 +56,20 @@ Since it’s my first drone and I don’t have much experience, I just wanted so
 
 Here’s what I got:
 
-- ELRS receiver  
-- Flight controller  
-- Motors  
-- Battery  
-- Remote control  
+- ELRS receiver: [ELRS NANO RX24 2.4G](https://amzn.to/4qhBaei)
+- Flight computer + ECS: [SpeedyBee F405 V4](https://amzn.to/4cdxWVs)
+- Motors: [Axisflying AE2207](https://amzn.to/4qUZy6j)
+- Propellers: [HQProp 5 Sets EthiX](https://amzn.to/4afBqUZ)
+- Battery: [Tattu 1300mAh 4S 75C Lipo Battery Pack](https://amzn.to/4tgmZIT)
+- LiPo Charger
+- Remote control: [Radiomaster Pocket ELRS Remote](https://amzn.to/4rvHa3X)
+- Batteries for remote control (if not included)
 
 ### Tools
 
 And of course, this was the perfect excuse to buy some nice new tools: a soldering iron, a mat to protect my desk, flux pens to prepare the pads, a helping hand, etc.
 
 At some point my wife got a bit skeptical since I received a package from AliExpress almost every day.
-
-- Soldering equipment  
-
 
 
 ## Assembly & Soldering
@@ -153,30 +153,31 @@ The last step is arming — and this sounds as dangerous as it is. Be careful wi
 You can also check the setup page in Betaflight for any arming flags if the motors don’t spin.
 
 
+## First Flight
 
-## 🚀 First Flight
+The first takeoff was… terrifying.  
+And yes... I did it inside my apartment, which was definitely not the best idea. It’s loud, and it can get dangerous really fast if something goes wrong.
 
-The first takeoff was… terrifying.
+But it was minus 10°C outside, so I didn’t have many options.
 
-I triple-checked everything, placed it on the ground, armed the motors, and slowly increased throttle.
+I triple-checked everything, placed it on the ground, armed the motors, and slowly increased the throttle.
 
-For half a second nothing happened.
+It lifted.
 
-Then it lifted.
+It had a slight tilt to the front (something I still need to fix with proper feet), but it lifted.
 
-And just hovered there.
+Then it just hovered there… before slowly drifting sideways into the drying rack that I had set up as a “safety fence.”
 
-Not going to lie — that moment felt *awesome*.
+But not going to lie - that moment still felt *awesome*.
 
-Something that was just a pile of plastic and parts a week ago was now flying.
+Something that had just been a pile of plastic and parts a few weeks ago was suddenly flying.
 
 Built by me.
 
 
-
 ## Final Thoughts and Next Steps
 
-I have tons of pet projects, so I’m not sure how far I’ll go with this one. But building this drone was one of the most satisfying side projects I’ve done in a while.
+I have tons of pet projects, so I’m not sure how far I’ll take this one. But building this drone was one of the most satisfying side projects I’ve done in a while.
 
 It combines:
 
@@ -195,4 +196,4 @@ Best case, you build something that flies.
 
 Both are pretty great outcomes.
 
-I’m still debating whether a camera setup is worth it. Next, I might look into building a self-driving car project — and maybe come back to this afterward.
+I’m still debating whether a camera setup is worth the extra cost. Next, I might experiment with a self-driving car project and maybe come back to this afterward.

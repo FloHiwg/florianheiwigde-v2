@@ -10,19 +10,18 @@
 
   <main>
     <article class="container page-section">
-      <nav class="breadcrumb" style="max-width: 56rem; margin: 0 auto 2rem;">
-        <a href="{{ .Site.BaseURL }}">Home</a>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-          stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="9 18 15 12 9 6"></polyline>
-        </svg>
-        {{ with .CurrentSection }}
-        <a href="{{ .Permalink }}">{{ .Title }}</a>
-        {{ end }}
-      </nav>
-
       <div class="blog-post-layout">
         <div class="blog-post-main">
+          <nav class="breadcrumb">
+            <a href="{{ .Site.BaseURL }}">Home</a>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+            {{ with .CurrentSection }}
+            <a href="{{ .Permalink }}">{{ .Title }}</a>
+            {{ end }}
+          </nav>
           <header class="blog-post-header">
             <h1 class="blog-post-title">{{ .Title }}</h1>
             <div class="blog-post-meta">

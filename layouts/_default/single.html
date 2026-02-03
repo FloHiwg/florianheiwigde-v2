@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="{{ .Site.Language.Lang }}" dir="ltr">
+
 <head>
   {{ partial "head.html" . }}
 </head>
+
 <body>
   {{ partial "header.html" . }}
 
@@ -10,7 +12,8 @@
     <article class="container page-section">
       <nav class="breadcrumb" style="max-width: 56rem; margin: 0 auto 2rem;">
         <a href="{{ .Site.BaseURL }}">Home</a>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
           <polyline points="9 18 15 12 9 6"></polyline>
         </svg>
         {{ with .CurrentSection }}
@@ -24,7 +27,8 @@
             <h1 class="blog-post-title">{{ .Title }}</h1>
             <div class="blog-post-meta">
               <span>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                   <line x1="16" y1="2" x2="16" y2="6"></line>
                   <line x1="8" y1="2" x2="8" y2="6"></line>
@@ -33,7 +37,8 @@
                 {{ .Date.Format "January 2, 2006" }}
               </span>
               <span>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="12" cy="12" r="10"></circle>
                   <polyline points="12 6 12 12 16 14"></polyline>
                 </svg>
@@ -58,17 +63,28 @@
           <div class="divider"></div>
 
           <a href="{{ .Site.BaseURL }}" class="back-link">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="19" y1="12" x2="5" y2="12"></line>
               <polyline points="12 19 5 12 12 5"></polyline>
             </svg>
             Back to home
           </a>
         </div>
+
+        {{ if .Params.toc | default true }}
+        <aside class="blog-toc">
+          <div class="blog-toc-inner">
+            <div class="blog-toc-title">Table of Contents</div>
+            {{ .TableOfContents }}
+          </div>
+        </aside>
+        {{ end }}
       </div>
     </article>
   </main>
 
   {{ partial "footer.html" . }}
 </body>
+
 </html>

@@ -959,15 +959,25 @@ main {
   margin-bottom: 1rem;
 }
 
-.blog-post-content ul {
-  list-style: disc;
-  list-style-position: inside;
+.blog-post-content ul,
+.blog-post-content ol {
   color: var(--muted-foreground);
   margin-bottom: 1rem;
+  padding-left: 1.5rem;
 }
 
-.blog-post-content ul li {
+.blog-post-content ul {
+  list-style: disc;
+}
+
+.blog-post-content ol {
+  list-style: decimal;
+}
+
+.blog-post-content ul li,
+.blog-post-content ol li {
   margin-bottom: 0.25rem;
+  line-height: 1.7;
 }
 
 .blog-post-content a {
@@ -1544,4 +1554,73 @@ main {
 .timeline-company a:hover {
   color: var(--primary);
   border-color: var(--primary);
+}
+
+/* Blog Post Layout Updates */
+@media (min-width: 1024px) {
+  .blog-post-layout {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 4rem;
+    max-width: 72rem; /* Increased to accommodate sidebar */
+  }
+}
+
+/* TOC Styles */
+.blog-toc {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .blog-toc {
+    display: block;
+    width: 240px;
+    flex-shrink: 0;
+    order: 2; /* Ensure it's on the right */
+  }
+
+  .blog-toc-inner {
+    position: sticky;
+    top: 6rem;
+    max-height: calc(100vh - 8rem);
+    overflow-y: auto;
+  }
+}
+
+.blog-toc-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--muted-foreground);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+}
+
+/* Styling for Hugo's generated TOC */
+#TableOfContents ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+#TableOfContents ul ul {
+  padding-left: 1rem;
+  margin-top: 0.5rem;
+}
+
+#TableOfContents li {
+  margin-bottom: 0.5rem;
+}
+
+#TableOfContents a {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  text-decoration: none;
+  transition: color 0.2s;
+  display: block;
+  padding: 0.25rem 0;
+}
+
+#TableOfContents a:hover {
+  color: var(--primary);
 }

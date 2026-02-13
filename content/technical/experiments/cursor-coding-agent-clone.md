@@ -1,119 +1,238 @@
 ---
-title: "Cursor Coding Agent Clone"
-date: 2026-01-23
-description: "A clone of the cursor coding agent based on an article from ByteByteGo about their inner workings"
-tags: ["AI", "GenAI", "Clone"]
+title: "Building a Tiny Coding Agent – Plan, Edit, Verify, Repeat"
+date: 2026-01-31
+description: "A small local coding agent that safely edits files using a simple plan–act–observe loop, diff previews, and optional test verification."
+tags: ["AI", "LLM", "Agents", "Python", "Tooling"]
 ---
 
-# Blog Article Outline: Building a Coding Agent PoC
+## Introduction
 
-> **Angle:** From ByteByteGo’s spec to a working Plan → Act → Observe loop in Python with LangGraph.
+I recently started a small side project where I tried to build a simple IDE-like environment for Google Drive documents, inspired by tools like Cursor.
 
----
+While working on that idea, I spent a lot of time thinking about flow:
 
-## 1. The Idea Behind the Project
+- How do the different components interact?
+- How do you prepare context properly for the model?
+- How do you inject third-party knowledge safely?
+- How do you handle change requests?
+- And most importantly — how do you let an LLM change things without breaking everything?
 
-- **Beyond chat:** Most “AI coding” UIs are chat + copy-paste. The goal here is an **agentic loop** that searches, edits, and verifies code inside a real workspace.
-- **Inspiration:** Spec and concept adapted from a ByteByteGo article on coding agent architecture (cite/link when you publish).
-- **Core thesis:** Reliability comes from **tools** (grep, search-replace, shell), not from the model generating raw diffs. Solving the “diff problem” by making the model call structured tools instead of outputting free-form patches.
-- **What we built:** A PoC that implements Brain (orchestrator + model) and Body (tool harness + sandbox), with a ReAct-style loop: Plan → Act → Observe, including verification and iteration.
+(There will be a separate post about that experiment and the current state of the project.)
 
----
+During this research phase, I stumbled across an article from ByteByteGo about building a coding agent with GPT and LangChain. My first reaction was simple: How hard could it be to build something like this myself?
 
-## 2. The Spec in a Nutshell
+It looked like a minimal and practical foundation — something small enough to understand, but powerful enough to build on later.
 
-- **Architecture (from SPECS):**
-  - **Orchestrator:** State machine and control loop (Plan → Act → Observe).
-  - **Router:** Chooses high-reasoning vs fast model from the request.
-  - **Context Engine:** Pulls relevant snippets into the prompt to avoid context overflow.
-  - **Tool Harness:** Interface for the model to use filesystem/terminal (grep, read, search-replace, write, shell).
-  - **Sandbox:** Isolated execution for verification (here: subprocess in workspace; spec allows Docker/VM).
+So instead of pulling in a huge framework, I built a tiny version from scratch.
 
-- **Core tools (the “hands”):**
-  - Search/grep for navigation.
-  - Search & replace for **mechanical** edits (exact `old_string` → `new_string`).
-  - Terminal/shell for builds and tests.
+Nothing fully autonomous.  
+Nothing overly clever and some parts particularly dumb.
+Just a small coding agent that can safely modify files in a local repository using a **plan → act → observe** loop.
 
-- **Execution loop (ReAct-style):**
-  1. Input: user request (e.g. “Fix the bug in the login flow”).
-  2. Plan: model decides what to search/edit.
-  3. Retrieve: context engine adds relevant snippets.
-  4. Edit: model issues search-replace (and other tool) calls.
-  5. Verify: run tests in the sandbox (e.g. `pytest`).
-  6. Iterate: on failure, feed errors back and loop to Plan.
+This post walks through that experiment. Focusing on the high-level architecture, the flow of a single run, and the responsibilities of each component.
 
-- **Spec takeaways:** Context compaction, optional speculative execution, fast sandboxing; logging trajectory, edit accuracy (attempted vs applied), and latency breakdown for observability and trust.
+Think of it as an architecture tour, not a deep code walkthrough.
 
----
+## What This Agent Actually Does
 
-## 3. Walking Through the Code
+At a high level, the agent can:
 
-### 3.1 Entry point and state
+- Read your repository
+- Plan changes using an LLM
+- Edit files through small, controlled tools
+- Show diffs before applying changes
+- Repeat until the task is complete
 
-- **`main.py`:** CLI with `request`, `--workspace`, `--recursion-limit`. Loads env, builds the graph, sets initial state (user_request, workspace_path, messages, loop_count, current_phase, context_snippets, verification_result, trajectory, edit_attempts/edit_applied, latency_breakdown). Invokes graph and prints summary + trajectory table.
-- **`src/state.py`:** `AgentState` TypedDict: messages (with `add_messages`), user_request, workspace_path, loop_count, model_tier, current_phase, context_snippets, verification_result, trajectory, edit_attempts, edit_applied, latency_breakdown. This is the single source of truth for the graph.
+Everything runs locally.
 
-### 3.2 The graph: orchestrator
+No hidden services.  
+No background magic.  
+No “AI refactored your entire repo while you blinked.”
 
-- **`src/orchestrator.py`:** Builds the LangGraph.
-  - **Nodes:** router → context_engine → plan → (tools | verify) → observe → plan or END.
-  - **Router:** Sets `model_tier` (e.g. “complex” or long request → high, else fast).
-  - **Context engine:** Fetches snippets (see below).
-  - **Plan:** Binds tools to the LLM, injects system prompt (workspace file list, “use tools; read_file then search_replace”), runs LLM; on tool_calls → tools, else → verify.
-  - **Tools:** ToolNode runs the actual tools; orchestrator wraps it to count edit_attempts / edit_applied from tool results.
-  - **Verify:** Runs a fixed command (e.g. `pytest`) in the sandbox, stores result and sandbox latency.
-  - **Observe:** Increments loop_count; if tests passed or MAX_LOOPS reached → END, else → plan.
-- **Conditional edges:** `route_after_plan` (tools vs verify), `route_after_observe` (plan vs END).
+You run:
 
-### 3.3 Context engine
+```bash
+uv run main.py "Add logging to main.py"
+```
 
-- **`src/context_engine.py`:** Simple retrieval: keyword extraction from `user_request`, score files (e.g. `.py`, `.md`, `.txt`) by keyword matches, return top snippets up to a character budget. Shows the idea of “retrieve then inject” without a full RAG stack.
+And the agent works through the task step by step.
 
-### 3.4 Tool harness and tools
+The Core Idea: One Small Loop
 
-- **`src/tool_harness.py`:** Builds the list of tools with `workspace_root` bound so the graph always passes the same workspace. Uses LangGraph’s `ToolNode` to execute tool calls from the plan node.
-- **Tools (examples to highlight):**
-  - **`grep_tool`:** Pattern + path (relative to workspace); returns `file:line: content` lines. Example: “find all uses of `divide`” → grep in workspace.
-  - **`search_replace_tool`:** `file_path`, `old_string`, `new_string` (exact match). Emphasize: model must call `read_file` first to get exact text; then one replace. Return strings like “applied: patch written successfully” or “attempted: old_string not found” for logging.
-  - **`read_file` / `write_file`:** Read or overwrite file in workspace.
-  - **`run_shell_tool`:** Run a command in workspace (e.g. run tests or scripts).
+The entire system revolves around one simple loop:
+	1.	Plan what to do
+	2.	Use tools to apply changes
+	3.	Show the diff
+    4. Run tests
+    5. Decide whether to continue
 
-### 3.5 Sandbox
+This structure turned out to be more important than any prompt trick or model tweak.
 
-- **`src/sandbox.py`:** `run_command(command, cwd, timeout)`: subprocess in `cwd`, returns `{ passed, output, duration_ms }`. PoC uses local process; spec allows Docker/VM for real isolation.
+Because every step is visible:
+- I see the plan
+- I see the proposed edits
+- I approve changes
 
-### 3.6 Router
+That visibility is what makes the system trustworthy.
 
-- **`src/router.py`:** Simple rule: e.g. “complex” in request or length > 100 → high-reasoning model; else fast. Feeds `model_tier` into the plan node for LLM selection (e.g. Gemini Pro vs Flash, or GPT-4o vs mini).
+## High-Level Architecture
 
----
+Instead of one big script, the system is split into small components with clear responsibilities:
+- Entry point
+- Router
+- Context engine
+- Orchestrator
+- Tools
+- Verification
+- Observation
 
-## 4. Concrete Examples to Include
+Each part does one thing.
 
-- **Example 1 – List files:** Request: “List all Python files in the workspace.” Flow: router (fast) → context_engine → plan → model calls `grep_tool` or equivalent; tools return; then verify (pytest) → observe → END. Show a minimal trajectory (plan → tools → verify → observe).
-- **Example 2 – Edit and verify:** Request: “Add a docstring to the `add` function in calculator.py.” Flow: plan → read_file(calculator.py) → search_replace with exact `old_string` (the current `def add(...)`) and `new_string` (with docstring). Then verify runs pytest; if green, observe → END. Optionally show one “attempted vs applied” case (e.g. whitespace mismatch) to illustrate why exact-match search-replace and read_file-first matter.
-- **Example 3 – Loop on failure:** Request: “Make the calculator handle division by zero.” First edit might be wrong; verify fails; observe loops back to plan; model sees test output and issues a new search_replace; second loop passes. Good place to show trajectory table (plan → tools → verify → observe → plan → tools → verify → observe → END).
+None of them are particularly smart on their own — but together they create a structured workflow.
 
----
+Let’s go through them.
 
-## 5. Logging and Observability (from spec)
+### Entry Point – main.py
 
-- **Trajectory:** Each node appends (phase, action, detail) to state; printed at end (e.g. last N steps) so readers see the exact sequence.
-- **Edit accuracy:** Counts of edit_attempts vs edit_applied; if a patch fails (old_string not found), it’s visible for tuning prompts or tooling.
-- **Latency breakdown:** model_ms (plan node), sandbox_ms (verify). Mention that spec also suggests tracking tool execution time for bottleneck analysis.
+The entry point is intentionally simple.
 
----
+It:
+- Parses CLI arguments
+- Loads the workspace
+- Initialises graph
+- Passes in your prompt
 
-## 6. Wrap-up
+It doesn't contain any real intelligence. Just kick off things.
 
-- **What we learned:** Tool-first design (search-replace over raw diffs) and a clear Plan → Act → Observe loop make the agent predictable and debuggable. ByteByteGo’s spec maps neatly onto LangGraph nodes and state.
-- **Possible next steps:** Real RAG or embeddings in context_engine; Docker sandbox; speculative execution for boilerplate; more tools (e.g. apply patch from diff). Link to repo and SPECS.md.
+### The Brain – Orchestrator
 
----
+This is where the actual agent behaviour lives.
+The orchestrator wires everything into a structured loop.
+```python
+plan -> tools -> verify -> observe -> repeat or stop
+```
 
-## Checklist for drafting
+It’s essentially a controlled state machine.
 
-- [ ] Add ByteByteGo article link when available.
-- [ ] Insert 1–2 short code snippets (e.g. `build_graph`, one tool signature, one route function).
-- [ ] Add a simple flow diagram (Router → Context → Plan → Tools/Verify → Observe → Plan/END) if the blog supports images.
-- [ ] Keep code walk in “outline” form so the final post can expand each bullet into a paragraph or two.
+The shared state object carries everything across steps:
+```python
+initial = {
+    "user_request": args.request,
+    "workspace_path": str(workspace_path),
+    "messages": [HumanMessage(content=args.request)],
+    "loop_count": 0,
+    "current_phase": "plan",
+    "context_snippets": [],
+    "verification_result": {},
+    "trajectory": [],
+    "edit_attempts": 0,
+    "edit_applied": 0,
+    "latency_breakdown": {},
+}
+```
+
+Think of it as short-term memory.
+
+Without structured state, the agent would just be a stateless chatbot making isolated guesses.
+
+### Routing & Context
+
+Before planning, the agent makes two decisions.
+
+#### 1. Which model should be used?
+
+Simple tasks don’t need a heavy model.
+More complex prompts might.
+
+Right now this decision is heuristic-based or triggered by a keyword "complex". Nothing sophisticated.
+
+Short prompt? → fast model.
+Complex or long prompt? → stronger model.
+
+#### 2. Which files are relevant?
+
+Instead of sending the entire repository to the model, the context engine retrieves only relevant snippets.
+
+The current approach is intentionally simple:
+- Extract keywords from the request
+- Score files based on matches
+- Select the top candidates
+
+It’s essentially a lightweight search mechanism.
+
+For the test this is more than enough.
+
+For larger projects, we could use:
+- Embedding-based retrieval
+- Vector search
+- AST-aware chunking
+- Repository maps
+- Context caching
+
+### Tools: The Agent’s Hands
+
+The agent cannot directly modify files.
+It must go through tools.
+
+Current tools are:
+- Read file
+- Write file
+- Search & replace
+- Grep
+- Execute shell commands
+
+The most important design decision:
+
+Every write operation generates a diff and requires your approval before applying changes.
+
+This makes the system closer to Cursor and the other IDEs and also easier to debug.
+
+Without it → risky.  
+With it → collaborative.
+
+A really interesting behaviour is that the agent has a hard time not to touch files entriely but to ask questions about the changes to make or to ask for more context.
+
+### Verification & Observation
+
+After edits are applied, the agent can run tests.
+
+Currently, this means executing something like pytest.
+
+If tests fail → loop continues.
+If tests pass → task completes.
+
+Instead of guessing whether a change works, the system validates it.
+
+The observe step then decides:
+- Retry
+- Adjust strategy
+- Or terminate
+
+### Example Run: A Small Change
+
+Let’s say the request is:
+
+“Add logging to main.py”
+
+A typical run looks like this:
+1.	Router selects the fast model
+2.	Context engine retrieves main.py
+3.	Plan step suggests reading and modifying the file
+4.	A diff is generated
+5.	You review and approve
+6.	Tests execute
+7.	Task completes
+
+And that’s enough.
+
+## Final Thoughts
+
+One thing I learned from this experiment is that with agent-style systems, structure matters more than cleverness and that tings like generating the diff and asking the agent to not do any changes is the hardest part.
+
+Next steps might include:
+- Playing around with retrieval and indexing of the repository
+- More robust verification
+- Different modes to answer questions about the changes
+- More reliable diffs (sometimes the files looked interestng after a change)
+
+Or I might just leave it as-is and work on the Google Drive Cursor project.

@@ -19,7 +19,7 @@ While working on that idea, I spent a lot of time thinking about flow:
 
 (There will be a separate post about that experiment and the current state of the project.)
 
-During this research phase, I stumbled across an article from ByteByteGo about building a coding agent with GPT and LangChain. My first reaction was simple: How hard could it be to build something like this myself?
+During this research phase, I stumbled across an article from ByteByteGo about how the coding agent in Cursor works. My first reaction was simple: How hard could it be to build something like this myself?
 
 It looked like a minimal and practical foundation — something small enough to understand, but powerful enough to build on later.
 

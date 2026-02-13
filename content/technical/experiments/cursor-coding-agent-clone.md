@@ -19,17 +19,19 @@ While working on that idea, I spent a lot of time thinking about flow:
 
 (There will be a separate post about that experiment and the current state of the project.)
 
-During this research phase, I stumbled across an article from ByteByteGo about how the coding agent in Cursor works. My first reaction was simple: How hard could it be to build something like this myself?
+During this research phase, I stumbled across an article from ByteByteGo about how the coding agent in Cursor works. My first reaction was simple:
+
+> How hard could it be to build something like this myself?
 
 It looked like a minimal and practical foundation — something small enough to understand, but powerful enough to build on later.
 
 So instead of pulling in a huge framework, I built a tiny version from scratch.
 
 Nothing fully autonomous.  
-Nothing overly clever and some parts particularly dumb.
+Nothing overly clever — and some parts are intentionally quite dumb.  
 Just a small coding agent that can safely modify files in a local repository using a **plan → act → observe** loop.
 
-This post walks through that experiment. Focusing on the high-level architecture, the flow of a single run, and the responsibilities of each component.
+This post walks through that experiment, focusing on the high-level architecture, the flow of a single run, and the responsibilities of each component.
 
 Think of it as an architecture tour, not a deep code walkthrough.
 
@@ -41,6 +43,7 @@ At a high level, the agent can:
 - Plan changes using an LLM
 - Edit files through small, controlled tools
 - Show diffs before applying changes
+- Run tests
 - Repeat until the task is complete
 
 Everything runs locally.
@@ -60,11 +63,11 @@ And the agent works through the task step by step.
 The Core Idea: One Small Loop
 
 The entire system revolves around one simple loop:
-	1.	Plan what to do
-	2.	Use tools to apply changes
-	3.	Show the diff
-    4. Run tests
-    5. Decide whether to continue
+1.	Plan what to do
+2.	Use tools to apply changes
+3.	Show the diff
+4.	Run tests
+5.	Decide whether to continue
 
 This structure turned out to be more important than any prompt trick or model tweak.
 
@@ -72,10 +75,11 @@ Because every step is visible:
 - I see the plan
 - I see the proposed edits
 - I approve changes
+- I see the test results
 
 That visibility is what makes the system trustworthy.
 
-## High-Level Architecture
+### The High-Level Architecture
 
 Instead of one big script, the system is split into small components with clear responsibilities:
 - Entry point
@@ -90,7 +94,7 @@ Each part does one thing.
 
 None of them are particularly smart on their own — but together they create a structured workflow.
 
-Let’s go through them.
+Let’s go through them step by step.
 
 ### Entry Point – main.py
 
@@ -99,23 +103,24 @@ The entry point is intentionally simple.
 It:
 - Parses CLI arguments
 - Loads the workspace
-- Initialises graph
+- Initializes the graph
 - Passes in your prompt
 
-It doesn't contain any real intelligence. Just kick off things.
+It doesn’t contain any real intelligence — it just kicks things off.
 
 ### The Brain – Orchestrator
 
-This is where the actual agent behaviour lives.
-The orchestrator wires everything into a structured loop.
-```python
+This is where the actual agent behavior lives.
+The orchestrator wires everything into a structured loop:
+
+```
 plan -> tools -> verify -> observe -> repeat or stop
 ```
 
 It’s essentially a controlled state machine.
-
 The shared state object carries everything across steps:
-```python
+
+```json
 initial = {
     "user_request": args.request,
     "workspace_path": str(workspace_path),
@@ -139,17 +144,20 @@ Without structured state, the agent would just be a stateless chatbot making iso
 
 Before planning, the agent makes two decisions.
 
-#### 1. Which model should be used?
+**1. Which model should be used?**
 
 Simple tasks don’t need a heavy model.
 More complex prompts might.
 
-Right now this decision is heuristic-based or triggered by a keyword "complex". Nothing sophisticated.
+Right now, this decision is heuristic-based or triggered by a keyword like "complex". Nothing sophisticated.
 
 Short prompt? → fast model.
 Complex or long prompt? → stronger model.
 
-#### 2. Which files are relevant?
+Good enough for now.
+
+
+**2. Which files are relevant?**
 
 Instead of sending the entire repository to the model, the context engine retrieves only relevant snippets.
 
@@ -160,7 +168,7 @@ The current approach is intentionally simple:
 
 It’s essentially a lightweight search mechanism.
 
-For the test this is more than enough.
+For this experiment, that’s more than enough.
 
 For larger projects, we could use:
 - Embedding-based retrieval
@@ -174,7 +182,7 @@ For larger projects, we could use:
 The agent cannot directly modify files.
 It must go through tools.
 
-Current tools are:
+Current tools include:
 - Read file
 - Write file
 - Search & replace
@@ -185,12 +193,9 @@ The most important design decision:
 
 Every write operation generates a diff and requires your approval before applying changes.
 
-This makes the system closer to Cursor and the other IDEs and also easier to debug.
+This makes the system feel closer to Cursor and other AI IDEs and much easier to debug.
 
-Without it → risky.  
-With it → collaborative.
-
-A really interesting behaviour is that the agent has a hard time not to touch files entriely but to ask questions about the changes to make or to ask for more context.
+One interesting behavior I observed: the agent often struggles not to directly modify files, but instead to ask clarifying questions or request more context before making changes. That’s maybe the reason Cursor is using Ask, Plan and Agent modes.
 
 ### Verification & Observation
 
@@ -198,15 +203,8 @@ After edits are applied, the agent can run tests.
 
 Currently, this means executing something like pytest.
 
-If tests fail → loop continues.
-If tests pass → task completes.
-
-Instead of guessing whether a change works, the system validates it.
-
-The observe step then decides:
-- Retry
-- Adjust strategy
-- Or terminate
+If tests fail → the loop continues.
+If tests pass → the task completes.
 
 ### Example Run: A Small Change
 
@@ -217,7 +215,7 @@ Let’s say the request is:
 A typical run looks like this:
 1.	Router selects the fast model
 2.	Context engine retrieves main.py
-3.	Plan step suggests reading and modifying the file
+3.	The plan suggests reading and modifying the file
 4.	A diff is generated
 5.	You review and approve
 6.	Tests execute
@@ -225,14 +223,16 @@ A typical run looks like this:
 
 And that’s enough.
 
-## Final Thoughts
+### Final Thoughts
 
-One thing I learned from this experiment is that with agent-style systems, structure matters more than cleverness and that tings like generating the diff and asking the agent to not do any changes is the hardest part.
+One thing I learned from this experiment is that with agent-style systems, structure matters more than cleverness.
+
+Generating reliable diffs and enforcing “no silent changes” turned out to be harder than getting the model to write code.
 
 Next steps might include:
 - Playing around with retrieval and indexing of the repository
 - More robust verification
-- Different modes to answer questions about the changes
-- More reliable diffs (sometimes the files looked interestng after a change)
+- Different modes for answering questions about proposed changes
+- More reliable diff handling (some files looked… interesting after a change)
 
-Or I might just leave it as-is and work on the Google Drive Cursor project.
+Or I might just leave it as-is and go back to working on the Google Drive Cursor project.

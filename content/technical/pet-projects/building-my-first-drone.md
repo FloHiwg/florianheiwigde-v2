@@ -1,19 +1,21 @@
 ---
 title: "Building My First DIY Drone: From 3D Printing to First Flight"
-date: 2025-12-28
+date: 2025-10-14
 description: "A practical walkthrough of printing a frame, choosing parts, wiring a SpeedyBee stack with ELRS, configuring Betaflight, and getting a first hover, plus the mistakes I made so you don’t have to."
 ---
 
 ## Introduction
 
-I got into 3D printing the normal way. I downloaded models, printed them, tweaked settings, and slowly turned my beginner printer into something reliable. At some point, the printer stopped being the project. I started looking for projects that needed a printer, things that were more than decorative plastic.
+My entry into 3D printing was not glamorous. It started with an Ender V3 SE, a pile of test prints, and the usual beginner routine of fixing first-layer issues, tuning settings, and slowly learning which problems are “printer problems” and which are just “me problems.”
 
-That is where the "functional builds" rabbit hole begins. You watch one video of someone printing parts that become a real machine, and suddenly you are thinking about frames, tolerances, and whether you can turn a pile of components into something that actually moves.
+For a while, that was enough. I was happy downloading models, printing useful little upgrades, and getting the machine dialed in. But once the printer became reliable, I started looking for projects where the print was not the end result, but only the starting point.
+
+That is when I stumbled into the world of people printing parts for actual machines. Not desk toys. Not organizers. Real builds with motors, flight controllers, batteries, and enough spinning hardware to demand respect.
 
 For me, the tipping point was a build video by Michael Rechtin, specifically this one:  
 [https://www.youtube.com/watch?v=h6chNEaXb-o](https://www.youtube.com/watch?v=h6chNEaXb-o)
 
-My immediate reaction was not "I know how to do that." It was more like: I don't fully understand how this works yet, which probably means I should try it.
+I watched it and had the very rational thought: I'm going to build a drone myself, even though I never flew a drone and my last soldering attempts were questionable at best.
 
 This post documents the process in a way that is meant to be honest and useful: what I built, what I bought, what I wired wrong, and what finally got the drone into the air.
 
@@ -37,14 +39,14 @@ Once the frame was done, the next step was electronics. That is where you can ea
 There are endless discussions about what to buy, what to avoid, where you can save money, and where you absolutely should not. Since this was my first build and I wanted to keep the cost and complexity reasonable, I made one big simplifying choice: no video system for now. My only goal was "get it flying." Everything else could come later.
 
 Here is what I ended up using:
-- ELRS receiver: ELRS NANO RX24 2.4G
-- Flight controller + ESC stack: SpeedyBee F405 V4
-- Motors: Axisflying AE2207
-- Propellers: HQProp 5 Sets EthiX
-- Battery: Tattu 1300mAh 4S 75C
-- LiPo charger
-- Remote control: Radiomaster Pocket ELRS
-- Batteries for the remote, depending on the bundle
+- ELRS receiver: [ELRS NANO RX24 2.4G](https://amzn.to/4qhBaei)
+- Flight computer + ECS: [SpeedyBee F405 V4](https://amzn.to/4cdxWVs)
+- Motors: [Axisflying AE2207](https://amzn.to/4qUZy6j)
+- Propellers: [HQProp 5 Sets EthiX](https://amzn.to/4afBqUZ)
+- Battery: [Tattu 1300mAh 4S 75C Lipo Battery Pack](https://amzn.to/4tgmZIT)
+- LiPo Charger
+- Remote control: [Radiomaster Pocket ELRS Remote](https://amzn.to/4rvHa3X)
+- Batteries for remote control (if not included)
 
 And then there is the quiet part nobody tells you about: tools and small stuff. A soldering iron, a heat-resistant mat, flux pens, a helping hand tool, wire management bits. Those purchases add up, and they arrive in a steady stream. At some point my wife started getting suspicious because it felt like AliExpress was delivering a daily reminder of my life choices.
 

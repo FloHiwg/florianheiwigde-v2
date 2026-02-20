@@ -2,55 +2,54 @@
 title: "Building a Tiny Coding Agent – Plan, Edit, Verify, Repeat"
 date: 2026-01-31
 description: "A small local coding agent that safely edits files using a simple plan–act–observe loop, diff previews, and optional test verification."
-tags: ["AI", "LLM", "Agents", "Python", "Tooling"]
 ---
 
 ## Introduction
 
 I recently started a small side project where I tried to build a simple IDE-like environment for Google Drive documents, inspired by tools like Cursor.
 
-While working on that idea, I spent a lot of time thinking about flow:
+While working on that idea, I kept coming back to one question:
 
-- How do the different components interact?
-- How do you prepare context properly for the model?
-- How do you inject third-party knowledge safely?
-- How do you handle change requests?
-- And most importantly — how do you let an LLM change things without breaking everything?
+How do you let an LLM change real code without turning your repository into a crime scene?
 
-(There will be a separate post about that experiment and the current state of the project.)
+During that research phase, I stumbled across a ByteByteGo post that broke down Cursor's coding agent loop:
 
-During this research phase, I stumbled across an article from ByteByteGo about how the coding agent in Cursor works. My first reaction was simple:
+[How Cursor Shipped its Coding Agent to Production (ByteByteGo)](https://blog.bytebytego.com/p/how-cursor-shipped-its-coding-agent)
 
-> How hard could it be to build something like this myself?
+The core idea looked almost suspiciously reasonable:
 
-It looked like a minimal and practical foundation — something small enough to understand, but powerful enough to build on later.
+Plan something.  
+Make a small change.  
+Verify it.  
+Repeat until it is done.
 
-So instead of pulling in a huge framework, I built a tiny version from scratch.
+So I built a tiny version of that from scratch.
 
 Nothing fully autonomous.  
-Nothing overly clever — and some parts are intentionally quite dumb.  
-Just a small coding agent that can safely modify files in a local repository using a **plan → act → observe** loop.
+Nothing "AI refactored my repo while I blinked."  
+Just a small coding agent that can safely modify files in a local workspace using a **Plan -> Act -> Observe** loop and a very important guardrail: **no silent writes**.
 
-This post walks through that experiment, focusing on the high-level architecture, the flow of a single run, and the responsibilities of each component.
+The code for this experiment lives in a separate repository.
+<!-- TODO: add repository URL once available -->
 
-Think of it as an architecture tour, not a deep code walkthrough.
+This post is an architecture tour, not a deep code walkthrough. The goal is that you can read this once and understand how the whole thing works.
 
 ## What This Agent Actually Does
 
 At a high level, the agent can:
 
-- Read your repository
-- Plan changes using an LLM
+- Read files in a workspace
+- Plan changes using an LLM (via tool calls)
 - Edit files through small, controlled tools
-- Show diffs before applying changes
-- Run tests
-- Repeat until the task is complete
+- Show a diff before applying changes
+- Run a verification command (pytest)
+- Repeat until the task looks "done"
 
 Everything runs locally.
 
 No hidden services.  
 No background magic.  
-No “AI refactored your entire repo while you blinked.”
+No "AI refactored your entire repo while you blinked."
 
 You run:
 
@@ -60,179 +59,173 @@ uv run main.py "Add logging to main.py"
 
 And the agent works through the task step by step.
 
-The Core Idea: One Small Loop
+## The Core Idea: One Small Loop
 
-The entire system revolves around one simple loop:
-1.	Plan what to do
-2.	Use tools to apply changes
-3.	Show the diff
-4.	Run tests
-5.	Decide whether to continue
+The entire system revolves around one loop:
 
-This structure turned out to be more important than any prompt trick or model tweak.
+1. Plan what to do
+2. Use tools to apply changes
+3. Show the diff and ask for approval
+4. Run verification
+5. Decide whether to continue
+
+This structure turned out to matter more than any prompt trick or model tweak.
 
 Because every step is visible:
+
 - I see the plan
 - I see the proposed edits
-- I approve changes
-- I see the test results
+- I approve changes (or reject them)
+- I see the verification output
 
-That visibility is what makes the system trustworthy.
+That visibility is what makes the system feel trustworthy.
 
-### The High-Level Architecture
+## The High-Level Architecture
 
 Instead of one big script, the system is split into small components with clear responsibilities:
-- Entry point
-- Router
-- Context engine
-- Orchestrator
-- Tools
-- Verification
-- Observation
 
-Each part does one thing.
+- Entry point (CLI)
+- Router (choose model tier)
+- Context engine (pick relevant files/snippets)
+- Orchestrator (the loop wiring)
+- Plan node (LLM call with tools)
+- Tools node (do the reads/writes/commands)
+- Verify node (run pytest)
+- Observe node (continue or stop)
 
-None of them are particularly smart on their own — but together they create a structured workflow.
+Each part does one thing. None of them are particularly smart on their own. Together they create a workflow that is predictable and debuggable.
 
-Let’s go through them step by step.
+Here is the pipeline in one glance:
 
-### Entry Point – main.py
+```
+User request
+  -> Router (model tier)
+  -> Context engine (snippets)
+  -> Plan (LLM with tools)
+  -> Tools (diff + approval)
+  -> Verify (pytest)
+  -> Observe (loop or stop)
+```
 
-The entry point is intentionally simple.
+## Entry Point: `main.py`
+
+The entry point is intentionally boring.
 
 It:
+
 - Parses CLI arguments
-- Loads the workspace
-- Initializes the graph
-- Passes in your prompt
+- Creates (or selects) a workspace directory
+- Builds the LangGraph state machine
+- Initializes the shared state (messages, counters, snippets, metrics)
+- Invokes the graph
 
-It doesn’t contain any real intelligence — it just kicks things off.
+It does not contain any "agent logic". It just kicks things off and prints a summary at the end.
 
-### The Brain – Orchestrator
+## The Orchestrator: A Small State Machine
 
-This is where the actual agent behavior lives.
-The orchestrator wires everything into a structured loop:
+The orchestrator wires the nodes into a controlled loop:
 
 ```
-plan -> tools -> verify -> observe -> repeat or stop
+plan -> tools -> plan -> ... -> verify -> observe -> stop (or loop)
 ```
 
-It’s essentially a controlled state machine.
-The shared state object carries everything across steps:
+Under the hood it is a LangGraph state machine. The important part is not the framework, it is the shape:
 
-```json
-initial = {
-    "user_request": args.request,
-    "workspace_path": str(workspace_path),
-    "messages": [HumanMessage(content=args.request)],
-    "loop_count": 0,
-    "current_phase": "plan",
-    "context_snippets": [],
-    "verification_result": {},
-    "trajectory": [],
-    "edit_attempts": 0,
-    "edit_applied": 0,
-    "latency_breakdown": {},
-}
-```
+- The agent always has explicit phases.
+- The agent always carries explicit state.
+- The loop is allowed, but controlled (max loops / recursion limit).
 
-Think of it as short-term memory.
+That state object is the agent's short-term memory: user request, messages, which phase it is in, what context was retrieved, how many loops happened, and what verification returned.
 
-Without structured state, the agent would just be a stateless chatbot making isolated guesses.
+## Router: Picking a Model Tier
 
-### Routing & Context
+Before planning, the router picks a model tier.
 
-Before planning, the agent makes two decisions.
+This is intentionally simple: if the request is long (or contains a keyword like "complex"), it uses a stronger model. Otherwise it uses a cheaper/faster one.
 
-**1. Which model should be used?**
+The plan node can run against Google Gemini (if `GOOGLE_API_KEY` is set) or OpenAI (fallback).
 
-Simple tasks don’t need a heavy model.
-More complex prompts might.
+## Context Engine: "Relevant Enough" Snippets
 
-Right now, this decision is heuristic-based or triggered by a keyword like "complex". Nothing sophisticated.
+The context engine does not build an embedding index. It does not parse ASTs. It does not build a repository map.
 
-Short prompt? → fast model.
-Complex or long prompt? → stronger model.
+It does something much dumber, and good enough for a first version:
 
-Good enough for now.
+- Take keywords from the user request
+- Scan the workspace for matches
+- Return the top snippets (small excerpts)
 
+The purpose is not to be perfect. It is to keep the prompt small while giving the model a fighting chance to pick the right files.
 
-**2. Which files are relevant?**
+## Plan Node: The LLM Call
 
-Instead of sending the entire repository to the model, the context engine retrieves only relevant snippets.
+This is where the model decides what to do next.
 
-The current approach is intentionally simple:
-- Extract keywords from the request
-- Score files based on matches
-- Select the top candidates
+The important design choice is the contract:
 
-It’s essentially a lightweight search mechanism.
+The model is not allowed to respond with "here is what I would do". It must call tools.
 
-For this experiment, that’s more than enough.
+That sounds strict, but it solves a real problem. Without it, you get a polite essay instead of a change.
 
-For larger projects, we could use:
-- Embedding-based retrieval
-- Vector search
-- AST-aware chunking
-- Repository maps
-- Context caching
+## Tools: The Agent's Hands
 
-### Tools: The Agent’s Hands
+The agent cannot modify files directly. It must go through tools.
 
-The agent cannot directly modify files.
-It must go through tools.
+The tool suite is small on purpose:
 
-Current tools include:
 - Read file
 - Write file
 - Search & replace
 - Grep
-- Execute shell commands
+- Run shell commands
 
-The most important design decision:
+The most important guardrail:
 
 Every write operation generates a diff and requires your approval before applying changes.
 
-This makes the system feel closer to Cursor and other AI IDEs and much easier to debug.
+That single decision makes debugging easier, builds trust, and prevents "oops, I rewrote half the repo" accidents.
 
-One interesting behavior I observed: the agent often struggles not to directly modify files, but instead to ask clarifying questions or request more context before making changes. That’s maybe the reason Cursor is using Ask, Plan and Agent modes.
+## Verify and Observe: Did It Work, and Are We Done?
 
-### Verification & Observation
+After an edit, the agent runs verification.
 
-After edits are applied, the agent can run tests.
+Right now verification is a pytest command. In the current PoC it is intentionally forgiving (it uses `|| true`), which means it is closer to a placeholder smoke check than a strict gate.
 
-Currently, this means executing something like pytest.
+Observation is the decision point: continue the loop or stop.
 
-If tests fail → the loop continues.
-If tests pass → the task completes.
+If nothing happened, or verification looked bad, it can go back to planning. If everything looks good (or the loop limit is reached), it stops and prints a summary.
 
-### Example Run: A Small Change
+## Example Run: "Add Logging to main.py"
 
-Let’s say the request is:
+If the request is:
 
-“Add logging to main.py”
+"Add logging to main.py"
 
 A typical run looks like this:
-1.	Router selects the fast model
-2.	Context engine retrieves main.py
-3.	The plan suggests reading and modifying the file
-4.	A diff is generated
-5.	You review and approve
-6.	Tests execute
-7.	Task completes
 
-And that’s enough.
+1. Router selects the fast tier
+2. Context engine pulls a snippet from `main.py`
+3. Plan node calls `read_file`
+4. Plan node calls `search_replace` (or `write_file`)
+5. Tools show a diff and ask for approval
+6. Verify runs pytest
+7. Observe stops (or loops if needed)
 
-### Final Thoughts
+It is not magical.
 
-One thing I learned from this experiment is that with agent-style systems, structure matters more than cleverness.
+But it is structured, and that is the point.
 
-Generating reliable diffs and enforcing “no silent changes” turned out to be harder than getting the model to write code.
+## Final Thoughts
 
-Next steps might include:
-- Playing around with retrieval and indexing of the repository
-- More robust verification
-- Different modes for answering questions about proposed changes
-- More reliable diff handling (some files looked… interesting after a change)
+The main thing I learned from this experiment is that in agent-style systems, structure matters more than cleverness.
 
-Or I might just leave it as-is and go back to working on the Google Drive Cursor project.
+Getting a reliable "show diff, ask approval, then write" loop was harder than getting the model to write code.
+
+Next steps, if I keep pushing this:
+
+- Make verification a real gate (no `|| true`)
+- Improve context retrieval (embeddings, AST-aware chunks, repository maps)
+- Add git-aware tools (branch, commit, rollback)
+- Add an "ask" mode for clarification instead of forcing edits
+
+Or I might leave it as-is and go back to the Google Drive Cursor project, which is where this whole rabbit hole started.

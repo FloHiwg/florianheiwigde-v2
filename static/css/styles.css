@@ -960,6 +960,46 @@ main {
   margin-bottom: 1rem;
 }
 
+.blog-post-content img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+}
+
+.blog-post-content figure {
+  margin: 1.5rem 0;
+  max-width: 100%;
+}
+
+.blog-post-content figure img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+.blog-post-content figure figcaption {
+  margin-top: 0.625rem;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  text-align: center;
+}
+
+.blog-post-content figure figcaption p {
+  margin: 0;
+}
+
+.blog-post-content .blog-post-figure {
+  margin: 1.5rem 0;
+}
+
+.blog-post-content .blog-post-figure figcaption {
+  margin-top: 0.625rem;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  text-align: center;
+}
+
 .blog-post-content ul,
 .blog-post-content ol {
   color: var(--muted-foreground);

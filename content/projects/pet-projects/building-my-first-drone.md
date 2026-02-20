@@ -88,6 +88,8 @@ The last step before flight is arming, and that is where things stop being theor
 
 ## First Flight
 
+{{< figure src="/images/drone-build.webp" alt="Final assembled drone build on the desk" caption="The final drone build after assembly and wiring." class="blog-post-figure" >}}
+
 The first takeoff was not calm.
 
 I did it indoors in my apartment, which is objectively not a great idea. It is loud, it is risky, and if something is misconfigured, it can go from "cool hover" to "expensive chaos" in seconds. But it was around -10°C outside, so I made a questionable trade-off.

@@ -1,8 +1,7 @@
 ---
-title: "Building My First DIY Self-Driving Car: From Robotics Theory to a Real Autonomous Vehicle"
+title: "Building My First DIY Self-Driving Car: From Course Theory to a Real Build"
 date: 2026-01-20
-description: "A practical walkthrough of turning a robotics course bonus project into a small autonomous car, covering the plan, hardware choices, chassis research, and how theory meets real-world constraints."
-tags: ["Robotics", "AI", "Hardware", "Autonomous Systems"]
+description: "A practical walkthrough of turning a robotics course bonus project into a small autonomous car: choosing a printable chassis, picking parts, planning the bring-up, and mapping a path from manual control to autonomy."
 ---
 
 ## Introduction
@@ -21,7 +20,7 @@ A small self-driving car.
 
 Not just remote-controlled, but autonomous. A system that can sense its environment, estimate its own state, and eventually navigate without me steering it.
 
-This post documents the starting point: the idea, the plan, the hardware decisions, and how I am turning course theory into something that actually moves.
+This post documents the starting point in the same spirit as my drone build: what I am trying to build, what I am buying, what I am optimizing for (and what I am not), and how I plan to bring it up step by step until it can drive on its own.
 
 ## The Idea
 
@@ -52,35 +51,24 @@ The approach is deliberately incremental.
 
 I am not starting with autonomy. I am starting with basics.
 
-1. **Mechanical foundation**  
-   Build a stable chassis with working motors and steering.
+The layers look like this:
 
-2. **Manual control**  
-   Make sure the car can drive reliably under direct control. If the base platform is unstable, no algorithm will save it.
+1. Mechanical foundation (chassis, wheels, steering)
+2. Manual control (drive it reliably under direct control)
+3. Sensor integration (read, log, and understand the noise)
+4. State estimation (odometry, IMU, simple fusion)
+5. Simple autonomy (don't hit things, then basic navigation)
 
-3. **Sensor integration**  
-   Read and log sensor data. Understand the noise characteristics before trying to filter anything.
-
-4. **State estimation**  
-   Implement velocity estimation, orientation tracking, and basic sensor fusion.
-
-5. **Simple autonomy**  
-   Add obstacle detection and eventually basic navigation.
-
-The idea is to build layers:
-
-mechanics → control → sensing → estimation → decision-making
-
-Each layer should work on its own before adding the next.
+The point is to avoid the classic trap of trying to debug five problems at once. If the car cannot drive straight under manual control, it has no business running a filter.
 
 
-## Finding a Good Basis for the Chassis
+## 3D Printing the Chassis
 
 This time, I was sure about one thing from the beginning: I wanted to print the chassis myself.
 
 After printing a drone frame and seeing how satisfying it was to understand the mechanical structure from the ground up, buying a fully assembled RC car felt like skipping part of the fun.
 
-In theory, this sounded simple. In practice, it wasn’t.
+In theory, this sounded simple. In practice, it wasn't.
 
 Finding a printable chassis that is:
 
@@ -95,23 +83,23 @@ There are plenty of impressive 3D printed RC car models out there. Many of them 
 - designed for very specific components
 - or so complex that the mechanical build becomes its own multi-week project  
 
-For this project, I don’t need perfection. I need something good enough to start iterating.
+For this project, I don't need perfection. I need something good enough to start iterating.
 
-For now, I decided to use the following model as a basis and see how far it gets me:
+For now, I decided to use this model as a basis and see how far it gets me:
 
-https://www.printables.com/model/415497-3d-printed-rc-car/files
+[3D Printed RC Car (Printables)](https://www.printables.com/model/415497-3d-printed-rc-car/files)
 
-It’s simple, modular, and designed around common components and offers enough space for my electronics. More importantly, it gives me a starting point without forcing me to design suspension geometry from scratch.
+It's simple, modular, and designed around common components and offers enough space for my electronics. More importantly, it gives me a starting point without forcing me to design suspension geometry from scratch.
 
 I fully expect to modify it.
 
-Printing a chassis is not about getting it right on the first try. It’s about having a mechanical foundation that I can adjust once I understand the constraints better.
+Printing a chassis is not about getting it right on the first try. It's about having a mechanical foundation that I can adjust once I understand the constraints better.
 
-Just like with the drone frame, the point is not that it’s optimal.
+Just like with the drone frame, the point is not that it's optimal.
 
-The point is that it’s mine.
+The point is that it's mine.
 
-## Hardware & Parts
+## Choosing the Components
 
 For this build, I am keeping things modular and affordable. The goal is not performance. It is flexibility.
 
@@ -172,6 +160,18 @@ It gives me:
 
 That is enough to start.
 
+And just like with the drone build, there is a quiet part nobody advertises: wiring, connectors, mounting, power distribution, and the small tooling decisions that determine whether bring-up is smooth or miserable.
+
+So I am treating the first phase like a hardware debugging loop: build one subsystem, test it, then add the next.
+
+## Assembly & Bring-Up
+
+The first milestone is intentionally boring: the car should drive forward and steer under manual control without brownouts, random resets, or "it only works when I hold the wires like this" behavior.
+
+Only after that works, I want the next milestone: sensor logging in a format I can plot and inspect, before I try to filter anything.
+
+If you have done hardware projects before, you already know the rule: the fastest way to get to autonomy is to be stubbornly incremental.
+
 ## From Algorithms to Reality
 
 The interesting part begins once the car can move and the sensors produce usable data.
@@ -181,7 +181,7 @@ This is where the robotics concepts from the course come in.
 Kalman filters are elegant on paper. Particle filters look beautiful in diagrams. But their real value shows up when the first data comes in and you see if you can actually estimate velocity, orientation, and position in a way that is stable enough to drive.
 
 
-## Final Thoughts
+## Final Thoughts and Next Steps
 
 I probably did not need another side project.
 
@@ -197,4 +197,9 @@ Both outcomes are acceptable.
 
 This is the starting point.
 
-Now it is time to build.
+My next steps are practical:
+
+- Print the chassis and assemble the mechanical platform.
+- Bring up manual driving and steering.
+- Add sensor logging (IMU, wheel speed, distance sensors).
+- Start with the simplest possible state estimation and iterate from there.

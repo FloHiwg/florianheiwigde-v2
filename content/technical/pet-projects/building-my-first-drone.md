@@ -1,199 +1,108 @@
 ---
 title: "Building My First DIY Drone: From 3D Printing to First Flight"
 date: 2025-12-28
-description: "How I built my first DIY drone from scratch using 3D printing, off-the-shelf electronics, Betaflight, and a lot of soldering, debugging, and trial and error."
+description: "A practical walkthrough of printing a frame, choosing parts, wiring a SpeedyBee stack with ELRS, configuring Betaflight, and getting a first hover, plus the mistakes I made so you don’t have to."
 ---
 
 ## Introduction
 
-Last year, I fell down the rabbit hole of 3D printing.
+I got into 3D printing the normal way. I downloaded models, printed them, tweaked settings, and slowly turned my beginner printer into something reliable. At some point, the printer stopped being the project. I started looking for projects that needed a printer, things that were more than decorative plastic.
 
-In the beginning, I was pretty satisfied with just downloading models and printing them. Especially with my beginner printer, there was already enough to fiddle around with and optimize on the machine itself.
+That is where the "functional builds" rabbit hole begins. You watch one video of someone printing parts that become a real machine, and suddenly you are thinking about frames, tolerances, and whether you can turn a pile of components into something that actually moves.
 
-But after I had sorted that out, I went down an even deeper rabbit hole: people on YouTube building actual machines and gadgets like drones with their printers. And since I’ve always loved building stuff, I thought that nowadays I don’t have to disassemble old electronic hardware to collect motors, LEDs, and boards anymore. I can just order what I need on AliExpress and see if this is still as fun as I remember.
+For me, the tipping point was a build video by Michael Rechtin, specifically this one:  
+[https://www.youtube.com/watch?v=h6chNEaXb-o](https://www.youtube.com/watch?v=h6chNEaXb-o)
 
-I got the final kick-off by watching some videos from a guy called [Michael Rechtin](https://www.youtube.com/@michaelrechtin) on YouTube, who seems to be living the dream. One of the videos was this one:  
-https://www.youtube.com/watch?v=h6chNEaXb-o
+My immediate reaction was not "I know how to do that." It was more like: I don't fully understand how this works yet, which probably means I should try it.
 
-And I immediately thought:
-
-> "Okay… I need to try this."
-
-This post is a walkthrough of that journey — starting with printing the frame, ordering parts, soldering everything together, and finally getting the thing into the air.
-
-It’s part story, part guide (pointing out the traps I walked into), and hopefully useful if you’re thinking about building one yourself.
+This post documents the process in a way that is meant to be honest and useful: what I built, what I bought, what I wired wrong, and what finally got the drone into the air.
 
 ## 3D Printing the Frame
 
-The first step was the body.
+The first decision was also the one that most drone people will warn you about. I printed the frame.
 
-Instead of buying a pre-made kit, I wanted to print the frame myself, just like the guy in the video. Even though five minutes of drone research tells you that everyone discourages doing this… I still went for it. Mostly because:
+A printed frame is usually worse than carbon fiber. It is less stiff, it can flex in ways that mess with flight behavior, and it is not exactly famous for surviving crashes. But I still went for it because printing the frame was the point of the project for me. I wanted something I could iterate on cheaply, customize, and understand from the ground up, even if it was not the optimal choice.
 
-- it’s cheaper  
-- it’s customizable  
-- and I got into this hobby because of the printer, so why not  
-
-Thankfully, the guy in the video shared his models. So I grabbed those and started with the bare minimum: the center part and the arms.
+Luckily, the designer from the video shared the models, so I did not start from scratch. I kept it simple at first and printed only the essentials: the center body and the arms.
 
 Model:  
-https://makerworld.com/en/models/236234-100mph-fpv-race-quad#profileId-269467
+[https://makerworld.com/en/models/236234-100mph-fpv-race-quad#profileId-269467](https://makerworld.com/en/models/236234-100mph-fpv-race-quad#profileId-269467)
 
-After a few failed prints and some tweaking, I finally had a full frame ready on my desk.
-
-Holding it in my hands for the first time felt surprisingly satisfying. Like: *okay, this might actually work.*
-
-
+It took a few failed prints and some tuning, but eventually I had a complete frame sitting on my desk. Holding it in my hands flipped the whole thing from "YouTube inspiration" into "okay, this is now a real object with real constraints."
 
 ## Choosing the Components
 
-Next step: electronics and parts.
+Once the frame was done, the next step was electronics. That is where you can easily lose a weekend just reading opinions.
 
-And oh boy — this is a rabbit hole on its own. People discuss endlessly what to buy, what not to buy, where to save money, and where not to.
+There are endless discussions about what to buy, what to avoid, where you can save money, and where you absolutely should not. Since this was my first build and I wanted to keep the cost and complexity reasonable, I made one big simplifying choice: no video system for now. My only goal was "get it flying." Everything else could come later.
 
-Since it’s my first drone and I don’t have much experience, I just wanted something simple that I could start with without spending too much money. That’s why I skipped the video module and focused only on what’s necessary to get the thing flying.
+Here is what I ended up using:
+- ELRS receiver: ELRS NANO RX24 2.4G
+- Flight controller + ESC stack: SpeedyBee F405 V4
+- Motors: Axisflying AE2207
+- Propellers: HQProp 5 Sets EthiX
+- Battery: Tattu 1300mAh 4S 75C
+- LiPo charger
+- Remote control: Radiomaster Pocket ELRS
+- Batteries for the remote, depending on the bundle
 
-### Parts List
-
-Here’s what I got:
-
-- ELRS receiver: [ELRS NANO RX24 2.4G](https://amzn.to/4qhBaei)
-- Flight computer + ECS: [SpeedyBee F405 V4](https://amzn.to/4cdxWVs)
-- Motors: [Axisflying AE2207](https://amzn.to/4qUZy6j)
-- Propellers: [HQProp 5 Sets EthiX](https://amzn.to/4afBqUZ)
-- Battery: [Tattu 1300mAh 4S 75C Lipo Battery Pack](https://amzn.to/4tgmZIT)
-- LiPo Charger
-- Remote control: [Radiomaster Pocket ELRS Remote](https://amzn.to/4rvHa3X)
-- Batteries for remote control (if not included)
-
-### Tools
-
-And of course, this was the perfect excuse to buy some nice new tools: a soldering iron, a mat to protect my desk, flux pens to prepare the pads, a helping hand, etc.
-
-At some point my wife got a bit skeptical since I received a package from AliExpress almost every day.
-
+And then there is the quiet part nobody tells you about: tools and small stuff. A soldering iron, a heat-resistant mat, flux pens, a helping hand tool, wire management bits. Those purchases add up, and they arrive in a steady stream. At some point my wife started getting suspicious because it felt like AliExpress was delivering a daily reminder of my life choices.
 
 ## Assembly & Soldering
 
-This was the most “engineering” part of the project, and it was a lot of fun. But it wasn’t as easy as expected to find good tutorials. So I mostly rewatched videos of people assembling the same flight controller I had and tried to follow their steps.
+This was the most "engineering-shaped" part of the whole project. You start with a pile of parts and try to turn it into a system.
 
-Even though I was sure I followed the manual, I mixed up the cables when connecting the ELRS receiver to the flight controller. Here, **R needs to go to T and T needs to go to R**.
+I expected soldering to be hard, but I did not expect tutorials to be hard. There are lots of drone build videos, but fewer clear, follow-along guides for your exact flight controller and receiver combo. So I ended up pausing, rewinding, comparing against the manual, and trying to figure out whether I was about to solder something permanently wrong.
 
-So yeah, in summary, it was pretty much a lot of this:
+And I still made the classic mistake: I mixed up TX and RX when connecting the ELRS receiver to the flight controller.
 
-- soldering  
-- testing  
-- unplugging  
-- resoldering  
-- questioning life choices  
+The rule that finally stuck in my head is simple: output goes to input. TX is output and RX is input, so they need to cross.
 
-### Steps I followed
+That means your receiver wiring typically looks like this:
+- 5V (RX) to 5V (FC)
+- GND (RX) to GND (FC)
+- TX (RX) to RX (FC), cross them
+- RX (RX) to TX (FC), cross them
 
-1. Mount motors to the frame  
-2. Solder the DC cables to the ESC module of the flight controller (by far the hardest part — took me 2–3 attempts as a soldering beginner)  
-3. Attach ESCs to the main body, but don’t screw everything down yet  
-4. Route the cables through the arms and solder the motors to the ESCs  
-5. Connect ESCs with the FC and test everything (via Bluetooth or cable)  
-6. Add the ELRS receiver and solder it to the FC  
+If you use pads T6 and R6 on the SpeedyBee board, you are using UART 6, which matters later in Betaflight.
 
-The most common mistake here is incorrect wiring. Remember the rule: **Output goes to Input**.
+The overall assembly process was straightforward, but not fast. I mounted the motors, soldered the battery leads to the ESC, routed and soldered the motor wires, connected ESC to FC, and then did the first bring-up tests before tidying everything.
 
-- **5V (RX)** → **5V (FC)**  
-- **GND (RX)** → **GND (FC)**  
-- **TX (RX)** → **RX (FC)** *(cross them!)*  
-- **RX (RX)** → **TX (FC)** *(cross them!)*  
-- *Note: If you use pads T6/R6, you are using UART 6.*
+What surprised me is how repetitive the workflow is in a good way. Solder a bit, test a bit, realize something is wrong, undo it, redo it, test again. It feels chaotic while you are in it, but it is actually a normal debugging loop, just with hardware instead of code.
 
-7. Clean up wiring so nothing interferes with the props  
-
-If you’ve never soldered before: practice first.  
-I bought a small practice board and was still 50/50 on whether my joints looked okay-ish or terrible.
-
-Cable management also matters more than you think — loose wires + spinning props = bad day (and weird noises).
-
-
+Cable management also matters more than it looks like it should. Loose wires and spinning props are a terrible combination, and they usually announce themselves with a weird noise right before they become a real problem.
 
 ## Binding the Controller & First Setup
 
-Once the hardware was done, it was time for software. I connected the FC to my computer and went to https://app.betaflight.com/, where I was able to connect to the board.
+Once the hardware was assembled, the next question was simple: is it alive?
 
-Eventually:
+I connected the flight controller to my computer and opened the Betaflight configurator at [https://app.betaflight.com/](https://app.betaflight.com/). After some basic checks, I hit the first satisfying milestone. The motors spun in the configurator, stick inputs showed up correctly, and nothing got hot or smoky.
 
-- motors spun  
-- controls responded  
-- nothing smoked  
+From there, the next step was making sure Betaflight knew where my receiver was connected. In the Ports tab, I enabled Serial RX on the UART I had soldered to, which was UART 6 in my case, saved, and rebooted. Then, in the Receiver tab, I set the receiver mode to Serial via UART and chose CRSF as the protocol, since ELRS uses Crossfire.
 
-Success ✅
+Binding was easier than I expected once I used the WiFi method. I powered on the drone, waited until the receiver entered WiFi mode, connected to its network, opened the configuration page at 10.0.0.1, and set a binding phrase. Then I did the same on the radio with the same phrase and the same spelling. Once that matched, the receiver LED went solid, which is the kind of small win that feels huge when you have been debugging wires.
 
-Next step was connecting the controller to the FC. Here’s a quick walkthrough on getting your drone in the air with the SpeedyBee stack and ELRS.
-
-### Betaflight configuration
-
-**Ports Tab:**  
-Find the UART you soldered to (e.g., UART 6). Enable **Serial Rx**. Save & Reboot.
-
-**Receiver Tab:**
-
-- Receiver Mode: **Serial (via UART)**  
-- Provider: **CRSF** (ELRS uses the Crossfire protocol)
-
-### Binding (WiFi method)
-
-The easiest way to bind without button-mashing:
-
-1. **Receiver:** Power on the drone, wait 60s until the LED blinks fast. Connect to WiFi network `ExpressLRS RX` (PW: `expresslrs`). Open `10.0.0.1` in your browser and set a custom **Binding Phrase**.  
-2. **Radio:** Open the ExpressLRS Lua Script → WiFi Connectivity → Enable. Connect to the radio WiFi. Go to `10.0.0.1` and enter the **exact same Binding Phrase**.  
-3. **Result:** The LED on the receiver should turn solid blue.
-
-The last step is arming — and this sounds as dangerous as it is. Be careful with the props.
-
-- **Channel Map:** Ensure sticks move the correct bars. If mixed up, use **AETR1234**  
-- **Modes:** Assign **ARM** to an AUX switch  
-- **Props:** Mount correctly (text facing up) and match the Betaflight diagram  
-
-You can also check the setup page in Betaflight for any arming flags if the motors don’t spin.
-
+The last step before flight is arming, and that is where things stop being theoretical. I mapped ARM to a switch, double-checked that the channel mapping made sense, and made sure the props were mounted correctly. If anything feels weird, do not "just try it." Check the arming flags in Betaflight first, because they usually tell you exactly what is wrong.
 
 ## First Flight
 
-The first takeoff was… terrifying.  
-And yes... I did it inside my apartment, which was definitely not the best idea. It’s loud, and it can get dangerous really fast if something goes wrong.
+The first takeoff was not calm.
 
-But it was minus 10°C outside, so I didn’t have many options.
+I did it indoors in my apartment, which is objectively not a great idea. It is loud, it is risky, and if something is misconfigured, it can go from "cool hover" to "expensive chaos" in seconds. But it was around -10°C outside, so I made a questionable trade-off.
 
-I triple-checked everything, placed it on the ground, armed the motors, and slowly increased the throttle.
+I triple-checked what I could, placed it on the floor, armed the motors, and slowly increased throttle.
 
 It lifted.
 
-It had a slight tilt to the front (something I still need to fix with proper feet), but it lifted.
+It also had a slight tilt forward, and it drifted sideways into a drying rack I had set up as a "safety fence." Not exactly a cinematic first flight, but it hovered. A pile of plastic and components that had been spread across my desk a few weeks earlier was now holding itself in the air, built by me, running code I configured, responding to controls I set up.
 
-Then it just hovered there… before slowly drifting sideways into the drying rack that I had set up as a “safety fence.”
-
-But not going to lie - that moment still felt *awesome*.
-
-Something that had just been a pile of plastic and parts a few weeks ago was suddenly flying.
-
-Built by me.
+That moment is the payoff.
 
 
 ## Final Thoughts and Next Steps
 
-I have tons of pet projects, so I’m not sure how far I’ll take this one. But building this drone was one of the most satisfying side projects I’ve done in a while.
+This build was one of the most satisfying side projects I have done in a while, because it sits right at the intersection of everything I enjoy: 3D printing, hardware assembly, electronics, software configuration, and a manageable amount of chaos.
 
-It combines:
+If you are on the fence about building a drone, I would recommend trying it. The worst case is that you learn a lot faster than you would by only consuming tutorials. The best case is that you end up with something that flies, sometimes slightly tilted toward a drying rack, but still flying.
 
-- hardware  
-- software  
-- 3D printing  
-- electronics  
-- and a bit of chaos  
-
-Basically everything I love about engineering.
-
-If you’re on the fence: just try it.
-
-Worst case, you learn a ton.  
-Best case, you build something that flies.
-
-Both are pretty great outcomes.
-
-I’m still debating whether a camera setup is worth the extra cost. Next, I might experiment with a self-driving car project and maybe come back to this afterward.
+My next steps are practical. Fix the tilt, get more controlled flight time, and build confidence outdoors once the weather is less hostile. After that, I will decide whether adding a camera and video system is worth the extra cost and complexity. I am also tempted to pivot to a self-driving car project for a bit and come back to FPV later, because apparently I like hobbies that involve soldering and mild danger.

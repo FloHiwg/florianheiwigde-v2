@@ -20,13 +20,13 @@
 
       <nav class="footer-nav">
         {{ with .Site.GetPage "/resume" }}
-        <a href="{{ .Permalink }}">Resume</a>
+        <a href="{{ .RelPermalink }}">Resume</a>
         {{ end }}
         {{ with .Site.GetPage "/services" }}
-        <a href="{{ .Permalink }}">Services</a>
+        <a href="{{ .RelPermalink }}">Services</a>
         {{ end }}
-        <a href="{{ .Site.BaseURL }}technical/">Blog</a>
-        <a href="{{ .Site.BaseURL }}imprint/">Imprint</a>
+        <a href="{{ "technical/" | relURL }}">Blog</a>
+        <a href="{{ "imprint/" | relURL }}">Imprint</a>
       </nav>
     </div>
 

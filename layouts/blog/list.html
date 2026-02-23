@@ -21,7 +21,7 @@
                 <section class="mb-16">
                     <div class="services-grid">
                         {{ range where .Site.Sections "Section" "in" (slice "projects" "work" "private") }}
-                        <a href="{{ .Permalink }}" class="service-card" style="text-decoration: none; display: block;">
+                        <a href="{{ .RelPermalink }}" class="service-card" style="text-decoration: none; display: block;">
                             <svg class="service-card-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round">

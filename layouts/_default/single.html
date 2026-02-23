@@ -13,13 +13,13 @@
       <div class="blog-post-layout">
         <div class="blog-post-main">
           <nav class="breadcrumb">
-            <a href="{{ .Site.BaseURL }}">Home</a>
+            <a href="{{ "/" | relURL }}">Home</a>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
               stroke-linecap="round" stroke-linejoin="round">
               <polyline points="9 18 15 12 9 6"></polyline>
             </svg>
             {{ with .CurrentSection }}
-            <a href="{{ .Permalink }}">{{ .Title }}</a>
+            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
             {{ end }}
           </nav>
           <header class="blog-post-header">
@@ -61,7 +61,7 @@
 
           <div class="divider"></div>
 
-          <a href="{{ .Site.BaseURL }}" class="back-link">
+          <a href="{{ "/" | relURL }}" class="back-link">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="19" y1="12" x2="5" y2="12"></line>

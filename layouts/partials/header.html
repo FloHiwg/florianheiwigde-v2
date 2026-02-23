@@ -1,6 +1,6 @@
 <header class="header">
   <div class="container header-inner">
-    <a href="{{ .Site.BaseURL }}" class="logo">
+    <a href="{{ "/" | relURL }}" class="logo">
       <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <polyline points="4 17 10 11 4 5"></polyline>
@@ -13,14 +13,14 @@
 
     <!-- Desktop Navigation -->
     <nav class="nav-desktop">
-      <a href="{{ .Site.BaseURL }}" class="nav-link{{ if .IsHome }} active{{ end }}">Home</a>
+      <a href="{{ "/" | relURL }}" class="nav-link{{ if .IsHome }} active{{ end }}">Home</a>
       {{ with .Site.GetPage "/resume" }}
-      <a href="{{ .Permalink }}" class="nav-link{{ if eq $.RelPermalink .RelPermalink }} active{{ end }}">Resume</a>
+      <a href="{{ .RelPermalink }}" class="nav-link{{ if eq $.RelPermalink .RelPermalink }} active{{ end }}">Resume</a>
       {{ end }}
       {{ with .Site.GetPage "/services" }}
-      <a href="{{ .Permalink }}" class="nav-link{{ if eq $.RelPermalink .RelPermalink }} active{{ end }}">Services</a>
+      <a href="{{ .RelPermalink }}" class="nav-link{{ if eq $.RelPermalink .RelPermalink }} active{{ end }}">Services</a>
       {{ end }}
-      <a href="{{ .Site.BaseURL }}blog/" class="nav-link{{ if eq .CurrentSection.Type " blog" }} active{{ end
+      <a href="{{ "blog/" | relURL }}" class="nav-link{{ if eq .CurrentSection.Type " blog" }} active{{ end
         }}">Blog</a>
       <button class="theme-toggle" aria-label="Toggle theme">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -52,16 +52,16 @@
   <!-- Mobile Navigation Menu -->
   <nav class="nav-mobile">
     <div class="nav-mobile-inner">
-      <a href="{{ .Site.BaseURL }}" class="nav-mobile-link{{ if .IsHome }} active{{ end }}">Home</a>
+      <a href="{{ "/" | relURL }}" class="nav-mobile-link{{ if .IsHome }} active{{ end }}">Home</a>
       {{ with .Site.GetPage "/resume" }}
-      <a href="{{ .Permalink }}"
+      <a href="{{ .RelPermalink }}"
         class="nav-mobile-link{{ if eq $.RelPermalink .RelPermalink }} active{{ end }}">Resume</a>
       {{ end }}
       {{ with .Site.GetPage "/services" }}
-      <a href="{{ .Permalink }}"
+      <a href="{{ .RelPermalink }}"
         class="nav-mobile-link{{ if eq $.RelPermalink .RelPermalink }} active{{ end }}">Services</a>
       {{ end }}
-      <a href="{{ .Site.BaseURL }}blog/" class="nav-mobile-link{{ if eq .CurrentSection.Type " blog" }} active{{ end
+      <a href="{{ "blog/" | relURL }}" class="nav-mobile-link{{ if eq .CurrentSection.Type " blog" }} active{{ end
         }}">Blog</a>
     </div>
   </nav>

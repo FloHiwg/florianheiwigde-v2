@@ -25,7 +25,7 @@
           <ul class="category-list">
             {{ with .FirstSection }}
             <li class="category-item">
-              <a href="{{ .Permalink }}"
+              <a href="{{ .RelPermalink }}"
                 class="category-link{{ if eq $.CurrentSection . }} active{{ else if eq $.FirstSection . }} active{{ end }}">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -37,14 +37,14 @@
               <ul class="subcategory-list">
                 {{ range .Sections }}
                 <li>
-                  <a href="{{ .Permalink }}" class="subcategory-link{{ if eq $.CurrentSection . }} active{{ end }}">
+                  <a href="{{ .RelPermalink }}" class="subcategory-link{{ if eq $.CurrentSection . }} active{{ end }}">
                     {{ .Title }}
                   </a>
                   {{ if .Sections }}
                   <ul class="subcategory-list nested">
                     {{ range .Sections }}
                     <li>
-                      <a href="{{ .Permalink }}" class="subcategory-link{{ if eq $.CurrentSection . }} active{{ end }}">
+                      <a href="{{ .RelPermalink }}" class="subcategory-link{{ if eq $.CurrentSection . }} active{{ end }}">
                         {{ .Title }}
                       </a>
                     </li>
@@ -65,7 +65,7 @@
           {{ if $pages }}
           <div class="blog-posts-list">
             {{ range $pages.ByDate.Reverse }}
-            <a href="{{ .Permalink }}" class="blog-card">
+            <a href="{{ .RelPermalink }}" class="blog-card">
               <div class="blog-card-tags">
                 {{ with .CurrentSection }}<span class="tag">{{ .Title }}</span>{{ end }}
                 {{ with .Params.tags }}

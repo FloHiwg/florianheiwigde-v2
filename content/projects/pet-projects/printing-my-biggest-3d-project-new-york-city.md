@@ -14,6 +14,17 @@ With the Bambu Lab, things were different right away. It worked out of the box, 
 
 That change led to my biggest print so far.
 
+<div class="blog-post-image-grid">
+  <figure>
+    <img src="/images/backside.webp" alt="Backside of the New York City wall piece with reinforcement structure" />
+    <figcaption><p>Backside with the reinforcement work in progress.</p></figcaption>
+  </figure>
+  <figure>
+    <img src="/images/l_profile_2.webp" alt="L-profile reinforcement glued to the back for stiffness" />
+    <figcaption><p>L-profile reinforcement that made the board stiff enough.</p></figcaption>
+  </figure>
+</div>
+
 ## The Idea
 
 One day I came across a large New York City print and immediately liked the aesthetic.
@@ -54,3 +65,5 @@ After the final tiles were in, the result looked exactly how I hoped.
 The finished piece is very stiff, looks great on the wall, and weighs about **6 kg**.
 
 This project was a good reminder that large 3D prints are not only about printing time. A big part of the work is structural planning, mounting, and solving problems that only show up at full scale.
+
+{{< figure src="/images/finished_version.webp" alt="Finished New York City 3D print wall piece mounted and assembled" caption="The finished New York City wall piece after assembling all 28 tiles." class="blog-post-figure" >}}

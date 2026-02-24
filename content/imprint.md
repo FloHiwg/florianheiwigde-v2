@@ -6,7 +6,7 @@ layout: "imprint"
 
 ## Information pursuant to Sect. 5 German Telemedia Act (TMG)
 
-Florian Heiwig  
+Florian G. Heiwig  
 Große Hamburger Str 17  
 10115 Berlin
 
@@ -16,7 +16,7 @@ E-mail: info@heiwig.com
 
 ## Person responsible for editorial
 
-Florian Heiwig  
+Florian G. Heiwig  
 Große Hamburger Str 17  
 10115 Berlin
 

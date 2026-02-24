@@ -179,6 +179,16 @@ Later, we also generated revenue by providing leads to third parties (for exampl
 
 From a product perspective, this created a constant integration challenge: different workflows, different requirements, different handoff points. Building a system that could support that variability without collapsing into manual chaos was one of the hardest parts.
 
+Over time, we also broadened the range of services we offered. By the later stages of the company, this included claim or legal-support offerings such as:
+
+- passenger rights,
+- Ruerup cashback,
+- nursing law,
+- severance pay,
+- and termination of ordinary consumer products.
+
+This expansion reinforced the same product lesson again: once the operational core is flexible enough, new claim categories become less about rebuilding from scratch and more about adapting workflows, documents, and partner processes.
+
 ## Peak Milestone: The 2022 Mass Settlement Before Christmas
 
 The most meaningful moment of the whole journey happened in late 2022.
@@ -258,6 +268,21 @@ We built more advanced portal capabilities, including features like:
 
 These features came from the same core principle as the early product: reduce friction, increase clarity, and make complex processes feel understandable.
 
+One area I am particularly proud of was the introduction of customer-facing AI features, especially around document analysis and guidance.
+
+Instead of using AI only internally, we integrated generative AI-powered functionality directly into the customer experience. The goal was practical, not flashy: help users understand legal documents faster, reduce confusion, and guide them toward the next useful step in the process.
+
+For customers, legal paperwork is often where momentum dies. Documents are long, technical, and emotionally loaded. By adding AI-assisted analysis and explanations, we tried to lower that barrier and make the portal feel more like a guided process than a static case dashboard.
+
+At the time, this was still very early for the German market, especially in a customer-facing legal-service context. To the best of my knowledge, this was one of the first customer-facing generative AI-powered features in this space in Germany.
+
+That mattered to me for two reasons:
+
+- It created real user value in a high-friction moment.
+- It showed that we could adopt new technology pragmatically and ship it inside a regulated, trust-sensitive product.
+
+The important lesson was not just "AI is useful." It was that AI works best when it is embedded into a concrete workflow with a clear user job, clear boundaries, and a visible next action.
+
 {{< figure src="/images/PLACEHOLDER-fine-mature-portal.webp" alt="Mature Fine customer portal" caption="TODO: Add mature portal overview screenshot and caption." class="blog-post-figure" >}}
 
 {{< figure src="/images/PLACEHOLDER-fine-ai-doc-analysis.webp" alt="AI-based document analysis in the portal" caption="TODO: Add AI document analysis screenshot and caption (problem solved + user value)." class="blog-post-figure" >}}
@@ -294,5 +319,15 @@ It forced me to work across product, engineering, operations, growth, and partne
 I am proud of what we built, especially the periods where the product actually helped people get money back and feel that they had been treated fairly.
 
 And I am equally glad to document it honestly, including the parts that got harder later.
+
+## Thank You
+
+This company was never a solo effort.
+
+I am deeply thankful to the team members, partners, and everyone who supported us over the years and throughout the whole journey.
+
+Building in a complex market with real customer impact required trust, resilience, and a lot of effort from many people behind the scenes. I learned a lot from working with you.
+
+I also want to thank my wife for her support, patience, and encouragement throughout the ups and downs of building the company.
 
 If you are reading this because you are evaluating my background for a product or technical role, this is the kind of work I enjoy most: building end-to-end systems in messy domains, turning ambiguity into workflows, and improving outcomes for real users under real constraints.

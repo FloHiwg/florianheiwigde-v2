@@ -1,9 +1,9 @@
 baseURL = 'https://florianheiwig.de/'
 languageCode = 'en-us'
-title = 'Florian Heiwig'
+title = 'Florian G. Heiwig'
 relativeURLs = true
 uglyURLs = false
 
 [params]
   description = "Berlin-based product professional, software developer, and entrepreneur."
-  author = "Florian Heiwig"
+  author = "Florian G. Heiwig"

@@ -58,10 +58,78 @@ function initMobileMenu() {
   });
 }
 
+function initArticleImageViewer() {
+  const images = document.querySelectorAll('.blog-post-content img');
+  if (!images.length) {
+    return;
+  }
+
+  const overlay = document.createElement('div');
+  overlay.setAttribute('aria-hidden', 'true');
+  overlay.style.cssText = [
+    'position:fixed',
+    'inset:0',
+    'display:none',
+    'align-items:center',
+    'justify-content:center',
+    'padding:24px',
+    'background:rgba(0,0,0,0.9)',
+    'z-index:9999',
+    'cursor:zoom-out'
+  ].join(';');
+
+  const fullImage = document.createElement('img');
+  fullImage.alt = '';
+  fullImage.style.cssText = [
+    'max-width:100%',
+    'max-height:100%',
+    'object-fit:contain',
+    'box-shadow:0 8px 30px rgba(0,0,0,0.35)'
+  ].join(';');
+
+  overlay.appendChild(fullImage);
+  document.body.appendChild(overlay);
+
+  const closeOverlay = () => {
+    overlay.style.display = 'none';
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  };
+
+  overlay.addEventListener('click', closeOverlay);
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && overlay.style.display === 'flex') {
+      closeOverlay();
+    }
+  });
+
+  images.forEach((img) => {
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', (event) => {
+      const anchor = img.closest('a');
+      if (anchor) {
+        event.preventDefault();
+      }
+
+      const src = img.currentSrc || img.src;
+      if (!src) {
+        return;
+      }
+
+      fullImage.src = src;
+      fullImage.alt = img.alt || '';
+      overlay.style.display = 'flex';
+      overlay.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+}
+
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
   initMobileMenu();
+  initArticleImageViewer();
 
   // Theme toggle event listeners
   document.querySelectorAll('.theme-toggle').forEach(btn => {
@@ -73,4 +141,5 @@ document.addEventListener('DOMContentLoaded', () => {
   if (yearEl) {
     yearEl.textContent = new Date().getFullYear();
   }
+
 });

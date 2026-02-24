@@ -15,7 +15,7 @@
       <div class="footer-social">
         <a href="https://github.com/florianheiwig" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a href="https://linkedin.com/in/florianheiwig" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="mailto:hello@florianheiwig.de">Email</a>
+        <a href="mailto:hello@heiwig.com">Email</a>
       </div>
 
       <nav class="footer-nav">
@@ -34,16 +34,4 @@
   </div>
 </footer>
 
-{{ $prefix := "" }}
-{{ if not .IsHome }}
-{{ $basePath := strings.TrimSuffix "/" (urls.Parse .Site.BaseURL).Path }}
-{{ $fullPath := strings.TrimSuffix "/" (urls.Parse .Permalink).Path }}
-{{ $path := strings.TrimPrefix $basePath $fullPath }}
-{{ $path = strings.TrimPrefix "/" $path }}
-{{ $path = strings.TrimSuffix "/" $path }}
-{{ if $path }}
-{{ $depth := len (split $path "/") }}
-{{ $prefix = strings.Repeat $depth "../" }}
-{{ end }}
-{{ end }}
-<script src="{{ $prefix }}js/main.js"></script>
+<script src="{{ "js/main.js" | relURL }}"></script>

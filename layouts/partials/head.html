@@ -12,17 +12,5 @@
 <meta name="twitter:title" content="{{ if .IsHome }}{{ .Site.Title }} - Product & Code{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}">
 <meta name="twitter:description" content="Berlin-based product professional, software developer, and entrepreneur.">
 
-{{ $prefix := "" }}
-{{ if not .IsHome }}
-  {{ $basePath := strings.TrimSuffix "/" (urls.Parse .Site.BaseURL).Path }}
-  {{ $fullPath := strings.TrimSuffix "/" (urls.Parse .Permalink).Path }}
-  {{ $path := strings.TrimPrefix $basePath $fullPath }}
-  {{ $path = strings.TrimPrefix "/" $path }}
-  {{ $path = strings.TrimSuffix "/" $path }}
-  {{ if $path }}
-    {{ $depth := len (split $path "/") }}
-    {{ $prefix = strings.Repeat $depth "../" }}
-  {{ end }}
-{{ end }}
-<link rel="icon" href="{{ $prefix }}favicon.ico">
-<link rel="stylesheet" href="{{ $prefix }}css/styles.css">
+<link rel="icon" href="{{ "favicon.ico" | relURL }}">
+<link rel="stylesheet" href="{{ "css/styles.css" | relURL }}">

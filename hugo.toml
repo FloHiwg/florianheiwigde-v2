@@ -1,4 +1,4 @@
-baseURL = 'https://florianheiwig.de/'
+baseURL = '/'
 languageCode = 'en-us'
 title = 'Florian G. Heiwig'
 relativeURLs = true

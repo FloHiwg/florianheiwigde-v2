@@ -88,7 +88,7 @@ The last step before flight is arming, and that is where things stop being theor
 
 ## First Flight
 
-{{< figure src="/images/drone-build.webp" alt="Final assembled drone build on the desk" caption="The final drone build after assembly and wiring." class="blog-post-figure" >}}
+{{< figure src="/images/diy-drone-build-final-assembly-desk.webp" alt="Final assembled drone build on the desk" caption="The final drone build after assembly and wiring." class="blog-post-figure" >}}
 
 The first takeoff was not calm.
 

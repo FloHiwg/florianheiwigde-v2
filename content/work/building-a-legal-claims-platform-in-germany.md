@@ -14,7 +14,7 @@ Take a process that feels intimidating, slow, and legal-heavy, and turn it into 
 
 In practice, that meant building much more than a website. We built landing pages, intake flows, internal tooling, customer portals, document generation, case tracking, and a messy-but-effective operational engine behind it all.
 
-This post is not a sales story. The company was sold in 2024 and is winding down in 2026. I am writing this as an honest build log and portfolio artifact: what we built, how we grew, what worked, what broke, and what I learned about product, operations, and regulated markets.
+This post is not a sales story. The company was sold in 2024. I am writing this as an honest build log and portfolio artifact: what we built, how we grew, what worked, what broke, and what I learned about product, operations, and regulated markets.
 
 ## The Starting Point: A Real Problem, Bad UX, and a Timing Window
 
@@ -104,7 +104,7 @@ Before that, we had mostly used cheap Webflow templates and case-specific domain
 
 That sounds like a small change, but it mattered. It was the point where the project started to feel less like a set of experiments and more like an actual company with a recognizable identity.
 
-{{< figure src="/images/Evolution.webp" alt="Early evolution of the Fine Legal website and platform" caption="Early evolution of our website and platform: from case-specific landing pages and simple flows to a more cohesive product and customer portal experience." class="blog-post-figure" >}}
+{{< figure src="/images/fine-legal-platform-evolution-2021-2023.webp" alt="Early evolution of the Fine Legal website and platform" caption="Early evolution of our website and platform: from case-specific landing pages and simple flows to a more cohesive product and customer portal experience." class="blog-post-figure" >}}
 
 ## Phase 2: From Service to Platform
 
@@ -219,11 +219,11 @@ This was one of the hardest lessons in the entire company:
 
 In some categories, legal enforceability is not a backend detail. It is a core product dependency.
 
-## Exit and Wind-Down
+## Exit and Market Shift
 
 We sold the company in 2024.
 
-By 2026, the business is winding down as the market conditions and enforcement dynamics changed significantly from the window where we had our strongest traction.
+After the sale, the market conditions and enforcement dynamics had changed significantly from the window where we had our strongest traction.
 
 I am including this part because it matters.
 
@@ -281,9 +281,9 @@ That mattered to me for two reasons:
 
 The important lesson was not just "AI is useful." It was that AI works best when it is embedded into a concrete workflow with a clear user job, clear boundaries, and a visible next action.
 
-{{< figure src="/images/LPs.webp" alt="Landing pages used across claim categories" caption="A showcase of landing pages across different claim categories. These pages were a core part of our product system because they combined education, trust-building, and conversion for high-intent users." class="blog-post-figure" >}}
+{{< figure src="/images/fine-legal-landing-pages-portfolio.webp" alt="Landing pages used across claim categories" caption="A showcase of landing pages across different claim categories. These pages were a core part of our product system because they combined education, trust-building, and conversion for high-intent users." class="blog-post-figure" >}}
 
-{{< figure src="/images/Final.webp" alt="Final showcase of the Fine Legal platform" caption="Final showcase of the platform: a more mature customer experience built from years of iterating on intake, case workflows, transparency, and guidance." class="blog-post-figure" >}}
+{{< figure src="/images/fine-legal-platform-final-showcase.webp" alt="Final showcase of the Fine Legal platform" caption="Final showcase of the platform: a more mature customer experience built from years of iterating on intake, case workflows, transparency, and guidance." class="blog-post-figure" >}}
 
 ## Hard Lessons (That Still Apply Outside Legal Tech)
 
@@ -326,4 +326,4 @@ I also want to thank my wife for her support, patience, and encouragement throug
 
 If you are reading this because you are evaluating my background for a product or technical role, this is the kind of work I enjoy most: building end-to-end systems in messy domains, turning ambiguity into workflows, and improving outcomes for real users under real constraints.
 
-{{< figure src="/images/AI_Features.webp" alt="Customer-facing AI features in the Fine Legal portal" caption="One of our early customer-facing generative AI-powered features in the German market: AI-assisted document analysis and guidance inside the customer portal." class="blog-post-figure" >}}
+{{< figure src="/images/fine-legal-customer-facing-ai-features.webp" alt="Customer-facing AI features in the Fine Legal portal" caption="One of our early customer-facing generative AI-powered features in the German market: AI-assisted document analysis and guidance inside the customer portal." class="blog-post-figure" >}}

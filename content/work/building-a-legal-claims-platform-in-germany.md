@@ -104,6 +104,8 @@ Before that, we had mostly used cheap Webflow templates and case-specific domain
 
 That sounds like a small change, but it mattered. It was the point where the project started to feel less like a set of experiments and more like an actual company with a recognizable identity.
 
+{{< figure src="/images/Evolution.webp" alt="Early evolution of the Fine Legal website and platform" caption="Early evolution of our website and platform: from case-specific landing pages and simple flows to a more cohesive product and customer portal experience." class="blog-post-figure" >}}
+
 ## Phase 2: From Service to Platform
 
 As volume increased, the constraints became obvious.
@@ -129,10 +131,6 @@ Over time, we built tooling for:
 The most important product decision was transparency.
 
 Legal processes are slow, and customers get anxious when nothing appears to happen. A customer portal with status tracking was not just a "nice feature." It was part of the core product because it reduced support load and increased trust at the same time.
-
-{{< figure src="/images/PLACEHOLDER-fine-mvp-landing.webp" alt="Early Fine landing page" caption="TODO: Add 2021 landing page screenshot and caption (goal, what changed, outcome)." class="blog-post-figure" >}}
-
-{{< figure src="/images/PLACEHOLDER-fine-early-portal.webp" alt="Early Fine customer portal" caption="TODO: Add early portal screenshot and caption (first status transparency milestone)." class="blog-post-figure" >}}
 
 ## Distribution: Why Organic Search Won
 
@@ -283,13 +281,9 @@ That mattered to me for two reasons:
 
 The important lesson was not just "AI is useful." It was that AI works best when it is embedded into a concrete workflow with a clear user job, clear boundaries, and a visible next action.
 
-{{< figure src="/images/PLACEHOLDER-fine-mature-portal.webp" alt="Mature Fine customer portal" caption="TODO: Add mature portal overview screenshot and caption." class="blog-post-figure" >}}
+{{< figure src="/images/LPs.webp" alt="Landing pages used across claim categories" caption="A showcase of landing pages across different claim categories. These pages were a core part of our product system because they combined education, trust-building, and conversion for high-intent users." class="blog-post-figure" >}}
 
-{{< figure src="/images/PLACEHOLDER-fine-ai-doc-analysis.webp" alt="AI-based document analysis in the portal" caption="TODO: Add AI document analysis screenshot and caption (problem solved + user value)." class="blog-post-figure" >}}
-
-{{< figure src="/images/PLACEHOLDER-fine-questionnaire.webp" alt="Questionnaire profiling and case suggestions" caption="TODO: Add questionnaire / case suggestion screenshot and caption." class="blog-post-figure" >}}
-
-{{< figure src="/images/PLACEHOLDER-fine-case-tracking.webp" alt="Case tracking page" caption="TODO: Add case tracking screenshot and caption (trust/transparency angle)." class="blog-post-figure" >}}
+{{< figure src="/images/Final.webp" alt="Final showcase of the Fine Legal platform" caption="Final showcase of the platform: a more mature customer experience built from years of iterating on intake, case workflows, transparency, and guidance." class="blog-post-figure" >}}
 
 ## Hard Lessons (That Still Apply Outside Legal Tech)
 
@@ -331,3 +325,5 @@ Building in a complex market with real customer impact required trust, resilienc
 I also want to thank my wife for her support, patience, and encouragement throughout the ups and downs of building the company.
 
 If you are reading this because you are evaluating my background for a product or technical role, this is the kind of work I enjoy most: building end-to-end systems in messy domains, turning ambiguity into workflows, and improving outcomes for real users under real constraints.
+
+{{< figure src="/images/AI_Features.webp" alt="Customer-facing AI features in the Fine Legal portal" caption="One of our early customer-facing generative AI-powered features in the German market: AI-assisted document analysis and guidance inside the customer portal." class="blog-post-figure" >}}

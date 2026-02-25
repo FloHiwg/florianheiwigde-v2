@@ -1,7 +1,7 @@
 ---
 title: "My OpenClaw Journey (So Far): Starting Late, Choosing a VPS, and Switching to AWS"
 date: 2026-02-25
-draft: true
+draft: false
 description: "A practical write-up of setting up OpenClaw on a low-cost AWS EC2 instance, fixing memory issues, and shaping it into an AI morning briefing workflow."
 ---
 

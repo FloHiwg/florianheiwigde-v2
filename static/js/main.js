@@ -145,6 +145,10 @@ function setCookieConsentChoice(choice) {
 }
 
 function updateAnalyticsConsent(granted) {
+  if (granted && window.__analyticsLoader && typeof window.__analyticsLoader.load === 'function') {
+    window.__analyticsLoader.load();
+  }
+
   if (typeof window.gtag === 'function') {
     window.gtag('consent', 'update', {
       analytics_storage: granted ? 'granted' : 'denied',

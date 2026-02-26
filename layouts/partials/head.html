@@ -48,23 +48,64 @@
   }
 </script>
 {{ if $ga4MeasurementID }}
-<script async src="https://www.googletagmanager.com/gtag/js?id={{ $ga4MeasurementID }}"></script>
 <script>
-  gtag('js', new Date());
-  gtag('config', '{{ $ga4MeasurementID }}');
+  window.__analyticsLoader = window.__analyticsLoader || {};
+  window.__analyticsLoader.loaded = window.__analyticsLoader.loaded || false;
+  window.__analyticsLoader.load = function () {
+    if (window.__analyticsLoader.loaded) {
+      return;
+    }
+    window.__analyticsLoader.loaded = true;
+
+    var script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://www.googletagmanager.com/gtag/js?id={{ $ga4MeasurementID }}';
+    document.head.appendChild(script);
+
+    gtag('js', new Date());
+    gtag('config', '{{ $ga4MeasurementID }}');
+  };
+
+  try {
+    if (localStorage.getItem('cookie-consent-choice') === 'accepted') {
+      window.__analyticsLoader.load();
+    }
+  } catch (e) {
+    // Ignore storage access issues.
+  }
 </script>
 {{ else }}
 <script>
-  (function (w, d, s, l, i) {
+  window.__analyticsLoader = window.__analyticsLoader || {};
+  window.__analyticsLoader.loaded = window.__analyticsLoader.loaded || false;
+  window.__analyticsLoader.load = function () {
+    if (window.__analyticsLoader.loaded) {
+      return;
+    }
+    window.__analyticsLoader.loaded = true;
+
+    var w = window;
+    var d = document;
+    var s = 'script';
+    var l = 'dataLayer';
+    var i = '{{ $gtmContainerID }}';
     w[l] = w[l] || [];
     w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-    var f = d.getElementsByTagName(s)[0],
-      j = d.createElement(s),
-      dl = l != 'dataLayer' ? '&l=' + l : '';
+    var f = d.getElementsByTagName(s)[0];
+    var j = d.createElement(s);
+    var dl = l !== 'dataLayer' ? '&l=' + l : '';
     j.async = true;
     j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
     f.parentNode.insertBefore(j, f);
-  })(window, document, 'script', 'dataLayer', '{{ $gtmContainerID }}');
+  };
+
+  try {
+    if (localStorage.getItem('cookie-consent-choice') === 'accepted') {
+      window.__analyticsLoader.load();
+    }
+  } catch (e) {
+    // Ignore storage access issues.
+  }
 </script>
 {{ end }}
 {{ end }}

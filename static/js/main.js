@@ -125,7 +125,7 @@ function initArticleImageViewer() {
   });
 }
 
-// Cookie Consent + GTM consent mode
+// Cookie Consent + Google Consent Mode
 const COOKIE_CONSENT_STORAGE_KEY = 'cookie-consent-choice';
 
 function getCookieConsentChoice() {
@@ -163,7 +163,7 @@ function updateAnalyticsConsent(granted) {
 
 function initCookieConsentBanner() {
   const banner = document.getElementById('cookie-consent-banner');
-  if (!banner || banner.dataset.gtmEnabled !== 'true') {
+  if (!banner || banner.dataset.analyticsEnabled !== 'true') {
     return;
   }
 

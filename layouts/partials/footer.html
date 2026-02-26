@@ -35,13 +35,13 @@
 </footer>
 
 {{ $gtmContainerID := .Site.Params.gtmContainerID | default "" }}
-{{ if $gtmContainerID }}
+{{ $ga4MeasurementID := .Site.Params.ga4MeasurementID | default "" }}
+{{ if or $ga4MeasurementID $gtmContainerID }}
 <div id="cookie-consent-banner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie consent"
-  aria-hidden="true" data-gtm-enabled="true" data-imprint-url="{{ "imprint/" | relURL }}">
+  aria-hidden="true" data-analytics-enabled="true" data-imprint-url="{{ "imprint/" | relURL }}">
   <div class="cookie-banner__content">
     <p class="cookie-banner__text">
-      This site uses analytics cookies (Google Analytics via Google Tag Manager) to understand usage and improve the
-      website.
+      This site uses analytics cookies (Google Analytics) to understand usage and improve the website.
       <a href="{{ "imprint/" | relURL }}">Imprint & privacy</a>
     </p>
     <div class="cookie-banner__actions">

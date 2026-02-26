@@ -1,6 +1,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 {{ $gtmContainerID := .Site.Params.gtmContainerID | default "" }}
+{{ $ga4MeasurementID := .Site.Params.ga4MeasurementID | default "" }}
+{{ $hasAnalytics := or $ga4MeasurementID $gtmContainerID }}
 <title>{{ if .IsHome }}{{ .Site.Title }} - Product & Code{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
 <meta name="description" content="Berlin-based product professional, software developer, and entrepreneur. Bridging the gap between technical development and business strategy.">
 <meta name="author" content="Florian G. Heiwig">
@@ -16,7 +18,7 @@
 <link rel="icon" href="{{ "favicon.ico" | relURL }}">
 <link rel="stylesheet" href="{{ "css/styles.css" | relURL }}">
 
-{{ if $gtmContainerID }}
+{{ if $hasAnalytics }}
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag() { dataLayer.push(arguments); }
@@ -45,6 +47,13 @@
     // Ignore storage access issues and keep default denied consent.
   }
 </script>
+{{ if $ga4MeasurementID }}
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ $ga4MeasurementID }}"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', '{{ $ga4MeasurementID }}');
+</script>
+{{ else }}
 <script>
   (function (w, d, s, l, i) {
     w[l] = w[l] || [];
@@ -57,4 +66,5 @@
     f.parentNode.insertBefore(j, f);
   })(window, document, 'script', 'dataLayer', '{{ $gtmContainerID }}');
 </script>
+{{ end }}
 {{ end }}

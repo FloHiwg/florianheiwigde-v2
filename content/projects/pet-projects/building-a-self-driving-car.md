@@ -93,6 +93,18 @@ It's simple, modular, and designed around common components and offers enough sp
 
 I fully expect to modify it.
 
+### Chassis Update
+
+That expectation turned out to be correct: the original design was a good starting point, but it was not directly usable with the TT motors I am using.
+
+Instead of forcing the hardware to fit, I started adapting the chassis.
+
+For now, I am keeping the front part of the model as-is and focusing my changes on the rear section.
+
+The rear part is now cleaned up, with a dedicated mount for the TT motors and an additional mount for the wheel speed sensors. That gives me a much better mechanical starting point for the next assembly steps while preserving the original design where it already works.
+
+{{< figure src="/images/self-driving-car-chassis-render-update.webp" alt="3D render of the adapted self-driving car chassis with cleaned rear section, TT motor mounts, and sensor mounts" caption="Current chassis CAD state: front section kept from the original model, rear section adapted with TT motor and sensor mounts." class="blog-post-figure" >}}
+
 Printing a chassis is not about getting it right on the first try. It's about having a mechanical foundation that I can adjust once I understand the constraints better.
 
 Just like with the drone frame, the point is not that it's optimal.
@@ -171,6 +183,12 @@ The first milestone is intentionally boring: the car should drive forward and st
 Only after that works, I want the next milestone: sensor logging in a format I can plot and inspect, before I try to filter anything.
 
 If you have done hardware projects before, you already know the rule: the fastest way to get to autonomy is to be stubbornly incremental.
+
+### Assembly Update
+
+The next mechanical step is to attach the encoder wheel to the TT motor so I can actually measure wheel speed. After that, I will install the steering assembly that comes with the model and test whether it works with my actuator. If that setup behaves as expected, I can move on to final assembly and wiring, then start driving the steering and motors from the ESP32.
+
+{{< figure src="/images/self-driving-car-assembly-current-state.webp" alt="Current assembly state of the self-driving car project during mechanical integration" caption="Current state of the build during assembly and bring-up, before final wiring and ESP32-controlled testing." class="blog-post-figure" >}}
 
 ## From Algorithms to Reality
 

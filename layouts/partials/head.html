@@ -1,5 +1,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{{ $gtmContainerID := .Site.Params.gtmContainerID | default "" }}
 <title>{{ if .IsHome }}{{ .Site.Title }} - Product & Code{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
 <meta name="description" content="Berlin-based product professional, software developer, and entrepreneur. Bridging the gap between technical development and business strategy.">
 <meta name="author" content="Florian G. Heiwig">
@@ -14,3 +15,46 @@
 
 <link rel="icon" href="{{ "favicon.ico" | relURL }}">
 <link rel="stylesheet" href="{{ "css/styles.css" | relURL }}">
+
+{{ if $gtmContainerID }}
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+
+  gtag('consent', 'default', {
+    analytics_storage: 'denied',
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    functionality_storage: 'granted',
+    security_storage: 'granted',
+    wait_for_update: 500
+  });
+
+  try {
+    var savedConsent = localStorage.getItem('cookie-consent-choice');
+    if (savedConsent === 'accepted') {
+      gtag('consent', 'update', {
+        analytics_storage: 'granted',
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied'
+      });
+    }
+  } catch (e) {
+    // Ignore storage access issues and keep default denied consent.
+  }
+</script>
+<script>
+  (function (w, d, s, l, i) {
+    w[l] = w[l] || [];
+    w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+    var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s),
+      dl = l != 'dataLayer' ? '&l=' + l : '';
+    j.async = true;
+    j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+    f.parentNode.insertBefore(j, f);
+  })(window, document, 'script', 'dataLayer', '{{ $gtmContainerID }}');
+</script>
+{{ end }}

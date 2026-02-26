@@ -1,3 +1,8 @@
+{{ $gtmContainerID := .Site.Params.gtmContainerID | default "" }}
+{{ if $gtmContainerID }}
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ $gtmContainerID }}" height="0" width="0"
+    style="display:none;visibility:hidden"></iframe></noscript>
+{{ end }}
 <header class="header">
   <div class="container header-inner">
     <a href="{{ "/" | relURL }}" class="logo">

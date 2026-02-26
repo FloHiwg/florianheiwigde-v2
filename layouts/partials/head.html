@@ -49,6 +49,7 @@
 </script>
 {{ if $ga4MeasurementID }}
 <script>
+  window.__ga4MeasurementID = '{{ $ga4MeasurementID }}';
   window.__analyticsLoader = window.__analyticsLoader || {};
   window.__analyticsLoader.loaded = window.__analyticsLoader.loaded || false;
   window.__analyticsLoader.load = function () {
@@ -62,6 +63,7 @@
     script.src = 'https://www.googletagmanager.com/gtag/js?id={{ $ga4MeasurementID }}';
     document.head.appendChild(script);
 
+    // Standard Google tag initialization (executed lazily after consent).
     gtag('js', new Date());
     gtag('config', '{{ $ga4MeasurementID }}');
   };

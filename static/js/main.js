@@ -144,11 +144,19 @@ function setCookieConsentChoice(choice) {
   }
 }
 
-function updateAnalyticsConsent(granted) {
-  if (granted && window.__analyticsLoader && typeof window.__analyticsLoader.load === 'function') {
-    window.__analyticsLoader.load();
+function trackCurrentPageViewAfterConsent() {
+  if (!window.__ga4MeasurementID || typeof window.gtag !== 'function') {
+    return;
   }
 
+  window.gtag('event', 'page_view', {
+    page_title: document.title,
+    page_location: window.location.href,
+    page_path: window.location.pathname + window.location.search
+  });
+}
+
+function updateAnalyticsConsent(granted) {
   if (typeof window.gtag === 'function') {
     window.gtag('consent', 'update', {
       analytics_storage: granted ? 'granted' : 'denied',
@@ -156,6 +164,10 @@ function updateAnalyticsConsent(granted) {
       ad_user_data: 'denied',
       ad_personalization: 'denied'
     });
+  }
+
+  if (granted && window.__analyticsLoader && typeof window.__analyticsLoader.load === 'function') {
+    window.__analyticsLoader.load();
   }
 
   window.dataLayer = window.dataLayer || [];
@@ -192,6 +204,9 @@ function initCookieConsentBanner() {
 
       setCookieConsentChoice(accepted ? 'accepted' : 'rejected');
       updateAnalyticsConsent(accepted);
+      if (accepted) {
+        trackCurrentPageViewAfterConsent();
+      }
 
       banner.classList.remove('is-visible');
       banner.setAttribute('aria-hidden', 'true');

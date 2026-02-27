@@ -196,6 +196,100 @@ The rough idea was:
 
 This was the first point where the project started to feel less like "server setup" and more like the actual product I want for myself.
 
+## Two Time-Based Briefing Routines
+
+After the first experiments, I split the workflow into two separate routines, each triggered on a schedule:
+
+- A morning briefing focused on AI updates
+- An evening briefing focused on a broader mix (including general news and sports)
+
+The morning briefing is AI-heavy and pulls in sources like Substack, AI news, and related updates to give me a clean "what changed since yesterday" view.
+
+The evening briefing is broader and currently covers sources like New York Times and Axios, plus NFL-related topics.
+
+This split helps me keep context relevant to the time of day instead of receiving one giant mixed summary.
+
+### Morning Briefing Prompt
+
+```md
+Paul's Daily AI Digest - Configuration
+
+Core Sources (The "Foundations")
+
+• YouTube: Matthew Berman (AI Tools), ThePrimeTimeagen (Engineering/Systems), Fireship (Rapid Tech News).
+• Newsletters/Papers: TLDR AI (Daily Skim), AlphaSignal (Weekly Research Highs), Ahead of AI-Sebastian Raschka (Deep Technical).
+• Macro/Vibe: Dwarkesh Patel (AGI/Space/Infrastructure), Y Combinator (Market Disruptions).
+• Inbox Check: Monitor AgentMail inbox ([email]) for AI/tech Substacks and newsletters (NLP Newsletter, ByteByteGo, Javarevisited, Startup Digest, etc.)
+
+Rotation Strategy ("Newcomers")
+
+• Every day, pick 2-3 new sources from:
+  • Niche Substacks (e.g., Turing Post, TheSequence, Import AI).
+  • ArXiv Sanity or Trending AI GitHub repos.
+  • Specialized podcasts (e.g., Lex Fridman AI episodes, All-In tech segments, Human in the Loop).
+
+Permanent Additions (Tested & Approved)
+
+• Human in the Loop: A16z podcast exploring human-AI interaction and agentic workflows.
+• TheSequence: Niche AI research Substack covering ML papers with concise summaries.
+
+Digest Structure
+
+1. The Lead: The #1 most impactful AI event from the last 24h.
+2. Technical Deep Dive: Summary of 1-2 key papers or architectural breakthroughs.
+3. Tools & Agents: Practical updates on AI agents and dev tool utility.
+
+• The Newcomers' Corner: A brief summary of 2 new sources with a "Keep or Toss?" question for Florian.
+
+State Tracking
+
+• Last check: 2026-02-26
+• Newcomers tested: [Human in the Loop ✓ KEEP, TheSequence ✓ KEEP]
+```
+
+### Evening Briefing Prompt
+
+```md
+Paul's Evening Briefing - Configuration
+
+Schedule
+
+• Time: 17:00 UTC daily
+
+Sources & Tasks
+
+General News
+
+• Monitor NYTimes homepage headlines (nytimes.com)
+• Monitor Axios homepage headlines (axios.com)
+• Monitor Financial Times (FT.com, The Briefing)
+• Monitor AgentMail inbox for NYT & Axios newsletter deep dives ([email])
+
+NFL + Scouting Combine
+
+• Sources: The Athletic, NFL.com, NFL Podcasts (Around the NFL, Athletic NFL Show)
+• Scouting Combine: Focus on GM/coach interviews and live updates from Indianapolis (Feb-Mar period)
+• Task: Cover NFL offseason moves, free agency, trades, and combine results
+
+Political Satire / Talk Shows
+
+• The Late Show (Colbert): Mon-Fri — Check last night's monologue and guests
+• The Daily Show: Mon-Thu — Check host (Jon Stewart on Mondays) and main segment topics
+• Last Week Tonight (John Oliver): Mondays — Check Sunday's main segment
+
+Output
+
+Compile "The Paul Evening Report" covering:
+
+1. World/Tech News
+2. NFL Offseason + Combine Updates
+3. Late Night Recap
+
+Delivery
+
+• Send to Florian directly
+```
+
 ## What I Learned So Far
 
 The setup itself was not hard in the "deep infrastructure" sense, but it was full of small practical details:
@@ -207,3 +301,5 @@ The setup itself was not hard in the "deep infrastructure" sense, but it was ful
 So far, the most valuable part of this experiment is not the server configuration. It is getting closer to a workflow that helps me decide where to spend attention each day.
 
 That is the part I care about most, and it is also the part I want to keep improving next: better source selection, better prompts, and better summaries that are actually worth reading.
+
+The next step is connecting an email address to the agent so I can forward newsletters directly into this workflow. The goal is that OpenClaw can include those forwarded newsletters when generating both briefings, so the summaries reflect not only public sources but also the specific feeds I already trust.

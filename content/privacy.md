@@ -2,6 +2,7 @@
 title: "Privacy Policy"
 description: "Information on data processing and analytics"
 layout: "imprint"
+type: "imprint"
 ---
 
 ## 1. Data Protection At A Glance

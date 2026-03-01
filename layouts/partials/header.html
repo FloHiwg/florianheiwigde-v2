@@ -1,9 +1,7 @@
-{{ $gtmContainerID := .Site.Params.gtmContainerID | default "" }}
-{{ $ga4MeasurementID := .Site.Params.ga4MeasurementID | default "" }}
-{{ if and (not $ga4MeasurementID) $gtmContainerID }}
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ $gtmContainerID }}" height="0" width="0"
-    style="display:none;visibility:hidden"></iframe></noscript>
-{{ end }}
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MP6LZF49"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 <header class="header">
   <div class="container header-inner">
     <a href="{{ "/" | relURL }}" class="logo">
@@ -26,7 +24,7 @@
       {{ with .Site.GetPage "/services" }}
       <a href="{{ .RelPermalink }}" class="nav-link{{ if eq $.RelPermalink .RelPermalink }} active{{ end }}">Services</a>
       {{ end }}
-      <a href="{{ "blog/" | relURL }}" class="nav-link{{ if eq .CurrentSection.Type " blog" }} active{{ end
+      <a href="{{ "blog/" | relURL }}" class="nav-link{{ if eq .CurrentSection.Type "blog" }} active{{ end
         }}">Blog</a>
       <button class="theme-toggle" aria-label="Toggle theme">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -67,7 +65,7 @@
       <a href="{{ .RelPermalink }}"
         class="nav-mobile-link{{ if eq $.RelPermalink .RelPermalink }} active{{ end }}">Services</a>
       {{ end }}
-      <a href="{{ "blog/" | relURL }}" class="nav-mobile-link{{ if eq .CurrentSection.Type " blog" }} active{{ end
+      <a href="{{ "blog/" | relURL }}" class="nav-mobile-link{{ if eq .CurrentSection.Type "blog" }} active{{ end
         }}">Blog</a>
     </div>
   </nav>

@@ -7,7 +7,5 @@ uglyURLs = false
 [params]
   description = "Berlin-based product professional, software developer, and entrepreneur."
   author = "Florian G. Heiwig"
-  # Add your GA4 Measurement ID (example: G-XXXXXXXXXX)
-  ga4MeasurementID = "G-399GPR8HRD"
-  # Add your Google Tag Manager container ID (example: GTM-ABC1234)
-  gtmContainerID = ""
+  # Google Tag Manager container ID
+  gtmContainerID = "GTM-MP6LZF49"

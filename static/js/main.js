@@ -125,101 +125,11 @@ function initArticleImageViewer() {
   });
 }
 
-// Cookie Consent + Google Consent Mode
-const COOKIE_CONSENT_STORAGE_KEY = 'cookie-consent-choice';
-
-function getCookieConsentChoice() {
-  try {
-    return localStorage.getItem(COOKIE_CONSENT_STORAGE_KEY);
-  } catch (error) {
-    return null;
-  }
-}
-
-function setCookieConsentChoice(choice) {
-  try {
-    localStorage.setItem(COOKIE_CONSENT_STORAGE_KEY, choice);
-  } catch (error) {
-    // Ignore storage failures; consent still applies for the current page load.
-  }
-}
-
-function trackCurrentPageViewAfterConsent() {
-  if (!window.__ga4MeasurementID || typeof window.gtag !== 'function') {
-    return;
-  }
-
-  window.gtag('event', 'page_view', {
-    page_title: document.title,
-    page_location: window.location.href,
-    page_path: window.location.pathname + window.location.search
-  });
-}
-
-function updateAnalyticsConsent(granted) {
-  if (typeof window.gtag === 'function') {
-    window.gtag('consent', 'update', {
-      analytics_storage: granted ? 'granted' : 'denied',
-      ad_storage: 'denied',
-      ad_user_data: 'denied',
-      ad_personalization: 'denied'
-    });
-  }
-
-  if (granted && window.__analyticsLoader && typeof window.__analyticsLoader.load === 'function') {
-    window.__analyticsLoader.load();
-  }
-
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({
-    event: 'cookie_consent_update',
-    cookie_consent: granted ? 'accepted' : 'rejected'
-  });
-}
-
-function initCookieConsentBanner() {
-  const banner = document.getElementById('cookie-consent-banner');
-  if (!banner || banner.dataset.analyticsEnabled !== 'true') {
-    return;
-  }
-
-  const savedChoice = getCookieConsentChoice();
-  if (savedChoice === 'accepted') {
-    updateAnalyticsConsent(true);
-    return;
-  }
-
-  if (savedChoice === 'rejected') {
-    updateAnalyticsConsent(false);
-    return;
-  }
-
-  banner.classList.add('is-visible');
-  banner.setAttribute('aria-hidden', 'false');
-
-  banner.querySelectorAll('[data-cookie-consent-action]').forEach((button) => {
-    button.addEventListener('click', () => {
-      const action = button.getAttribute('data-cookie-consent-action');
-      const accepted = action === 'accept';
-
-      setCookieConsentChoice(accepted ? 'accepted' : 'rejected');
-      updateAnalyticsConsent(accepted);
-      if (accepted) {
-        trackCurrentPageViewAfterConsent();
-      }
-
-      banner.classList.remove('is-visible');
-      banner.setAttribute('aria-hidden', 'true');
-    });
-  });
-}
-
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
   initMobileMenu();
   initArticleImageViewer();
-  initCookieConsentBanner();
 
   // Theme toggle event listeners
   document.querySelectorAll('.theme-toggle').forEach(btn => {

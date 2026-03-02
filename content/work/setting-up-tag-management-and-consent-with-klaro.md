@@ -86,6 +86,15 @@ Use this stripped setup (Google Analytics only), with styling aligned to the web
     box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
   }
 
+  #klaro .cookie-notice p,
+  #klaro .cookie-notice strong,
+  #klaro .cookie-notice span,
+  #klaro .cookie-modal p,
+  #klaro .cookie-modal strong,
+  #klaro .cookie-modal span {
+    color: var(--foreground, #1a1a1a) !important;
+  }
+
   #klaro h3 {
     margin: 0 0 0.75rem;
     font-size: 1rem;
@@ -125,11 +134,30 @@ Use this stripped setup (Google Analytics only), with styling aligned to the web
   }
 
   .cm-link.cn-learn-more {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: fit-content !important;
+    min-width: 0 !important;
+    white-space: nowrap !important;
     background: var(--secondary, #e6e4dd) !important;
     border: 1px solid var(--border, #d1d1c7) !important;
     border-radius: var(--radius, 0.5rem) !important;
     padding: 0.6rem 1rem !important;
     color: var(--foreground, #1a1a1a) !important;
+  }
+
+  #klaro .cookie-notice .cn-buttons {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+  }
+
+  #klaro .cookie-notice .cn-buttons .cm-btn,
+  #klaro .cookie-notice .cn-buttons .cm-link {
+    width: auto !important;
+    min-width: 0 !important;
+    flex: 0 0 auto !important;
   }
 
   .klaro .cookie-modal .cm-list-input:checked + .cm-list-label .slider,
@@ -167,7 +195,7 @@ Use this stripped setup (Google Analytics only), with styling aligned to the web
       de: {
         privacyPolicyUrl: "/privacy",
         consentNotice: {
-          description: "Wir verwenden Cookies, um die Website zu verbessern. Details findest du in der Datenschutzerklarung.",
+          description: "🍪 Wir verwenden Cookies, um die Website zu verbessern. Details findest du in der Datenschutzerklarung.",
           learnMore: "Auswahlen"
         },
         ok: "Alles klar",
@@ -185,7 +213,7 @@ Use this stripped setup (Google Analytics only), with styling aligned to the web
         privacyPolicyUrl: "/privacy",
         consentNotice: {
           title: "Cookie Settings",
-          description: "We use cookies to improve the website. Details are available in our privacy policy.",
+          description: "🍪 We use cookies to improve the website. Details are available in our privacy policy.",
           learnMore: "Select"
         },
         ok: "Accept all",
@@ -220,10 +248,21 @@ Use this stripped setup (Google Analytics only), with styling aligned to the web
   };
 </script>
 
-<script defer src="https://cdn.kiprotect.com/klaro/v0.7.18/klaro.js"></script>
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.src = "https://cdn.kiprotect.com/klaro/v0.7.18/klaro.js";
+    script.onload = function () {
+      if (window.klaro && typeof window.klaro.setup === "function") {
+        window.klaro.setup(klaroConfig);
+      }
+    };
+    document.head.appendChild(script);
+  })();
+</script>
 ```
 
-Important implementation notes:
+Before moving on, make sure the domain and privacy URL are correct for your setup:
 
 - Replace `cookieDomain` with your production root domain if needed.
 - If your privacy page slug is not `/privacy`, update `privacyPolicyUrl`.
@@ -338,19 +377,19 @@ To avoid requiring a page reload after consent changes, add `Custom - Consent Up
 
 Add GTM snippets in your website templates once, then keep ongoing tracking logic in GTM.
 
-Website integration:
+For website integration:
 
 - Place GTM `<script>` in `<head>` and GTM `<noscript>` right after opening `<body>`.
 - Keep container IDs environment-specific (staging vs production) if needed.
 - Avoid hardcoded analytics scripts in page templates when GTM is the source of truth.
 
-GA4 setup:
+For GA4 setup:
 
 - Create GA4 Configuration and event tags in GTM.
 - Ensure analytics tags respect consent signals.
 - Use GTM Preview plus GA4 DebugView to validate events and parameters.
 
-## Klaro Configuration Notes
+## Klaro Configuration
 
 Klaro is the consent interface and source of consent state in this setup.
 
@@ -371,15 +410,8 @@ Klaro is the consent interface and source of consent state in this setup.
 
 In practice, this is very explicit in preview mode: you can see which tags fired, which did not fire, and which data layer events caused the change.
 
-## Common Failure Modes
-
-- No consent events in preview: verify `Consent cHTML - Datalayer push` trigger and click selector (`cm-btn`).
-- Consent state not changing: verify `Cookie - Klaro` value and `cjs` variable parsing.
-- Tags still blocked: verify Consent Mode template mapping and trigger execution order.
-- Duplicate pageviews: verify pageview tags are not firing on both page load and consent update unintentionally.
-
 ## Wrap-Up
 
 This setup works well because it separates stable platform code from operational tracking logic. Engineering keeps the foundation stable. Marketing can move quickly. Consent behavior stays visible and testable.
 
-If the goal is to reduce friction without losing control, this GTM + Klaro model is a practical way to run tracking day to day.
+If the goal is to reduce friction without losing control, this GTM + Klaro model is a practical way to run tracking day to day and not paying a single cent to CMP platforms.

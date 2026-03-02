@@ -81,6 +81,4 @@ The biggest lesson was simple: validate protocol assumptions early.
 
 If I had confirmed IMAP support first, I would have skipped hours of unnecessary debugging.
 
-The second lesson is that when an integration path gets blocked by dependency conflicts, a small purpose-built wrapper can be faster and more reliable than trying to force compatibility layers.
-
-For this project, that tradeoff was worth it.
+The second lesson is that it is so easy to build an CLI with a well documented SDK and Claude Code that i should have go for this earlier and now i'm kinda hooked and look for other parts of the agents work i can ease up by providing a dedicated CLI also to safe token consumption. 

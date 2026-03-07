@@ -10,6 +10,7 @@ Product-focused technical leader with 10+ years of experience owning complex sof
 ### 📍 Quick Links
 - **[View my Resume](resume)**
 - **[Blog](blog)**
+- **[Perspectives](perspectives)**
 - **[Projects](projects)**
 - **[Work](work)**
 

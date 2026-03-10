@@ -35,6 +35,8 @@ So I approached the problem from both sides: build the pipeline end-to-end while
 
 I implemented an end-to-end flow from source discovery and ingestion to benchmark comparison, organized into clear layers.
 
+{{< figure src="/images/legal-rag-pipeline-overview.svg" alt="Overview diagram of the public-data legal RAG pipeline from Bronze to Evaluation" caption="End-to-end structure of the experiment: Bronze discovery/ingestion, Silver normalization/chunking, retrieval, and benchmark comparison." class="blog-post-figure" >}}
+
 ### Bronze: Discovery, Ingestion, and Raw Collection
 
 The Bronze layer handles source discovery, intake, and raw extraction. It currently supports multiple entry paths:
@@ -60,6 +62,8 @@ Beyond source intake, Bronze also handles the regular crawler lifecycle:
 - persist a content hash so changes can be detected quickly and only updated documents move forward
 
 This keeps crawling efficient and makes downstream processing faster because unchanged documents do not need full reprocessing.
+
+{{< figure src="/images/legal-rag-ingestion-stream-fusion.svg" alt="Diagram showing multiple ingestion input streams merging into one unified document pool" caption="Ingestion stream fusion: sitemaps, direct URLs, search-intent discovery, and S3/PDF drops converge through one refresh-aware ingestion layer into a single canonical document pool." class="blog-post-figure" >}}
 
 ### Silver: Normalization and Chunking
 
@@ -133,6 +137,8 @@ In other words: I now have a real system, not disconnected notebooks and one-off
 ## How This Series Will Be Structured
 
 This kickoff is the first post in a sequence. The next experiments will follow a consistent structure so comparisons stay meaningful.
+
+{{< figure src="/images/legal-rag-experiment-roadmap.svg" alt="Roadmap diagram showing four next experiment tracks for the legal RAG project" caption="Roadmap for the next phase: judgments integration, commentary reproducibility tests, agent workflow optimization, and retrieval tuning." class="blog-post-figure" >}}
 
 ### 1. Judgments Track
 

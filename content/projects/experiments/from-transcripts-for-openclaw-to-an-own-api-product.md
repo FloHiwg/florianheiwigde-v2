@@ -1,54 +1,48 @@
 ---
-title: "Giving OpenClaw Podcast Transcript Access"
-date: 2026-03-02
+title: "From OpenClaw Transcript Access to Building My Own API Product"
+date: 2026-03-10
 draft: false
-description: "How I ended up building an own API to give my OpenClaw agent access to transcript for my morning briefing."
+description: "How a small OpenClaw transcript experiment turned into Podfetcher: a full API product with payments, docs, SDK, CLI, and agent-first integrations."
 ---
 
 ## Introduction
 
 After getting email into my OpenClaw workflow, I wanted to add one more signal I care about: podcasts.
 
-The goal was simple. I do not have time to listen to every new episode of the podcasts I follow, so I want an overview of
-- What is discussed?
-- Who is the guest and what does they discuss about?
-- Is it worth my time today?
+The initial requirement was very practical: every morning I wanted a fast decision layer for the podcasts I follow. I did not need full audio processing inside my OpenClaw workflow, and I definitely did not want to manually skim episode pages. I wanted the agent to tell me what an episode is about, who is in it, and whether it is worth my time today.
 
-To answer all these questions I wanted to give my OpenClaw agent transcript access.
+My first idea was straightforward. I assumed I could take one of the existing transcript APIs, add a small wrapper, and plug that into my OpenClaw briefing. I expected this to be a short integration project.
 
-This was planned as a short article about how I was building a quick wrapper around some APIs out there to gve my Agent access to podcast transcripts. 
+It turned into something much bigger.
 
-Unfortunately this was harder than expected since all APIs i tested (Podfetcher and Taddy) were not really end customer focused in their pricing and the free tier was not delivering any transcripts and subscribing a service for a fix amount per month just for getting transcripts seemed to be not feasible. The other options I saw a lot out there in the ClawHub was people using the agent to fetch the URL get the mp3 and put this into an API like Assembly API. Which is cool but also a lot of tokens burned by a deterministic approach and especially transcribing something so highly generic like a podcats on a custom and individual level didn't really make sense to me.
+## The Constraint That Changed the Direction
 
-So this article becomes an article about my journey building Podfetcher and using this opportunity to build an E2E product with landing page payment and thir party integration solely vibe coded. 
+Once I started testing available APIs, the mismatch became obvious. Most of the offerings I tried were not really designed for an agent-first, low-volume usage pattern where you only need selected transcripts each month. Free tiers looked useful from the outside but in the cases I tested was not supporting any transcript retrieval, and the monthly pricing models often felt too heavy for the amount of value I needed in this specific workflow.
 
+At the same time, I kept seeing a second pattern in existing community setups: users or agents repeatedly fetched audio files and triggered fresh transcription jobs for episodes that were likely already processed somewhere else by someone else. Technically that works, but from a system perspective it felt wasteful. If many users are requesting the same top podcasts, recomputing the same transcript over and over is not a great default.
 
-## Why none of the existing APIs?
+That was the point where the project changed scope. Instead of asking, "How do I wrap an API for my OpenClaw briefing?", I started asking, "What would a transcript API look like if it were designed for this exact workflow?"
 
-- Dont seem to be focused on agents and on consumers which just need some transcripts per month
-- Everyone transcreibing the same mp3 files of the top 500 podcasts out there seem a waste of resources
-- Same for letting the agent figure out the process or writing a script that is maybe error prone instead of just following a fixed process
+## From Integration to Product: Building Podfetcher
 
-## Implement the backend 
+This is how Podfetcher started. I built the backend around a simple principle: generate transcripts when needed, but cache and reuse them whenever possible. Under the hood, that meant combining podcast discovery and metadata handling with transcript generation and a storage layer that makes repeated access cheap and fast.
 
-- Simple wrapper for podcast index, assembly AI with stripe payment integration and caching 
+As soon as I crossed that line, it no longer made sense to keep this as a private helper script. If I was already building the infrastructure, I wanted to validate it as a real product. So I added Stripe-based billing, designed a lightweight user portal for usage and payments, and wrote documentation with an agent-first perspective so integration paths are clear from day one.
 
-## Implement a landing page 
+I also treated this as a full-stack AI-building exercise. I used Perplexity for early copy exploration, Claude for design directions, and Gemini plus Codex to refine content, legal pages, and implementation details. The interesting part was not which model wrote which paragraph. The interesting part was learning how to orchestrate these tools in a way that still produces a coherent, shippable result.
 
-- Experimenting with perplexity for writing the content 
-- Using the claude frontend design skill for coming up with the landing page 
-- Polishing the legal pages and the content with gemini and codex
-- Also adding a documentation that should be agent first
-- Added lightweight user portal for doing payments and checking on usage 
+## Making It Usable for Agents, Not Just Humans
 
-## Building a SDK and CLI
+Because the original problem came from OpenClaw, integration ergonomics mattered as much as the backend itself. I added an SDK, then a CLI, and then an MCP wrapper so agent workflows can call the service in deterministic ways without reinventing glue code every time. That keeps the "daily briefing" use case simple: check whether a new episode exists, resolve transcript context, summarize what changed, and provide a quick recommendation.
 
-Building and exporting a CLI and MCP wrapper of an SDK so it is easy to use by an agent.
+What I like most is that this moved the workflow from a fragile one-off integration to a reusable surface. The morning briefing behavior stays the same from my perspective, but the underlying capability is now something I can maintain, improve, and share.
 
 ## What I Learned
 
-It is always nice using all the tools out there for a real end 2 end scenario to test them in something close to an real world example and see if the agents can really do what they promise to build. 
+The biggest lesson is that real constraints are often the best product inputs. This started as a small helper for one personal workflow, but pricing friction, reliability gaps, and inefficiencies in existing flows forced a better question and, eventually, a better architecture.
 
-Improving your own workflow of building with these models. In terms of how to plan a feature what to challenge what to keep. Seeing things the agents tend to do and how to steer them to come to a good and reliable solution that can really put out there.
+The second lesson is about agent-driven development itself. End-to-end projects expose where agents accelerate execution and where you still need explicit structure, strong defaults, and deterministic boundaries. The tools are powerful, but the quality of the outcome still depends on how clearly you define the system you want to build.
 
-Next, I will likely releae the API product and a skill on the clawhub to see if people are willing to use it and maybe even pay some many for this. The platform will just charge the costs for aseembly and will most likely earn money but reusing the same transcript twice. On some podcasts i can also imagine prefetching the transcript and selling it cheapter than it would be doing it your self. This seems to be a nice chance to earn some money while providing a cost benefit to the end user. 
+## Next Steps
+
+The next step is release and validation. I plan to publish Podfetcher, ship a dedicated ClawHub skill, and test whether the value proposition holds beyond my own workflow. Pricing will stay cost-oriented, with transcript reuse and selective prefetching as the core levers to keep usage affordable while making the product sustainable.

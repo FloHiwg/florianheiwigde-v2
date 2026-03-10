@@ -13,6 +13,8 @@ How far can I get in German legal QA with only publicly available data?
 
 This post is the kickoff. It is not a polished success story. It is a build log of what I have implemented so far, what the baseline results look like, and how I will structure the next rounds of experiments.
 
+Another goal for this project was getting deepening my understanding of the medaillon structure and how to build a full data-to-evaluation pipeline that can be iterated on quickly. 
+
 The short version: I now have a full end-to-end RAG pipeline running. The current benchmark vs RAG deltas are still weak. But the system is reproducible, measurable, and ready for targeted iteration.
 
 ## Why This Experiment Exists
@@ -27,29 +29,37 @@ The reality is less simple. In German legal domains, high-value data is unevenly
 
 That means model choice is only one part of the problem. The bigger constraint is data logistics: sourcing, structuring, retrieval quality, and evaluation discipline.
 
-So I decided to treat this as an engineering problem first and built the pipeline before chasing model tuning.
+So I planned to get closer to a solution from both sides and build the pipeline while exploring different evaluration options and source options for getting the documents.
 
 ## What I Built End-to-End
 
-I implemented an end-to-end flow from source ingestion to benchmark comparison, organized into clear layers.
+I implemented an end-to-end flow from source discovery and ingestion to benchmark comparison, organized into clear layers.
 
-### Bronze: Ingestion and Raw Collection
+### Bronze: Discovery, Ingestion, and Raw Collection
 
-The Bronze layer handles source intake and raw extraction. It currently supports multiple entry paths:
+The Bronze layer handles source discovery and intake and raw extraction. It currently supports multiple entry paths:
 
 - sitemap ingestion
 - search-intent URL discovery
 - direct URL ingestion
 - S3-based document drop flows
 
-I chose this because I need to use what I can get and the data is in different formats and can be obtained on different ways. 
-I first tried to find blogs and pages with a lot of informnation from trusted sources added their sitemaps and checked if they allow crawling in general and if they have a lot of content. This was the fastest way to get a large volume of data and also to have control over source growth. I can easily add more sources by adding their sitemaps or finding more URLs.
+I chose this setup because public legal data comes in different formats and through different channels and since it is the scarced resource I wanted to handle as many different options as possible. 
 
-But a lot of the pages are paywalled or just have a fraction of data publicly available and another part behind a sign up wall where you need to confirm based on their ToS that you want use the data for things like the things i want to do with this experiment.
+The fastest first move was to collect trusted, crawlable sources through sitemaps and direct URLs.
 
-So as a next step i looked for publilcly availabnle and more traditional sources of legal data like unioversityt scripts and informantion for students. I found some sources that have a lot of content and are not behind paywalls. I added these mostly via PDFs and thjerefore added the S3 based document drop flow to the pipeline.
+Many high-value pages are still paywalled or only partially public, so I also added traditional open sources such as university scripts and student-oriented legal material. A lot of those came as PDFs, which is why the S3 document-drop flow became part of the ingestion layer early.
 
-The SEO-first direction was added as last and looks like a practical choice to quickly build volume based on a certain domain of questions and user intents. It is quiet easy to expand by adding search queeries and I used mostly SEO tools to find relevant queries and sources. This is a good way to get a lot of data quickly and also to have control over the growth of the corpus.
+After I did these two strategies I was wodnering, why not take the Google ranking algorithm as my preselector for pages and  expand coverage with search-intent discovery. So collecting a list of search terms following the regular SEO process to find long tail keywords and then using those to discover more URLs through Google search results was the next step. I did this by implementing SERP API calls and just taking all of these URLs as candidates for ingestion. This is a more scalable way to expand coverage, but it also adds more noise, so I plan to add more filtering and source vetting logic in the future.
+
+Beyond source intake, Bronze also handles the regular crawler lifecycle:
+
+- track the last refresh timestamp per source so recrawls can be scheduled incrementally
+- skip unnecessary fetches when a source was refreshed recently or no change is detected
+- download source content and clean it into normalized Markdown files
+- persist a content hash so changes can be detected quickly and only updated documents move forward
+
+This keeps crawling efficient and makes downstream processing faster because unchanged documents do not need full reprocessing.
 
 ### Silver: Normalization and Chunking
 
@@ -60,6 +70,9 @@ The Silver layer converts scraped raw material into structured, retrieval-ready 
 - chunk generation
 
 This is where noisy web data gets transformed into something usable for retrieval and later analysis.
+Another important function of Silver is to add metadata that can be used for filtering and relevance signals in retrieval. For example, I added general tags about the content as well as paragraphs that are mentioned in the chunk.
+
+The chunking is happening based on a semantic chunking via an LLM model, which is more expensive than a simple token-based chunking, but it also produces more coherent and semantically meaningful chunks, which is important for retrieval quality later on. I did the chunking and the metadata extraction in one step, which is more efficient than doing them separately.
 
 ### Retrieval Layer
 
@@ -73,20 +86,22 @@ I added repeatable benchmark workflows to compare:
 - retrieval-augmented generation
 
 Both notebook and scripted execution paths exist, so experiments can be run quickly but still reviewed in detail.
+The experiments as well as the data sets are pushed into LangSmith and traces can be used to track the different runs and compare them in a structured way. This is especially useful to compare the benchmark-only runs with the RAG runs and seeing all the details from retrieval and inference.
 
-## Why SEO-First Was the Right First Move
+I tested different approaches for the dataset and how to evaluate the results. 
+First I was thinking about using questions and answers from legal blogs and forums, but gathering the data and evaluating the correctness of the answers was difficult and therefore I moved this aside and focused on the other options.
 
-A recurring question is why I started with SEO-heavy public sources instead of trying to ingest deeper legal material first.
+First other options I could think about was using exam questions for law students, which are publicly available and have a clear expected answer, but after running the first test with the benchmark setup (no RAG) I found a near 100% test result which was a clear indication of data leakage. Which is kinda obvious since the data is publicly available and the model was trained on a lot of public data, but it was still a good reminder to be careful with evaluation data in this domain. It also remind that the models are really good at memorizing and reproducing the content they were trained on. This was also the spark for the idea of evaluating how good the models can reproduce the propertery commentary that is behind paywalls, so do i need this content or do I just need the model to actively reproduce and remember it. This is something I will explore in spinoff experiment.
 
-The answer is speed and leverage.
+The second option was a data set from hugging face I got made aware of by a former colleague of mine. It is a collection of a huge amount of legal questions with answers for all different legal areas. The questions are more practical and less academic than the exam questions, which is a better fit for my use case. The answers also contain laws that are applicable and refrences. 
+https://huggingface.co/datasets/DomainLLM/gerlayqa-bgb-paraphrased
 
-SEO-first ingestion gave me:
 
-- a fast way to build corpus volume
-- controllable knobs for source growth
-- a repeatable acquisition mechanism for ongoing collection
+## Why I'm found to the SEO-First approach
 
-It also forced me to solve operational basics early: source registry, crawl logic, normalization, chunking, and retrieval wiring. Those pieces are required anyway if I later add harder sources like judgments.
+Even though the current results are not yet showing a clear RAG lift, I am still confident that the SEO-first ingestion strategy is a valuable approach to experiment with. It gives a really nice growth path and a lot of control over the data collection process, which is crucial in this domain where data is scarce and fragmented.
+
+It can be easily automated and scaled, and it allows for quick adjustments based on what is found to be most relevant and useful for the task at hand. It also helps to ensure that the data being ingested is actually relevant to the legal questions being asked, which is a key factor in improving retrieval quality and ultimately answer quality.
 
 ## Current Result: No Clear RAG Lift Yet
 
@@ -96,10 +111,7 @@ That is not the outcome I ultimately want, but it is still useful.
 
 A flat early result in this setup usually points to one or more of these issues:
 
-- retrieval not tuned yet
-- corpus quality or coverage limits
-- chunking and ranking quality gaps
-- benchmark design not yet discriminative enough
+
 
 Instead of treating this as failure, I treat it as the first measurable checkpoint.
 

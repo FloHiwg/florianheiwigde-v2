@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">RAG Experiment Roadmap</title>
+  <desc id="desc">Lightweight four-track roadmap for the next legal RAG experiment phase.</desc>
+
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="var(--bg-start)"/>
+      <stop offset="100%" stop-color="var(--bg-end)"/>
+    </linearGradient>
+
+    <style>
+      :root {
+        --bg-start: #f8fafc;
+        --bg-end: #f5f3ff;
+
+        --text-primary: #0f172a;
+        --text-secondary: #475569;
+        --edge: #334155;
+
+        --card-fill: #ffffff;
+        --card-stroke: #cbd5e1;
+
+        --c1-accent: #0ea5e9;
+        --c2-accent: #22c55e;
+        --c3-accent: #f59e0b;
+        --c4-accent: #ec4899;
+
+        --footer-fill: #0f172a;
+        --footer-text: #f8fafc;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-start: #0b1220;
+          --bg-end: #15132b;
+
+          --text-primary: #e5edf8;
+          --text-secondary: #bfd0e5;
+          --edge: #94a3b8;
+
+          --card-fill: #0f172a;
+          --card-stroke: #334155;
+
+          --c1-accent: #38bdf8;
+          --c2-accent: #4ade80;
+          --c3-accent: #fbbf24;
+          --c4-accent: #f472b6;
+
+          --footer-fill: #dbe5f3;
+          --footer-text: #0f172a;
+        }
+      }
+
+      .title { font: 700 42px 'Helvetica Neue', Arial, sans-serif; fill: var(--text-primary); }
+      .subtitle { font: 500 20px 'Helvetica Neue', Arial, sans-serif; fill: var(--text-secondary); }
+      .track-title { font: 700 27px 'Helvetica Neue', Arial, sans-serif; fill: var(--text-primary); }
+      .track-line { font: 500 17px 'Helvetica Neue', Arial, sans-serif; fill: var(--text-secondary); }
+      .lead-label { font: 700 20px 'Helvetica Neue', Arial, sans-serif; fill: var(--text-primary); }
+      .track-index { font: 700 15px 'Helvetica Neue', Arial, sans-serif; fill: var(--text-primary); }
+      .footer { font: 600 22px 'Helvetica Neue', Arial, sans-serif; fill: var(--footer-text); }
+      .connector { stroke: var(--edge); stroke-width: 3; stroke-linecap: round; }
+      .arrowhead { fill: var(--edge); }
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="1600" height="900" fill="url(#bg)"/>
+
+  <text class="title" x="80" y="92">Next Experiment Phase: Lightweight Roadmap</text>
+  <text class="subtitle" x="80" y="128">Four focused tracks running in parallel with one shared success metric.</text>
+
+  <line class="connector" x1="120" y1="220" x2="1460" y2="220"/>
+  <polygon class="arrowhead" points="1476,220 1460,211 1460,229"/>
+
+  <rect x="95" y="280" width="340" height="360" rx="18" fill="var(--card-fill)" stroke="var(--card-stroke)" stroke-width="2"/>
+  <rect x="95" y="280" width="340" height="8" rx="4" fill="var(--c1-accent)"/>
+  <circle cx="140" cy="328" r="19" fill="none" stroke="var(--c1-accent)" stroke-width="3"/>
+  <text class="track-index" x="140" y="333" text-anchor="middle">1</text>
+  <text class="track-title" x="172" y="336">Judgments</text>
+  <text class="track-line" x="125" y="390">
+    <tspan class="lead-label" x="125" dy="0">Objective</tspan>
+    <tspan x="225" dy="0">: add court-decision</tspan>
+    <tspan x="125" dy="26">grounding.</tspan>
+  </text>
+  <text class="track-line" x="125" y="456">
+    <tspan class="lead-label" x="125" dy="0">Focus</tspan>
+    <tspan x="183" dy="0">: ingest + normalize</tspan>
+    <tspan x="125" dy="26">and citation checks.</tspan>
+  </text>
+
+  <rect x="475" y="280" width="340" height="360" rx="18" fill="var(--card-fill)" stroke="var(--card-stroke)" stroke-width="2"/>
+  <rect x="475" y="280" width="340" height="8" rx="4" fill="var(--c2-accent)"/>
+  <circle cx="520" cy="328" r="19" fill="none" stroke="var(--c2-accent)" stroke-width="3"/>
+  <text class="track-index" x="520" y="333" text-anchor="middle">2</text>
+  <text class="track-title" x="552" y="336">Commentary</text>
+  <text class="track-line" x="505" y="390">
+    <tspan class="lead-label" x="505" dy="0">Objective</tspan>
+    <tspan x="605" dy="0">: test reproducibility</tspan>
+    <tspan x="505" dy="26">limits.</tspan>
+  </text>
+  <text class="track-line" x="505" y="456">
+    <tspan class="lead-label" x="505" dy="0">Focus</tspan>
+    <tspan x="563" dy="0">: controlled cache +</tspan>
+    <tspan x="505" dy="26">validation guardrails.</tspan>
+  </text>
+
+  <rect x="855" y="280" width="340" height="360" rx="18" fill="var(--card-fill)" stroke="var(--card-stroke)" stroke-width="2"/>
+  <rect x="855" y="280" width="340" height="8" rx="4" fill="var(--c3-accent)"/>
+  <circle cx="900" cy="328" r="19" fill="none" stroke="var(--c3-accent)" stroke-width="3"/>
+  <text class="track-index" x="900" y="333" text-anchor="middle">3</text>
+  <text class="track-title" x="932" y="336">Agent Flow</text>
+  <text class="track-line" x="885" y="390">
+    <tspan class="lead-label" x="885" dy="0">Objective</tspan>
+    <tspan x="985" dy="0">: improve answer</tspan>
+    <tspan x="885" dy="26">reliability.</tspan>
+  </text>
+  <text class="track-line" x="885" y="456">
+    <tspan class="lead-label" x="885" dy="0">Focus</tspan>
+    <tspan x="943" dy="0">: multi-tool passes +</tspan>
+    <tspan x="885" dy="26">reviewer loop.</tspan>
+  </text>
+
+  <rect x="1235" y="280" width="340" height="360" rx="18" fill="var(--card-fill)" stroke="var(--card-stroke)" stroke-width="2"/>
+  <rect x="1235" y="280" width="340" height="8" rx="4" fill="var(--c4-accent)"/>
+  <circle cx="1275" cy="328" r="19" fill="none" stroke="var(--c4-accent)" stroke-width="3"/>
+  <text class="track-index" x="1275" y="333" text-anchor="middle">4</text>
+  <text class="track-title" x="1307" y="336">Retrieval</text>
+  <text class="track-line" x="1265" y="390">
+    <tspan class="lead-label" x="1265" dy="0">Objective</tspan>
+    <tspan x="1365" dy="0">: reduce retrieval</tspan>
+    <tspan x="1265" dy="26">noise.</tspan>
+  </text>
+  <text class="track-line" x="1265" y="456">
+    <tspan class="lead-label" x="1265" dy="0">Focus</tspan>
+    <tspan x="1323" dy="0">: top-k, rerank,</tspan>
+    <tspan x="1265" dy="26">dedupe tuning.</tspan>
+  </text>
+
+  <rect x="360" y="730" width="880" height="78" rx="14" fill="var(--footer-fill)"/>
+  <text class="footer" x="800" y="778" text-anchor="middle">Shared metric: benchmark delta + grounding quality</text>
+</svg>

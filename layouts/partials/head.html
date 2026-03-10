@@ -3,10 +3,13 @@
 <title>{{ if .IsHome }}{{ .Site.Title }} - Product & Code{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
 <meta name="description" content="Berlin-based product professional, software developer, and entrepreneur.">
 <meta name="author" content="Florian G. Heiwig">
+<link rel="canonical" href="{{ .Permalink }}">
+{{ with .Param "robots" }}<meta name="robots" content="{{ . }}">{{ end }}
 
 <meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }} - Product & Code{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}">
 <meta property="og:description" content="Berlin-based product professional, software developer, and entrepreneur.">
 <meta property="og:type" content="website">
+<meta property="og:url" content="{{ .Permalink }}">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{ if .IsHome }}{{ .Site.Title }} - Product & Code{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}">

@@ -7,6 +7,18 @@
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
+    ],
+    "redirects": [
+      {
+        "source": "/private",
+        "destination": "/personal",
+        "type": 301
+      },
+      {
+        "source": "/private/**",
+        "destination": "/personal/:splat",
+        "type": 301
+      }
     ]
   }
 }

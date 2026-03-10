@@ -94,7 +94,7 @@ I tested different dataset options and evaluation paths:
 
 - Legal blog/forum QA looked promising at first, but collecting high-quality labels and validating correctness at scale was too costly for this phase.
 - Law-student exam questions provided clear target answers, but benchmark-only runs reached near-100% performance, a strong sign of leakage or memorization effects from public training data.
-- That result reinforced an important follow-up question: how much proprietary legal commentary can models already reproduce without explicit retrieval context? Will tackle this in a separate experiment.
+- That result reinforced an important follow-up question: how much proprietary legal commentary can models already reproduce without explicit retrieval context? I will tackle this in a separate experiment.
 
 The most useful current option came from a Hugging Face dataset a former colleague pointed me to: [DomainLLM/gerlayqa-bgb-paraphrased](https://huggingface.co/datasets/DomainLLM/gerlayqa-bgb-paraphrased). It contains a large set of practical legal Q&A pairs across domains, often with law references, and is a better fit for this use case than academic exam-style prompts.
 
@@ -138,22 +138,27 @@ This kickoff is the first post in a sequence. The next experiments will follow a
 
 Goal: integrate judgments as a first-class source type and measure impact on grounding and difficult legal questions.
 
-### 2. Commentary reproducability
+### 2. Commentary Reproducibility Track
 
-Goal: evaluate how much of the propretary commentary can be reproduced already by the LLMs based on their pre training and the memorisation of this and how can I leverage this in the pipeline. I was thinkin to experiement with a subagent that gets the taks to prepare these reproduced commentaries and also save them over time to compile an own cached set of commentaries.
+Goal: evaluate how much proprietary commentary current models can already reproduce from pretraining and memorization, and how this can be used safely in the pipeline. I plan to test a dedicated sub-agent that prepares these reconstructed commentary notes and stores them over time as a cached internal reference set.
 
-### 3. Optimise agent flow
+### 3. Agent Workflow Optimization Track
 
-Right now the agent is pretty plain. I'm planning to elaborate this further by adding different search tools that the agent can use during its cycle. Thereby I would like to include a commentary sub agent as mentioned above a second search attempt by metadata like paragraps that are mentioned and a plain search to get the legal code texts for the paragraphs used. In addition I would liek to experiment with review loops with a second agent to hardening the response to see the effect on this with and wihtout RAG. 
+Goal: evolve the current baseline agent into a multi-tool workflow. The next version should include:
+
+- a commentary sub-agent (as described above)
+- a second retrieval pass using metadata filters (for example mentioned legal paragraphs)
+- a direct legal-code lookup step for cited paragraphs
+- a reviewer loop with a second agent to harden final answers and compare quality with and without RAG
 
 ### 4. Retrieval Quality Track
 
-Goal: This is about good old hyper parameter tuning of the retrieval stack directly:
+Goal: tune the retrieval stack directly through focused hyperparameter and quality optimization:
 
 - top-k and alpha settings
 - candidate generation and reranking
 - deduplication and relevance filtering
-- chunk and metadata quality.
+- chunk and metadata quality
 
 ## Final Thought
 

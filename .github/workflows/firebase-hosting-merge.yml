@@ -26,7 +26,7 @@ jobs:
         run: hugo mod get
 
       - name: Build Hugo Site
-        run: hugo --minify
+        run: hugo --minify --cleanDestinationDir
 
       - name: Deploy to Firebase
         uses: FirebaseExtended/action-hosting-deploy@v0

@@ -13,7 +13,7 @@ How far can I get in German legal QA with only publicly available data?
 
 This post is the kickoff. It is not a polished success story. It is a build log of what I have implemented so far, what the baseline results look like, and how I will structure the next rounds of experiments.
 
-Another goal for this project was getting deepening my understanding of the medaillon structure and how to build a full data-to-evaluation pipeline that can be iterated on quickly. 
+Another goal for this project was to deepen my understanding of the medallion architecture and build a full data-to-evaluation pipeline that can be iterated on quickly.
 
 The short version: I now have a full end-to-end RAG pipeline running. The current benchmark vs RAG deltas are still weak. But the system is reproducible, measurable, and ready for targeted iteration.
 
@@ -29,7 +29,7 @@ The reality is less simple. In German legal domains, high-value data is unevenly
 
 That means model choice is only one part of the problem. The bigger constraint is data logistics: sourcing, structuring, retrieval quality, and evaluation discipline.
 
-So I planned to get closer to a solution from both sides and build the pipeline while exploring different evaluration options and source options for getting the documents.
+So I approached the problem from both sides: build the pipeline end-to-end while exploring different evaluation designs and document sourcing strategies.
 
 ## What I Built End-to-End
 
@@ -37,20 +37,20 @@ I implemented an end-to-end flow from source discovery and ingestion to benchmar
 
 ### Bronze: Discovery, Ingestion, and Raw Collection
 
-The Bronze layer handles source discovery and intake and raw extraction. It currently supports multiple entry paths:
+The Bronze layer handles source discovery, intake, and raw extraction. It currently supports multiple entry paths:
 
 - sitemap ingestion
 - search-intent URL discovery
 - direct URL ingestion
 - S3-based document drop flows
 
-I chose this setup because public legal data comes in different formats and through different channels and since it is the scarced resource I wanted to handle as many different options as possible. 
+I chose this setup because public legal data is scarce, fragmented, and spread across different formats and channels. I wanted an ingestion layer that can handle multiple acquisition paths without major rework.
 
 The fastest first move was to collect trusted, crawlable sources through sitemaps and direct URLs.
 
 Many high-value pages are still paywalled or only partially public, so I also added traditional open sources such as university scripts and student-oriented legal material. A lot of those came as PDFs, which is why the S3 document-drop flow became part of the ingestion layer early.
 
-After I did these two strategies I was wodnering, why not take the Google ranking algorithm as my preselector for pages and  expand coverage with search-intent discovery. So collecting a list of search terms following the regular SEO process to find long tail keywords and then using those to discover more URLs through Google search results was the next step. I did this by implementing SERP API calls and just taking all of these URLs as candidates for ingestion. This is a more scalable way to expand coverage, but it also adds more noise, so I plan to add more filtering and source vetting logic in the future.
+After these two tracks, I added SEO-driven discovery as a third source expansion strategy. The idea was simple: use Google ranking as a first-pass preselector, then expand coverage through search-intent queries and long-tail keywords. I implemented this with SERP API calls and used returned URLs as ingestion candidates. It scales well, but it also introduces noise, so better filtering and source-vetting logic is part of the next iteration.
 
 Beyond source intake, Bronze also handles the regular crawler lifecycle:
 
@@ -70,9 +70,10 @@ The Silver layer converts scraped raw material into structured, retrieval-ready 
 - chunk generation
 
 This is where noisy web data gets transformed into something usable for retrieval and later analysis.
-Another important function of Silver is to add metadata that can be used for filtering and relevance signals in retrieval. For example, I added general tags about the content as well as paragraphs that are mentioned in the chunk.
 
-The chunking is happening based on a semantic chunking via an LLM model, which is more expensive than a simple token-based chunking, but it also produces more coherent and semantically meaningful chunks, which is important for retrieval quality later on. I did the chunking and the metadata extraction in one step, which is more efficient than doing them separately.
+Another important function of Silver is metadata enrichment for filtering and relevance signals during retrieval. For example, I add general content tags and references to mentioned legal paragraphs where available.
+
+Chunking is done semantically through an LLM-based step. This is more expensive than naive token chunking, but it produces more coherent chunks, which is important for downstream retrieval quality. I run chunking and metadata extraction in one pass to keep processing efficient.
 
 ### Retrieval Layer
 
@@ -86,22 +87,22 @@ I added repeatable benchmark workflows to compare:
 - retrieval-augmented generation
 
 Both notebook and scripted execution paths exist, so experiments can be run quickly but still reviewed in detail.
-The experiments as well as the data sets are pushed into LangSmith and traces can be used to track the different runs and compare them in a structured way. This is especially useful to compare the benchmark-only runs with the RAG runs and seeing all the details from retrieval and inference.
 
-I tested different approaches for the dataset and how to evaluate the results. 
-First I was thinking about using questions and answers from legal blogs and forums, but gathering the data and evaluating the correctness of the answers was difficult and therefore I moved this aside and focused on the other options.
+I also push experiments and datasets to LangSmith, which gives me trace-level visibility across runs. This is especially useful for structured benchmark-only vs RAG comparisons, including retrieval and inference details.
 
-First other options I could think about was using exam questions for law students, which are publicly available and have a clear expected answer, but after running the first test with the benchmark setup (no RAG) I found a near 100% test result which was a clear indication of data leakage. Which is kinda obvious since the data is publicly available and the model was trained on a lot of public data, but it was still a good reminder to be careful with evaluation data in this domain. It also remind that the models are really good at memorizing and reproducing the content they were trained on. This was also the spark for the idea of evaluating how good the models can reproduce the propertery commentary that is behind paywalls, so do i need this content or do I just need the model to actively reproduce and remember it. This is something I will explore in spinoff experiment.
+I tested different dataset options and evaluation paths:
 
-The second option was a data set from hugging face I got made aware of by a former colleague of mine. It is a collection of a huge amount of legal questions with answers for all different legal areas. The questions are more practical and less academic than the exam questions, which is a better fit for my use case. The answers also contain laws that are applicable and refrences. 
-https://huggingface.co/datasets/DomainLLM/gerlayqa-bgb-paraphrased
+- Legal blog/forum QA looked promising at first, but collecting high-quality labels and validating correctness at scale was too costly for this phase.
+- Law-student exam questions provided clear target answers, but benchmark-only runs reached near-100% performance, a strong sign of leakage or memorization effects from public training data.
+- That result reinforced an important follow-up question: how much proprietary legal commentary can models already reproduce without explicit retrieval context? Will tackle this in a separate experiment.
 
+The most useful current option came from a Hugging Face dataset a former colleague pointed me to: [DomainLLM/gerlayqa-bgb-paraphrased](https://huggingface.co/datasets/DomainLLM/gerlayqa-bgb-paraphrased). It contains a large set of practical legal Q&A pairs across domains, often with law references, and is a better fit for this use case than academic exam-style prompts.
 
-## Why I'm found to the SEO-First approach
+## Why I Still Favor the SEO-First Approach
 
-Even though the current results are not yet showing a clear RAG lift, I am still confident that the SEO-first ingestion strategy is a valuable approach to experiment with. It gives a really nice growth path and a lot of control over the data collection process, which is crucial in this domain where data is scarce and fragmented.
+Even though the current results are not yet showing a clear RAG lift, I still consider SEO-first ingestion a valuable strategy for this stage. It gives me a clear growth path and high control over corpus expansion, which matters in a domain where public data is scarce and fragmented.
 
-It can be easily automated and scaled, and it allows for quick adjustments based on what is found to be most relevant and useful for the task at hand. It also helps to ensure that the data being ingested is actually relevant to the legal questions being asked, which is a key factor in improving retrieval quality and ultimately answer quality.
+It is easy to automate, easy to scale, and easy to adjust based on observed relevance. Most importantly, it keeps the ingestion loop aligned with real user-intent queries, which is likely to matter for retrieval quality over time.
 
 ## Current Result: No Clear RAG Lift Yet
 
@@ -111,7 +112,10 @@ That is not the outcome I ultimately want, but it is still useful.
 
 A flat early result in this setup usually points to one or more of these issues:
 
-
+- retrieval is not tuned yet
+- corpus quality and coverage are still limited
+- chunking and ranking quality still need iteration
+- evaluation data is still being hardened against leakage
 
 Instead of treating this as failure, I treat it as the first measurable checkpoint.
 
@@ -134,41 +138,27 @@ This kickoff is the first post in a sequence. The next experiments will follow a
 
 Goal: integrate judgments as a first-class source type and measure impact on grounding and difficult legal questions.
 
-### 2. Commentary and Paywall Track
+### 2. Commentary reproducability
 
-Goal: map what is legally and technically usable from commentary-like sources, and test where model prior knowledge ends and retrieval context becomes necessary.
+Goal: evaluate how much of the propretary commentary can be reproduced already by the LLMs based on their pre training and the memorisation of this and how can I leverage this in the pipeline. I was thinkin to experiement with a subagent that gets the taks to prepare these reproduced commentaries and also save them over time to compile an own cached set of commentaries.
 
-### 3. Retrieval Quality Track
+### 3. Optimise agent flow
 
-Goal: tune the retrieval stack directly:
+Right now the agent is pretty plain. I'm planning to elaborate this further by adding different search tools that the agent can use during its cycle. Thereby I would like to include a commentary sub agent as mentioned above a second search attempt by metadata like paragraps that are mentioned and a plain search to get the legal code texts for the paragraphs used. In addition I would liek to experiment with review loops with a second agent to hardening the response to see the effect on this with and wihtout RAG. 
+
+### 4. Retrieval Quality Track
+
+Goal: This is about good old hyper parameter tuning of the retrieval stack directly:
 
 - top-k and alpha settings
 - candidate generation and reranking
 - deduplication and relevance filtering
-- chunk and metadata quality
-
-### 4. Agent Workflow Track
-
-Goal: connect retrieval behavior to agent graph decisions and compare output quality with and without retrieval at node level.
-
-## Proposed Article Outline for the Full Deep-Dive Version
-
-For the full follow-up article, I will use this structure:
-
-1. Introduction: legal QA is a data logistics problem first
-2. Initial hypothesis: retrieval should help
-3. Pipeline architecture: Bronze, Silver, Retrieval, Evaluation
-4. Why SEO-first ingestion was chosen
-5. Evaluation history: what I tried and what did not separate well
-6. Baseline result: weak uplift, strong reproducibility
-7. Lessons learned so far
-8. Next experiments: judgments, commentary, and retrieval tuning
-9. Conclusion: foundation first, optimization second
+- chunk and metadata quality.
 
 ## Final Thought
 
 The core takeaway from this kickoff is straightforward:
 
-I did not prove that public-data RAG already beats the benchmark in this domain. I did prove that I can run a full, repeatable REC/RAG cycle and now improve it systematically.
+I did not prove that public-data RAG out of the box beats the benchmark in this domain right away. I did prove that I can run a full, repeatable RAG cycle and now improve it systematically.
 
 That is the right starting point for the next experiments.

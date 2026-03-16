@@ -75,7 +75,7 @@
   };
 
   if (!isLocalHost) {
-    window.klaroConfig.cookieDomain = ".florianheiwig.de";
+    window.klaroConfig.cookieDomain = ".heiwig.com";
   }
 
   window.dataLayer = window.dataLayer || [];

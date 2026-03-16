@@ -1,4 +1,4 @@
-# florianheiwig.de
+# heiwig.com
 
 Personal site and blog built with [Hugo](https://gohugo.io/) and the [hugo-book](https://github.com/alex-shpak/hugo-book) theme, deployed to Firebase Hosting.
 
@@ -26,9 +26,9 @@ Personal site and blog built with [Hugo](https://gohugo.io/) and the [hugo-book]
    hugo server
    ```
 
-4. **Optional — build like production** (output in `public/blog` with production base URL):
+4. **Optional — build like production** (with production base URL):
    ```bash
-   hugo --minify -d public/blog --baseURL "https://florianheiwig.de/blog/"
+   hugo --minify --baseURL "https://heiwig.com/"
    ```
 
 ## CI/CD

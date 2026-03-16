@@ -185,7 +185,7 @@ Use this stripped setup (Google Analytics only), with styling aligned to the web
     htmlTexts: true,
     cookieExpiresAfterDays: 365,
     default: false,
-    cookieDomain: ".florianheiwig.de",
+    cookieDomain: ".heiwig.com",
     mustConsent: false,
     acceptAll: true,
     hideDeclineAll: true,

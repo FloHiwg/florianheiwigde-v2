@@ -1,0 +1,363 @@
+<style>
+  #podfetcher-agent-example {
+    margin: 2rem 0;
+    --pf-frame-border: rgba(24, 33, 38, 0.1);
+    --pf-frame-bg-top: rgba(255, 252, 247, 0.98);
+    --pf-frame-bg-bottom: rgba(246, 239, 229, 0.96);
+    --pf-frame-shadow: rgba(43, 35, 23, 0.12);
+    --pf-divider: rgba(24, 33, 38, 0.08);
+    --pf-title: #192328;
+    --pf-muted: #5d6a70;
+    --pf-status-bg: rgba(255, 255, 255, 0.74);
+    --pf-status-border: rgba(24, 33, 38, 0.08);
+    --pf-status-dot: #2e9f5d;
+    --pf-user-bg: #1f3f3f;
+    --pf-user-text: #f2f7f4;
+    --pf-user-label: rgba(255, 255, 255, 0.72);
+    --pf-agent-bg: #fbf5ee;
+    --pf-agent-text: #192328;
+    --pf-agent-border: rgba(25, 35, 40, 0.08);
+    --pf-agent-label: #d85f3b;
+    --pf-typing-bg: rgba(255, 252, 247, 0.95);
+    --pf-typing-border: rgba(25, 35, 40, 0.08);
+    --pf-typing-shadow: rgba(44, 31, 22, 0.08);
+    --pf-dot: rgba(216, 95, 59, 0.78);
+  }
+
+  .dark #podfetcher-agent-example {
+    --pf-frame-border: rgba(255, 255, 255, 0.08);
+    --pf-frame-bg-top: rgba(43, 39, 34, 0.98);
+    --pf-frame-bg-bottom: rgba(30, 28, 26, 0.98);
+    --pf-frame-shadow: rgba(0, 0, 0, 0.34);
+    --pf-divider: rgba(255, 255, 255, 0.08);
+    --pf-title: #f3eee7;
+    --pf-muted: #c2b8aa;
+    --pf-status-bg: rgba(255, 255, 255, 0.06);
+    --pf-status-border: rgba(255, 255, 255, 0.1);
+    --pf-status-dot: #58c27d;
+    --pf-user-bg: #274948;
+    --pf-user-text: #eff7f3;
+    --pf-user-label: rgba(255, 255, 255, 0.76);
+    --pf-agent-bg: #322d28;
+    --pf-agent-text: #f3eee7;
+    --pf-agent-border: rgba(255, 255, 255, 0.08);
+    --pf-agent-label: #f09b73;
+    --pf-typing-bg: rgba(50, 45, 40, 0.94);
+    --pf-typing-border: rgba(255, 255, 255, 0.08);
+    --pf-typing-shadow: rgba(0, 0, 0, 0.24);
+    --pf-dot: rgba(240, 155, 115, 0.9);
+  }
+
+  #podfetcher-agent-example .pf-chat-frame {
+    padding: 1rem;
+    border-radius: 1.6rem;
+    border: 1px solid var(--pf-frame-border);
+    background: linear-gradient(180deg, var(--pf-frame-bg-top), var(--pf-frame-bg-bottom));
+    box-shadow: 0 20px 60px var(--pf-frame-shadow);
+    overflow: hidden;
+  }
+
+  #podfetcher-agent-example .pf-chat-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.1rem 0.2rem 0.9rem;
+    border-bottom: 1px solid var(--pf-divider);
+  }
+
+  #podfetcher-agent-example .pf-chat-topbar strong {
+    display: block;
+    font-size: 0.98rem;
+    color: var(--pf-title);
+  }
+
+  #podfetcher-agent-example .pf-chat-topbar span {
+    color: var(--pf-muted);
+    font-size: 0.84rem;
+  }
+
+  #podfetcher-agent-example .pf-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.45rem 0.72rem;
+    border-radius: 999px;
+    background: var(--pf-status-bg);
+    border: 1px solid var(--pf-status-border);
+    color: var(--pf-muted);
+    font-size: 0.8rem;
+    white-space: nowrap;
+  }
+
+  #podfetcher-agent-example .pf-status::before {
+    content: "";
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 999px;
+    background: var(--pf-status-dot);
+  }
+
+  #podfetcher-agent-example .pf-chat-log {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    padding: 1rem 0.2rem 0.1rem;
+  }
+
+  #podfetcher-agent-example .pf-step {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 420ms ease, transform 420ms ease;
+  }
+
+  #podfetcher-agent-example .pf-step.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  #podfetcher-agent-example .pf-msg {
+    display: flex;
+    width: 100%;
+  }
+
+  #podfetcher-agent-example .pf-msg-user {
+    justify-content: flex-end;
+  }
+
+  #podfetcher-agent-example .pf-msg-agent,
+  #podfetcher-agent-example .pf-msg-typing {
+    justify-content: flex-start;
+  }
+
+  #podfetcher-agent-example .pf-bubble,
+  #podfetcher-agent-example .pf-typing {
+    max-width: min(86%, 36rem);
+    border-radius: 1.35rem;
+    line-height: 1.55;
+    font-size: 0.98rem;
+  }
+
+  #podfetcher-agent-example .pf-bubble {
+    padding: 0.95rem 1rem;
+  }
+
+  #podfetcher-agent-example .pf-msg-user .pf-bubble {
+    background: var(--pf-user-bg);
+    color: var(--pf-user-text);
+    border-bottom-right-radius: 0.45rem;
+  }
+
+  #podfetcher-agent-example .pf-msg-agent .pf-bubble {
+    background: var(--pf-agent-bg);
+    color: var(--pf-agent-text);
+    border: 1px solid var(--pf-agent-border);
+    border-bottom-left-radius: 0.45rem;
+  }
+
+  #podfetcher-agent-example .pf-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  #podfetcher-agent-example .pf-msg-user .pf-label {
+    color: var(--pf-user-label);
+  }
+
+  #podfetcher-agent-example .pf-msg-agent .pf-label {
+    color: var(--pf-agent-label);
+  }
+
+  #podfetcher-agent-example .pf-typing {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.8rem 0.95rem;
+    background: var(--pf-typing-bg);
+    border: 1px solid var(--pf-typing-border);
+    color: var(--pf-muted);
+    box-shadow: 0 12px 30px var(--pf-typing-shadow);
+  }
+
+  #podfetcher-agent-example .pf-dots {
+    display: inline-flex;
+    gap: 0.34rem;
+  }
+
+  #podfetcher-agent-example .pf-dots span {
+    width: 0.42rem;
+    height: 0.42rem;
+    border-radius: 999px;
+    background: var(--pf-dot);
+    animation: podfetcher-agent-bounce 1s infinite ease-in-out;
+  }
+
+  #podfetcher-agent-example .pf-dots span:nth-child(2) {
+    animation-delay: 120ms;
+  }
+
+  #podfetcher-agent-example .pf-dots span:nth-child(3) {
+    animation-delay: 240ms;
+  }
+
+  #podfetcher-agent-example .pf-summary {
+    margin: 0.75rem 0 0;
+    padding-left: 1rem;
+  }
+
+  #podfetcher-agent-example .pf-summary li {
+    margin-bottom: 0.4rem;
+  }
+
+  #podfetcher-agent-example .pf-caption {
+    margin-top: 1rem;
+    color: var(--pf-muted);
+    font-size: 0.94rem;
+    line-height: 1.6;
+  }
+
+  @keyframes podfetcher-agent-bounce {
+    0%, 80%, 100% {
+      transform: translateY(0);
+      opacity: 0.45;
+    }
+    40% {
+      transform: translateY(-4px);
+      opacity: 1;
+    }
+  }
+
+  @media (max-width: 700px) {
+    #podfetcher-agent-example .pf-chat-topbar {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    #podfetcher-agent-example .pf-bubble,
+    #podfetcher-agent-example .pf-typing {
+      max-width: 92%;
+    }
+  }
+</style>
+
+<div id="podfetcher-agent-example">
+  <div class="pf-chat-frame">
+    <div class="pf-chat-topbar">
+      <div>
+        <strong>Agent Workflow Example</strong>
+        <span>Latest episode lookup plus summary via Podfetcher</span>
+      </div>
+      <div class="pf-status">Demo flow</div>
+    </div>
+
+    <div class="pf-chat-log">
+      <div class="pf-step pf-msg pf-msg-user">
+        <div class="pf-bubble">
+          <span class="pf-label">Florian</span>
+          Look at the last episode from "Down Set Talk! - Der NFL podcast von RTL"
+        </div>
+      </div>
+
+      <div class="pf-step pf-msg pf-msg-typing">
+        <div class="pf-typing">
+          <div class="pf-dots" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <span>Paul is checking the latest episode via Podfetcher</span>
+        </div>
+      </div>
+
+      <div class="pf-step pf-msg pf-msg-agent">
+        <div class="pf-bubble">
+          <span class="pf-label">Paul</span>
+          I found the latest episode through Podfetcher. <strong>"Gewinner &amp; Verlierer der NFL Free Agency"</strong> was published on March 12, 2026 and runs for 1 hour 43 minutes.
+        </div>
+      </div>
+
+      <div class="pf-step pf-msg pf-msg-user">
+        <div class="pf-bubble">
+          <span class="pf-label">Florian</span>
+          Yes give me a summary of the last episode
+        </div>
+      </div>
+
+      <div class="pf-step pf-msg pf-msg-typing">
+        <div class="pf-typing">
+          <div class="pf-dots" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <span>Paul is reading the transcript and preparing a summary</span>
+        </div>
+      </div>
+
+      <div class="pf-step pf-msg pf-msg-agent">
+        <div class="pf-bubble">
+          <span class="pf-label">Paul</span>
+          The episode focuses on the biggest winners and losers of NFL free agency.
+          <ul class="pf-summary">
+            <li>The hosts highlight the Chiefs, Raiders, Rams, and Jets as major winners.</li>
+            <li>They frame the Dolphins, Seahawks, and Packers as teams that lost important pieces.</li>
+            <li>A large part of the discussion centers on major contracts, including deals involving Tua Tagovailoa, Trent McDuffie, Tyler Linderbaum, and Daniel Jones.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <p class="pf-caption">
+      This is the workflow Podfetcher was built for: one request leads to episode discovery, transcript access, and a usable answer without manual page-skimming or multi-API glue.
+    </p>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var root = document.getElementById("podfetcher-agent-example");
+    if (!root || root.dataset.initialized === "true") {
+      return;
+    }
+    root.dataset.initialized = "true";
+
+    var steps = root.querySelectorAll(".pf-step");
+    var hasPlayed = false;
+
+    function reveal() {
+      if (hasPlayed) {
+        return;
+      }
+      hasPlayed = true;
+
+      var offset = 0;
+      steps.forEach(function (step) {
+        var duration = step.classList.contains("pf-msg-typing") ? 700 : 520;
+        window.setTimeout(function () {
+          step.classList.add("is-visible");
+        }, offset);
+        offset += duration;
+      });
+    }
+
+    if (!("IntersectionObserver" in window)) {
+      reveal();
+      return;
+    }
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          reveal();
+          observer.disconnect();
+        }
+      });
+    }, { threshold: 0.35 });
+
+    observer.observe(root);
+  })();
+</script>

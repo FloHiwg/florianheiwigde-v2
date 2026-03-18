@@ -9,3 +9,8 @@ uglyURLs = false
   author = "Florian G. Heiwig"
   # Google Tag Manager container ID
   gtmContainerID = "GTM-MP6LZF49"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true

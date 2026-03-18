@@ -1,48 +1,66 @@
 ---
-title: "From OpenClaw Transcript Access to Building My Own API Product"
+title: "How I Turned a Transcript Workflow Gap Into an API Product"
 date: 2026-03-10
 draft: false
-description: "How a small OpenClaw transcript experiment turned into Podfetcher: a full API product with payments, docs, SDK, CLI, and agent-first integrations."
+description: "How I identified a gap in agent-first podcast transcript access and turned it into Podfetcher: an API product with billing, docs, SDK, CLI, and MCP integration."
 ---
 
 ## Introduction
 
-After getting email into my OpenClaw workflow, I wanted to add one more signal I care about: podcasts.
+I started with a recurring workflow problem: deciding which podcast episodes were worth my attention without manually skimming episode pages.
 
-The initial requirement was very practical: every morning I wanted a fast decision layer for the podcasts I follow. I did not need full audio processing inside my OpenClaw workflow, and I definitely did not want to manually skim episode pages. I wanted the agent to tell me what an episode is about, who is in it, and whether it is worth my time today.
+The requirement was simple. I did not need full audio processing or another media pipeline. I needed reliable transcript access so an agent could tell me what an episode is about, who is in it, and whether it was worth my time.
 
-My first idea was straightforward. I assumed I could take one of the existing transcript APIs, add a small wrapper, and plug that into my OpenClaw briefing. I expected this to be a short integration project.
+At first, this looked like a straightforward integration. I assumed one of the existing transcript APIs would cover the use case with a thin wrapper on top.
 
-It turned into something much bigger.
+Once I started testing the market, the gap became clear. Most options were not designed for selective, low-volume transcript access in agent-driven workflows. They either hid transcript retrieval behind plans that did not fit the usage pattern, made integration heavier than necessary, or encouraged repeated transcription of the same content.
 
-## The Constraint That Changed the Direction
+That changed the framing of the project. What started as a small integration question turned into a product question: what would a transcript API look like if it were designed for agent-first, selective access from the start?
 
-Once I started testing available APIs, the mismatch became obvious. Most of the offerings I tried were not really designed for an agent-first, low-volume usage pattern where you only need selected transcripts each month. Free tiers looked useful from the outside but in the cases I tested was not supporting any transcript retrieval, and the monthly pricing models often felt too heavy for the amount of value I needed in this specific workflow.
+## The Market Gap
 
-At the same time, I kept seeing a second pattern in existing community setups: users or agents repeatedly fetched audio files and triggered fresh transcription jobs for episodes that were likely already processed somewhere else by someone else. Technically that works, but from a system perspective it felt wasteful. If many users are requesting the same top podcasts, recomputing the same transcript over and over is not a great default.
+Once I started testing available APIs, I evaluated them against a few practical criteria: could I access transcripts without committing to an oversized monthly plan, did the product fit low-volume usage, and was the integration lightweight enough for an agent workflow?
 
-That was the point where the project changed scope. Instead of asking, "How do I wrap an API for my OpenClaw briefing?", I started asking, "What would a transcript API look like if it were designed for this exact workflow?"
+That evaluation exposed a clear pattern. Many products were optimized either for broader media workflows or for higher-volume business use, not for selective retrieval of a few high-value transcripts each month. In some cases, free tiers created the impression of accessibility but did not actually include transcript access. In others, the pricing model assumed a level of consumption that did not match the workflow I was trying to support.
 
-## From Integration to Product: Building Podfetcher
+There was also a systems problem. In many community workflows, users or agents downloaded episode audio and triggered new transcription jobs even when the same episode had likely already been processed elsewhere. That is functional, but it is a poor default. If many users repeatedly request transcripts for the same top podcasts, the product should not force the same compute work every time.
 
-This is how Podfetcher started. I built the backend around a simple principle: generate transcripts when needed, but cache and reuse them whenever possible. Under the hood, that meant combining podcast discovery and metadata handling with transcript generation and a storage layer that makes repeated access cheap and fast.
+That was the point where the project changed scope. The question was no longer just how to wrap an existing API for my own use. The more interesting question was what a transcript API would look like if it were designed around selective access, low-friction integration, and transcript reuse from the start.
 
-As soon as I crossed that line, it no longer made sense to keep this as a private helper script. If I was already building the infrastructure, I wanted to validate it as a real product. So I added Stripe-based billing, designed a lightweight user portal for usage and payments, and wrote documentation with an agent-first perspective so integration paths are clear from day one.
+## The Product Insight
 
-I also treated this as a full-stack AI-building exercise. I used Perplexity for early copy exploration, Claude for design directions, and Gemini plus Codex to refine content, legal pages, and implementation details. The interesting part was not which model wrote which paragraph. The interesting part was learning how to orchestrate these tools in a way that still produces a coherent, shippable result.
+Podfetcher started from that insight. I built the backend around a simple principle: generate transcripts when needed, but cache and reuse them whenever possible. Under the hood, that meant combining podcast discovery and metadata handling with transcript generation and a storage layer that makes repeated access cheap and fast.
 
-## Making It Usable for Agents, Not Just Humans
+The product insight was straightforward: selective transcript access should feel like an API product, not like a transcription pipeline that every user has to rebuild for themselves. That meant designing for low-friction retrieval, efficient reuse, and a surface area that could support both human users and agent workflows.
 
-Because the original problem came from OpenClaw, integration ergonomics mattered as much as the backend itself. I added an SDK, then a CLI, and then an MCP wrapper so agent workflows can call the service in deterministic ways without reinventing glue code every time. That keeps the "daily briefing" use case simple: check whether a new episode exists, resolve transcript context, summarize what changed, and provide a quick recommendation.
+The clearest target users are OpenClaw users and other agent builders who need podcast transcripts as an input for their own workflows. I had already seen many transcript-related services in ClawHub, but not one that could handle podcast transcription directly without forcing users to stitch together multiple APIs first. That made the gap more specific: this was not just about transcripts in general, but about giving agent-oriented users a direct podcast transcript surface they could plug into real use cases immediately.
 
-What I like most is that this moved the workflow from a fragile one-off integration to a reusable surface. The morning briefing behavior stays the same from my perspective, but the underlying capability is now something I can maintain, improve, and share.
+## Building the Product Surface
 
-## What I Learned
+As soon as I crossed that line, it no longer made sense to keep this as a private helper script. If I was already building the infrastructure, I wanted to validate it as a real API product. That meant adding Stripe-based billing and a lightweight user portal early, not as polish, but as a way to test whether the workflow solved a problem people would actually pay for.
 
-The biggest lesson is that real constraints are often the best product inputs. This started as a small helper for one personal workflow, but pricing friction, reliability gaps, and inefficiencies in existing flows forced a better question and, eventually, a better architecture.
+I treated documentation the same way. For an API product, docs are not a support artifact. They are part of the product surface, especially when the target use case involves agents and developers who need to understand integration paths quickly.
 
-The second lesson is about agent-driven development itself. End-to-end projects expose where agents accelerate execution and where you still need explicit structure, strong defaults, and deterministic boundaries. The tools are powerful, but the quality of the outcome still depends on how clearly you define the system you want to build.
+Integration ergonomics mattered as much as the backend itself, so I expanded the surface deliberately. The SDK made direct application integration easier. The CLI gave the product a simple operational interface. The MCP wrapper turned the same backend capability into something agent workflows could call in a deterministic way without custom glue for every setup.
 
-## Next Steps
+That changed the project from a fragile one-off integration into a reusable product surface. The workflow outcome stayed the same, but the underlying capability became something I could maintain, improve, distribute, and validate as a real product.
 
-The next step is release and validation. I plan to publish Podfetcher, ship a dedicated ClawHub skill, and test whether the value proposition holds beyond my own workflow. Pricing will stay cost-oriented, with transcript reuse and selective prefetching as the core levers to keep usage affordable while making the product sustainable.
+## Example Agent Workflow
+
+One of the simplest ways to show the product value is the workflow that started the whole project: ask an agent for the latest podcast episode, then ask for a summary. The important part is not the chat UI itself. The important part is that the agent can resolve the episode, access the transcript through Podfetcher, and return a usable answer without stitching together multiple services first.
+
+{{< podfetcher-agent-chat >}}
+
+## AI-Assisted Delivery
+
+I also treated this as an AI-assisted product delivery exercise. I used language models across exploration, design iteration, implementation support, documentation, and product copy, but only within clear boundaries. The useful pattern was not handing over the whole product to an agent. It was breaking work into scoped tasks, keeping interfaces explicit, and validating outputs against the actual product requirements.
+
+That became especially important in the backend architecture. With every meaningful change, I reviewed the structure, made explicit architecture decisions, and brought my own product and engineering judgment into the process. In several areas, I reworked sections together with the agent until the design matched the system behavior I actually wanted.
+
+Agents can accelerate execution, but the quality of the result still depends on deterministic APIs, clear defaults, and a narrow surface for error. The broader lesson was that AI speeds up delivery best when the human side stays responsible for architecture, acceptance criteria, and final product coherence.
+
+## Validation Plan
+
+The next step is launch and validation. I plan to publish Podfetcher, ship a dedicated ClawHub skill, and test three concrete hypotheses. First, OpenClaw users and other agent builders will prefer a direct podcast transcript surface over stitching together multiple APIs themselves. Second, a selective-access pricing model will feel more reasonable for this workflow than broader monthly plans. Third, transcript reuse plus selective prefetching will create sustainable unit economics without making the user experience worse.
+
+The signals I care about are straightforward: whether users can get to a successful integration quickly, whether they return for repeated transcript retrieval in real workflows, and whether some of them are willing to pay for that convenience. If those signals are strong, then the product thesis holds. If they are weak, I will know whether the issue is distribution, pricing, or the sharpness of the use case itself.

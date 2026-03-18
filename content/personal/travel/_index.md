@@ -1,5 +1,5 @@
 ---
-title: "Travel (Personal)"
+title: "Travel"
 description: "Personal travel documentation and notes."
 bookCollapseSection: true
 weight: 10

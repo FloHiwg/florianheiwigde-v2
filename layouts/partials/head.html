@@ -1,15 +1,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{{- $canonical := .Permalink -}}
+{{- with .Params.canonical -}}
+  {{- $canonical = . -}}
+  {{- if not (or (hasPrefix $canonical "http://") (hasPrefix $canonical "https://")) -}}
+    {{- $canonical = $canonical | absURL -}}
+  {{- end -}}
+{{- end -}}
 <title>{{ if .IsHome }}{{ .Site.Title }} - Product & Code{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
 <meta name="description" content="Berlin-based product professional, software developer, and entrepreneur.">
 <meta name="author" content="Florian G. Heiwig">
-<link rel="canonical" href="{{ .Permalink }}">
+<link rel="canonical" href="{{ $canonical | safeURL }}">
 {{ with .Param "robots" }}<meta name="robots" content="{{ . }}">{{ end }}
 
 <meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }} - Product & Code{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}">
 <meta property="og:description" content="Berlin-based product professional, software developer, and entrepreneur.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:url" content="{{ $canonical | safeURL }}">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{ if .IsHome }}{{ .Site.Title }} - Product & Code{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}">
@@ -17,6 +24,9 @@
 
 <link rel="icon" href="{{ "favicon.ico" | relURL }}">
 <link rel="stylesheet" href="{{ "css/styles.css" | relURL }}">
+{{ if .Params.travelMapId }}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+{{ end }}
 
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':

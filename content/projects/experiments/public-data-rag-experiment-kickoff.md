@@ -1,21 +1,32 @@
 ---
-title: "Public Data RAG in German Legal AI: Kickoff, Baseline, and What Comes Next"
+title: "Building a Public-Data RAG System for German Legal QA"
 date: 2026-03-09
 draft: false
-description: "A kickoff write-up of my German legal RAG experiment: what I built end-to-end with public data, what worked, what did not, and how the next experiments will be structured."
+description: "An engineering case study of my German legal RAG project: building the ingestion, retrieval, and evaluation pipeline end-to-end with public data, measuring the baseline honestly, and outlining the next iteration path."
 ---
 
 ## Introduction
 
-I started a new experiment to answer a practical question:
+This project started with a practical question:
 
 How far can I get in German legal QA with only publicly available data?
 
-This post is the kickoff. It is not a polished success story. It is a build log of what I have implemented so far, what the baseline results look like, and how I will structure the next rounds of experiments.
+I built this as an end-to-end RAG system, not just a retrieval prototype. The scope includes source discovery, ingestion, normalization, chunking, retrieval, and evaluation. My goal was to understand where quality actually breaks in a hard domain with fragmented public data, not to produce an inflated demo.
 
-Another goal for this project was to deepen my understanding of the medallion architecture and build a full data-to-evaluation pipeline that can be iterated on quickly.
+Another goal was to design a workflow that is measurable and easy to iterate on. I used a medallion-style structure to separate raw ingestion, structured processing, retrieval, and evaluation so that each layer can be improved independently.
 
-The short version: I now have a full end-to-end RAG pipeline running. The current benchmark vs RAG deltas are still weak. But the system is reproducible, measurable, and ready for targeted iteration.
+The current benchmark vs RAG deltas are still weak, which is an important result in itself. What this project already demonstrates is the kind of engineering work I want to showcase: building real pipelines around messy data, making tradeoffs explicit, and evaluating systems honestly instead of treating early output as proof.
+
+## Project Snapshot
+
+At a high level, this experiment combines four pieces:
+
+- a public-data ingestion layer built around sitemaps, direct URLs, search-intent discovery, and raw document intake
+- a normalization and chunking pipeline that turns mixed legal content into retrieval-ready documents
+- a retrieval setup with vector, BM25, and hybrid modes
+- an evaluation workflow that compares benchmark-only generation against retrieval-augmented generation across correctness, completeness, structure, and grounding
+
+The current state is promising but still early. The full loop is running end to end, and the system is now structured well enough to make targeted improvements and measure whether they actually help.
 
 ## Why This Experiment Exists
 
@@ -39,20 +50,20 @@ I implemented an end-to-end flow from source discovery and ingestion to benchmar
 
 ### Bronze: Discovery, Ingestion, and Raw Collection
 
-The Bronze layer handles source discovery, intake, and raw extraction. It currently supports multiple entry paths:
+The Bronze layer exists because legal public data is not available through one clean, structured channel. The first design decision was therefore to treat ingestion as a multi-path acquisition problem instead of assuming one canonical feed.
+
+It currently supports multiple entry paths:
 
 - sitemap ingestion
 - search-intent URL discovery
 - direct URL ingestion
 - S3-based document drop flows
 
-I chose this setup because public legal data is scarce, fragmented, and spread across different formats and channels. I wanted an ingestion layer that can handle multiple acquisition paths without major rework.
+I chose this setup because the corpus has to be assembled opportunistically. Some useful sources expose clean sitemaps. Others are only reachable through targeted search queries. Some materials are available only as raw PDFs or manually collected files. A single ingestion strategy would have made corpus growth too brittle.
 
-The fastest first move was to collect trusted, crawlable sources through sitemaps and direct URLs.
+The first priority was to make source expansion cheap. Sitemaps and direct URLs gave me a reliable base of trusted, crawlable sources. PDF and raw-file intake covered the document types that are common in legal education and public reference material. Search-intent discovery became the scaling mechanism once the initial source pool was in place.
 
-Many high-value pages are still paywalled or only partially public, so I also added traditional open sources such as university scripts and student-oriented legal material. A lot of those came as PDFs, which is why the S3 document-drop flow became part of the ingestion layer early.
-
-After these two tracks, I added SEO-driven discovery as a third source expansion strategy. The idea was simple: use Google ranking as a first-pass preselector, then expand coverage through search-intent queries and long-tail keywords. I implemented this with SERP API calls and used returned URLs as ingestion candidates. It scales well, but it also introduces noise, so better filtering and source-vetting logic is part of the next iteration.
+The main tradeoff in Bronze is breadth versus noise. SEO-driven discovery scales well and keeps the corpus closer to real user phrasing, but it also brings in weaker sources and more irrelevant pages. That is acceptable at this stage because I would rather have a pipeline that can grow and then be filtered than a narrow corpus that looks clean but cannot expand.
 
 Beyond source intake, Bronze also handles the regular crawler lifecycle:
 
@@ -61,40 +72,52 @@ Beyond source intake, Bronze also handles the regular crawler lifecycle:
 - download source content and clean it into normalized Markdown files
 - persist a content hash so changes can be detected quickly and only updated documents move forward
 
-This keeps crawling efficient and makes downstream processing faster because unchanged documents do not need full reprocessing.
+That part of the design matters because iteration speed is part of the product here. If ingestion is too expensive or too manual, evaluation loops slow down and retrieval tuning becomes guesswork.
+
+The next Bronze improvements are mostly about source quality control: tighter domain filtering, better source scoring, and stronger rules for deciding which discovered documents are worth carrying into Silver.
 
 {{< figure src="/images/legal-rag-ingestion-stream-fusion.svg" alt="Diagram showing multiple ingestion input streams merging into one unified document pool" caption="Ingestion stream fusion: sitemaps, direct URLs, search-intent discovery, and S3/PDF drops converge through one refresh-aware ingestion layer into a single canonical document pool." class="blog-post-figure" >}}
 
 ### Silver: Normalization and Chunking
 
-The Silver layer converts scraped raw material into structured, retrieval-ready documents:
+The Silver layer turns noisy raw text into a retrieval asset. Its job is not just cleanup. It is the point where the corpus becomes structured enough to support ranking, filtering, and later diagnosis.
+
+The current transformation includes:
 
 - normalization
 - metadata shaping
 - chunk generation
 
-This is where noisy web data gets transformed into something usable for retrieval and later analysis.
+I deliberately put metadata extraction and chunk generation in the same stage because legal retrieval depends heavily on structure. It is not enough to store text embeddings alone. I want the system to know, where possible, which legal paragraphs are mentioned, which keywords characterize the chunk, and which quality issues appeared during parsing.
 
-Another important function of Silver is metadata enrichment for filtering and relevance signals during retrieval. For example, I add general content tags and references to mentioned legal paragraphs where available.
+The main tradeoff here is cost versus coherence. I chose LLM-based semantic chunking instead of naive token windows because legal explanations often break badly when split mechanically. The more coherent chunk boundaries are worth the added cost at this phase because retrieval quality is still a larger bottleneck than processing efficiency.
 
-Chunking is done semantically through an LLM-based step. This is more expensive than naive token chunking, but it produces more coherent chunks, which is important for downstream retrieval quality. I run chunking and metadata extraction in one pass to keep processing efficient.
+The next Silver iteration is to tighten chunk and metadata quality. That includes better handling of noisy page structure, stronger paragraph-reference extraction, and more explicit quality flags for weak documents before they distort retrieval results.
 
 ### Retrieval Layer
 
-I set up vector, lexical (BM25), and hybrid retrieval paths. The goal was to establish a practical baseline rather than prematurely overfit one method.
+For retrieval, I wanted a baseline that is broad enough to compare approaches without pretending that one method already won. That is why I implemented vector, lexical (BM25), and hybrid retrieval paths instead of optimizing one retrieval mode too early.
+
+This matters in legal QA because lexical overlap still carries real signal for statute names, paragraph references, and recurring legal terminology, while semantic retrieval helps when the query and source use different wording. Hybrid retrieval is the practical compromise, not a theoretical preference.
+
+The current tradeoff is simplicity versus ranking quality. The system can already compare modes and parameters, but ranking is still intentionally basic. I have not yet added the deeper reranking and filtering logic that would be needed to claim retrieval is fully tuned.
+
+The next retrieval work is straightforward: tune `top-k`, tune the hybrid weighting, improve candidate filtering, and introduce reranking once the corpus quality is stable enough that those changes are worth measuring.
 
 ### Evaluation Layer
 
-I added repeatable benchmark workflows to compare:
+The evaluation layer is where I wanted the project to be stricter than a normal prototype. A legal AI system is easy to overstate if the benchmark design is weak, so I built evaluation in from the start instead of treating it as documentation after the fact.
+
+I added repeatable workflows to compare:
 
 - benchmark-only generation
 - retrieval-augmented generation
 
-Both notebook and scripted execution paths exist, so experiments can be run quickly but still reviewed in detail.
+Both notebook and scripted execution paths exist. That is deliberate: notebooks are useful for close inspection, while scripted runs are necessary if I want repeated comparisons to stay consistent.
 
-I also push experiments and datasets to LangSmith, which gives me trace-level visibility across runs. This is especially useful for structured benchmark-only vs RAG comparisons, including retrieval and inference details.
+I also push experiments and datasets to LangSmith so runs can be inspected at trace level. That makes it easier to see not just whether RAG won or lost, but where the failure happened: retrieval, generation, or the benchmark setup itself.
 
-I tested different dataset options and evaluation paths:
+The biggest tradeoff in evaluation has been realism versus cleanliness. I tested different dataset options and evaluation paths:
 
 - Legal blog/forum QA looked promising at first, but collecting high-quality labels and validating correctness at scale was too costly for this phase.
 - Law-student exam questions provided clear target answers, but benchmark-only runs reached near-100% performance, a strong sign of leakage or memorization effects from public training data.
@@ -102,26 +125,93 @@ I tested different dataset options and evaluation paths:
 
 The most useful current option came from a Hugging Face dataset a former colleague pointed me to: [DomainLLM/gerlayqa-bgb-paraphrased](https://huggingface.co/datasets/DomainLLM/gerlayqa-bgb-paraphrased). It contains a large set of practical legal Q&A pairs across domains, often with law references, and is a better fit for this use case than academic exam-style prompts.
 
+The next evaluation improvement is not mainly about more runs. It is about better benchmark hygiene: reducing leakage risk further, segmenting results by question type, and making failure analysis easier to inspect than a single aggregate score.
+
+## How I Measure Progress
+
+One thing I wanted to avoid in this project was vague progress reporting. The pipeline is set up so I can inspect improvement at three levels instead of relying on a single impressionistic demo.
+
+### 1. Corpus and pipeline quality
+
+At the ingestion and normalization level, I care about whether the corpus is actually becoming more useful:
+
+- how many sources and documents are available per ingestion path
+- how many documents make it successfully into the normalized Silver layer
+- how many chunks contain useful metadata such as keywords or legal paragraph references
+
+These metrics matter because retrieval quality in this domain is heavily constrained by source coverage and document quality long before model choice becomes the main factor.
+
+### 2. Retrieval quality
+
+At the retrieval level, I compare vector, BM25, and hybrid retrieval rather than assuming semantic search is automatically better.
+
+The core questions are:
+
+- which retrieval mode returns the most useful context for legal questions
+- whether hybrid retrieval improves grounding without adding too much noise
+- how sensitive the system is to `top-k`, candidate limits, and hybrid weighting
+- whether metadata such as paragraph mentions can be used to filter or rerank results more effectively
+
+This is the layer where I expect a lot of the eventual quality lift to come from, so I want the article to show retrieval behavior directly, not just final answer scores.
+
+### 3. Answer quality
+
+At the answer layer, I compare benchmark-only generation against retrieval-augmented generation across four dimensions:
+
+- correctness
+- completeness
+- structure
+- grounding
+
+Those dimensions are scored consistently across runs so I can compare benchmark and RAG outputs on the same task set instead of relying on anecdotal examples.
+
+The evaluation entrypoint is simple enough to rerun with fixed settings, which makes it practical to publish comparable snapshots later:
+
+```bash
+python scripts/run_gerlayqa_evaluation.py \
+  --include-rag \
+  --rag-retrieval-mode hybrid \
+  --rag-source-id search_intent_discovery \
+  --rag-top-k 6 \
+  --rag-alpha 0.7
+```
+
+I also log runs to LangSmith so I can inspect traces, retrieved chunks, and answer behavior at the individual-question level when an aggregate score changes.
+
 ## Why I Still Favor the SEO-First Approach
 
-Even though the current results are not yet showing a clear RAG lift, I still consider SEO-first ingestion a valuable strategy for this stage. It gives me a clear growth path and high control over corpus expansion, which matters in a domain where public data is scarce and fragmented.
+Even with only modest gains so far, I still consider SEO-first ingestion a valuable strategy for this stage. It gives me a clear growth path and high control over corpus expansion, which matters in a domain where public data is scarce and fragmented.
 
 It is easy to automate, easy to scale, and easy to adjust based on observed relevance. Most importantly, it keeps the ingestion loop aligned with real user-intent queries, which is likely to matter for retrieval quality over time.
 
-## Current Result: No Clear RAG Lift Yet
+## Current Results: Small But Real RAG Lift
 
-The current baseline is honest: benchmark and RAG results are often close, and in several runs there is no clear, reliable uplift.
+I now have a first stable comparison on a fixed 20-question GerLayQA sample. The benchmark-only setup reached a weighted total of `3.15`. The best RAG configuration was hybrid retrieval with `top_k=6` and `alpha=0.7`, which reached `3.275` for a `+0.125` improvement.
 
-That is not the outcome I ultimately want, but it is still useful.
+That is not a dramatic jump, but it is enough to show that retrieval can help in this setup when it is tuned carefully. Just turning retrieval on is not sufficient.
 
-A flat early result in this setup usually points to one or more of these issues:
+Here is the current comparison:
 
-- retrieval is not tuned yet
-- corpus quality and coverage are still limited
-- chunking and ranking quality still need iteration
-- evaluation data is still being hardened against leakage
+| Setup | Weighted total | Delta vs benchmark |
+|---|---:|---:|
+| Benchmark only | 3.150 | 0.000 |
+| Hybrid (`top_k=6`, `alpha=0.7`) | 3.275 | +0.125 |
+| Hybrid (`top_k=4`, `alpha=0.7`) | 3.225 | +0.075 |
+| Hybrid (`top_k=8`, `alpha=0.7`) | 3.125 | -0.025 |
+| Hybrid (`top_k=6`, `alpha=0.5`) | 3.212 | +0.062 |
+| Hybrid (`top_k=6`, `alpha=0.85`) | 3.138 | -0.012 |
+| Vector only | 3.087 | -0.062 |
+| BM25 only | 3.075 | -0.075 |
 
-Instead of treating this as failure, I treat it as the first measurable checkpoint.
+Three things stand out from this result set:
+
+1. **Hybrid retrieval is the only configuration that produced a reliable lift.** Both vector-only and BM25-only runs underperformed the benchmark. That suggests the useful signal is distributed across both lexical and semantic retrieval, and neither one is strong enough alone yet.
+2. **More context is not automatically better.** Increasing `top_k` from `6` to `8` pushed the score below the benchmark, which is a strong sign that additional retrieved context introduced noise rather than grounding.
+3. **The blend weight matters.** `alpha=0.7` outperformed both `alpha=0.5` and `alpha=0.85`, which suggests the current system benefits from a balanced hybrid merge rather than strongly favoring vector retrieval.
+
+Looking at the dimensions, the best hybrid setup improved correctness, completeness, structure, and grounding at the same time, but only by small margins. That is useful because it suggests the gain is not a scoring artifact concentrated in one dimension.
+
+The practical interpretation is straightforward: retrieval quality matters more than the mere presence of retrieval. The current evidence does not support a broad claim that "RAG beats the benchmark" in this domain by default. It does support the narrower claim that tuned hybrid retrieval can produce a measurable, if still modest, improvement.
 
 ## What Is Already Valuable
 

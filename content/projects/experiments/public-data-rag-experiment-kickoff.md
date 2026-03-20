@@ -296,37 +296,38 @@ Even with limited uplift so far, this phase produced durable value:
 
 In other words: I now have a real system, not disconnected notebooks and one-off scripts.
 
-## How This Series Will Be Structured
+## What Are The Next Steps
 
-This kickoff is the first post in a sequence. The next experiments will follow a consistent structure so comparisons stay meaningful.
+This kickoff established the baseline. The next work is straightforward and can now be tracked as a concrete todo list.
 
 {{< figure src="/images/legal-rag-experiment-roadmap.svg" alt="Roadmap diagram showing four next experiment tracks for the legal RAG project" caption="Roadmap for the next phase: judgments integration, commentary reproducibility tests, agent workflow optimization, and retrieval tuning." class="blog-post-figure" >}}
 
-### 1. Judgments Track
-
-Goal: integrate judgments as a first-class source type and measure impact on grounding and difficult legal questions.
-
-### 2. Commentary Reproducibility Track
-
-Goal: evaluate how much proprietary commentary current models can already reproduce from pretraining and memorization, and how this can be used safely in the pipeline. I plan to test a dedicated sub-agent that prepares these reconstructed commentary notes and stores them over time as a cached internal reference set.
-
-### 3. Agent Workflow Optimization Track
-
-Goal: evolve the current baseline agent into a multi-tool workflow. The next version should include:
-
-- a commentary sub-agent (as described above)
-- a second retrieval pass using metadata filters (for example mentioned legal paragraphs)
-- a direct legal-code lookup step for cited paragraphs
-- a reviewer loop with a second agent to harden final answers and compare quality with and without RAG
-
-### 4. Retrieval Quality Track
-
-Goal: tune the retrieval stack directly through focused hyperparameter and quality optimization:
-
-- top-k and alpha settings
-- candidate generation and reranking
-- deduplication and relevance filtering
-- chunk and metadata quality
+<div class="next-steps-checklist">
+  <div class="next-step-card">
+    <span class="next-step-box" aria-hidden="true"></span>
+    <div class="next-step-content">
+      <strong>Integrate judgments</strong> as a first-class source type and measure their impact on grounding and harder legal questions.
+    </div>
+  </div>
+  <div class="next-step-card">
+    <span class="next-step-box" aria-hidden="true"></span>
+    <div class="next-step-content">
+      <strong>Test commentary reproducibility</strong> to evaluate how much proprietary commentary current models can already reproduce from pretraining and memorization, and how that can be used safely in the pipeline.
+    </div>
+  </div>
+  <div class="next-step-card">
+    <span class="next-step-box" aria-hidden="true"></span>
+    <div class="next-step-content">
+      <strong>Build a stronger agent workflow</strong>: add a commentary sub-agent, a second retrieval pass using metadata filters, a direct legal-code lookup step for cited paragraphs, and a reviewer loop to compare answer quality with and without RAG.
+    </div>
+  </div>
+  <div class="next-step-card">
+    <span class="next-step-box" aria-hidden="true"></span>
+    <div class="next-step-content">
+      <strong>Tune retrieval quality</strong>: focus on top-k and alpha settings, candidate generation and reranking, deduplication and relevance filtering, and chunk / metadata quality.
+    </div>
+  </div>
+</div>
 
 ## Final Thought
 

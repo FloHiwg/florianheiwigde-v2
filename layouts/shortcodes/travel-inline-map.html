@@ -7,13 +7,20 @@
   {{ $inlineMap := index $trip.inlineMaps $key }}
   {{ if $inlineMap }}
 <figure class="travel-inline-map-card js-travel-inline-map" data-map='{{ $inlineMap | jsonify }}'>
-  <div class="travel-inline-map-card__header">
-    <div>
+  <div class="travel-inline-map-card__topbar">
+    <div class="travel-inline-map-card__heading">
+      <span class="travel-inline-map-card__eyebrow">Local map</span>
       <div class="travel-inline-map-card__title">{{ with $inlineMap.title }}{{ . }}{{ else }}Map view{{ end }}</div>
       {{ with $inlineMap.description }}<p class="travel-inline-map-card__description">{{ . }}</p>{{ end }}
     </div>
+    <div class="travel-inline-map-card__meta">
+      {{ with $inlineMap.markers }}<span class="travel-map-pill">{{ len . }} pin{{ if ne (len .) 1 }}s{{ end }}</span>{{ end }}
+      {{ with $inlineMap.path }}<span class="travel-map-pill travel-map-pill--warm">Route view</span>{{ end }}
+    </div>
   </div>
-  <div class="travel-inline-map__canvas" data-travel-inline-map-canvas></div>
+  <div class="travel-inline-map-card__frame">
+    <div class="travel-inline-map__canvas" data-travel-inline-map-canvas></div>
+  </div>
   {{ with $inlineMap.caption }}<figcaption class="travel-inline-map-card__caption">{{ . }}</figcaption>{{ end }}
 </figure>
   {{ else }}

@@ -88,12 +88,22 @@
   {{ $travelMap := index site.Data.travel $travelMapId }}
   {{ with $travelMap }}
   <aside class="travel-progress-map js-travel-progress-map" data-map='{{ . | jsonify }}' aria-label="Trip progress map">
-    <div class="travel-progress-map__eyebrow">Trip progress</div>
-    <div class="travel-progress-map__status">
-      <div class="travel-progress-map__label" data-travel-map-label>Journey overview</div>
-      <div class="travel-progress-map__detail" data-travel-map-detail>Scroll the article to follow the route.</div>
+    <div class="travel-progress-map__topbar">
+      <div class="travel-progress-map__heading">
+        <span class="travel-progress-map__eyebrow">Travel overlay</span>
+        <strong class="travel-progress-map__title">South Africa route</strong>
+        <span class="travel-progress-map__subtitle" data-travel-map-label>Journey overview</span>
+      </div>
+      <div class="travel-progress-map__status">Live map</div>
     </div>
-    <div class="travel-progress-map__canvas" data-travel-map-canvas></div>
+    <div class="travel-progress-map__meta">
+      <span class="travel-map-pill">{{ len .route.stops }} stops</span>
+      <span class="travel-map-pill">{{ len .route.legs }} leg{{ if ne (len .route.legs) 1 }}s{{ end }}</span>
+    </div>
+    <div class="travel-progress-map__detail" data-travel-map-detail>Scroll the article to follow the route.</div>
+    <div class="travel-progress-map__frame">
+      <div class="travel-progress-map__canvas" data-travel-map-canvas></div>
+    </div>
   </aside>
   {{ end }}
   {{ end }}

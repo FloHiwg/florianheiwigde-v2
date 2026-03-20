@@ -106,6 +106,8 @@ The current tradeoff is simplicity versus ranking quality. The system can alread
 
 The next retrieval work is straightforward: tune `top-k`, tune the hybrid weighting, improve candidate filtering, and introduce reranking once the corpus quality is stable enough that those changes are worth measuring.
 
+{{< legal-rag-retrieval-options >}}
+
 ### Evaluation Layer
 
 The evaluation layer is where I wanted the project to be stricter than a normal prototype. A legal AI system is easy to overstate if the benchmark design is weak, so I built evaluation in from the start instead of treating it as documentation after the fact.
@@ -128,6 +130,8 @@ The biggest tradeoff in evaluation has been realism versus cleanliness. I tested
 The most useful current option came from a Hugging Face dataset a former colleague pointed me to: [DomainLLM/gerlayqa-bgb-paraphrased](https://huggingface.co/datasets/DomainLLM/gerlayqa-bgb-paraphrased). It contains a large set of practical legal Q&A pairs across domains, often with law references, and is a better fit for this use case than academic exam-style prompts.
 
 The next evaluation improvement is not mainly about more runs. It is about better benchmark hygiene: reducing leakage risk further, segmenting results by question type, and making failure analysis easier to inspect than a single aggregate score.
+
+{{< legal-rag-evaluation-options >}}
 
 ## How I Measure Progress
 

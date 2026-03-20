@@ -1,0 +1,202 @@
+{{- $id := printf "legal-rag-retrieval-options-%d" .Ordinal -}}
+<style>
+  #{{ $id }} {
+    margin: 1.8rem 0 2.1rem;
+    --lrr-frame-border: rgba(24, 33, 38, 0.1);
+    --lrr-frame-accent: rgba(217, 119, 87, 0.1);
+    --lrr-frame-top: rgba(255, 252, 247, 0.98);
+    --lrr-frame-bottom: rgba(246, 239, 229, 0.96);
+    --lrr-frame-shadow: var(--demo-shadow-soft);
+    --lrr-text-strong: var(--demo-text-strong);
+    --lrr-text-muted: var(--demo-text-muted);
+    --lrr-card-bg: rgba(255, 255, 255, 0.72);
+    --lrr-card-border: rgba(24, 33, 38, 0.08);
+    --lrr-card-warm-bg: rgba(255, 245, 240, 0.9);
+    --lrr-card-warm-border: rgba(217, 119, 87, 0.22);
+    --lrr-card-green-border: rgba(47, 124, 90, 0.22);
+    --lrr-code-bg: rgba(255, 255, 255, 0.84);
+    --lrr-code-border: rgba(24, 33, 38, 0.08);
+    --lrr-panel-radius: var(--demo-radius-panel);
+    --lrr-card-radius: 1rem;
+  }
+
+  .dark #{{ $id }} {
+    --lrr-frame-border: rgba(255, 255, 255, 0.08);
+    --lrr-frame-accent: rgba(224, 136, 102, 0.14);
+    --lrr-frame-top: rgba(43, 39, 34, 0.98);
+    --lrr-frame-bottom: rgba(30, 28, 26, 0.98);
+    --lrr-frame-shadow: var(--demo-shadow-soft);
+    --lrr-text-strong: var(--demo-text-strong);
+    --lrr-text-muted: var(--demo-text-muted);
+    --lrr-card-bg: rgba(255, 255, 255, 0.04);
+    --lrr-card-border: rgba(255, 255, 255, 0.08);
+    --lrr-card-warm-bg: rgba(224, 136, 102, 0.1);
+    --lrr-card-warm-border: rgba(224, 136, 102, 0.22);
+    --lrr-card-green-border: rgba(88, 194, 125, 0.22);
+    --lrr-code-bg: rgba(255, 255, 255, 0.04);
+    --lrr-code-border: rgba(255, 255, 255, 0.08);
+  }
+
+  #{{ $id }} .lrr-flow {
+    padding: 1.2rem;
+    border-radius: var(--lrr-panel-radius);
+    border: 1px solid var(--lrr-frame-border);
+    background:
+      radial-gradient(circle at top right, var(--lrr-frame-accent), transparent 34%),
+      linear-gradient(180deg, var(--lrr-frame-top), var(--lrr-frame-bottom));
+    box-shadow: 0 20px 60px var(--lrr-frame-shadow);
+  }
+
+  #{{ $id }} .lrr-header,
+  #{{ $id }} .lrr-details {
+    display: grid;
+    gap: 0.38rem;
+  }
+
+  #{{ $id }} .lrr-header {
+    margin-bottom: 0.95rem;
+  }
+
+  #{{ $id }} .lrr-eyebrow,
+  #{{ $id }} .lrr-kicker,
+  #{{ $id }} .lrr-chip,
+  #{{ $id }} .lrr-subhead {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--lrr-text-muted);
+  }
+
+  #{{ $id }} .lrr-title,
+  #{{ $id }} .lrr-card-title,
+  #{{ $id }} .lrr-option-title {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--lrr-text-strong);
+  }
+
+  #{{ $id }} .lrr-copy,
+  #{{ $id }} .lrr-card-copy,
+  #{{ $id }} .lrr-option-copy,
+  #{{ $id }} .lrr-detail-copy {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--lrr-text-muted);
+  }
+
+  #{{ $id }} .lrr-card {
+    display: grid;
+    gap: 0.8rem;
+    padding: 1rem;
+    border-radius: var(--lrr-card-radius);
+    border: 1px solid var(--lrr-card-warm-border);
+    background: var(--lrr-card-warm-bg);
+  }
+
+  #{{ $id }} .lrr-option-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.7rem;
+  }
+
+  #{{ $id }} .lrr-option {
+    display: grid;
+    align-content: start;
+    grid-template-rows: auto minmax(2.7rem, auto) 1fr;
+    gap: 0.3rem;
+    padding: 0.9rem;
+    border-radius: 0.95rem;
+    border: 1px solid var(--lrr-card-border);
+    background: var(--lrr-card-bg);
+  }
+
+  #{{ $id }} .lrr-option--highlight {
+    border-color: var(--lrr-card-green-border);
+    background: rgba(255, 255, 255, 0.86);
+  }
+
+  .dark #{{ $id }} .lrr-option--highlight {
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  #{{ $id }} .lrr-option-title {
+    display: block;
+    min-height: 2.7rem;
+  }
+
+  #{{ $id }} .lrr-code {
+    margin: 0;
+    padding: 0.82rem 0.88rem;
+    border-radius: 0.9rem;
+    border: 1px solid var(--lrr-code-border);
+    background: var(--lrr-code-bg);
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    color: var(--lrr-text-strong);
+  }
+
+  @media (max-width: 980px) {
+    #{{ $id }} .lrr-option-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    #{{ $id }} .lrr-flow {
+      padding: 1rem;
+    }
+  }
+</style>
+
+<div id="{{ $id }}" class="lrr">
+  <div class="lrr-flow">
+    <div class="lrr-header">
+      <div class="lrr-eyebrow">Retrieval options</div>
+      <div class="lrr-title">The retrieval modes explored in this article</div>
+      <p class="lrr-copy">The retrieval layer was intentionally kept broad first so lexical, semantic, and merged strategies could be compared before deeper ranking logic was added.</p>
+    </div>
+
+    <section class="lrr-card">
+      <div class="lrr-kicker">Mode comparison</div>
+      <div class="lrr-card-title">Baseline retrieval matrix</div>
+      <p class="lrr-card-copy">Each mode captures a different signal. The current article shows why hybrid was the most practical compromise rather than an assumption made up front.</p>
+
+      <div class="lrr-option-grid">
+        <div class="lrr-option">
+          <div class="lrr-chip">Mode</div>
+          <div class="lrr-option-title">Vector</div>
+          <div class="lrr-option-copy">Semantic retrieval when the query and source use different wording.</div>
+        </div>
+        <div class="lrr-option">
+          <div class="lrr-chip">Mode</div>
+          <div class="lrr-option-title">BM25</div>
+          <div class="lrr-option-copy">Lexical retrieval for statutes, paragraph references, and recurring legal terminology.</div>
+        </div>
+        <div class="lrr-option lrr-option--highlight">
+          <div class="lrr-chip">Mode</div>
+          <div class="lrr-option-title">Hybrid</div>
+          <div class="lrr-option-copy">Practical merge of lexical and semantic signals. Best current lift in this article.</div>
+        </div>
+      </div>
+
+      <div class="lrr-details">
+        <div class="lrr-subhead">Current tuning levers</div>
+        <pre class="lrr-code">top-k
+alpha / hybrid weighting
+candidate filtering
+reranking (next step)</pre>
+      </div>
+
+      <div class="lrr-details">
+        <div class="lrr-subhead">Why retrieval is still early</div>
+        <div class="lrr-detail-copy">This layer is still exploratory rather than fully optimized. Ranking logic is still simple, and retrieval quality still depends heavily on chunk and metadata quality coming out of Silver.</div>
+      </div>
+    </section>
+  </div>
+</div>

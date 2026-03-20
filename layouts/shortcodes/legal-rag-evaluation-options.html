@@ -1,0 +1,214 @@
+{{- $id := printf "legal-rag-evaluation-options-%d" .Ordinal -}}
+<style>
+  #{{ $id }} {
+    margin: 1.8rem 0 2.2rem;
+    --lrv-frame-border: rgba(24, 33, 38, 0.1);
+    --lrv-frame-accent: rgba(47, 124, 90, 0.08);
+    --lrv-frame-top: rgba(252, 255, 252, 0.98);
+    --lrv-frame-bottom: rgba(238, 246, 240, 0.96);
+    --lrv-frame-shadow: var(--demo-shadow-soft);
+    --lrv-text-strong: var(--demo-text-strong);
+    --lrv-text-muted: var(--demo-text-muted);
+    --lrv-card-bg: rgba(255, 255, 255, 0.72);
+    --lrv-card-border: rgba(24, 33, 38, 0.08);
+    --lrv-card-green-bg: rgba(236, 247, 241, 0.92);
+    --lrv-card-green-border: rgba(47, 124, 90, 0.22);
+    --lrv-code-bg: rgba(255, 255, 255, 0.84);
+    --lrv-code-border: rgba(24, 33, 38, 0.08);
+    --lrv-panel-radius: var(--demo-radius-panel);
+    --lrv-card-radius: 1rem;
+  }
+
+  .dark #{{ $id }} {
+    --lrv-frame-border: rgba(255, 255, 255, 0.08);
+    --lrv-frame-accent: rgba(88, 194, 125, 0.12);
+    --lrv-frame-top: rgba(33, 40, 34, 0.98);
+    --lrv-frame-bottom: rgba(26, 30, 27, 0.98);
+    --lrv-frame-shadow: var(--demo-shadow-soft);
+    --lrv-text-strong: var(--demo-text-strong);
+    --lrv-text-muted: var(--demo-text-muted);
+    --lrv-card-bg: rgba(255, 255, 255, 0.04);
+    --lrv-card-border: rgba(255, 255, 255, 0.08);
+    --lrv-card-green-bg: rgba(88, 194, 125, 0.1);
+    --lrv-card-green-border: rgba(88, 194, 125, 0.22);
+    --lrv-code-bg: rgba(255, 255, 255, 0.04);
+    --lrv-code-border: rgba(255, 255, 255, 0.08);
+  }
+
+  #{{ $id }} .lrv-flow {
+    padding: 1.2rem;
+    border-radius: var(--lrv-panel-radius);
+    border: 1px solid var(--lrv-frame-border);
+    background:
+      radial-gradient(circle at top right, var(--lrv-frame-accent), transparent 34%),
+      linear-gradient(180deg, var(--lrv-frame-top), var(--lrv-frame-bottom));
+    box-shadow: 0 20px 60px var(--lrv-frame-shadow);
+  }
+
+  #{{ $id }} .lrv-header,
+  #{{ $id }} .lrv-details {
+    display: grid;
+    gap: 0.38rem;
+  }
+
+  #{{ $id }} .lrv-header {
+    margin-bottom: 0.95rem;
+  }
+
+  #{{ $id }} .lrv-eyebrow,
+  #{{ $id }} .lrv-kicker,
+  #{{ $id }} .lrv-chip,
+  #{{ $id }} .lrv-subhead {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--lrv-text-muted);
+  }
+
+  #{{ $id }} .lrv-title,
+  #{{ $id }} .lrv-card-title,
+  #{{ $id }} .lrv-option-title {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--lrv-text-strong);
+  }
+
+  #{{ $id }} .lrv-copy,
+  #{{ $id }} .lrv-card-copy,
+  #{{ $id }} .lrv-option-copy {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--lrv-text-muted);
+  }
+
+  #{{ $id }} .lrv-card {
+    display: grid;
+    gap: 0.8rem;
+    padding: 1rem;
+    border-radius: var(--lrv-card-radius);
+    border: 1px solid var(--lrv-card-green-border);
+    background: var(--lrv-card-green-bg);
+  }
+
+  #{{ $id }} .lrv-option-grid {
+    display: grid;
+    gap: 0.7rem;
+  }
+
+  #{{ $id }} .lrv-option-grid--two {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #{{ $id }} .lrv-option-grid--three {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  #{{ $id }} .lrv-option {
+    display: grid;
+    align-content: start;
+    grid-template-rows: auto minmax(2.7rem, auto) 1fr;
+    gap: 0.3rem;
+    padding: 0.9rem;
+    border-radius: 0.95rem;
+    border: 1px solid var(--lrv-card-border);
+    background: var(--lrv-card-bg);
+  }
+
+  #{{ $id }} .lrv-option--highlight {
+    border-color: var(--lrv-card-green-border);
+    background: rgba(255, 255, 255, 0.86);
+  }
+
+  .dark #{{ $id }} .lrv-option--highlight {
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  #{{ $id }} .lrv-option-title {
+    display: block;
+    min-height: 2.7rem;
+  }
+
+  #{{ $id }} .lrv-code {
+    margin: 0;
+    padding: 0.82rem 0.88rem;
+    border-radius: 0.9rem;
+    border: 1px solid var(--lrv-code-border);
+    background: var(--lrv-code-bg);
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    color: var(--lrv-text-strong);
+  }
+
+  @media (max-width: 980px) {
+    #{{ $id }} .lrv-option-grid--two,
+    #{{ $id }} .lrv-option-grid--three {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    #{{ $id }} .lrv-flow {
+      padding: 1rem;
+    }
+  }
+</style>
+
+<div id="{{ $id }}" class="lrv">
+  <div class="lrv-flow">
+    <div class="lrv-header">
+      <div class="lrv-eyebrow">Evaluation options</div>
+      <div class="lrv-title">The benchmark paths explored in this article</div>
+      <p class="lrv-copy">The evaluation work explored not just benchmark vs RAG, but also which dataset choices and execution modes were realistic enough to trust and repeat.</p>
+    </div>
+
+    <section class="lrv-card">
+      <div class="lrv-kicker">Comparison setup</div>
+      <div class="lrv-card-title">Workflow and dataset choices</div>
+      <p class="lrv-card-copy">The main question was not only “does RAG help?” but also “which benchmark setup is clean enough to measure that honestly?”</p>
+
+      <div class="lrv-option-grid lrv-option-grid--two">
+        <div class="lrv-option">
+          <div class="lrv-chip">Workflow</div>
+          <div class="lrv-option-title">Benchmark only</div>
+          <div class="lrv-option-copy">Generation without retrieval as the control path.</div>
+        </div>
+        <div class="lrv-option">
+          <div class="lrv-chip">Workflow</div>
+          <div class="lrv-option-title">RAG</div>
+          <div class="lrv-option-copy">Retrieval-augmented generation with fixed retrieval settings.</div>
+        </div>
+      </div>
+
+      <div class="lrv-option-grid lrv-option-grid--three">
+        <div class="lrv-option">
+          <div class="lrv-chip">Dataset</div>
+          <div class="lrv-option-title">Blog / forum QA</div>
+          <div class="lrv-option-copy">Promising, but too expensive to label and validate well at this phase.</div>
+        </div>
+        <div class="lrv-option">
+          <div class="lrv-chip">Dataset</div>
+          <div class="lrv-option-title">Law-student exams</div>
+          <div class="lrv-option-copy">Clear targets, but benchmark-only performance looked too strong and likely leaked.</div>
+        </div>
+        <div class="lrv-option lrv-option--highlight">
+          <div class="lrv-chip">Dataset</div>
+          <div class="lrv-option-title">GerLayQA</div>
+          <div class="lrv-option-copy">Most useful current benchmark option and the main comparison set used here.</div>
+        </div>
+      </div>
+
+      <div class="lrv-details">
+        <div class="lrv-subhead">Execution and observability</div>
+        <pre class="lrv-code">notebooks for inspection
+scripts for repeatable runs
+LangSmith for trace-level failure analysis</pre>
+      </div>
+    </section>
+  </div>
+</div>

@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Legal RAG Chat Explorer</title>
+    <style>
+      :root {
+        --bg: #f3eee4;
+        --paper: #fbf8f2;
+        --ink: #1e2430;
+        --muted: #6b6f76;
+        --line: rgba(30, 36, 48, 0.12);
+        --accent: #9d4b2f;
+        --accent-soft: #e8cdbf;
+        --olive: #5f6b47;
+        --teal: #275b63;
+        --shadow: 0 18px 45px rgba(35, 32, 24, 0.12);
+        --radius: 24px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Avenir Next", "Helvetica Neue", sans-serif;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at top left, rgba(157, 75, 47, 0.08), transparent 32%),
+          radial-gradient(circle at bottom right, rgba(39, 91, 99, 0.08), transparent 28%),
+          linear-gradient(180deg, #f6f1e8 0%, #f0eadf 100%);
+      }
+
+      .page {
+        max-width: 1380px;
+        margin: 0 auto;
+        padding: 32px 20px 48px;
+      }
+
+      .hero {
+        display: grid;
+        gap: 18px;
+        padding: 28px;
+        background: rgba(251, 248, 242, 0.78);
+        border: 1px solid rgba(30, 36, 48, 0.08);
+        border-radius: 32px;
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(12px);
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        width: fit-content;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(157, 75, 47, 0.1);
+        color: var(--accent);
+        font-size: 0.82rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .tooltip-wrap {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+      }
+
+      .tooltip-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 18px;
+        height: 18px;
+        border: 1px solid rgba(157, 75, 47, 0.28);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.7);
+        color: var(--accent);
+        font-size: 0.68rem;
+        font-weight: 700;
+        line-height: 1;
+        cursor: default;
+      }
+
+      .tooltip-content {
+        position: absolute;
+        top: calc(100% + 10px);
+        left: 50%;
+        transform: translateX(-50%);
+        width: min(320px, 70vw);
+        padding: 12px 14px;
+        border: 1px solid rgba(30, 36, 48, 0.1);
+        border-radius: 14px;
+        background: rgba(30, 36, 48, 0.94);
+        color: rgba(255, 255, 255, 0.92);
+        font-size: 0.82rem;
+        line-height: 1.45;
+        letter-spacing: normal;
+        text-transform: none;
+        box-shadow: 0 12px 28px rgba(30, 36, 48, 0.18);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 140ms ease;
+        z-index: 20;
+      }
+
+      .tooltip-wrap:hover .tooltip-content {
+        opacity: 1;
+      }
+
+      h1,
+      h2,
+      h3 {
+        margin: 0;
+        font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+      }
+
+      h1 {
+        font-size: clamp(2.4rem, 5vw, 4.8rem);
+        line-height: 0.95;
+        max-width: 12ch;
+      }
+
+      .hero p {
+        margin: 0;
+        max-width: 72ch;
+        color: var(--muted);
+        font-size: 1.02rem;
+        line-height: 1.6;
+      }
+
+      .hero-panel {
+        padding: 20px;
+        border: 1px solid rgba(30, 36, 48, 0.08);
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.48);
+      }
+
+      .hero-panel.sticky-panel {
+        position: sticky;
+        top: 16px;
+        z-index: 10;
+        backdrop-filter: blur(12px);
+      }
+
+      .hero-panel h2 {
+        font-size: 1.4rem;
+        margin-bottom: 6px;
+      }
+
+      .hero-panel p {
+        font-size: 0.94rem;
+      }
+
+      .spoiler {
+        overflow: hidden;
+      }
+
+      .spoiler summary {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        cursor: pointer;
+        list-style: none;
+      }
+
+      .spoiler summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .spoiler-summary-copy {
+        display: grid;
+        gap: 6px;
+      }
+
+      .spoiler-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 999px;
+        background: rgba(37, 44, 57, 0.08);
+        color: var(--muted);
+        font-size: 0.9rem;
+        font-weight: 600;
+        flex-shrink: 0;
+        transition: transform 140ms ease;
+      }
+
+      .spoiler[open] .spoiler-toggle {
+        transform: rotate(90deg);
+      }
+
+      .spoiler-body {
+        margin-top: 14px;
+      }
+
+      .mode-bar {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      .mode-button {
+        border: 1px solid rgba(30, 36, 48, 0.12);
+        background: rgba(255, 255, 255, 0.62);
+        color: var(--ink);
+        padding: 16px 18px;
+        border-radius: 20px;
+        cursor: pointer;
+        font: inherit;
+        text-align: left;
+        transition:
+          transform 160ms ease,
+          background 160ms ease,
+          border-color 160ms ease,
+          box-shadow 160ms ease;
+      }
+
+      .mode-button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 10px 24px rgba(30, 36, 48, 0.08);
+      }
+
+      .mode-button.active {
+        background: linear-gradient(180deg, #252c39 0%, #343f52 100%);
+        color: white;
+        border-color: #252c39;
+      }
+
+      .mode-button-label {
+        display: block;
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 6px;
+      }
+
+      .mode-button-meta {
+        display: block;
+        font-size: 0.84rem;
+        line-height: 1.45;
+        color: var(--muted);
+      }
+
+      .mode-button.active .mode-button-meta {
+        color: rgba(255, 255, 255, 0.74);
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1.3fr) minmax(320px, 0.9fr);
+        gap: 22px;
+        margin-top: 24px;
+        align-items: start;
+      }
+
+      .panel {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .panel-header {
+        padding: 20px 22px 16px;
+        border-bottom: 1px solid var(--line);
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .panel-header p {
+        margin: 6px 0 0;
+        color: var(--muted);
+        font-size: 0.94rem;
+        line-height: 1.5;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(39, 91, 99, 0.1);
+        color: var(--teal);
+        font-size: 0.84rem;
+        white-space: nowrap;
+      }
+
+      .chat-window {
+        padding: 22px;
+        display: grid;
+        gap: 18px;
+      }
+
+      .session-strip {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 2px;
+      }
+
+      .session-pill {
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(37, 44, 57, 0.06);
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      .bubble {
+        max-width: 88%;
+        padding: 18px 18px 16px;
+        border-radius: 20px;
+        position: relative;
+        line-height: 1.6;
+      }
+
+      .bubble.user {
+        margin-left: auto;
+        background: linear-gradient(135deg, #252c39 0%, #343f52 100%);
+        color: white;
+        border-bottom-right-radius: 8px;
+      }
+
+      .bubble.assistant {
+        background: linear-gradient(180deg, #fffdf8 0%, #f5f0e5 100%);
+        border: 1px solid rgba(30, 36, 48, 0.08);
+        border-bottom-left-radius: 8px;
+      }
+
+      .bubble-label {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 0.78rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        opacity: 0.75;
+      }
+
+      .answer-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 14px;
+      }
+
+      .chip {
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(95, 107, 71, 0.1);
+        color: var(--olive);
+        font-size: 0.84rem;
+      }
+
+      .answer-body {
+        margin: 0;
+      }
+
+      .answer-body p {
+        margin: 0 0 14px;
+      }
+
+      .answer-body p:last-child {
+        margin-bottom: 0;
+      }
+
+      .answer-body strong {
+        color: var(--accent);
+      }
+
+      .sources {
+        padding: 20px;
+        display: grid;
+        gap: 14px;
+      }
+
+      .source-card {
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        background: linear-gradient(180deg, #fffefb 0%, #f7f1e7 100%);
+      }
+
+      .source-topline {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 12px;
+      }
+
+      .rank {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: rgba(157, 75, 47, 0.1);
+        color: var(--accent);
+        font-size: 0.82rem;
+        font-weight: 600;
+      }
+
+      .score {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .source-card h3 {
+        font-size: 1.18rem;
+        margin-bottom: 8px;
+      }
+
+      .source-link {
+        color: var(--teal);
+        text-decoration: none;
+        word-break: break-all;
+      }
+
+      .meta-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 14px 0;
+      }
+
+      .meta-tag {
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: rgba(37, 44, 57, 0.06);
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      .quote-snippet {
+        margin: 0;
+        padding: 14px 16px;
+        border: 1px solid rgba(30, 36, 48, 0.08);
+        background: rgba(255, 255, 255, 0.68);
+        border-radius: 16px;
+        color: #2c3340;
+        font-size: 0.94rem;
+        line-height: 1.6;
+      }
+
+      .quote-label {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--muted);
+        font-size: 0.75rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .quote-spoiler {
+        margin-top: 14px;
+      }
+
+      .quote-spoiler summary {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        list-style: none;
+        color: var(--teal);
+        font-size: 0.84rem;
+        font-weight: 600;
+      }
+
+      .quote-spoiler summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .quote-spoiler .spoiler-toggle {
+        width: 22px;
+        height: 22px;
+        font-size: 0.82rem;
+      }
+
+      .quote-spoiler .quote-snippet {
+        margin-top: 10px;
+      }
+
+      .why {
+        margin-top: 14px;
+        color: var(--muted);
+        font-size: 0.93rem;
+      }
+
+      .lower-grid {
+        margin-top: 22px;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 22px;
+      }
+
+      .inspector {
+        padding: 22px;
+        display: grid;
+        gap: 16px;
+      }
+
+      .delta-list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .delta-item {
+        padding: 14px 16px;
+        border-radius: 18px;
+        background: rgba(37, 44, 57, 0.04);
+        border: 1px solid rgba(37, 44, 57, 0.06);
+      }
+
+      .delta-item strong {
+        display: block;
+        margin-bottom: 4px;
+      }
+
+      .metric-strip {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 8px;
+      }
+
+      .metric {
+        padding: 10px 12px;
+        border-radius: 16px;
+        background: rgba(95, 107, 71, 0.08);
+        color: var(--olive);
+        font-size: 0.9rem;
+      }
+
+      .fade-in {
+        animation: rise 420ms ease both;
+      }
+
+      @keyframes rise {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 1040px) {
+        .mode-bar,
+        .layout,
+        .lower-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .bubble {
+          max-width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero fade-in">
+        <span class="eyebrow">
+          Saved Chat Replay
+          <span class="tooltip-wrap">
+            <span class="tooltip-button" aria-hidden="true">i</span>
+            <span class="tooltip-content">This replay is static, but it is generated from the current saved chat export rather than mock source cards.</span>
+          </span>
+        </span>
+        <h1>Legal RAG Chat Explorer</h1>
+        <p>
+          This is a standalone HTML prototype for replaying one saved chat. The same user question is shown
+          together with the answer and the resources used to produce it under benchmark, vector, BM25, and
+          hybrid retrieval. The goal is to make the answer inspectable rather than opaque.
+        </p>
+        <section class="hero-panel sticky-panel">
+          <h2>Retrieval Modes</h2>
+          <p>Switch between the saved benchmark, vector, BM25, and hybrid outputs and compare how the answer shifts.</p>
+          <div class="mode-bar" id="mode-bar"></div>
+        </section>
+
+        <details class="hero-panel spoiler">
+          <summary>
+            <span class="spoiler-summary-copy">
+              <h2>What Changed In This Mode</h2>
+              <p>This explains why the saved answer looks different when the retrieval method changes.</p>
+            </span>
+            <span class="spoiler-toggle" aria-hidden="true">›</span>
+          </summary>
+          <div class="spoiler-body">
+            <div class="delta-list" id="delta-list"></div>
+            <div class="metric-strip" id="metric-strip"></div>
+          </div>
+        </details>
+      </section>
+
+      <section class="layout">
+        <article class="panel fade-in">
+          <div class="panel-header">
+            <div>
+              <h2>Conversation</h2>
+              <p>This panel replays a saved chat turn and swaps the answer based on the retrieval method.</p>
+            </div>
+            <span class="badge" id="active-mode-badge">Hybrid · default</span>
+          </div>
+          <div class="chat-window">
+            <div class="session-strip">
+              <span class="session-pill" id="session-id">Saved chat ID</span>
+              <span class="session-pill" id="session-source">Question + answer + evidence</span>
+              <span class="session-pill" id="session-model">Method-dependent replay</span>
+            </div>
+            <div class="bubble user">
+              <span class="bubble-label">User</span>
+              <p id="user-question">
+                When is a termination notice invalid, and which legal requirements matter most?
+              </p>
+            </div>
+            <div class="bubble assistant">
+              <span class="bubble-label">Assistant</span>
+              <div class="answer-body" id="assistant-answer"></div>
+              <div class="answer-meta" id="answer-meta"></div>
+            </div>
+          </div>
+        </article>
+
+        <aside class="panel fade-in">
+          <div class="panel-header">
+            <div>
+              <h2>Quoted Evidence</h2>
+              <p>These are the resources used for this saved answer under the currently selected method.</p>
+            </div>
+            <span class="badge" id="source-summary">3 sources</span>
+          </div>
+          <div class="sources" id="source-list"></div>
+        </aside>
+      </section>
+
+    </main>
+
+    <script>
+      const replay = {"generated_at":"2026-03-20T09:07:07.738743+00:00","model_name":"google/gemini-2.0-flash-001","retrieval_source_id":"search_intent_discovery","session_id":"termination-invalidity-001","question":"When is a termination notice invalid, and which legal requirements matter most?","modes":{"benchmark":{"label":"Benchmark","retrieval_mode":null,"top_k":null,"alpha":null,"answer":"Kurzantwort:\nEine Kündigung ist unwirksam, wenn sie formell fehlerhaft ist oder gegen zwingende gesetzliche Bestimmungen verstößt. Besonders wichtig sind die Schriftform, die Angabe von Gründen (je nach Rechtsgebiet) und die Einhaltung von Kündigungsfristen. Die Unwirksamkeit führt dazu, dass das Rechtsverhältnis fortbesteht.\n\n1 Rechtsgebiet:\nVertragsrecht, ggf. Mietrecht oder Arbeitsrecht\n\n2 Relevante Vorschriften:\n- § 126 BGB: Schriftform ist erforderlich, wenn sie gesetzlich oder vertraglich vorgeschrieben ist.\n- § 623 BGB: Kündigung von Arbeitsverhältnissen bedarf der Schriftform.\n- § 568 BGB: Kündigung von Mietverhältnissen bedarf der Schriftform.\n- §§ 573 ff. BGB: Regelungen zur Kündigung von Wohnraummietverhältnissen (z.B. Kündigungsgrund).\n\n3 Bedeutung:\nDie Einhaltung der Formvorschriften und Kündigungsfristen ist essentiell für die Wirksamkeit einer Kündigung. Fehlt die Schriftform, ist die Kündigung grundsätzlich nichtig. Bei bestimmten Vertragsverhältnissen, wie z.B. Mietverhältnissen, muss die Kündigung zudem begründet sein.\n\n4 Anwendung auf den Fall:\nOhne konkrete Angaben zum zugrundeliegenden Rechtsverhältnis (z.B. Mietvertrag, Arbeitsvertrag) kann keine abschließende Beurteilung erfolgen. Relevant sind die spezifischen Formvorschriften, Fristen und Begründungspflichten des jeweiligen Vertragstyps. Fehlen diese Angaben, ist die Wirksamkeit der Kündigung fraglich.\n\n5 Ergebnis:\nDie Wirksamkeit einer Kündigung hängt von der Einhaltung der einschlägigen Formvorschriften, Fristen und Begründungspflichten ab. Ohne Kenntnis des konkreten Sachverhalts kann die Frage nicht abschließend beantwortet werden.\n\nAbschliessender Satz:\nPrüfen Sie die Kündigung auf formelle und inhaltliche Fehler, um ihre Gültigkeit zu beurteilen.\n","sources":[]},"vector":{"label":"Vector","retrieval_mode":"vector","top_k":6,"alpha":0.7,"answer":"Kurzantwort:\nEine Kündigung ist unwirksam, wenn sie formale oder inhaltliche Fehler aufweist, wie z.B. fehlende Schriftform (§ 126, § 568 BGB), unzureichende Begründung (insbesondere bei Eigenbedarf) oder Nichteinhaltung der Kündigungsfrist. Entscheidend ist auch der Zugang der Kündigung beim Empfänger, da es sich um eine empfangsbedürftige Willenserklärung handelt. Eine formfehlerhafte Kündigung führt dazu, dass die Frist erst mit Zustellung einer formgerechten Kündigung neu beginnt.\n\n1 Rechtsgebiet:\nMietrecht, Vertragsrecht\n\n2 Relevante Vorschriften:\n- § 126 BGB: Schriftform.\n- § 568 BGB: Form und Inhalt der Kündigung von Wohnraummietverhältnissen.\n\n3 Bedeutung:\nDie Einhaltung der Schriftform und die Zustellung sind grundlegende Voraussetzungen für die Wirksamkeit einer Kündigung. Bei einer Eigenbedarfskündigung ist eine detaillierte und nachvollziehbare Begründung erforderlich, um die Kündigung vor Gericht durchzusetzen.\n\n4 Anwendung auf den Fall:\nDie Frage nach der Ungültigkeit einer Kündigung kann nur im Einzelfall beantwortet werden. Es ist zu prüfen, ob die Schriftform eingehalten wurde, ob die Kündigung dem Empfänger zugegangen ist und ob die Kündigung ausreichend begründet ist (insbesondere bei Eigenbedarf).\n\n5 Ergebnis:\nEine Kündigung kann aus verschiedenen Gründen unwirksam sein. Die Einhaltung der formalen und inhaltlichen Anforderungen ist entscheidend.\n\nAbschliessender Satz:\nAchte auf die Details, um eine wirksame Kündigung zu gewährleisten.\n","sources":[{"rank":1,"score":0.4857100094918995,"title":"Kündigungsfrist bei Eigenbedarf - das sollten Mieter und Vermieter beachten","url":"https://www.fachanwalt.de/magazin/mietrecht/kuendigungsfrist-eigenbedarf","paragraphs":[],"keywords":["Formalien","schriftliches Kündigungsschreiben","begünstigte Personen","Gründe","Fristen","Vermieter"],"quote":"Neben den Formalien wie schriftliches Kündigungsschreiben inklusive der wichtigen Angaben über begünstigte Personen und die Gründe sind es in erster Linie immer auch die zum Teil abweichenden Fristen, die eingehalten werden müssen und auf die man als Vermieter achten muss."},{"rank":2,"score":0.484482941247639,"title":"Beispiele für die Kündigungsfrist einer Wohnung","url":"https://www.mietrecht.org/kuendigung/beispiele-fuer-kuendigungsfrist-einer-wohnung/","paragraphs":[],"keywords":["Kündigung","Vermieter","Willenserklärung","Machtbereich","Kenntnisnahme"],"quote":"Merke: Entscheidend ist darauf zu achten, wann die Kündigung dem Vermieter zugeht . Denn da die Kündigung eine einseitige empfangsbedürftige Willenserklärung ist, geht diese zu, wenn sie so in den Machtbereich des Empfängers gelangt, dass dieser davon Kenntnis nehmen kann bzw. unter normalen Umständen mit einer Kenntnisnahme zu rechnen is…"},{"rank":3,"score":0.4821718542383229,"title":"Eigenbedarfskündigung","url":"https://www.ing.de/wissen/eigenbedarfskuendigung/","paragraphs":[],"keywords":["Eigenbedarfskündigung","wirksam","formale Anforderungen","inhaltliche Anforderungen"],"quote":"Damit eine Eigenbedarfskündigung überhaupt wirksam ist, muss sie gewisse formale und inhaltliche Anforderungen erfüllen. Deshalb lohnt es sich, hier genauer hinzuschauen."},{"rank":4,"score":0.4815125283150993,"title":"Mieter kündigen: Was Vermieter wissen müssen","url":"https://www.homeday.de/de/immobilienvermietung/mieter-kuendigen/","paragraphs":[],"keywords":["rechtskräftige Kündigung","Zustellung","Einwurfeinschreiben","Kündigungsgrund","Kündigungsfrist","Formfehler"],"quote":"Wie sieht eine rechtskräftige Kündigung aus? Eine Kündigung muss korrekt zugestellt werden, um wirksam zu sein; fehlerhafte Kündigungen können den gesamten Prozess verzögern. Neben einer schriftlichen Kündigung mit Begründung ist die richtige Zustellung entscheidend. Empfehlenswert sind Einwurfeinschreiben oder die Übergabe durch einen Bo…"},{"rank":5,"score":0.4785707864713879,"title":"Eigenbedarfskündigung Muster für Vermieter","url":"https://www.kgk-kanzlei.de/news-wissenswertes/eigenbedarfskuendigung-muster-fuer-vermieter/","paragraphs":[],"keywords":["Fehler","Unwirksamkeit","unzureichende Begründung","Gericht","rechtssichere Begründung","Glaubwürdigkeit","eigenbedarfskündigung muster"],"quote":"Welche Fehler machen Eigenbedarfskündigungen unwirksam? Unzureichende Begründung führt zur Unwirksamkeit Etwa 70 Prozent aller Eigenbedarfskündigungen scheitern vor Gericht, weil Vermieter die Begründung unvollständig formulieren. Du darfst niemals nur schreiben: „Ich benötige die Wohnung für meine Tochter.\" Das Gericht will konkret wisse…"},{"rank":6,"score":0.4775614550896385,"title":"Mietvertrag kündigen: Darauf sollten Sie achten!","url":"https://www.focus.de/business/magazin/mietvertrag-kuendigen-darauf-sollten-sie-achten","paragraphs":["§ 126 BGB","§ 568 BGB"],"keywords":["formale Kriterien","Schriftform","befristet","ordentliche Kündigung","elektronisch","Fax","unterschrieben","Kündigungsfrist","Einwurf/Einschreiben"],"quote":"Welche formalen Kriterien müssen erfüllt sein, damit die Kündigung von Wohnraum wirksam ist? Voraussetzung der Kündigung eines Mietverhältnisses ist zunächst, dass das Mietverhältnis nicht wirksam befristet wurde, erklärt Anwalt Eckhard Schütt. Anderenfalls sei eine ordentliche Kündigung ausgeschlossen. Bei der Kündigung selbst sei die Sc…"}]},"bm25":{"label":"BM25","retrieval_mode":"bm25","top_k":6,"alpha":0.7,"answer":"Kurzantwort:\nEine Kündigung ist unwirksam, wenn sie formell fehlerhaft ist oder gegen zwingende gesetzliche Bestimmungen verstößt. Wesentliche Anforderungen sind die Schriftform, der Zugang beim Empfänger und die Angabe von Gründen bei einer außerordentlichen Kündigung. Die Unwirksamkeit kann sich aus verschiedenen Gründen ergeben, die im BGB geregelt sind.\n\n1 Rechtsgebiet:\nMietrecht, Vertragsrecht\n\n2 Relevante Vorschriften:\n- § 568 BGB: Form der Kündigung von Mietverhältnissen (Schriftform)\n- § 130 BGB: Wirksamwerden einer Willenserklärung gegenüber Abwesenden (Zugang der Kündigung)\n- § 543 BGB: Außerordentliche Kündigung aus wichtigem Grund (Begründungspflicht)\n\n3 Bedeutung:\nDie Einhaltung der Formvorschriften und der Zugang der Kündigung sind essenziell für ihre Wirksamkeit. Eine fehlende oder fehlerhafte Begründung kann die Kündigung unwirksam machen, insbesondere bei einer außerordentlichen Kündigung.\n\n4 Anwendung auf den Fall:\nOhne konkreten Sachverhalt kann keine detaillierte Subsumtion erfolgen. Es ist zu prüfen, ob die Kündigung schriftlich erfolgte, dem Empfänger zugegangen ist und, falls erforderlich, ausreichend begründet wurde.\n\n5 Ergebnis:\nDie Wirksamkeit einer Kündigung hängt von der Einhaltung der gesetzlichen Formvorschriften und dem Vorliegen eines Kündigungsgrundes ab.\n\nAbschliessender Satz:\nEine sorgfältige Prüfung der Kündigungserklärung ist entscheidend, um ihre Gültigkeit festzustellen.\n","sources":[{"rank":1,"score":33.72049408703113,"title":"Schönheitsreparaturen - Oft muss ein Mieter gar nicht renovieren","url":"https://mieterschutz-hamburg.de/rat-und-tipps/schoenheitsreparaturen","paragraphs":[],"keywords":["Basic Information","LhM","member","annual fee","admission fee","legal advice","landlord","rental contracts","tenancy law","legal expenses insurance","lawyer","membership","contact form","appointment","translator"],"quote":"Basic Information LhM To be able to advise you, you must be a member of our association. We have an annual fee of € 60.00 (for commercial leases € 90.00) and a one-off admission fee of € 10.00. The annual fee includes the legal advice you receive from us as well as the correspondence that we have with the landlord, provided that you have…"},{"rank":2,"score":33.66534952116035,"title":"Zahlen Sie auch zu viel Miete?","url":"https://mieterschutz-hamburg.de/leistungen/mietpreisbremse","paragraphs":[],"keywords":["Basic Information LhM","advise","member","annual fee","commercial leases","admission fee","legal advice","landlord","rent deficiencies","rental contracts","rent increase claims","operating and ancillary costs","tenancy law","legal expenses insurance","court process","lawyer","minimum membership","notice in writing","contact form","consultation","appointment","identity card","rental agreement","correspondence","translator"],"quote":"Basic Information LhM × To be able to advise you, you must be a member of our association. We have an annual fee of € 60.00 (for commercial leases € 90.00) and a one-off admission fee of € 10.00. The annual fee includes the legal advice you receive from us as well as the correspondence that we have with the landlord, provided that you hav…"},{"rank":3,"score":24.394480704388435,"title":"Tricks der Vermieter: Modernisierungen zur Umgehung der Mietpreisbremse","url":"https://conny.de/miete/mietpreisbremse/modernisierungs-tricks","paragraphs":[],"keywords":[],"quote":"This is a container where you can add HTML snippets, Javascript and CSS. Please use the script-tag for Javascript and the style-tag for CSS."},{"rank":4,"score":22.57098343957669,"title":"-","url":"https://en.pons.com/translate/german-english/Untervermietung","paragraphs":[],"keywords":["PONS","PONS Pur","PONS Translate Pro","ad tracking","advertisements","data protection","Privacy settings","cookies","advertising","content","profile","services"],"quote":"How would you like to use PONS.com? Already PONS Pur or PONS Translate Pro subscriber? Then log in here. PONS with ads Go to PONS.com as usual with ad tracking and advertisements. Accept and continue You can find details of tracking in Information about data protection and under Privacy settings . PONS Pur without advertising by third par…"},{"rank":5,"score":22.117273061013723,"title":"Abkürzungen","url":"https://delta-t.de/info-center/abkuerzungen/","paragraphs":[],"keywords":["Screen-reader","keyboard navigation","ARIA attributes","Accessible Rich Internet Applications","Screen-Reader Profile","Screen-reader optimization","form labels","actionable icons","validation guidance","element roles","buttons","menus","modal dialogues","images","ALT (alternate text)","OCR (optical character recognition)","Alt+1","JAWS","NVDA","Keyboard navigation optimization","JavaScript","Tab","Shift+Tab","arrow keys","Esc","Enter key","Spacebar","quick-navigation","content-skip menus","M (menus)","H (headings)","F (forms)","B (buttons)","G (graphics)"],"quote":"Screen-reader and keyboard navigation Our website implements the ARIA attributes (Accessible Rich Internet Applications) technique, alongside various different behavioral changes, to ensure blind users visiting with screen-readers are able to read, comprehend, and enjoy the website's functions. As soon as a user with a screen-reader enter…"},{"rank":6,"score":19.884754320464012,"title":"Abkürzungen","url":"https://delta-t.de/info-center/abkuerzungen/","paragraphs":[],"keywords":["Disability profiles","Epilepsy Safe Mode","Visually Impaired Mode","Cognitive Disability Mode","ADHD Friendly Mode","Blindness Mode","Keyboard Navigation Profile","Motor-Impaired","seizures","visual impairments","cognitive impairments","Dyslexia","Autism","CVA","ADHD","Neurodevelopmental disorders","screen-readers","JAWS","NVDA","VoiceOver","TalkBack","Tab","Shift+Tab","Enter keys","M (menus)","H (headings)","F (forms)","B (buttons)","G (graphics)"],"quote":"Disability profiles supported in our website * **Epilepsy Safe Mode:** this profile enables people with epilepsy to use the website safely by eliminating the risk of seizures that result from flashing or blinking animations and risky color combinations. * **Visually Impaired Mode:** this mode adjusts the website for the convenience of use…"}]},"hybrid":{"label":"Hybrid","retrieval_mode":"hybrid","top_k":6,"alpha":0.7,"answer":"Kurzantwort:\nEine Kündigung ist unwirksam, wenn sie formale oder inhaltliche Fehler aufweist, wie z.B. fehlende Schriftform, ungenaue Angaben zum Kündigungsgrund oder Nichteinhaltung der Kündigungsfrist. Entscheidend ist, dass die Kündigung dem Empfänger zugeht und dieser Kenntnis nehmen kann. Formfehler führen dazu, dass die Kündigungsfrist erst mit Zustellung einer korrekten Kündigung beginnt.\n\n1 Rechtsgebiet:\nMietrecht\n\n2 Relevante Vorschriften:\n- § 568 BGB: Form der Kündigung von Wohnraummietverhältnissen (Schriftform erforderlich).\n- § 573 BGB: Ordentliche Kündigung des Vermieters (begründetes Interesse erforderlich).\n\n3 Bedeutung:\nDie Kündigung eines Mietverhältnisses ist eine einseitige, empfangsbedürftige Willenserklärung. Sie wird wirksam, wenn sie dem Empfänger zugeht (§ 130 BGB) und inhaltlich sowie formal den gesetzlichen Anforderungen entspricht. Formfehler oder fehlende Begründung können zur Unwirksamkeit führen.\n\n4 Anwendung auf den Fall:\nEine Kündigung ist unwirksam, wenn sie nicht schriftlich erfolgt, der Kündigungsgrund fehlt oder ungenau ist, oder die Kündigungsfrist nicht eingehalten wurde. Die Kündigung muss dem Vermieter zugehen, d.h. in seinen Machtbereich gelangen, so dass er Kenntnis nehmen kann.\n\n5 Ergebnis:\nEine fehlerhafte Kündigung ist unwirksam und setzt keine Frist in Gang. Die Frist beginnt erst mit Zustellung einer formgerechten Kündigung.\n\nAbschliessender Satz:\nAchte auf die Einhaltung aller formalen und inhaltlichen Anforderungen, um die Wirksamkeit einer Kündigung sicherzustellen.\n","sources":[{"rank":1,"score":0.8083376346183364,"title":"Schönheitsreparaturen - Oft muss ein Mieter gar nicht renovieren","url":"https://mieterschutz-hamburg.de/rat-und-tipps/schoenheitsreparaturen","paragraphs":[],"keywords":["Basic Information","LhM","member","annual fee","admission fee","legal advice","landlord","rental contracts","tenancy law","legal expenses insurance","lawyer","membership","contact form","appointment","translator"],"quote":"Basic Information LhM To be able to advise you, you must be a member of our association. We have an annual fee of € 60.00 (for commercial leases € 90.00) and a one-off admission fee of € 10.00. The annual fee includes the legal advice you receive from us as well as the correspondence that we have with the landlord, provided that you have…"},{"rank":2,"score":0.79645233409567,"title":"Zahlen Sie auch zu viel Miete?","url":"https://mieterschutz-hamburg.de/leistungen/mietpreisbremse","paragraphs":[],"keywords":["Basic Information LhM","advise","member","annual fee","commercial leases","admission fee","legal advice","landlord","rent deficiencies","rental contracts","rent increase claims","operating and ancillary costs","tenancy law","legal expenses insurance","court process","lawyer","minimum membership","notice in writing","contact form","consultation","appointment","identity card","rental agreement","correspondence","translator"],"quote":"Basic Information LhM × To be able to advise you, you must be a member of our association. We have an annual fee of € 60.00 (for commercial leases € 90.00) and a one-off admission fee of € 10.00. The annual fee includes the legal advice you receive from us as well as the correspondence that we have with the landlord, provided that you hav…"},{"rank":3,"score":0.7,"title":"Kündigungsfrist bei Eigenbedarf - das sollten Mieter und Vermieter beachten","url":"https://www.fachanwalt.de/magazin/mietrecht/kuendigungsfrist-eigenbedarf","paragraphs":[],"keywords":["Formalien","schriftliches Kündigungsschreiben","begünstigte Personen","Gründe","Fristen","Vermieter"],"quote":"Neben den Formalien wie schriftliches Kündigungsschreiben inklusive der wichtigen Angaben über begünstigte Personen und die Gründe sind es in erster Linie immer auch die zum Teil abweichenden Fristen, die eingehalten werden müssen und auf die man als Vermieter achten muss."},{"rank":4,"score":0.6984169059634188,"title":"Beispiele für die Kündigungsfrist einer Wohnung","url":"https://www.mietrecht.org/kuendigung/beispiele-fuer-kuendigungsfrist-einer-wohnung/","paragraphs":[],"keywords":["Kündigung","Vermieter","Willenserklärung","Machtbereich","Kenntnisnahme"],"quote":"Merke: Entscheidend ist darauf zu achten, wann die Kündigung dem Vermieter zugeht . Denn da die Kündigung eine einseitige empfangsbedürftige Willenserklärung ist, geht diese zu, wenn sie so in den Machtbereich des Empfängers gelangt, dass dieser davon Kenntnis nehmen kann bzw. unter normalen Umständen mit einer Kenntnisnahme zu rechnen is…"},{"rank":5,"score":0.6954352722363776,"title":"Eigenbedarfskündigung","url":"https://www.ing.de/wissen/eigenbedarfskuendigung/","paragraphs":[],"keywords":["Eigenbedarfskündigung","wirksam","formale Anforderungen","inhaltliche Anforderungen"],"quote":"Damit eine Eigenbedarfskündigung überhaupt wirksam ist, muss sie gewisse formale und inhaltliche Anforderungen erfüllen. Deshalb lohnt es sich, hier genauer hinzuschauen."},{"rank":6,"score":0.6945846472266435,"title":"Mieter kündigen: Was Vermieter wissen müssen","url":"https://www.homeday.de/de/immobilienvermietung/mieter-kuendigen/","paragraphs":[],"keywords":["rechtskräftige Kündigung","Zustellung","Einwurfeinschreiben","Kündigungsgrund","Kündigungsfrist","Formfehler"],"quote":"Wie sieht eine rechtskräftige Kündigung aus? Eine Kündigung muss korrekt zugestellt werden, um wirksam zu sein; fehlerhafte Kündigungen können den gesamten Prozess verzögern. Neben einer schriftlichen Kündigung mit Begründung ist die richtige Zustellung entscheidend. Empfehlenswert sind Einwurfeinschreiben oder die Übergabe durch einen Bo…"}]}}};
+
+      const modeBar = document.getElementById("mode-bar");
+      const answer = document.getElementById("assistant-answer");
+      const answerMeta = document.getElementById("answer-meta");
+      const sourceList = document.getElementById("source-list");
+      const deltaList = document.getElementById("delta-list");
+      const metricStrip = document.getElementById("metric-strip");
+      const badge = document.getElementById("active-mode-badge");
+      const sourceSummary = document.getElementById("source-summary");
+      const userQuestion = document.getElementById("user-question");
+      const sessionId = document.getElementById("session-id");
+      const sessionSource = document.getElementById("session-source");
+      const sessionModel = document.getElementById("session-model");
+
+      function escapeHtml(value) {
+        return String(value ?? "")
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#39;");
+      }
+
+      function formatAnswer(text) {
+        return String(text || "")
+          .trim()
+          .split(/\n{2,}/)
+          .map((paragraph) => `<p>${escapeHtml(paragraph).replaceAll("\n", "<br>")}</p>`)
+          .join("");
+      }
+
+      function formatScore(value) {
+        return Number.isFinite(value) ? value.toFixed(value >= 10 ? 2 : 4) : "n/a";
+      }
+
+      function isNoisySource(source) {
+        const haystack = `${source.title || ""} ${source.quote || ""} ${(source.keywords || []).join(" ")}`.toLowerCase();
+        return (
+          !source.title ||
+          source.title === "-" ||
+          haystack.includes("basic information") ||
+          haystack.includes("screen-reader") ||
+          haystack.includes("pons") ||
+          haystack.includes("html snippets") ||
+          haystack.includes("aria attributes")
+        );
+      }
+
+      function summarizeSourceUse(modeKey, source, noisyCount) {
+        if (modeKey === "benchmark") {
+          return "This mode intentionally shows no retrieved material.";
+        }
+        if (modeKey === "bm25" && isNoisySource(source)) {
+          return "This is useful mainly as a failure case: the lexical retriever pulled in crawler noise and weakly related content.";
+        }
+        if (modeKey === "hybrid" && isNoisySource(source)) {
+          return "This source shows that the current hybrid stack still inherits some noisy lexical hits even when the final answer remains usable.";
+        }
+        if (modeKey === "vector") {
+          return "This hit adds semantically related support and helps the answer explain form, access, and justification more concretely.";
+        }
+        if (modeKey === "bm25") {
+          return "This hit comes from exact-term overlap, which can be sharp when the wording lines up and brittle when it does not.";
+        }
+        if (modeKey === "hybrid" && noisyCount > 0) {
+          return "This is one of the cleaner chunks in a mixed result set where semantic recall helps offset some noisy BM25 matches.";
+        }
+        return "This hit contributes lexical and semantic support at the same time, which is why the hybrid answer is more inspectable.";
+      }
+
+      function buildNarrative(modeKey, mode, sources) {
+        const noisyCount = sources.filter(isNoisySource).length;
+
+        if (modeKey === "benchmark") {
+          return {
+            badge: "Benchmark · no retrieval",
+            selectorSummary: "Control answer without external retrieval",
+            chips: ["No retrieval context", "Model-only answer", "Control run"],
+            deltas: [
+              {
+                title: "No external evidence",
+                text: "This is the control answer. It shows what the model says before any retrieval configuration changes the response."
+              },
+              {
+                title: "Good baseline for comparison",
+                text: "Every retrieval mode can be judged against this answer for inspectability, specificity, and source quality."
+              }
+            ],
+            metrics: [
+              `Model: ${replay.model_name}`,
+              "External evidence: none",
+              "Inspectability: low"
+            ],
+            signals: [
+              {
+                title: "Prompt only",
+                text: "The answer comes from the model and system prompt alone, so there is no source trail to inspect."
+              },
+              {
+                title: "No retrieval constraints",
+                text: "Without external context, the answer stays broad and cannot expose where a legal claim came from."
+              },
+              {
+                title: "Reference point",
+                text: "This is the answer you compare every retrieval variant against."
+              }
+            ]
+          };
+        }
+
+        if (modeKey === "vector") {
+          return {
+            badge: `Vector · top_k ${mode.top_k}`,
+            selectorSummary: "Semantic neighbors and broader supporting context",
+            chips: ["Semantic similarity", `Top-k ${mode.top_k}`, `${sources.length} retrieved chunks`],
+            deltas: [
+              {
+                title: "Broader semantic support",
+                text: "The saved answer now picks up access, form, and justification details from semantically related chunks instead of relying only on prior model knowledge."
+              },
+              {
+                title: "Cleaner than BM25 here",
+                text: `${noisyCount ? `${noisyCount} hit(s) still look noisy, but the set is materially cleaner than BM25 for this question.` : "The result set stays mostly on-topic for this saved query."}`
+              }
+            ],
+            metrics: [
+              `Mode: ${mode.retrieval_mode}`,
+              `Top-k: ${mode.top_k}`,
+              `Noisy hits: ${noisyCount}/${sources.length}`
+            ],
+            signals: [
+              {
+                title: "Semantic nearest neighbors",
+                text: "Ranking is driven by conceptual similarity rather than literal citation overlap."
+              },
+              {
+                title: "Good coverage",
+                text: "That is why the answer picks up access-to-recipient and explanation-oriented content even when the user question is phrased generally."
+              },
+              {
+                title: "Readable evidence set",
+                text: "The source list stays inspectable enough to review each quoted chunk one by one."
+              }
+            ]
+          };
+        }
+
+        if (modeKey === "bm25") {
+          return {
+            badge: `BM25 · top_k ${mode.top_k}`,
+            selectorSummary: "Literal term matching and strongest failure-case view",
+            chips: ["Keyword overlap", `Top-k ${mode.top_k}`, `${noisyCount} noisy hits`],
+            deltas: [
+              {
+                title: "Literal matching can break badly",
+                text: "This saved run is useful because it shows the failure mode clearly: exact-term retrieval surfaced multiple irrelevant or crawler-contaminated pages."
+              },
+              {
+                title: "Answer stays plausible anyway",
+                text: "The final answer still sounds reasonable, but the evidence trail is much weaker than the answer text suggests."
+              }
+            ],
+            metrics: [
+              `Mode: ${mode.retrieval_mode}`,
+              `Top-k: ${mode.top_k}`,
+              `Noisy hits: ${noisyCount}/${sources.length}`
+            ],
+            signals: [
+              {
+                title: "Exact-term bias",
+                text: "BM25 heavily rewards literal token overlap, which can over-rank boilerplate or unrelated pages when the corpus is messy."
+              },
+              {
+                title: "Useful failure gallery",
+                text: "The source cards make it obvious why a plausible answer is not enough. The evidence itself has to survive inspection."
+              },
+              {
+                title: "Good diagnostic mode",
+                text: "This is the easiest mode for spotting data and indexing problems in the corpus."
+              }
+            ]
+          };
+        }
+
+        return {
+          badge: `Hybrid · top_k ${mode.top_k} · alpha ${mode.alpha}`,
+          selectorSummary: "Best current mix of lexical and semantic retrieval",
+          chips: ["Hybrid retrieval", `Top-k ${mode.top_k}`, `Alpha ${mode.alpha}`, `${sources.length} retrieved chunks`],
+          deltas: [
+            {
+              title: "Mixed retrieval behavior",
+              text: "This saved run shows both the upside and the remaining weakness of hybrid search: the answer is stronger, but the top ranks still inherit some BM25 noise."
+            },
+            {
+              title: "Better answer than source ranking alone suggests",
+              text: `${noisyCount} retrieved hit(s) still look suspicious, so this view is a good pointer to the next ranking and filtering improvements.`
+            }
+          ],
+          metrics: [
+            `Mode: ${mode.retrieval_mode}`,
+            `Top-k: ${mode.top_k}`,
+            `Alpha: ${mode.alpha}`,
+            `Noisy hits: ${noisyCount}/${sources.length}`
+          ],
+          signals: [
+            {
+              title: "Lexical plus semantic merge",
+              text: "This ranking blends BM25 and vector scores instead of trusting either one on its own."
+            },
+            {
+              title: "Better answer, imperfect evidence set",
+              text: "The saved replay is useful precisely because it exposes the remaining mismatch between answer quality and evidence quality."
+            },
+            {
+              title: "Good next optimization target",
+              text: "If you want this demo to look stronger, this view tells you where to improve ranking, filtering, and source hygiene."
+            }
+          ]
+        };
+      }
+
+      const modes = Object.fromEntries(
+        Object.entries(replay.modes).map(([modeKey, mode]) => {
+          const sources = (mode.sources || []).map((source) => ({ ...source }));
+          const noisyCount = sources.filter(isNoisySource).length;
+          const narrative = buildNarrative(modeKey, mode, sources);
+
+          return [
+            modeKey,
+            {
+              label: mode.label,
+              badge: narrative.badge,
+              question: replay.question,
+              answer: mode.answer,
+              selectorSummary: narrative.selectorSummary,
+              chips: narrative.chips,
+              sources: sources.map((source) => ({
+                ...source,
+                why: summarizeSourceUse(modeKey, source, noisyCount)
+              })),
+              deltas: narrative.deltas,
+              metrics: narrative.metrics,
+              signals: narrative.signals
+            }
+          ];
+        })
+      );
+
+      sessionId.textContent = `Saved chat ID: ${replay.session_id}`;
+      sessionSource.textContent = `Corpus slice: ${replay.retrieval_source_id}`;
+      sessionModel.textContent = `Model: ${replay.model_name}`;
+
+      function renderMode(modeKey) {
+        const mode = modes[modeKey];
+        badge.textContent = mode.badge;
+        userQuestion.textContent = mode.question;
+        answer.innerHTML = formatAnswer(mode.answer);
+
+        answerMeta.innerHTML = "";
+        mode.chips.forEach((chip) => {
+          const element = document.createElement("span");
+          element.className = "chip";
+          element.textContent = chip;
+          answerMeta.appendChild(element);
+        });
+
+        sourceList.innerHTML = "";
+        if (!mode.sources.length) {
+          const empty = document.createElement("div");
+          empty.className = "source-card";
+          empty.innerHTML = `
+            <h3>No external sources</h3>
+            <p class="why">This mode is intentionally source-free so it can serve as the benchmark baseline.</p>
+          `;
+          sourceList.appendChild(empty);
+          sourceSummary.textContent = "0 sources";
+        } else {
+          sourceSummary.textContent = `${mode.sources.length} sources`;
+          mode.sources.forEach((source) => {
+            const card = document.createElement("article");
+            card.className = "source-card fade-in";
+            card.innerHTML = `
+              <div class="source-topline">
+                <span class="rank">Rank ${source.rank}</span>
+                <span class="score">Score: ${formatScore(source.score)}</span>
+              </div>
+              <h3>${escapeHtml(source.title)}</h3>
+              <a class="source-link" href="${escapeHtml(source.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(source.url)}</a>
+              <div class="meta-grid">
+                ${source.paragraphs.map((item) => `<span class="meta-tag">${escapeHtml(item)}</span>`).join("")}
+                ${source.keywords.slice(0, 6).map((item) => `<span class="meta-tag">${escapeHtml(item)}</span>`).join("")}
+              </div>
+              <details class="quote-spoiler">
+                <summary>
+                  <span class="spoiler-toggle" aria-hidden="true">›</span>
+                  <span>Quoted snippet</span>
+                </summary>
+                <div class="quote-snippet">
+                  <span class="quote-label">Quoted snippet</span>
+                  ${escapeHtml(source.quote)}
+                </div>
+              </details>
+            `;
+            sourceList.appendChild(card);
+          });
+        }
+
+        deltaList.innerHTML = "";
+        mode.deltas.forEach((item) => {
+          const element = document.createElement("div");
+          element.className = "delta-item";
+          element.innerHTML = `<strong>${escapeHtml(item.title)}</strong><span>${escapeHtml(item.text)}</span>`;
+          deltaList.appendChild(element);
+        });
+
+        metricStrip.innerHTML = "";
+        mode.metrics.forEach((item) => {
+          const element = document.createElement("span");
+          element.className = "metric";
+          element.textContent = item;
+          metricStrip.appendChild(element);
+        });
+
+        document.querySelectorAll(".mode-button").forEach((button) => {
+          button.classList.toggle("active", button.dataset.mode === modeKey);
+        });
+      }
+
+      Object.entries(modes).forEach(([key, value]) => {
+        const button = document.createElement("button");
+        button.className = "mode-button";
+        button.dataset.mode = key;
+        button.type = "button";
+        button.innerHTML = `
+          <span class="mode-button-label">${escapeHtml(value.label)}</span>
+          <span class="mode-button-meta">${escapeHtml(value.selectorSummary)}</span>
+        `;
+        button.addEventListener("click", () => renderMode(key));
+        modeBar.appendChild(button);
+      });
+
+      renderMode(modes.hybrid ? "hybrid" : Object.keys(modes)[0]);
+    </script>
+  </body>
+</html>

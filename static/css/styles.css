@@ -290,6 +290,7 @@ button {
     linear-gradient(180deg, rgba(255, 252, 247, 0.98), rgba(246, 239, 229, 0.96));
   box-shadow: 0 20px 60px var(--demo-shadow-soft);
   backdrop-filter: blur(12px);
+  transition: opacity 220ms ease, transform 220ms ease, visibility 220ms ease;
 }
 
 .dark .travel-progress-map {
@@ -297,6 +298,13 @@ button {
   background:
     radial-gradient(circle at top right, rgba(224, 136, 102, 0.14), transparent 34%),
     linear-gradient(180deg, rgba(43, 39, 34, 0.98), rgba(30, 28, 26, 0.98));
+}
+
+.travel-progress-map--avoiding {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(0.75rem) scale(0.97);
 }
 
 .travel-progress-map__topbar,
@@ -467,6 +475,60 @@ button {
     linear-gradient(180deg, rgba(44, 44, 44, 0.92), rgba(37, 37, 37, 0.98));
 }
 
+.travel-inline-map-card--collapsible {
+  padding: 0;
+  overflow: hidden;
+}
+
+.travel-inline-map-card__summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 1.1rem 1.25rem;
+}
+
+.travel-inline-map-card__summary::-webkit-details-marker {
+  display: none;
+}
+
+.travel-inline-map-card__summary::marker {
+  display: none;
+}
+
+.travel-inline-map-card__summary .travel-inline-map-card__topbar {
+  position: relative;
+  padding-left: 2rem;
+}
+
+.travel-inline-map-card__summary .travel-inline-map-card__topbar::after {
+  content: "";
+  position: absolute;
+  top: 0.2rem;
+  left: 0;
+  display: inline-flex;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-right: 2px solid var(--demo-text-muted);
+  border-bottom: 2px solid var(--demo-text-muted);
+  transform: rotate(-45deg);
+  transition: transform 180ms ease, border-color 180ms ease;
+}
+
+.travel-inline-map-card[open] .travel-inline-map-card__summary {
+  border-bottom: 1px solid rgba(24, 33, 38, 0.08);
+}
+
+.dark .travel-inline-map-card[open] .travel-inline-map-card__summary {
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+.travel-inline-map-card[open] .travel-inline-map-card__summary .travel-inline-map-card__topbar::after {
+  transform: rotate(45deg);
+}
+
+.travel-inline-map-card--collapsible > figure {
+  padding: 1rem 1.25rem 1.25rem;
+}
+
 .travel-inline-map__canvas {
   height: 17rem;
 }
@@ -601,6 +663,14 @@ button {
 
   .travel-inline-map-card {
     padding: 1rem;
+  }
+
+  .travel-inline-map-card__summary {
+    padding: 1rem;
+  }
+
+  .travel-inline-map-card--collapsible > figure {
+    padding: 0.95rem 1rem 1rem;
   }
 
   .travel-inline-map__canvas {

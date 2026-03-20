@@ -467,6 +467,8 @@ function initTravelProgressMap() {
       });
       if (active) {
         marker.openTooltip();
+      } else {
+        marker.closeTooltip();
       }
     });
 
@@ -504,6 +506,43 @@ function initTravelProgressMap() {
   updateActiveSection();
   window.addEventListener('scroll', updateActiveSection, { passive: true });
   window.addEventListener('resize', updateActiveSection);
+
+  const inlineMaps = Array.from(document.querySelectorAll('.js-travel-inline-map'));
+  if (!inlineMaps.length) {
+    return;
+  }
+
+  const updateOverlayVisibility = () => {
+    const overlayRect = root.getBoundingClientRect();
+    const padding = 16;
+
+    const overlapsInlineMap = inlineMaps.some((card) => {
+      const disclosure = card.closest('.js-travel-inline-map-disclosure');
+      if (disclosure && !disclosure.open) {
+        return false;
+      }
+
+      const rect = card.getBoundingClientRect();
+      if (rect.width === 0 || rect.height === 0) {
+        return false;
+      }
+
+      const horizontalOverlap =
+        rect.left < overlayRect.right + padding &&
+        rect.right > overlayRect.left - padding;
+      const verticalOverlap =
+        rect.top < overlayRect.bottom + padding &&
+        rect.bottom > overlayRect.top - padding;
+
+      return horizontalOverlap && verticalOverlap;
+    });
+
+    root.classList.toggle('travel-progress-map--avoiding', overlapsInlineMap);
+  };
+
+  updateOverlayVisibility();
+  window.addEventListener('scroll', updateOverlayVisibility, { passive: true });
+  window.addEventListener('resize', updateOverlayVisibility);
 }
 
 function initTravelInlineMaps() {
@@ -558,6 +597,25 @@ function initTravelInlineMaps() {
       map.setView(mapData.center, mapData.zoom);
     } else if (bounds.length) {
       map.fitBounds(bounds, { padding: [20, 20] });
+    }
+
+    const disclosure = card.closest('.js-travel-inline-map-disclosure');
+    if (disclosure) {
+      disclosure.addEventListener('toggle', () => {
+        if (!disclosure.open) {
+          return;
+        }
+
+        window.setTimeout(() => {
+          map.invalidateSize();
+
+          if (Array.isArray(mapData.center) && typeof mapData.zoom === 'number') {
+            map.setView(mapData.center, mapData.zoom);
+          } else if (bounds.length) {
+            map.fitBounds(bounds, { padding: [20, 20] });
+          }
+        }, 180);
+      });
     }
   });
 }

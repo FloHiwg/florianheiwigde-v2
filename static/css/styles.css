@@ -1165,7 +1165,7 @@ main {
   border-top: 1px solid rgba(26, 26, 26, 0.06);
   border-bottom: 1px solid rgba(26, 26, 26, 0.06);
   background: rgba(255, 255, 255, 0.9);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  transition: background-color 0.2s ease;
 }
 
 .dark .table-card__row td {
@@ -1188,15 +1188,6 @@ main {
   border-color: rgba(240, 240, 240, 0.06);
 }
 
-.table-card__row:hover td {
-  transform: translateY(-1px);
-  box-shadow: 0 10px 24px rgba(26, 26, 26, 0.08);
-}
-
-.dark .table-card__row:hover td {
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
-}
-
 .table-card__row--baseline td {
   background: rgba(209, 209, 199, 0.28);
 }
@@ -1206,13 +1197,13 @@ main {
 }
 
 .table-card__row--best td {
-  border-color: rgba(217, 119, 87, 0.22);
-  background: linear-gradient(180deg, rgba(255, 246, 241, 0.98), rgba(255, 236, 228, 0.88));
+  border-color: rgba(47, 124, 90, 0.22);
+  background: linear-gradient(180deg, rgba(242, 250, 246, 0.98), rgba(226, 243, 233, 0.9));
 }
 
 .dark .table-card__row--best td {
-  border-color: rgba(224, 136, 102, 0.22);
-  background: linear-gradient(180deg, rgba(224, 136, 102, 0.18), rgba(224, 136, 102, 0.1));
+  border-color: rgba(90, 175, 124, 0.24);
+  background: linear-gradient(180deg, rgba(90, 175, 124, 0.2), rgba(90, 175, 124, 0.11));
 }
 
 .table-card__setup {

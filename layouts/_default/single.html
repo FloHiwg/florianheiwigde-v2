@@ -83,6 +83,21 @@
     </article>
   </main>
 
+  {{ $travelMapId := .Params.travelMapId }}
+  {{ if $travelMapId }}
+  {{ $travelMap := index site.Data.travel $travelMapId }}
+  {{ with $travelMap }}
+  <aside class="travel-progress-map js-travel-progress-map" data-map='{{ . | jsonify }}' aria-label="Trip progress map">
+    <div class="travel-progress-map__eyebrow">Trip progress</div>
+    <div class="travel-progress-map__status">
+      <div class="travel-progress-map__label" data-travel-map-label>Journey overview</div>
+      <div class="travel-progress-map__detail" data-travel-map-detail>Scroll the article to follow the route.</div>
+    </div>
+    <div class="travel-progress-map__canvas" data-travel-map-canvas></div>
+  </aside>
+  {{ end }}
+  {{ end }}
+
   {{ partial "footer.html" . }}
 </body>
 

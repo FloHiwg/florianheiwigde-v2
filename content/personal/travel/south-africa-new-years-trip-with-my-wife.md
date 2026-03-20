@@ -3,6 +3,7 @@ title: "South Africa Over New Year's With My Wife"
 date: 2026-03-18
 draft: true
 description: "Draft travel report about our New Year's trip to South Africa, covering Cape Town, safari, logistics, and lessons learned."
+travelMapId: "south-africa-new-years-trip-with-my-wife"
 ---
 
 ## Intro
@@ -34,6 +35,8 @@ This was also a good setup for the overall route because Cape Town gave us a rel
 
 For the Cape Town part of the trip, we stayed at The Vineyard Hotel from December 29, 2025 to January 3, 2026.
 
+{{< travel-inline-map key="cape-town-base" >}}
+
 Notes to expand:
 
 - Why we picked it
@@ -49,6 +52,8 @@ Notes to expand:
 
 Arrival day in Cape Town.
 
+{{< travel-inline-map key="cape-town-arrival" >}}
+
 Notes to expand:
 
 - Landing and transfer
@@ -58,6 +63,8 @@ Notes to expand:
 - Why this was a good low-pressure start
 
 #### December 30, 2025: Table Mountain Hike
+
+{{< travel-inline-map key="table-mountain-day" >}}
 
 Notes to expand:
 
@@ -70,6 +77,8 @@ Notes to expand:
 #### December 31, 2025: Wine Tasting and New Year's Eve
 
 Wine tasting was planned at Groot Constantia Estate from 13:30 to 14:30.
+
+{{< travel-inline-map key="nye-cape-town" >}}
 
 Notes to expand:
 
@@ -89,6 +98,8 @@ Notes to expand:
 - What made this day enjoyable despite being less eventful
 
 #### January 2, 2026: Penguins and Cape of Good Hope
+
+{{< travel-inline-map key="cape-peninsula" >}}
 
 Notes to expand:
 
@@ -123,6 +134,8 @@ Notes to expand:
 ### Hotel
 
 For the safari part, we stayed at Nyati Safari Lodge from January 3, 2026 to January 9, 2026.
+
+{{< travel-inline-map key="safari-base" >}}
 
 Notes to expand:
 
@@ -186,6 +199,8 @@ Notes to expand:
 
 #### January 5, 2026: Safari and Blyde Canyon Wildlife
 
+{{< travel-inline-map key="blyde-canyon-day" >}}
+
 Animals seen:
 
 - Leopard tortoise
@@ -221,6 +236,8 @@ Notes to expand:
 - Add mood of the day even if not every animal can be reconstructed
 
 #### January 7, 2026: Kruger Safari Day
+
+{{< travel-inline-map key="kruger-day" >}}
 
 Animals seen:
 

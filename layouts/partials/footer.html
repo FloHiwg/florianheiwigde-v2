@@ -36,4 +36,7 @@
   </div>
 </footer>
 
+{{ if .Params.travelMapId }}
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+{{ end }}
 <script src="{{ "js/main.js" | relURL }}"></script>

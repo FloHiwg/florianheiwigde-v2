@@ -1,0 +1,208 @@
+route:
+  stops:
+    - id: cape-town
+      label: Cape Town
+      lat: -33.9249
+      lng: 18.4241
+      kind: city
+    - id: hoedspruit
+      label: Hoedspruit
+      lat: -24.351
+      lng: 30.9533
+      kind: safari
+  legs:
+    - id: cape-town-to-hoedspruit
+      from: cape-town
+      to: hoedspruit
+      mode: flight
+      label: Cape Town to Hoedspruit
+sectionStops:
+  - heading: intro
+    stop: cape-town
+    label: Trip overview
+    detail: City plus safari over New Year's, focused on the South Africa portion.
+  - heading: from-berlin-to-cape-town
+    stop: cape-town
+    label: Arrival in Cape Town
+    detail: The trip starts on the map once you land in South Africa.
+  - heading: cape-town
+    stop: cape-town
+    label: Cape Town stay
+    detail: Hotel, city days, wine, and the peninsula.
+  - heading: from-cape-town-to-safari-lodge
+    stop: hoedspruit
+    activeLeg: cape-town-to-hoedspruit
+    label: Flying to safari
+    detail: Domestic hop from Cape Town into the bush.
+  - heading: safari-lodge
+    stop: hoedspruit
+    label: Safari Lodge
+    detail: Nyati Safari Lodge and the day-by-day safari diary.
+  - heading: from-hoedspruit-to-berlin
+    stop: hoedspruit
+    label: Departure from Hoedspruit
+    detail: Leaving the safari region and heading home.
+  - heading: overall-lessons-learned
+    stop: hoedspruit
+    label: Looking back on the route
+    detail: Reflecting on the Cape Town and safari split.
+  - heading: final-verdict
+    stop: hoedspruit
+    label: Final verdict
+    detail: Was the split between city and safari worth it?
+inlineMaps:
+  cape-town-base:
+    title: Cape Town base
+    description: The hotel and the main anchors around your Cape Town stay.
+    center: [-33.948, 18.438]
+    zoom: 11
+    markers:
+      - label: The Vineyard Hotel
+        lat: -33.9872
+        lng: 18.4638
+        kind: hotel
+      - label: V&A Waterfront
+        lat: -33.9034
+        lng: 18.4217
+        kind: highlight
+      - label: Groot Constantia
+        lat: -34.0011
+        lng: 18.4299
+        kind: winery
+      - label: Table Mountain Cableway
+        lat: -33.9625
+        lng: 18.4098
+        kind: hike
+  cape-town-arrival:
+    title: Arrival day map
+    description: The first-day zone between your hotel base and the waterfront.
+    center: [-33.944, 18.435]
+    zoom: 11
+    markers:
+      - label: The Vineyard Hotel
+        lat: -33.9872
+        lng: 18.4638
+        kind: hotel
+      - label: V&A Waterfront
+        lat: -33.9034
+        lng: 18.4217
+        kind: waterfront
+    path:
+      - [-33.9872, 18.4638]
+      - [-33.9034, 18.4217]
+  table-mountain-day:
+    title: Table Mountain day
+    description: The main Cape Town hiking anchor for the trip.
+    center: [-33.9625, 18.4098]
+    zoom: 12
+    markers:
+      - label: Table Mountain Cableway
+        lat: -33.9625
+        lng: 18.4098
+        kind: hike
+      - label: The Vineyard Hotel
+        lat: -33.9872
+        lng: 18.4638
+        kind: hotel
+  nye-cape-town:
+    title: New Year's Eve day
+    description: Wine in Constantia and dinner in town.
+    center: [-33.965, 18.423]
+    zoom: 11
+    markers:
+      - label: Groot Constantia
+        lat: -34.0011
+        lng: 18.4299
+        kind: winery
+      - label: Black Sheep
+        lat: -33.9284
+        lng: 18.4109
+        kind: restaurant
+      - label: The Vineyard Hotel
+        lat: -33.9872
+        lng: 18.4638
+        kind: hotel
+    path:
+      - [-33.9872, 18.4638]
+      - [-34.0011, 18.4299]
+      - [-33.9284, 18.4109]
+  cape-peninsula:
+    title: Cape Peninsula day
+    description: Penguins, Cape Point, and the southern coastline.
+    center: [-34.225, 18.45]
+    zoom: 10
+    markers:
+      - label: Boulders Beach
+        lat: -34.1961
+        lng: 18.4515
+        kind: wildlife
+      - label: Cape of Good Hope
+        lat: -34.3568
+        lng: 18.474
+        kind: viewpoint
+      - label: The Vineyard Hotel
+        lat: -33.9872
+        lng: 18.4638
+        kind: hotel
+    path:
+      - [-33.9872, 18.4638]
+      - [-34.1961, 18.4515]
+      - [-34.3568, 18.474]
+  safari-base:
+    title: Safari base
+    description: Hoedspruit as the gateway into the safari portion of the trip.
+    center: [-24.351, 30.9533]
+    zoom: 10
+    markers:
+      - label: Hoedspruit
+        lat: -24.351
+        lng: 30.9533
+        kind: town
+      - label: Nyati Safari Lodge area
+        lat: -24.327
+        lng: 31.002
+        kind: hotel
+  blyde-canyon-day:
+    title: Blyde Canyon day
+    description: A wider scenic loop away from the lodge drives.
+    center: [-24.53, 30.86]
+    zoom: 10
+    markers:
+      - label: Nyati Safari Lodge area
+        lat: -24.327
+        lng: 31.002
+        kind: hotel
+      - label: Blyde River Canyon
+        lat: -24.5748
+        lng: 30.8215
+        kind: viewpoint
+      - label: Three Rondavels
+        lat: -24.5865
+        lng: 30.8094
+        kind: viewpoint
+    path:
+      - [-24.327, 31.002]
+      - [-24.5748, 30.8215]
+      - [-24.5865, 30.8094]
+  kruger-day:
+    title: Kruger day
+    description: A broader park day compared with the lodge-area drives.
+    center: [-24.394, 31.778]
+    zoom: 9
+    markers:
+      - label: Hoedspruit
+        lat: -24.351
+        lng: 30.9533
+        kind: town
+      - label: Orpen Gate area
+        lat: -24.3938
+        lng: 31.7792
+        kind: gate
+      - label: Central Kruger route area
+        lat: -24.51
+        lng: 31.64
+        kind: safari
+    path:
+      - [-24.351, 30.9533]
+      - [-24.3938, 31.7792]
+      - [-24.51, 31.64]

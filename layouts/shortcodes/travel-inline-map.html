@@ -1,0 +1,24 @@
+{{ $key := .Get "key" }}
+{{ $trip := false }}
+{{ with .Page.Params.travelMapId }}
+  {{ $trip = index site.Data.travel . }}
+{{ end }}
+{{ if and $trip $trip.inlineMaps }}
+  {{ $inlineMap := index $trip.inlineMaps $key }}
+  {{ if $inlineMap }}
+<figure class="travel-inline-map-card js-travel-inline-map" data-map='{{ $inlineMap | jsonify }}'>
+  <div class="travel-inline-map-card__header">
+    <div>
+      <div class="travel-inline-map-card__title">{{ with $inlineMap.title }}{{ . }}{{ else }}Map view{{ end }}</div>
+      {{ with $inlineMap.description }}<p class="travel-inline-map-card__description">{{ . }}</p>{{ end }}
+    </div>
+  </div>
+  <div class="travel-inline-map__canvas" data-travel-inline-map-canvas></div>
+  {{ with $inlineMap.caption }}<figcaption class="travel-inline-map-card__caption">{{ . }}</figcaption>{{ end }}
+</figure>
+  {{ else }}
+<p class="travel-inline-map-missing">Missing travel map for key "{{ $key }}".</p>
+  {{ end }}
+{{ else }}
+<p class="travel-inline-map-missing">No travel map dataset configured for this page.</p>
+{{ end }}

@@ -46,11 +46,11 @@ So I approached the problem from both sides: build the pipeline end-to-end while
 
 I implemented an end-to-end flow from source discovery and ingestion to benchmark comparison, organized into clear layers.
 
-{{< legal-rag-bronze-silver-flow >}}
-
 ### Bronze: Discovery, Ingestion, and Raw Collection
 
 The Bronze layer exists because legal public data is not available through one clean, structured channel. The first design decision was therefore to treat ingestion as a multi-path acquisition problem instead of assuming one canonical feed.
+
+{{< legal-rag-bronze-silver-flow >}}
 
 It currently supports multiple entry paths:
 
@@ -87,6 +87,8 @@ The current transformation includes:
 - normalization
 - metadata shaping
 - chunk generation
+
+{{< legal-rag-silver-flow >}}
 
 I deliberately put metadata extraction and chunk generation in the same stage because legal retrieval depends heavily on structure. It is not enough to store text embeddings alone. I want the system to know, where possible, which legal paragraphs are mentioned, which keywords characterize the chunk, and which quality issues appeared during parsing.
 

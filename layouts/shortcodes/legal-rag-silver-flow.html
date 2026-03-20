@@ -1,0 +1,213 @@
+{{- $id := printf "legal-rag-silver-flow-%d" .Ordinal -}}
+<style>
+  #{{ $id }} {
+    margin: 1.7rem 0 2.1rem;
+    --lrs-frame-border: rgba(24, 33, 38, 0.1);
+    --lrs-frame-accent: rgba(217, 119, 87, 0.1);
+    --lrs-frame-top: rgba(255, 252, 247, 0.98);
+    --lrs-frame-bottom: rgba(246, 239, 229, 0.96);
+    --lrs-frame-shadow: var(--demo-shadow-soft);
+    --lrs-divider: rgba(24, 33, 38, 0.08);
+    --lrs-text-strong: var(--demo-text-strong);
+    --lrs-text-muted: var(--demo-text-muted);
+    --lrs-card-bg: rgba(255, 255, 255, 0.72);
+    --lrs-card-border: rgba(24, 33, 38, 0.08);
+    --lrs-card-strong-bg: rgba(255, 245, 240, 0.88);
+    --lrs-card-strong-border: rgba(217, 119, 87, 0.22);
+    --lrs-output-bg: rgba(236, 247, 241, 0.92);
+    --lrs-output-border: rgba(47, 124, 90, 0.22);
+    --lrs-code-bg: rgba(255, 255, 255, 0.84);
+    --lrs-code-border: rgba(24, 33, 38, 0.08);
+    --lrs-panel-radius: var(--demo-radius-panel);
+    --lrs-card-radius: 1rem;
+  }
+
+  .dark #{{ $id }} {
+    --lrs-frame-border: rgba(255, 255, 255, 0.08);
+    --lrs-frame-accent: rgba(224, 136, 102, 0.14);
+    --lrs-frame-top: rgba(43, 39, 34, 0.98);
+    --lrs-frame-bottom: rgba(30, 28, 26, 0.98);
+    --lrs-frame-shadow: var(--demo-shadow-soft);
+    --lrs-divider: rgba(255, 255, 255, 0.08);
+    --lrs-text-strong: var(--demo-text-strong);
+    --lrs-text-muted: var(--demo-text-muted);
+    --lrs-card-bg: rgba(255, 255, 255, 0.04);
+    --lrs-card-border: rgba(255, 255, 255, 0.08);
+    --lrs-card-strong-bg: rgba(224, 136, 102, 0.1);
+    --lrs-card-strong-border: rgba(224, 136, 102, 0.22);
+    --lrs-output-bg: rgba(88, 194, 125, 0.1);
+    --lrs-output-border: rgba(88, 194, 125, 0.22);
+    --lrs-code-bg: rgba(255, 255, 255, 0.04);
+    --lrs-code-border: rgba(255, 255, 255, 0.08);
+  }
+
+  #{{ $id }} .lrs-flow {
+    padding: 1.2rem;
+    border-radius: var(--lrs-panel-radius);
+    border: 1px solid var(--lrs-frame-border);
+    background:
+      radial-gradient(circle at top right, var(--lrs-frame-accent), transparent 34%),
+      linear-gradient(180deg, var(--lrs-frame-top), var(--lrs-frame-bottom));
+    box-shadow: 0 20px 60px var(--lrs-frame-shadow);
+  }
+
+  #{{ $id }} .lrs-header {
+    display: grid;
+    gap: 0.38rem;
+    margin-bottom: 0.95rem;
+  }
+
+  #{{ $id }} .lrs-eyebrow,
+  #{{ $id }} .lrs-kicker,
+  #{{ $id }} .lrs-stage-index {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--lrs-text-muted);
+  }
+
+  #{{ $id }} .lrs-title,
+  #{{ $id }} .lrs-card-title,
+  #{{ $id }} .lrs-stage-title {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--lrs-text-strong);
+  }
+
+  #{{ $id }} .lrs-copy,
+  #{{ $id }} .lrs-card-copy,
+  #{{ $id }} .lrs-stage-copy {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--lrs-text-muted);
+  }
+
+  #{{ $id }} .lrs-lane {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  #{{ $id }} .lrs-card {
+    padding: 1rem;
+    border-radius: var(--lrs-card-radius);
+    border: 1px solid var(--lrs-card-border);
+    background: var(--lrs-card-bg);
+  }
+
+  #{{ $id }} .lrs-card--input {
+    background: var(--lrs-card-strong-bg);
+    border-color: var(--lrs-card-strong-border);
+  }
+
+  #{{ $id }} .lrs-card--output {
+    background: var(--lrs-output-bg);
+    border-color: var(--lrs-output-border);
+  }
+
+  #{{ $id }} .lrs-stages {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  #{{ $id }} .lrs-stage {
+    display: grid;
+    gap: 0.3rem;
+    padding: 0.95rem 0.95rem 1rem;
+    border-radius: 0.95rem;
+    border: 1px solid var(--lrs-card-border);
+    background: var(--lrs-card-bg);
+  }
+
+  #{{ $id }} .lrs-example {
+    margin: 0.7rem 0 0;
+    padding: 0.8rem 0.88rem;
+    border-radius: 0.9rem;
+    border: 1px solid var(--lrs-code-border);
+    background: var(--lrs-code-bg);
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    color: var(--lrs-text-strong);
+  }
+
+  @media (max-width: 920px) {
+    #{{ $id }} .lrs-stages {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    #{{ $id }} .lrs-flow {
+      padding: 1rem;
+    }
+  }
+</style>
+
+<div id="{{ $id }}" class="lrs">
+  <div class="lrs-flow">
+    <div class="lrs-header">
+      <div class="lrs-eyebrow">Silver transformation</div>
+      <div class="lrs-title">From Bronze rows to retrieval-ready chunks</div>
+      <p class="lrs-copy">Silver is where one cleaned Bronze document becomes a structured asset that retrieval can rank, filter, and inspect later.</p>
+    </div>
+
+    <div class="lrs-lane">
+      <section class="lrs-card lrs-card--input">
+        <div class="lrs-kicker">Bronze input</div>
+        <div class="lrs-card-title"><code>raw_documents_bronze</code></div>
+        <p class="lrs-card-copy">Each row arrives as one canonical raw document with source information, cleaned markdown, and a stable content hash.</p>
+        <pre class="lrs-example">document_id: bronze_1842
+source_type: search_intent
+raw_markdown: "Die ordentliche Kündigung ..."
+content_hash: 8b9f...e21</pre>
+      </section>
+
+      <div class="lrs-stages">
+        <section class="lrs-stage">
+          <div class="lrs-stage-index">Step 1</div>
+          <div class="lrs-stage-title">Normalize content</div>
+          <div class="lrs-stage-copy">Tighten headings, remove leftover page noise, and preserve the document structure that matters for later diagnosis.</div>
+          <pre class="lrs-example">headings cleaned
+section order preserved
+parser noise reduced</pre>
+        </section>
+
+        <section class="lrs-stage">
+          <div class="lrs-stage-index">Step 2</div>
+          <div class="lrs-stage-title">Shape metadata</div>
+          <div class="lrs-stage-copy">Attach fields that make retrieval and debugging more precise, such as keywords, legal references, and quality signals.</div>
+          <pre class="lrs-example">keywords: kündigung, miete
+paragraph_refs: § 573 BGB
+quality_flags: weak_heading_map</pre>
+        </section>
+
+        <section class="lrs-stage">
+          <div class="lrs-stage-index">Step 3</div>
+          <div class="lrs-stage-title">Generate chunks</div>
+          <div class="lrs-stage-copy">Split the normalized document into coherent retrieval units so ranking works on meaningful legal passages instead of raw page-sized text.</div>
+          <pre class="lrs-example">chunk_01: "Die ordentliche Kündigung ..."
+chunk_02: "Ein berechtigtes Interesse ..."
+chunk_count: 6</pre>
+        </section>
+      </div>
+
+      <section class="lrs-card lrs-card--output">
+        <div class="lrs-kicker">Silver output</div>
+        <div class="lrs-card-title">Retrieval-ready chunk records</div>
+        <p class="lrs-card-copy">The result is a chunk-level asset with structured metadata, better observability, and the shape needed for downstream ranking and filtering.</p>
+        <pre class="lrs-example">document_id: bronze_1842
+chunk_id: bronze_1842_03
+chunk_text: "Ein berechtigtes Interesse ..."
+keywords: kündigung, eigenbedarf
+paragraph_refs: § 573 BGB
+quality_flags: weak_heading_map</pre>
+      </section>
+    </div>
+  </div>
+</div>

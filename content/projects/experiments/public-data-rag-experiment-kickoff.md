@@ -28,6 +28,13 @@ At a high level, this experiment combines four pieces:
 
 The current state is promising but still early. The full loop is running end to end, and the system is now structured well enough to make targeted improvements and measure whether they actually help.
 
+<div class="article-demo-cta">
+  <div class="article-demo-cta__eyebrow">Interactive demo</div>
+  <h3 class="article-demo-cta__title">Open the Legal RAG chat explorer</h3>
+  <p class="article-demo-cta__copy">Inspect one saved legal question across benchmark, vector, BM25, and hybrid retrieval and compare the answer with the quoted evidence trail.</p>
+  <a class="article-demo-cta__button" href="/projects/experiments/legal-rag-chat-explorer/">Open retrieval explorer</a>
+</div>
+
 ## Why This Experiment Exists
 
 The starting hypothesis was simple: retrieval should improve answer quality for legal questions.

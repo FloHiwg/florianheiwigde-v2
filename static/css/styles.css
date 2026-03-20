@@ -1899,6 +1899,88 @@ main {
   margin-bottom: 0.5rem;
 }
 
+.article-demo-cta {
+  margin: 2rem 0 2.4rem;
+  padding: 1.25rem;
+  border: 1px solid rgba(217, 119, 87, 0.2);
+  border-radius: var(--demo-radius-panel);
+  background:
+    radial-gradient(circle at top right, rgba(217, 119, 87, 0.12), transparent 34%),
+    linear-gradient(180deg, rgba(255, 252, 247, 0.98), rgba(246, 239, 229, 0.96));
+  box-shadow: var(--demo-shadow-soft);
+}
+
+.dark .article-demo-cta {
+  border-color: rgba(224, 136, 102, 0.22);
+  background:
+    radial-gradient(circle at top right, rgba(224, 136, 102, 0.14), transparent 36%),
+    linear-gradient(180deg, rgba(43, 39, 34, 0.98), rgba(30, 28, 26, 0.98));
+}
+
+.article-demo-cta__eyebrow {
+  margin-bottom: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+.article-demo-cta__title {
+  margin-bottom: 0.4rem;
+  font-family: var(--font-sans);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--demo-text-strong);
+}
+
+.article-demo-cta__copy {
+  margin-bottom: 1rem;
+  color: var(--demo-text-muted);
+  line-height: 1.6;
+}
+
+.article-demo-cta__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.7rem 1rem;
+  border-radius: var(--demo-radius-pill);
+  background: var(--demo-accent-warm);
+  color: var(--demo-text-strong);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.blog-post-content .article-demo-cta__button,
+.blog-post-content .article-demo-cta__button:visited {
+  color: var(--demo-text-strong);
+  text-decoration: none;
+}
+
+.article-demo-cta__button:hover {
+  background: #c86749;
+  transform: translateY(-1px);
+}
+
+.blog-post-content .article-demo-cta__button:hover {
+  color: var(--demo-text-strong);
+  text-decoration: none;
+}
+
+.dark .article-demo-cta__button:hover {
+  background: #f09b73;
+}
+
+.legal-rag-explorer-shell {
+  min-height: calc(100vh - 4rem);
+}
+
 /* Button */
 .btn {
   display: inline-flex;

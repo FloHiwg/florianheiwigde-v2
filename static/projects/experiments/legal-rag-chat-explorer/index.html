@@ -3,67 +3,82 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Legal RAG Chat Explorer</title>
+    <title>Legal RAG Chat Explorer | Florian G. Heiwig</title>
+    <meta name="description" content="Inspect one saved legal question across benchmark, vector, BM25, and hybrid retrieval and compare the answer with the quoted evidence trail." />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="/css/styles.css" />
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-MP6LZF49');</script>
+    <!-- End Google Tag Manager -->
+
     <style>
-      :root {
-        --bg: #f3eee4;
-        --paper: #fbf8f2;
-        --ink: #1e2430;
-        --muted: #6b6f76;
-        --line: rgba(30, 36, 48, 0.12);
-        --accent: #9d4b2f;
-        --accent-soft: #e8cdbf;
-        --olive: #5f6b47;
-        --teal: #275b63;
-        --shadow: 0 18px 45px rgba(35, 32, 24, 0.12);
-        --radius: 24px;
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-
-      body {
-        margin: 0;
-        font-family: "Avenir Next", "Helvetica Neue", sans-serif;
-        color: var(--ink);
-        background:
-          radial-gradient(circle at top left, rgba(157, 75, 47, 0.08), transparent 32%),
-          radial-gradient(circle at bottom right, rgba(39, 91, 99, 0.08), transparent 28%),
-          linear-gradient(180deg, #f6f1e8 0%, #f0eadf 100%);
-      }
-
-      .page {
+      /* ── Explorer page layout ─────────────────────────────────────────── */
+      .explorer-page {
+        padding: 2rem 2rem 4rem;
         max-width: 1380px;
         margin: 0 auto;
-        padding: 32px 20px 48px;
       }
 
-      .hero {
+      /* ── Hero / intro block ───────────────────────────────────────────── */
+      .explorer-hero {
         display: grid;
-        gap: 18px;
-        padding: 28px;
-        background: rgba(251, 248, 242, 0.78);
-        border: 1px solid rgba(30, 36, 48, 0.08);
-        border-radius: 32px;
-        box-shadow: var(--shadow);
-        backdrop-filter: blur(12px);
+        gap: 1.125rem;
+        padding: 1.75rem;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 2rem;
+        box-shadow: var(--demo-shadow-soft);
+        margin-bottom: 1.5rem;
       }
 
+      .explorer-hero > h1 {
+        font-family: var(--font-serif);
+        margin-top: 0.5rem;
+        margin-bottom: 0.25rem;
+        font-size: clamp(2rem, 5vw, 3.6rem);
+        font-weight: 700;
+        line-height: 1.3;
+        letter-spacing: -0.03em;
+        max-width: 14ch;
+        color: var(--foreground);
+        margin: 0;
+      }
+
+      .explorer-hero > p {
+        margin: 0;
+        max-width: 72ch;
+        color: var(--muted-foreground);
+        font-family: var(--font-sans);
+        font-size: 1rem;
+        line-height: 1.6;
+      }
+
+      /* ── Eyebrow label ────────────────────────────────────────────────── */
       .eyebrow {
         display: inline-flex;
         align-items: center;
-        gap: 10px;
+        gap: 0.625rem;
         width: fit-content;
-        padding: 8px 14px;
+        padding: 0.5rem 0.875rem;
         border-radius: 999px;
-        background: rgba(157, 75, 47, 0.1);
-        color: var(--accent);
-        font-size: 0.82rem;
+        background: rgba(217, 119, 87, 0.1);
+        color: var(--primary);
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
         letter-spacing: 0.08em;
         text-transform: uppercase;
       }
 
+      .dark .eyebrow {
+        background: rgba(224, 136, 102, 0.14);
+      }
+
+      /* ── Tooltip ──────────────────────────────────────────────────────── */
       .tooltip-wrap {
         position: relative;
         display: inline-flex;
@@ -76,10 +91,11 @@
         justify-content: center;
         width: 18px;
         height: 18px;
-        border: 1px solid rgba(157, 75, 47, 0.28);
+        border: 1px solid rgba(217, 119, 87, 0.28);
         border-radius: 999px;
-        background: rgba(255, 255, 255, 0.7);
-        color: var(--accent);
+        background: var(--card);
+        color: var(--primary);
+        font-family: var(--font-mono);
         font-size: 0.68rem;
         font-weight: 700;
         line-height: 1;
@@ -92,15 +108,14 @@
         left: 50%;
         transform: translateX(-50%);
         width: min(320px, 70vw);
-        padding: 12px 14px;
-        border: 1px solid rgba(30, 36, 48, 0.1);
-        border-radius: 14px;
-        background: rgba(30, 36, 48, 0.94);
-        color: rgba(255, 255, 255, 0.92);
+        padding: 0.75rem 0.875rem;
+        border: 1px solid var(--border);
+        border-radius: 0.875rem;
+        background: var(--foreground);
+        color: var(--background);
+        font-family: var(--font-sans);
         font-size: 0.82rem;
         line-height: 1.45;
-        letter-spacing: normal;
-        text-transform: none;
         box-shadow: 0 12px 28px rgba(30, 36, 48, 0.18);
         opacity: 0;
         pointer-events: none;
@@ -112,52 +127,43 @@
         opacity: 1;
       }
 
-      h1,
-      h2,
-      h3 {
-        margin: 0;
-        font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
-        font-weight: 600;
-        letter-spacing: -0.02em;
-      }
-
-      h1 {
-        font-size: clamp(2.4rem, 5vw, 4.8rem);
-        line-height: 0.95;
-        max-width: 12ch;
-      }
-
-      .hero p {
-        margin: 0;
-        max-width: 72ch;
-        color: var(--muted);
-        font-size: 1.02rem;
-        line-height: 1.6;
-      }
-
+      /* ── Sticky mode selector panel ───────────────────────────────────── */
       .hero-panel {
-        padding: 20px;
-        border: 1px solid rgba(30, 36, 48, 0.08);
-        border-radius: 24px;
-        background: rgba(255, 255, 255, 0.48);
+        padding: 1.25rem;
+        border: 1px solid var(--border);
+        border-radius: 1.5rem;
+        background: var(--card);
+      }
+
+      .hero-panel h2 {
+        font-family: var(--font-sans);
+        font-size: 1.125rem;
+        font-weight: 600;
+        margin: 0 0 0.375rem;
+        color: var(--foreground);
+      }
+
+      .hero-panel > p {
+        margin: 0;
+        font-family: var(--font-sans);
+        font-size: 0.94rem;
+        color: var(--muted-foreground);
+        line-height: 1.5;
       }
 
       .hero-panel.sticky-panel {
         position: sticky;
-        top: 16px;
+        top: 4.5rem;
         z-index: 10;
         backdrop-filter: blur(12px);
+        background: rgba(244, 242, 235, 0.9);
       }
 
-      .hero-panel h2 {
-        font-size: 1.4rem;
-        margin-bottom: 6px;
+      .dark .hero-panel.sticky-panel {
+        background: rgba(28, 28, 28, 0.9);
       }
 
-      .hero-panel p {
-        font-size: 0.94rem;
-      }
-
+      /* ── Spoiler / collapsible ────────────────────────────────────────── */
       .spoiler {
         overflow: hidden;
       }
@@ -166,7 +172,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 12px;
+        gap: 0.75rem;
         cursor: pointer;
         list-style: none;
       }
@@ -177,7 +183,7 @@
 
       .spoiler-summary-copy {
         display: grid;
-        gap: 6px;
+        gap: 0.375rem;
       }
 
       .spoiler-toggle {
@@ -187,8 +193,8 @@
         width: 28px;
         height: 28px;
         border-radius: 999px;
-        background: rgba(37, 44, 57, 0.08);
-        color: var(--muted);
+        background: var(--secondary);
+        color: var(--muted-foreground);
         font-size: 0.9rem;
         font-weight: 600;
         flex-shrink: 0;
@@ -200,24 +206,26 @@
       }
 
       .spoiler-body {
-        margin-top: 14px;
+        margin-top: 0.875rem;
       }
 
+      /* ── Mode selector bar ────────────────────────────────────────────── */
       .mode-bar {
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 12px;
-        margin-top: 16px;
+        gap: 0.75rem;
+        margin-top: 1rem;
       }
 
       .mode-button {
-        border: 1px solid rgba(30, 36, 48, 0.12);
-        background: rgba(255, 255, 255, 0.62);
-        color: var(--ink);
-        padding: 16px 18px;
-        border-radius: 20px;
+        border: 1px solid var(--border);
+        background: var(--card);
+        color: var(--foreground);
+        padding: 1rem 1.125rem;
+        border-radius: 1.25rem;
         cursor: pointer;
-        font: inherit;
+        font-family: var(--font-sans);
+        font-size: inherit;
         text-align: left;
         transition:
           transform 160ms ease,
@@ -232,145 +240,196 @@
       }
 
       .mode-button.active {
-        background: linear-gradient(180deg, #252c39 0%, #343f52 100%);
-        color: white;
-        border-color: #252c39;
+        background: var(--foreground);
+        color: var(--background);
+        border-color: var(--foreground);
+      }
+
+      .dark .mode-button.active {
+        background: var(--primary);
+        color: var(--primary-foreground);
+        border-color: var(--primary);
       }
 
       .mode-button-label {
         display: block;
         font-size: 1rem;
         font-weight: 600;
-        margin-bottom: 6px;
+        margin-bottom: 0.375rem;
       }
 
       .mode-button-meta {
         display: block;
-        font-size: 0.84rem;
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
         line-height: 1.45;
-        color: var(--muted);
+        letter-spacing: 0.02em;
+        color: var(--muted-foreground);
       }
 
       .mode-button.active .mode-button-meta {
-        color: rgba(255, 255, 255, 0.74);
+        color: rgba(244, 242, 235, 0.7);
       }
 
-      .layout {
+      .dark .mode-button.active .mode-button-meta {
+        color: rgba(28, 28, 28, 0.7);
+      }
+
+      /* ── Main two-column layout ───────────────────────────────────────── */
+      .explorer-layout {
         display: grid;
         grid-template-columns: minmax(0, 1.3fr) minmax(320px, 0.9fr);
-        gap: 22px;
-        margin-top: 24px;
+        gap: 1.375rem;
+        margin-top: 1.5rem;
         align-items: start;
       }
 
+      /* ── Panel card ───────────────────────────────────────────────────── */
       .panel {
-        background: var(--paper);
-        border: 1px solid var(--line);
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 1.5rem;
+        box-shadow: var(--demo-shadow-soft);
         overflow: hidden;
       }
 
       .panel-header {
-        padding: 20px 22px 16px;
-        border-bottom: 1px solid var(--line);
+        padding: 1.25rem 1.375rem 1rem;
+        border-bottom: 1px solid var(--border);
         display: flex;
         align-items: flex-start;
         justify-content: space-between;
-        gap: 12px;
+        gap: 0.75rem;
+      }
+
+      .panel-header h2 {
+        font-family: var(--font-sans);
+        font-size: 1.125rem;
+        font-weight: 600;
+        margin: 0;
+        color: var(--foreground);
       }
 
       .panel-header p {
-        margin: 6px 0 0;
-        color: var(--muted);
+        margin: 0.375rem 0 0;
+        color: var(--muted-foreground);
+        font-family: var(--font-sans);
         font-size: 0.94rem;
         line-height: 1.5;
       }
 
+      /* ── Status badge ─────────────────────────────────────────────────── */
       .badge {
         display: inline-flex;
         align-items: center;
-        gap: 8px;
-        padding: 8px 12px;
+        gap: 0.5rem;
+        padding: 0.5rem 0.75rem;
         border-radius: 999px;
-        background: rgba(39, 91, 99, 0.1);
-        color: var(--teal);
-        font-size: 0.84rem;
+        background: rgba(217, 119, 87, 0.1);
+        color: var(--primary);
+        font-family: var(--font-mono);
+        font-size: 0.78rem;
+        letter-spacing: 0.02em;
         white-space: nowrap;
       }
 
+      .dark .badge {
+        background: rgba(224, 136, 102, 0.14);
+      }
+
+      /* ── Chat window ──────────────────────────────────────────────────── */
       .chat-window {
-        padding: 22px;
+        padding: 1.375rem;
         display: grid;
-        gap: 18px;
+        gap: 1.125rem;
       }
 
       .session-strip {
         display: flex;
         flex-wrap: wrap;
-        gap: 10px;
-        margin-bottom: 2px;
+        gap: 0.625rem;
+        margin-bottom: 0.125rem;
       }
 
       .session-pill {
-        padding: 8px 12px;
+        padding: 0.5rem 0.75rem;
         border-radius: 999px;
-        background: rgba(37, 44, 57, 0.06);
-        color: var(--muted);
-        font-size: 0.82rem;
+        background: var(--secondary);
+        color: var(--muted-foreground);
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.02em;
       }
 
+      /* ── Chat bubbles ─────────────────────────────────────────────────── */
       .bubble {
         max-width: 88%;
-        padding: 18px 18px 16px;
-        border-radius: 20px;
+        padding: 1.125rem 1.125rem 1rem;
+        border-radius: 1.35rem;
         position: relative;
+        font-family: var(--font-sans);
+        font-size: 0.98rem;
         line-height: 1.6;
       }
 
       .bubble.user {
         margin-left: auto;
-        background: linear-gradient(135deg, #252c39 0%, #343f52 100%);
-        color: white;
-        border-bottom-right-radius: 8px;
+        background: var(--demo-surface-deep);
+        color: #eff7f3;
+        border-bottom-right-radius: 0.45rem;
       }
 
       .bubble.assistant {
-        background: linear-gradient(180deg, #fffdf8 0%, #f5f0e5 100%);
-        border: 1px solid rgba(30, 36, 48, 0.08);
-        border-bottom-left-radius: 8px;
+        background: var(--demo-surface-warm);
+        border: 1px solid var(--border);
+        border-bottom-left-radius: 0.45rem;
+        color: var(--demo-text-strong);
+      }
+
+      .dark .bubble.assistant {
+        color: var(--demo-text-muted);
       }
 
       .bubble-label {
         display: block;
-        margin-bottom: 10px;
-        font-size: 0.78rem;
+        margin-bottom: 0.625rem;
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
         letter-spacing: 0.08em;
         text-transform: uppercase;
         opacity: 0.75;
       }
 
+      /* ── Answer chips ─────────────────────────────────────────────────── */
       .answer-meta {
         display: flex;
         flex-wrap: wrap;
-        gap: 10px;
-        margin-top: 14px;
+        gap: 0.625rem;
+        margin-top: 0.875rem;
       }
 
       .chip {
-        padding: 8px 12px;
+        padding: 0.5rem 0.75rem;
         border-radius: 999px;
-        background: rgba(95, 107, 71, 0.1);
-        color: var(--olive);
-        font-size: 0.84rem;
+        background: rgba(47, 159, 93, 0.1);
+        color: #1f6a49;
+        font-family: var(--font-mono);
+        font-size: 0.78rem;
+        letter-spacing: 0.02em;
+      }
+
+      .dark .chip {
+        background: rgba(90, 175, 124, 0.14);
+        color: #96e1b2;
       }
 
       .answer-body {
         margin: 0;
+        font-family: var(--font-sans);
       }
 
       .answer-body p {
-        margin: 0 0 14px;
+        margin: 0 0 0.875rem;
       }
 
       .answer-body p:last-child {
@@ -378,106 +437,147 @@
       }
 
       .answer-body strong {
-        color: var(--accent);
+        color: var(--primary);
       }
 
+      /* ── Source cards ─────────────────────────────────────────────────── */
       .sources {
-        padding: 20px;
+        padding: 1.25rem;
         display: grid;
-        gap: 14px;
+        gap: 0.875rem;
       }
 
       .source-card {
-        padding: 18px;
-        border: 1px solid var(--line);
-        border-radius: 20px;
-        background: linear-gradient(180deg, #fffefb 0%, #f7f1e7 100%);
+        padding: 1.125rem;
+        border: 1px solid var(--border);
+        border-radius: 1.25rem;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.96) 0%,
+          rgba(230, 228, 221, 0.9) 100%
+        );
+      }
+
+      .dark .source-card {
+        background: linear-gradient(
+          180deg,
+          rgba(44, 44, 44, 0.92) 0%,
+          rgba(37, 37, 37, 0.98) 100%
+        );
       }
 
       .source-topline {
         display: flex;
         justify-content: space-between;
-        gap: 12px;
+        gap: 0.75rem;
         align-items: center;
-        margin-bottom: 12px;
+        margin-bottom: 0.75rem;
       }
 
       .rank {
         display: inline-flex;
         align-items: center;
-        gap: 8px;
-        padding: 6px 10px;
+        gap: 0.5rem;
+        padding: 0.375rem 0.625rem;
         border-radius: 999px;
-        background: rgba(157, 75, 47, 0.1);
-        color: var(--accent);
-        font-size: 0.82rem;
-        font-weight: 600;
+        background: rgba(217, 119, 87, 0.1);
+        color: var(--primary);
+        font-family: var(--font-mono);
+        font-size: 0.78rem;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+      }
+
+      .dark .rank {
+        background: rgba(224, 136, 102, 0.14);
       }
 
       .score {
-        color: var(--muted);
-        font-size: 0.9rem;
+        color: var(--muted-foreground);
+        font-family: var(--font-mono);
+        font-size: 0.84rem;
+        letter-spacing: 0.02em;
       }
 
       .source-card h3 {
-        font-size: 1.18rem;
-        margin-bottom: 8px;
+        font-family: var(--font-sans);
+        font-size: 1rem;
+        font-weight: 600;
+        margin: 0 0 0.5rem;
+        color: var(--foreground);
       }
 
       .source-link {
-        color: var(--teal);
+        color: #275b63;
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
         text-decoration: none;
         word-break: break-all;
+        letter-spacing: 0.01em;
+      }
+
+      .dark .source-link {
+        color: #58b8c4;
       }
 
       .meta-grid {
         display: flex;
         flex-wrap: wrap;
-        gap: 8px;
-        margin: 14px 0;
+        gap: 0.5rem;
+        margin: 0.875rem 0;
       }
 
       .meta-tag {
-        padding: 6px 10px;
+        padding: 0.375rem 0.625rem;
         border-radius: 999px;
-        background: rgba(37, 44, 57, 0.06);
-        color: var(--muted);
-        font-size: 0.82rem;
+        background: var(--secondary);
+        color: var(--muted-foreground);
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.02em;
       }
 
       .quote-snippet {
         margin: 0;
-        padding: 14px 16px;
-        border: 1px solid rgba(30, 36, 48, 0.08);
-        background: rgba(255, 255, 255, 0.68);
-        border-radius: 16px;
-        color: #2c3340;
+        padding: 0.875rem 1rem;
+        border: 1px solid var(--border);
+        background: var(--card);
+        border-radius: 1rem;
+        color: var(--foreground);
+        font-family: var(--font-sans);
         font-size: 0.94rem;
         line-height: 1.6;
       }
 
       .quote-label {
         display: block;
-        margin-bottom: 8px;
-        color: var(--muted);
-        font-size: 0.75rem;
+        margin-bottom: 0.5rem;
+        color: var(--muted-foreground);
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
         letter-spacing: 0.08em;
         text-transform: uppercase;
       }
 
       .quote-spoiler {
-        margin-top: 14px;
+        margin-top: 0.875rem;
       }
 
       .quote-spoiler summary {
         display: inline-flex;
         align-items: center;
-        gap: 8px;
+        gap: 0.5rem;
         cursor: pointer;
         list-style: none;
-        color: var(--teal);
-        font-size: 0.84rem;
+        color: #275b63;
+        font-family: var(--font-mono);
+        font-size: 0.78rem;
         font-weight: 600;
+        letter-spacing: 0.02em;
+      }
+
+      .dark .quote-spoiler summary {
+        color: #58b8c4;
       }
 
       .quote-spoiler summary::-webkit-details-marker {
@@ -491,60 +591,60 @@
       }
 
       .quote-spoiler .quote-snippet {
-        margin-top: 10px;
+        margin-top: 0.625rem;
       }
 
-      .why {
-        margin-top: 14px;
-        color: var(--muted);
-        font-size: 0.93rem;
-      }
-
-      .lower-grid {
-        margin-top: 22px;
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 22px;
-      }
-
-      .inspector {
-        padding: 22px;
-        display: grid;
-        gap: 16px;
-      }
-
+      /* ── Delta / signal inspector ─────────────────────────────────────── */
       .delta-list {
         display: grid;
-        gap: 10px;
+        gap: 0.625rem;
       }
 
       .delta-item {
-        padding: 14px 16px;
-        border-radius: 18px;
-        background: rgba(37, 44, 57, 0.04);
-        border: 1px solid rgba(37, 44, 57, 0.06);
+        padding: 0.875rem 1rem;
+        border-radius: 1.125rem;
+        background: var(--secondary);
+        border: 1px solid var(--border);
+        font-family: var(--font-sans);
       }
 
       .delta-item strong {
         display: block;
-        margin-bottom: 4px;
+        margin-bottom: 0.25rem;
+        font-size: 0.94rem;
+        color: var(--foreground);
       }
 
+      .delta-item span {
+        font-size: 0.9rem;
+        color: var(--muted-foreground);
+        line-height: 1.5;
+      }
+
+      /* ── Metric pills ─────────────────────────────────────────────────── */
       .metric-strip {
         display: flex;
         flex-wrap: wrap;
-        gap: 10px;
-        margin-top: 8px;
+        gap: 0.625rem;
+        margin-top: 0.5rem;
       }
 
       .metric {
-        padding: 10px 12px;
-        border-radius: 16px;
-        background: rgba(95, 107, 71, 0.08);
-        color: var(--olive);
-        font-size: 0.9rem;
+        padding: 0.625rem 0.75rem;
+        border-radius: 1rem;
+        background: rgba(47, 159, 93, 0.08);
+        color: #1f6a49;
+        font-family: var(--font-mono);
+        font-size: 0.78rem;
+        letter-spacing: 0.03em;
       }
 
+      .dark .metric {
+        background: rgba(90, 175, 124, 0.12);
+        color: #96e1b2;
+      }
+
+      /* ── Fade-in animation ────────────────────────────────────────────── */
       .fade-in {
         animation: rise 420ms ease both;
       }
@@ -560,10 +660,10 @@
         }
       }
 
+      /* ── Responsive ───────────────────────────────────────────────────── */
       @media (max-width: 1040px) {
         .mode-bar,
-        .layout,
-        .lower-grid {
+        .explorer-layout {
           grid-template-columns: 1fr;
         }
 
@@ -571,11 +671,88 @@
           max-width: 100%;
         }
       }
+
+      @media (max-width: 640px) {
+        .explorer-page {
+          padding: 1.25rem 1rem 3rem;
+        }
+
+        .explorer-hero {
+          padding: 1.25rem;
+          border-radius: 1.5rem;
+        }
+
+        .mode-bar {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
     </style>
   </head>
   <body>
-    <main class="page">
-      <section class="hero fade-in">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MP6LZF49"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <header class="header">
+      <div class="container header-inner">
+        <a href="/" class="logo">
+          <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="4 17 10 11 4 5"></polyline>
+            <line x1="12" y1="19" x2="20" y2="19"></line>
+          </svg>
+          <span class="logo-text">
+            <span class="logo-muted">~/</span>florian<span class="logo-cursor">_</span>
+          </span>
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav class="nav-desktop">
+          <a href="/" class="nav-link">Home</a>
+          <a href="/resume/" class="nav-link">Resume</a>
+          <a href="/services/" class="nav-link">Services</a>
+          <a href="/blog/" class="nav-link">Blog</a>
+          <button class="theme-toggle" aria-label="Toggle theme">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+        </nav>
+
+        <!-- Mobile Navigation Controls -->
+        <div class="nav-mobile-controls">
+          <button class="theme-toggle" aria-label="Toggle theme">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+          <button class="menu-toggle" aria-label="Toggle menu">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Navigation Menu -->
+      <nav class="nav-mobile">
+        <div class="nav-mobile-inner">
+          <a href="/" class="nav-mobile-link">Home</a>
+          <a href="/resume/" class="nav-mobile-link">Resume</a>
+          <a href="/services/" class="nav-mobile-link">Services</a>
+          <a href="/blog/" class="nav-mobile-link">Blog</a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="explorer-page">
+      <section class="explorer-hero fade-in">
         <span class="eyebrow">
           Saved Chat Replay
           <span class="tooltip-wrap">
@@ -585,10 +762,10 @@
         </span>
         <h1>Legal RAG Chat Explorer</h1>
         <p>
-          This is a standalone HTML prototype for replaying one saved chat. The same user question is shown
-          together with the answer and the resources used to produce it under benchmark, vector, BM25, and
-          hybrid retrieval. The goal is to make the answer inspectable rather than opaque.
+          One saved legal question replayed across benchmark, vector, BM25, and hybrid retrieval.
+          Compare the answer and the evidence trail for each mode side by side.
         </p>
+
         <section class="hero-panel sticky-panel">
           <h2>Retrieval Modes</h2>
           <p>Switch between the saved benchmark, vector, BM25, and hybrid outputs and compare how the answer shifts.</p>
@@ -610,12 +787,12 @@
         </details>
       </section>
 
-      <section class="layout">
+      <section class="explorer-layout">
         <article class="panel fade-in">
           <div class="panel-header">
             <div>
               <h2>Conversation</h2>
-              <p>This panel replays a saved chat turn and swaps the answer based on the retrieval method.</p>
+              <p>Replays a saved chat turn and swaps the answer based on the retrieval method.</p>
             </div>
             <span class="badge" id="active-mode-badge">Hybrid · default</span>
           </div>
@@ -643,18 +820,19 @@
           <div class="panel-header">
             <div>
               <h2>Quoted Evidence</h2>
-              <p>These are the resources used for this saved answer under the currently selected method.</p>
+              <p>Resources used for this saved answer under the currently selected method.</p>
             </div>
             <span class="badge" id="source-summary">3 sources</span>
           </div>
           <div class="sources" id="source-list"></div>
         </aside>
       </section>
-
     </main>
 
+    <script src="/js/main.js" defer></script>
+
     <script>
-      const replay = {"generated_at":"2026-03-20T09:07:07.738743+00:00","model_name":"google/gemini-2.0-flash-001","retrieval_source_id":"search_intent_discovery","session_id":"termination-invalidity-001","question":"When is a termination notice invalid, and which legal requirements matter most?","modes":{"benchmark":{"label":"Benchmark","retrieval_mode":null,"top_k":null,"alpha":null,"answer":"Kurzantwort:\nEine Kündigung ist unwirksam, wenn sie formell fehlerhaft ist oder gegen zwingende gesetzliche Bestimmungen verstößt. Besonders wichtig sind die Schriftform, die Angabe von Gründen (je nach Rechtsgebiet) und die Einhaltung von Kündigungsfristen. Die Unwirksamkeit führt dazu, dass das Rechtsverhältnis fortbesteht.\n\n1 Rechtsgebiet:\nVertragsrecht, ggf. Mietrecht oder Arbeitsrecht\n\n2 Relevante Vorschriften:\n- § 126 BGB: Schriftform ist erforderlich, wenn sie gesetzlich oder vertraglich vorgeschrieben ist.\n- § 623 BGB: Kündigung von Arbeitsverhältnissen bedarf der Schriftform.\n- § 568 BGB: Kündigung von Mietverhältnissen bedarf der Schriftform.\n- §§ 573 ff. BGB: Regelungen zur Kündigung von Wohnraummietverhältnissen (z.B. Kündigungsgrund).\n\n3 Bedeutung:\nDie Einhaltung der Formvorschriften und Kündigungsfristen ist essentiell für die Wirksamkeit einer Kündigung. Fehlt die Schriftform, ist die Kündigung grundsätzlich nichtig. Bei bestimmten Vertragsverhältnissen, wie z.B. Mietverhältnissen, muss die Kündigung zudem begründet sein.\n\n4 Anwendung auf den Fall:\nOhne konkrete Angaben zum zugrundeliegenden Rechtsverhältnis (z.B. Mietvertrag, Arbeitsvertrag) kann keine abschließende Beurteilung erfolgen. Relevant sind die spezifischen Formvorschriften, Fristen und Begründungspflichten des jeweiligen Vertragstyps. Fehlen diese Angaben, ist die Wirksamkeit der Kündigung fraglich.\n\n5 Ergebnis:\nDie Wirksamkeit einer Kündigung hängt von der Einhaltung der einschlägigen Formvorschriften, Fristen und Begründungspflichten ab. Ohne Kenntnis des konkreten Sachverhalts kann die Frage nicht abschließend beantwortet werden.\n\nAbschliessender Satz:\nPrüfen Sie die Kündigung auf formelle und inhaltliche Fehler, um ihre Gültigkeit zu beurteilen.\n","sources":[]},"vector":{"label":"Vector","retrieval_mode":"vector","top_k":6,"alpha":0.7,"answer":"Kurzantwort:\nEine Kündigung ist unwirksam, wenn sie formale oder inhaltliche Fehler aufweist, wie z.B. fehlende Schriftform (§ 126, § 568 BGB), unzureichende Begründung (insbesondere bei Eigenbedarf) oder Nichteinhaltung der Kündigungsfrist. Entscheidend ist auch der Zugang der Kündigung beim Empfänger, da es sich um eine empfangsbedürftige Willenserklärung handelt. Eine formfehlerhafte Kündigung führt dazu, dass die Frist erst mit Zustellung einer formgerechten Kündigung neu beginnt.\n\n1 Rechtsgebiet:\nMietrecht, Vertragsrecht\n\n2 Relevante Vorschriften:\n- § 126 BGB: Schriftform.\n- § 568 BGB: Form und Inhalt der Kündigung von Wohnraummietverhältnissen.\n\n3 Bedeutung:\nDie Einhaltung der Schriftform und die Zustellung sind grundlegende Voraussetzungen für die Wirksamkeit einer Kündigung. Bei einer Eigenbedarfskündigung ist eine detaillierte und nachvollziehbare Begründung erforderlich, um die Kündigung vor Gericht durchzusetzen.\n\n4 Anwendung auf den Fall:\nDie Frage nach der Ungültigkeit einer Kündigung kann nur im Einzelfall beantwortet werden. Es ist zu prüfen, ob die Schriftform eingehalten wurde, ob die Kündigung dem Empfänger zugegangen ist und ob die Kündigung ausreichend begründet ist (insbesondere bei Eigenbedarf).\n\n5 Ergebnis:\nEine Kündigung kann aus verschiedenen Gründen unwirksam sein. Die Einhaltung der formalen und inhaltlichen Anforderungen ist entscheidend.\n\nAbschliessender Satz:\nAchte auf die Details, um eine wirksame Kündigung zu gewährleisten.\n","sources":[{"rank":1,"score":0.4857100094918995,"title":"Kündigungsfrist bei Eigenbedarf - das sollten Mieter und Vermieter beachten","url":"https://www.fachanwalt.de/magazin/mietrecht/kuendigungsfrist-eigenbedarf","paragraphs":[],"keywords":["Formalien","schriftliches Kündigungsschreiben","begünstigte Personen","Gründe","Fristen","Vermieter"],"quote":"Neben den Formalien wie schriftliches Kündigungsschreiben inklusive der wichtigen Angaben über begünstigte Personen und die Gründe sind es in erster Linie immer auch die zum Teil abweichenden Fristen, die eingehalten werden müssen und auf die man als Vermieter achten muss."},{"rank":2,"score":0.484482941247639,"title":"Beispiele für die Kündigungsfrist einer Wohnung","url":"https://www.mietrecht.org/kuendigung/beispiele-fuer-kuendigungsfrist-einer-wohnung/","paragraphs":[],"keywords":["Kündigung","Vermieter","Willenserklärung","Machtbereich","Kenntnisnahme"],"quote":"Merke: Entscheidend ist darauf zu achten, wann die Kündigung dem Vermieter zugeht . Denn da die Kündigung eine einseitige empfangsbedürftige Willenserklärung ist, geht diese zu, wenn sie so in den Machtbereich des Empfängers gelangt, dass dieser davon Kenntnis nehmen kann bzw. unter normalen Umständen mit einer Kenntnisnahme zu rechnen is…"},{"rank":3,"score":0.4821718542383229,"title":"Eigenbedarfskündigung","url":"https://www.ing.de/wissen/eigenbedarfskuendigung/","paragraphs":[],"keywords":["Eigenbedarfskündigung","wirksam","formale Anforderungen","inhaltliche Anforderungen"],"quote":"Damit eine Eigenbedarfskündigung überhaupt wirksam ist, muss sie gewisse formale und inhaltliche Anforderungen erfüllen. Deshalb lohnt es sich, hier genauer hinzuschauen."},{"rank":4,"score":0.4815125283150993,"title":"Mieter kündigen: Was Vermieter wissen müssen","url":"https://www.homeday.de/de/immobilienvermietung/mieter-kuendigen/","paragraphs":[],"keywords":["rechtskräftige Kündigung","Zustellung","Einwurfeinschreiben","Kündigungsgrund","Kündigungsfrist","Formfehler"],"quote":"Wie sieht eine rechtskräftige Kündigung aus? Eine Kündigung muss korrekt zugestellt werden, um wirksam zu sein; fehlerhafte Kündigungen können den gesamten Prozess verzögern. Neben einer schriftlichen Kündigung mit Begründung ist die richtige Zustellung entscheidend. Empfehlenswert sind Einwurfeinschreiben oder die Übergabe durch einen Bo…"},{"rank":5,"score":0.4785707864713879,"title":"Eigenbedarfskündigung Muster für Vermieter","url":"https://www.kgk-kanzlei.de/news-wissenswertes/eigenbedarfskuendigung-muster-fuer-vermieter/","paragraphs":[],"keywords":["Fehler","Unwirksamkeit","unzureichende Begründung","Gericht","rechtssichere Begründung","Glaubwürdigkeit","eigenbedarfskündigung muster"],"quote":"Welche Fehler machen Eigenbedarfskündigungen unwirksam? Unzureichende Begründung führt zur Unwirksamkeit Etwa 70 Prozent aller Eigenbedarfskündigungen scheitern vor Gericht, weil Vermieter die Begründung unvollständig formulieren. Du darfst niemals nur schreiben: „Ich benötige die Wohnung für meine Tochter.\" Das Gericht will konkret wisse…"},{"rank":6,"score":0.4775614550896385,"title":"Mietvertrag kündigen: Darauf sollten Sie achten!","url":"https://www.focus.de/business/magazin/mietvertrag-kuendigen-darauf-sollten-sie-achten","paragraphs":["§ 126 BGB","§ 568 BGB"],"keywords":["formale Kriterien","Schriftform","befristet","ordentliche Kündigung","elektronisch","Fax","unterschrieben","Kündigungsfrist","Einwurf/Einschreiben"],"quote":"Welche formalen Kriterien müssen erfüllt sein, damit die Kündigung von Wohnraum wirksam ist? Voraussetzung der Kündigung eines Mietverhältnisses ist zunächst, dass das Mietverhältnis nicht wirksam befristet wurde, erklärt Anwalt Eckhard Schütt. Anderenfalls sei eine ordentliche Kündigung ausgeschlossen. Bei der Kündigung selbst sei die Sc…"}]},"bm25":{"label":"BM25","retrieval_mode":"bm25","top_k":6,"alpha":0.7,"answer":"Kurzantwort:\nEine Kündigung ist unwirksam, wenn sie formell fehlerhaft ist oder gegen zwingende gesetzliche Bestimmungen verstößt. Wesentliche Anforderungen sind die Schriftform, der Zugang beim Empfänger und die Angabe von Gründen bei einer außerordentlichen Kündigung. Die Unwirksamkeit kann sich aus verschiedenen Gründen ergeben, die im BGB geregelt sind.\n\n1 Rechtsgebiet:\nMietrecht, Vertragsrecht\n\n2 Relevante Vorschriften:\n- § 568 BGB: Form der Kündigung von Mietverhältnissen (Schriftform)\n- § 130 BGB: Wirksamwerden einer Willenserklärung gegenüber Abwesenden (Zugang der Kündigung)\n- § 543 BGB: Außerordentliche Kündigung aus wichtigem Grund (Begründungspflicht)\n\n3 Bedeutung:\nDie Einhaltung der Formvorschriften und der Zugang der Kündigung sind essenziell für ihre Wirksamkeit. Eine fehlende oder fehlerhafte Begründung kann die Kündigung unwirksam machen, insbesondere bei einer außerordentlichen Kündigung.\n\n4 Anwendung auf den Fall:\nOhne konkreten Sachverhalt kann keine detaillierte Subsumtion erfolgen. Es ist zu prüfen, ob die Kündigung schriftlich erfolgte, dem Empfänger zugegangen ist und, falls erforderlich, ausreichend begründet wurde.\n\n5 Ergebnis:\nDie Wirksamkeit einer Kündigung hängt von der Einhaltung der gesetzlichen Formvorschriften und dem Vorliegen eines Kündigungsgrundes ab.\n\nAbschliessender Satz:\nEine sorgfältige Prüfung der Kündigungserklärung ist entscheidend, um ihre Gültigkeit festzustellen.\n","sources":[{"rank":1,"score":33.72049408703113,"title":"Schönheitsreparaturen - Oft muss ein Mieter gar nicht renovieren","url":"https://mieterschutz-hamburg.de/rat-und-tipps/schoenheitsreparaturen","paragraphs":[],"keywords":["Basic Information","LhM","member","annual fee","admission fee","legal advice","landlord","rental contracts","tenancy law","legal expenses insurance","lawyer","membership","contact form","appointment","translator"],"quote":"Basic Information LhM To be able to advise you, you must be a member of our association. We have an annual fee of € 60.00 (for commercial leases € 90.00) and a one-off admission fee of € 10.00. The annual fee includes the legal advice you receive from us as well as the correspondence that we have with the landlord, provided that you have…"},{"rank":2,"score":33.66534952116035,"title":"Zahlen Sie auch zu viel Miete?","url":"https://mieterschutz-hamburg.de/leistungen/mietpreisbremse","paragraphs":[],"keywords":["Basic Information LhM","advise","member","annual fee","commercial leases","admission fee","legal advice","landlord","rent deficiencies","rental contracts","rent increase claims","operating and ancillary costs","tenancy law","legal expenses insurance","court process","lawyer","minimum membership","notice in writing","contact form","consultation","appointment","identity card","rental agreement","correspondence","translator"],"quote":"Basic Information LhM × To be able to advise you, you must be a member of our association. We have an annual fee of € 60.00 (for commercial leases € 90.00) and a one-off admission fee of € 10.00. The annual fee includes the legal advice you receive from us as well as the correspondence that we have with the landlord, provided that you hav…"},{"rank":3,"score":24.394480704388435,"title":"Tricks der Vermieter: Modernisierungen zur Umgehung der Mietpreisbremse","url":"https://conny.de/miete/mietpreisbremse/modernisierungs-tricks","paragraphs":[],"keywords":[],"quote":"This is a container where you can add HTML snippets, Javascript and CSS. Please use the script-tag for Javascript and the style-tag for CSS."},{"rank":4,"score":22.57098343957669,"title":"-","url":"https://en.pons.com/translate/german-english/Untervermietung","paragraphs":[],"keywords":["PONS","PONS Pur","PONS Translate Pro","ad tracking","advertisements","data protection","Privacy settings","cookies","advertising","content","profile","services"],"quote":"How would you like to use PONS.com? Already PONS Pur or PONS Translate Pro subscriber? Then log in here. PONS with ads Go to PONS.com as usual with ad tracking and advertisements. Accept and continue You can find details of tracking in Information about data protection and under Privacy settings . PONS Pur without advertising by third par…"},{"rank":5,"score":22.117273061013723,"title":"Abkürzungen","url":"https://delta-t.de/info-center/abkuerzungen/","paragraphs":[],"keywords":["Screen-reader","keyboard navigation","ARIA attributes","Accessible Rich Internet Applications","Screen-Reader Profile","Screen-reader optimization","form labels","actionable icons","validation guidance","element roles","buttons","menus","modal dialogues","images","ALT (alternate text)","OCR (optical character recognition)","Alt+1","JAWS","NVDA","Keyboard navigation optimization","JavaScript","Tab","Shift+Tab","arrow keys","Esc","Enter key","Spacebar","quick-navigation","content-skip menus","M (menus)","H (headings)","F (forms)","B (buttons)","G (graphics)"],"quote":"Screen-reader and keyboard navigation Our website implements the ARIA attributes (Accessible Rich Internet Applications) technique, alongside various different behavioral changes, to ensure blind users visiting with screen-readers are able to read, comprehend, and enjoy the website's functions. As soon as a user with a screen-reader enter…"},{"rank":6,"score":19.884754320464012,"title":"Abkürzungen","url":"https://delta-t.de/info-center/abkuerzungen/","paragraphs":[],"keywords":["Disability profiles","Epilepsy Safe Mode","Visually Impaired Mode","Cognitive Disability Mode","ADHD Friendly Mode","Blindness Mode","Keyboard Navigation Profile","Motor-Impaired","seizures","visual impairments","cognitive impairments","Dyslexia","Autism","CVA","ADHD","Neurodevelopmental disorders","screen-readers","JAWS","NVDA","VoiceOver","TalkBack","Tab","Shift+Tab","Enter keys","M (menus)","H (headings)","F (forms)","B (buttons)","G (graphics)"],"quote":"Disability profiles supported in our website * **Epilepsy Safe Mode:** this profile enables people with epilepsy to use the website safely by eliminating the risk of seizures that result from flashing or blinking animations and risky color combinations. * **Visually Impaired Mode:** this mode adjusts the website for the convenience of use…"}]},"hybrid":{"label":"Hybrid","retrieval_mode":"hybrid","top_k":6,"alpha":0.7,"answer":"Kurzantwort:\nEine Kündigung ist unwirksam, wenn sie formale oder inhaltliche Fehler aufweist, wie z.B. fehlende Schriftform, ungenaue Angaben zum Kündigungsgrund oder Nichteinhaltung der Kündigungsfrist. Entscheidend ist, dass die Kündigung dem Empfänger zugeht und dieser Kenntnis nehmen kann. Formfehler führen dazu, dass die Kündigungsfrist erst mit Zustellung einer korrekten Kündigung beginnt.\n\n1 Rechtsgebiet:\nMietrecht\n\n2 Relevante Vorschriften:\n- § 568 BGB: Form der Kündigung von Wohnraummietverhältnissen (Schriftform erforderlich).\n- § 573 BGB: Ordentliche Kündigung des Vermieters (begründetes Interesse erforderlich).\n\n3 Bedeutung:\nDie Kündigung eines Mietverhältnisses ist eine einseitige, empfangsbedürftige Willenserklärung. Sie wird wirksam, wenn sie dem Empfänger zugeht (§ 130 BGB) und inhaltlich sowie formal den gesetzlichen Anforderungen entspricht. Formfehler oder fehlende Begründung können zur Unwirksamkeit führen.\n\n4 Anwendung auf den Fall:\nEine Kündigung ist unwirksam, wenn sie nicht schriftlich erfolgt, der Kündigungsgrund fehlt oder ungenau ist, oder die Kündigungsfrist nicht eingehalten wurde. Die Kündigung muss dem Vermieter zugehen, d.h. in seinen Machtbereich gelangen, so dass er Kenntnis nehmen kann.\n\n5 Ergebnis:\nEine fehlerhafte Kündigung ist unwirksam und setzt keine Frist in Gang. Die Frist beginnt erst mit Zustellung einer formgerechten Kündigung.\n\nAbschliessender Satz:\nAchte auf die Einhaltung aller formalen und inhaltlichen Anforderungen, um die Wirksamkeit einer Kündigung sicherzustellen.\n","sources":[{"rank":1,"score":0.8083376346183364,"title":"Schönheitsreparaturen - Oft muss ein Mieter gar nicht renovieren","url":"https://mieterschutz-hamburg.de/rat-und-tipps/schoenheitsreparaturen","paragraphs":[],"keywords":["Basic Information","LhM","member","annual fee","admission fee","legal advice","landlord","rental contracts","tenancy law","legal expenses insurance","lawyer","membership","contact form","appointment","translator"],"quote":"Basic Information LhM To be able to advise you, you must be a member of our association. We have an annual fee of € 60.00 (for commercial leases € 90.00) and a one-off admission fee of € 10.00. The annual fee includes the legal advice you receive from us as well as the correspondence that we have with the landlord, provided that you have…"},{"rank":2,"score":0.79645233409567,"title":"Zahlen Sie auch zu viel Miete?","url":"https://mieterschutz-hamburg.de/leistungen/mietpreisbremse","paragraphs":[],"keywords":["Basic Information LhM","advise","member","annual fee","commercial leases","admission fee","legal advice","landlord","rent deficiencies","rental contracts","rent increase claims","operating and ancillary costs","tenancy law","legal expenses insurance","court process","lawyer","minimum membership","notice in writing","contact form","consultation","appointment","identity card","rental agreement","correspondence","translator"],"quote":"Basic Information LhM × To be able to advise you, you must be a member of our association. We have an annual fee of € 60.00 (for commercial leases € 90.00) and a one-off admission fee of € 10.00. The annual fee includes the legal advice you receive from us as well as the correspondence that we have with the landlord, provided that you hav…"},{"rank":3,"score":0.7,"title":"Kündigungsfrist bei Eigenbedarf - das sollten Mieter und Vermieter beachten","url":"https://www.fachanwalt.de/magazin/mietrecht/kuendigungsfrist-eigenbedarf","paragraphs":[],"keywords":["Formalien","schriftliches Kündigungsschreiben","begünstigte Personen","Gründe","Fristen","Vermieter"],"quote":"Neben den Formalien wie schriftliches Kündigungsschreiben inklusive der wichtigen Angaben über begünstigte Personen und die Gründe sind es in erster Linie immer auch die zum Teil abweichenden Fristen, die eingehalten werden müssen und auf die man als Vermieter achten muss."},{"rank":4,"score":0.6984169059634188,"title":"Beispiele für die Kündigungsfrist einer Wohnung","url":"https://www.mietrecht.org/kuendigung/beispiele-fuer-kuendigungsfrist-einer-wohnung/","paragraphs":[],"keywords":["Kündigung","Vermieter","Willenserklärung","Machtbereich","Kenntnisnahme"],"quote":"Merke: Entscheidend ist darauf zu achten, wann die Kündigung dem Vermieter zugeht . Denn da die Kündigung eine einseitige empfangsbedürftige Willenserklärung ist, geht diese zu, wenn sie so in den Machtbereich des Empfängers gelangt, dass dieser davon Kenntnis nehmen kann bzw. unter normalen Umständen mit einer Kenntnisnahme zu rechnen is…"},{"rank":5,"score":0.6954352722363776,"title":"Eigenbedarfskündigung","url":"https://www.ing.de/wissen/eigenbedarfskuendigung/","paragraphs":[],"keywords":["Eigenbedarfskündigung","wirksam","formale Anforderungen","inhaltliche Anforderungen"],"quote":"Damit eine Eigenbedarfskündigung überhaupt wirksam ist, muss sie gewisse formale und inhaltliche Anforderungen erfüllen. Deshalb lohnt es sich, hier genauer hinzuschauen."},{"rank":6,"score":0.6945846472266435,"title":"Mieter kündigen: Was Vermieter wissen müssen","url":"https://www.homeday.de/de/immobilienvermietung/mieter-kuendigen/","paragraphs":[],"keywords":["rechtskräftige Kündigung","Zustellung","Einwurfeinschreiben","Kündigungsgrund","Kündigungsfrist","Formfehler"],"quote":"Wie sieht eine rechtskräftige Kündigung aus? Eine Kündigung muss korrekt zugestellt werden, um wirksam zu sein; fehlerhafte Kündigungen können den gesamten Prozess verzögern. Neben einer schriftlichen Kündigung mit Begründung ist die richtige Zustellung entscheidend. Empfehlenswert sind Einwurfeinschreiben oder die Übergabe durch einen Bo…"}]}}};
+      const replay = {"generated_at":"2026-03-20T09:07:07.738743+00:00","model_name":"google/gemini-2.0-flash-001","retrieval_source_id":"search_intent_discovery","session_id":"termination-invalidity-001","question":"When is a termination notice invalid, and which legal requirements matter most?","modes":{"benchmark":{"label":"Benchmark","retrieval_mode":null,"top_k":null,"alpha":null,"answer":"Kurzantwort:\nEine Kündigung ist unwirksam, wenn sie formell fehlerhaft ist oder gegen zwingende gesetzliche Bestimmungen verstößt. Besonders wichtig sind die Schriftform, die Angabe von Gründen (je nach Rechtsgebiet) und die Einhaltung von Kündigungsfristen. Die Unwirksamkeit führt dazu, dass das Rechtsverhältnis fortbesteht.\n\n1 Rechtsgebiet:\nVertragsrecht, ggf. Mietrecht oder Arbeitsrecht\n\n2 Relevante Vorschriften:\n- § 126 BGB: Schriftform ist erforderlich, wenn sie gesetzlich oder vertraglich vorgeschrieben ist.\n- § 623 BGB: Kündigung von Arbeitsverhältnissen bedarf der Schriftform.\n- § 568 BGB: Kündigung von Mietverhältnissen bedarf der Schriftform.\n- §§ 573 ff. BGB: Regelungen zur Kündigung von Wohnraummietverhältnissen (z.B. Kündigungsgrund).\n\n3 Bedeutung:\nDie Einhaltung der Formvorschriften und Kündigungsfristen ist essentiell für die Wirksamkeit einer Kündigung. Fehlt die Schriftform, ist die Kündigung grundsätzlich nichtig. Bei bestimmten Vertragsverhältnissen, wie z.B. Mietverhältnissen, muss die Kündigung zudem begründet sein.\n\n4 Anwendung auf den Fall:\nOhne konkrete Angaben zum zugrundeliegenden Rechtsverhältnis (z.B. Mietvertrag, Arbeitsvertrag) kann keine abschließende Beurteilung erfolgen. Relevant sind die spezifischen Formvorschriften, Fristen und Begründungspflichten des jeweiligen Vertragstyps. Fehlen diese Angaben, ist die Wirksamkeit der Kündigung fraglich.\n\n5 Ergebnis:\nDie Wirksamkeit einer Kündigung hängt von der Einhaltung der einschlägigen Formvorschriften, Fristen und Begründungspflichten ab. Ohne Kenntnis des konkreten Sachverhalts kann die Frage nicht abschließend beantwortet werden.\n\nAbschliessender Satz:\nPrüfen Sie die Kündigung auf formelle und inhaltliche Fehler, um ihre Gültigkeit zu beurteilen.\n","sources":[]},"vector":{"label":"Vector","retrieval_mode":"vector","top_k":6,"alpha":0.7,"answer":"Kurzantwort:\nEine Kündigung ist unwirksam, wenn sie formale oder inhaltliche Fehler aufweist, wie z.B. fehlende Schriftform (§ 126, § 568 BGB), unzureichende Begründung (insbesondere bei Eigenbedarf) oder Nichteinhaltung der Kündigungsfrist. Entscheidend ist auch der Zugang der Kündigung beim Empfänger, da es sich um eine empfangsbedürftige Willenserklärung handelt. Eine formfehlerhafte Kündigung führt dazu, dass die Frist erst mit Zustellung einer formgerechten Kündigung neu beginnt.\n\n1 Rechtsgebiet:\nMietrecht, Vertragsrecht\n\n2 Relevante Vorschriften:\n- § 126 BGB: Schriftform.\n- § 568 BGB: Form und Inhalt der Kündigung von Wohnraummietverhältnissen.\n\n3 Bedeutung:\nDie Einhaltung der Schriftform und die Zustellung sind grundlegende Voraussetzungen für die Wirksamkeit einer Kündigung. Bei einer Eigenbedarfskündigung ist eine detaillierte und nachvollziehbare Begründung erforderlich, um die Kündigung vor Gericht durchzusetzen.\n\n4 Anwendung auf den Fall:\nDie Frage nach der Ungültigkeit einer Kündigung kann nur im Einzelfall beantwortet werden. Es ist zu prüfen, ob die Schriftform eingehalten wurde, ob die Kündigung dem Empfänger zugegangen ist und ob die Kündigung ausreichend begründet ist (insbesondere bei Eigenbedarf).\n\n5 Ergebnis:\nEine Kündigung kann aus verschiedenen Gründen unwirksam sein. Die Einhaltung der formalen und inhaltlichen Anforderungen ist entscheidend.\n\nAbschliessender Satz:\nAchte auf die Details, um eine wirksame Kündigung zu gewährleisten.\n","sources":[{"rank":1,"score":0.4857100094918995,"title":"Kündigungsfrist bei Eigenbedarf - das sollten Mieter und Vermieter beachten","url":"https://www.fachanwalt.de/magazin/mietrecht/kuendigungsfrist-eigenbedarf","paragraphs":[],"keywords":["Formalien","schriftliches Kündigungsschreiben","begünstigte Personen","Gründe","Fristen","Vermieter"],"quote":"Neben den Formalien wie schriftliches Kündigungsschreiben inklusive der wichtigen Angaben über begünstigte Personen und die Gründe sind es in erster Linie immer auch die zum Teil abweichenden Fristen, die eingehalten werden müssen und auf die man als Vermieter achten muss."},{"rank":2,"score":0.484482941247639,"title":"Beispiele für die Kündigungsfrist einer Wohnung","url":"https://www.mietrecht.org/kuendigung/beispiele-fuer-kuendigungsfrist-einer-wohnung/","paragraphs":[],"keywords":["Kündigung","Vermieter","Willenserklärung","Machtbereich","Kenntnisnahme"],"quote":"Merke: Entscheidend ist darauf zu achten, wann die Kündigung dem Vermieter zugeht . Denn da die Kündigung eine einseitige empfangsbedürftige Willenserklärung ist, geht diese zu, wenn sie so in den Machtbereich des Empfängers gelangt, dass dieser davon Kenntnis nehmen kann bzw. unter normalen Umständen mit einer Kenntnisnahme zu rechnen is…"},{"rank":3,"score":0.4821718542383229,"title":"Eigenbedarfskündigung","url":"https://www.ing.de/wissen/eigenbedarfskuendigung/","paragraphs":[],"keywords":["Eigenbedarfskündigung","wirksam","formale Anforderungen","inhaltliche Anforderungen"],"quote":"Damit eine Eigenbedarfskündigung überhaupt wirksam ist, muss sie gewisse formale und inhaltliche Anforderungen erfüllen. Deshalb lohnt es sich, hier genauer hinzuschauen."},{"rank":4,"score":0.4815125283150993,"title":"Mieter kündigen: Was Vermieter wissen müssen","url":"https://www.homeday.de/de/immobilienvermietung/mieter-kuendigen/","paragraphs":[],"keywords":["rechtskräftige Kündigung","Zustellung","Einwurfeinschreiben","Kündigungsgrund","Kündigungsfrist","Formfehler"],"quote":"Wie sieht eine rechtskräftige Kündigung aus? Eine Kündigung muss korrekt zugestellt werden, um wirksam zu sein; fehlerhafte Kündigungen können den gesamten Prozess verzögern. Neben einer schriftlichen Kündigung mit Begründung ist die richtige Zustellung entscheidend. Empfehlenswert sind Einwurfeinschreiben oder die Übergabe durch einen Bo…"},{"rank":5,"score":0.4785707864713879,"title":"Eigenbedarfskündigung Muster für Vermieter","url":"https://www.kgk-kanzlei.de/news-wissenswertes/eigenbedarfskuendigung-muster-fuer-vermieter/","paragraphs":[],"keywords":["Fehler","Unwirksamkeit","unzureichende Begründung","Gericht","rechtssichere Begründung","Glaubwürdigkeit","eigenbedarfskündigung muster"],"quote":"Welche Fehler machen Eigenbedarfskündigungen unwirksam? Unzureichende Begründung führt zur Unwirksamkeit Etwa 70 Prozent aller Eigenbedarfskündigungen scheitern vor Gericht, weil Vermieter die Begründung unvollständig formulieren. Du darfst niemals nur schreiben: „Ich benötige die Wohnung für meine Tochter.\" Das Gericht will konkret wisse…"},{"rank":6,"score":0.4775614550896385,"title":"Mietvertrag kündigen: Darauf sollten Sie achten!","url":"https://www.focus.de/business/magazin/mietvertrag-kuendigen-darauf-sollten-sie-achten","paragraphs":["§ 126 BGB","§ 568 BGB"],"keywords":["formale Kriterien","Schriftform","befristet","ordentliche Kündigung","elektronisch","Fax","unterschrieben","Kündigungsfrist","Einwurf/Einschreiben"],"quote":"Welche formalen Kriterien müssen erfüllt sein, damit die Kündigung von Wohnraum wirksam ist? Voraussetzung der Kündigung eines Mietverhältnisses ist zunächst, dass das Mietverhältnis nicht wirksam befristet wurde, erklärt Anwalt Eckhard Schütt. Anderenfalls sei eine ordentliche Kündigung ausgeschlossen. Bei der Kündigung selbst sei die Sc…"}]},"bm25":{"label":"BM25","retrieval_mode":"bm25","top_k":6,"alpha":0.7,"answer":"Kurzantwort:\nEine Kündigung ist unwirksam, wenn sie formell fehlerhaft ist oder gegen zwingende gesetzliche Bestimmungen verstößt. Wesentliche Anforderungen sind die Schriftform, der Zugang beim Empfänger und die Angabe von Gründen bei einer außerordentlichen Kündigung. Die Unwirksamkeit kann sich aus verschiedenen Gründen ergeben, die im BGB geregelt sind.\n\n1 Rechtsgebiet:\nMietrecht, Vertragsrecht\n\n2 Relevante Vorschriften:\n- § 568 BGB: Form der Kündigung von Mietverhältnissen (Schriftform)\n- § 130 BGB: Wirksamwerden einer Willenserklärung gegenüber Abwesenden (Zugang der Kündigung)\n- § 543 BGB: Außerordentliche Kündigung aus wichtigem Grund (Begründungspflicht)\n\n3 Bedeutung:\nDie Einhaltung der Formvorschriften und der Zugang der Kündigung sind essenziell für ihre Wirksamkeit. Eine fehlende oder fehlerhafte Begründung kann die Kündigung unwirksam machen, insbesondere bei einer außerordentlichen Kündigung.\n\n4 Anwendung auf den Fall:\nOhne konkreten Sachverhalt kann keine detaillierte Subsumtion erfolgen. Es ist zu prüfen, ob die Kündigung schriftlich erfolgte, dem Empfänger zugegangen ist und, falls erforderlich, ausreichend begründet wurde.\n\n5 Ergebnis:\nDie Wirksamkeit einer Kündigung hängt von der Einhaltung der gesetzlichen Formvorschriften und dem Vorliegen eines Kündigungsgrundes ab.\n\nAbschliessender Satz:\nEine sorgfältige Prüfung der Kündigungserklärung ist entscheidend, um ihre Gültigkeit festzustellen.\n","sources":[{"rank":1,"score":33.72049408703113,"title":"Schönheitsreparaturen - Oft muss ein Mieter gar nicht renovieren","url":"https://mieterschutz-hamburg.de/rat-und-tipps/schoenheitsreparaturen","paragraphs":[],"keywords":["Basic Information","LhM","member","annual fee","admission fee","legal advice","landlord","rental contracts","tenancy law","legal expenses insurance","lawyer","membership","contact form","appointment","translator"],"quote":"Basic Information LhM To be able to advise you, you must be a member of our association. We have an annual fee of € 60.00 (for commercial leases € 90.00) and a one-off admission fee of € 10.00. The annual fee includes the legal advice you receive from us as well as the correspondence that we have with the landlord, provided that you have…"},{"rank":2,"score":33.66534952116035,"title":"Zahlen Sie auch zu viel Miete?","url":"https://mieterschutz-hamburg.de/leistungen/mietpreisbremse","paragraphs":[],"keywords":["Basic Information LhM","advise","member","annual fee","commercial leases","admission fee","legal advice","landlord","rent deficiencies","rental contracts","rent increase claims","operating and ancillary costs","tenancy law","legal expenses insurance","court process","lawyer","minimum membership","notice in writing","contact form","consultation","appointment","identity card","rental agreement","correspondence","translator"],"quote":"Basic Information LhM × To be able to advise you, you must be a member of our association. We have an annual fee of € 60.00 (for commercial leases € 90.00) and a one-off admission fee of € 10.00. The annual fee includes the legal advice you receive from us as well as the correspondence that we have with the landlord, provided that you hav…"},{"rank":3,"score":24.394480704388435,"title":"Tricks der Vermieter: Modernisierungen zur Umgehung der Mietpreisbremse","url":"https://conny.de/miete/mietpreisbremse/modernisierungs-tricks","paragraphs":[],"keywords":[],"quote":"This is a container where you can add HTML snippets, Javascript and CSS. Please use the script-tag for Javascript and the style-tag for CSS."},{"rank":4,"score":22.57098343957669,"title":"-","url":"https://en.pons.com/translate/german-english/Untervermietung","paragraphs":[],"keywords":["PONS","PONS Pur","PONS Translate Pro","ad tracking","advertisements","data protection","Privacy settings","cookies","advertising","content","profile","services"],"quote":"How would you like to use PONS.com? Already PONS Pur or PONS Translate Pro subscriber? Then log in here. PONS with ads Go to PONS.com as usual with ad tracking and advertisements. Accept and continue You can find details of tracking in Information about data protection and under Privacy settings . PONS Pur without advertising by third par…"},{"rank":5,"score":22.117273061013723,"title":"Abkürzungen","url":"https://delta-t.de/info-center/abkuerzungen/","paragraphs":[],"keywords":["Screen-reader","keyboard navigation","ARIA attributes","Accessible Rich Internet Applications","Screen-Reader Profile","Screen-reader optimization","form labels","actionable icons","validation guidance","element roles","buttons","menus","modal dialogues","images","ALT (alternate text)","OCR (optical character recognition)","Alt+1","JAWS","NVDA","Keyboard Navigation Profile","JavaScript","Tab","Shift+Tab","arrow keys","Esc","Enter key","Spacebar","quick-navigation","content-skip menus","M (menus)","H (headings)","F (forms)","B (buttons)","G (graphics)"],"quote":"Screen-reader and keyboard navigation Our website implements the ARIA attributes (Accessible Rich Internet Applications) technique, alongside various different behavioral changes, to ensure blind users visiting with screen-readers are able to read, comprehend, and enjoy the website's functions. As soon as a user with a screen-reader enter…"},{"rank":6,"score":19.884754320464012,"title":"Abkürzungen","url":"https://delta-t.de/info-center/abkuerzungen/","paragraphs":[],"keywords":["Disability profiles","Epilepsy Safe Mode","Visually Impaired Mode","Cognitive Disability Mode","ADHD Friendly Mode","Blindness Mode","Keyboard Navigation Profile","Motor-Impaired","seizures","visual impairments","cognitive impairments","Dyslexia","Autism","CVA","ADHD","Neurodevelopmental disorders","screen-readers","JAWS","NVDA","VoiceOver","TalkBack","Tab","Shift+Tab","Enter keys","M (menus)","H (headings)","F (forms)","B (buttons)","G (graphics)"],"quote":"Disability profiles supported in our website * **Epilepsy Safe Mode:** this profile enables people with epilepsy to use the website safely by eliminating the risk of seizures that result from flashing or blinking animations and risky color combinations. * **Visually Impaired Mode:** this mode adjusts the website for the convenience of use…"}]},"hybrid":{"label":"Hybrid","retrieval_mode":"hybrid","top_k":6,"alpha":0.7,"answer":"Kurzantwort:\nEine Kündigung ist unwirksam, wenn sie formale oder inhaltliche Fehler aufweist, wie z.B. fehlende Schriftform, ungenaue Angaben zum Kündigungsgrund oder Nichteinhaltung der Kündigungsfrist. Entscheidend ist, dass die Kündigung dem Empfänger zugeht und dieser Kenntnis nehmen kann. Formfehler führen dazu, dass die Kündigungsfrist erst mit Zustellung einer korrekten Kündigung beginnt.\n\n1 Rechtsgebiet:\nMietrecht\n\n2 Relevante Vorschriften:\n- § 568 BGB: Form der Kündigung von Wohnraummietverhältnissen (Schriftform erforderlich).\n- § 573 BGB: Ordentliche Kündigung des Vermieters (begründetes Interesse erforderlich).\n\n3 Bedeutung:\nDie Kündigung eines Mietverhältnisses ist eine einseitige, empfangsbedürftige Willenserklärung. Sie wird wirksam, wenn sie dem Empfänger zugeht (§ 130 BGB) und inhaltlich sowie formal den gesetzlichen Anforderungen entspricht. Formfehler oder fehlende Begründung können zur Unwirksamkeit führen.\n\n4 Anwendung auf den Fall:\nEine Kündigung ist unwirksam, wenn sie nicht schriftlich erfolgt, der Kündigungsgrund fehlt oder ungenau ist, oder die Kündigungsfrist nicht eingehalten wurde. Die Kündigung muss dem Vermieter zugehen, d.h. in seinen Machtbereich gelangen, so dass er Kenntnis nehmen kann.\n\n5 Ergebnis:\nEine fehlerhafte Kündigung ist unwirksam und setzt keine Frist in Gang. Die Frist beginnt erst mit Zustellung einer formgerechten Kündigung.\n\nAbschliessender Satz:\nAchte auf die Einhaltung aller formalen und inhaltlichen Anforderungen, um die Wirksamkeit einer Kündigung sicherzustellen.\n","sources":[{"rank":1,"score":0.8083376346183364,"title":"Schönheitsreparaturen - Oft muss ein Mieter gar nicht renovieren","url":"https://mieterschutz-hamburg.de/rat-und-tipps/schoenheitsreparaturen","paragraphs":[],"keywords":["Basic Information","LhM","member","annual fee","admission fee","legal advice","landlord","rental contracts","tenancy law","legal expenses insurance","lawyer","membership","contact form","appointment","translator"],"quote":"Basic Information LhM To be able to advise you, you must be a member of our association. We have an annual fee of € 60.00 (for commercial leases € 90.00) and a one-off admission fee of € 10.00. The annual fee includes the legal advice you receive from us as well as the correspondence that we have with the landlord, provided that you have…"},{"rank":2,"score":0.79645233409567,"title":"Zahlen Sie auch zu viel Miete?","url":"https://mieterschutz-hamburg.de/leistungen/mietpreisbremse","paragraphs":[],"keywords":["Basic Information LhM","advise","member","annual fee","commercial leases","admission fee","legal advice","landlord","rent deficiencies","rental contracts","rent increase claims","operating and ancillary costs","tenancy law","legal expenses insurance","court process","lawyer","minimum membership","notice in writing","contact form","consultation","appointment","identity card","rental agreement","correspondence","translator"],"quote":"Basic Information LhM × To be able to advise you, you must be a member of our association. We have an annual fee of € 60.00 (for commercial leases € 90.00) and a one-off admission fee of € 10.00. The annual fee includes the legal advice you receive from us as well as the correspondence that we have with the landlord, provided that you hav…"},{"rank":3,"score":0.7,"title":"Kündigungsfrist bei Eigenbedarf - das sollten Mieter und Vermieter beachten","url":"https://www.fachanwalt.de/magazin/mietrecht/kuendigungsfrist-eigenbedarf","paragraphs":[],"keywords":["Formalien","schriftliches Kündigungsschreiben","begünstigte Personen","Gründe","Fristen","Vermieter"],"quote":"Neben den Formalien wie schriftliches Kündigungsschreiben inklusive der wichtigen Angaben über begünstigte Personen und die Gründe sind es in erster Linie immer auch die zum Teil abweichenden Fristen, die eingehalten werden müssen und auf die man als Vermieter achten muss."},{"rank":4,"score":0.6984169059634188,"title":"Beispiele für die Kündigungsfrist einer Wohnung","url":"https://www.mietrecht.org/kuendigung/beispiele-fuer-kuendigungsfrist-einer-wohnung/","paragraphs":[],"keywords":["Kündigung","Vermieter","Willenserklärung","Machtbereich","Kenntnisnahme"],"quote":"Merke: Entscheidend ist darauf zu achten, wann die Kündigung dem Vermieter zugeht . Denn da die Kündigung eine einseitige empfangsbedürftige Willenserklärung ist, geht diese zu, wenn sie so in den Machtbereich des Empfängers gelangt, dass dieser davon Kenntnis nehmen kann bzw. unter normalen Umständen mit einer Kenntnisnahme zu rechnen is…"},{"rank":5,"score":0.6954352722363776,"title":"Eigenbedarfskündigung","url":"https://www.ing.de/wissen/eigenbedarfskuendigung/","paragraphs":[],"keywords":["Eigenbedarfskündigung","wirksam","formale Anforderungen","inhaltliche Anforderungen"],"quote":"Damit eine Eigenbedarfskündigung überhaupt wirksam ist, muss sie gewisse formale und inhaltliche Anforderungen erfüllen. Deshalb lohnt es sich, hier genauer hinzuschauen."},{"rank":6,"score":0.6945846472266435,"title":"Mieter kündigen: Was Vermieter wissen müssen","url":"https://www.homeday.de/de/immobilienvermietung/mieter-kuendigen/","paragraphs":[],"keywords":["rechtskräftige Kündigung","Zustellung","Einwurfeinschreiben","Kündigungsgrund","Kündigungsfrist","Formfehler"],"quote":"Wie sieht eine rechtskräftige Kündigung aus? Eine Kündigung muss korrekt zugestellt werden, um wirksam zu sein; fehlerhafte Kündigungen können den gesamten Prozess verzögern. Neben einer schriftlichen Kündigung mit Begründung ist die richtige Zustellung entscheidend. Empfehlenswert sind Einwurfeinschreiben oder die Übergabe durch einen Bo…"}]}}};
 
       const modeBar = document.getElementById("mode-bar");
       const answer = document.getElementById("assistant-answer");
@@ -927,7 +1105,7 @@
           empty.className = "source-card";
           empty.innerHTML = `
             <h3>No external sources</h3>
-            <p class="why">This mode is intentionally source-free so it can serve as the benchmark baseline.</p>
+            <p style="color:var(--muted-foreground);font-family:var(--font-sans);font-size:0.94rem;margin-top:0.5rem;">This mode is intentionally source-free so it can serve as the benchmark baseline.</p>
           `;
           sourceList.appendChild(empty);
           sourceSummary.textContent = "0 sources";

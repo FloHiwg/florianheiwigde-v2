@@ -46,7 +46,7 @@ So I approached the problem from both sides: build the pipeline end-to-end while
 
 I implemented an end-to-end flow from source discovery and ingestion to benchmark comparison, organized into clear layers.
 
-{{< figure src="/images/legal-rag-pipeline-overview.svg" alt="Overview diagram of the public-data legal RAG pipeline from Bronze to Evaluation" caption="End-to-end structure of the experiment: Bronze discovery/ingestion, Silver normalization/chunking, retrieval, and benchmark comparison." class="blog-post-figure" >}}
+{{< legal-rag-bronze-silver-flow >}}
 
 ### Bronze: Discovery, Ingestion, and Raw Collection
 

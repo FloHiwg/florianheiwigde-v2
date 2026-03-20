@@ -1,0 +1,559 @@
+{{- $id := printf "legal-rag-bronze-silver-%d" .Ordinal -}}
+<style>
+  #{{ $id }} {
+    margin: 1.8rem 0 2.2rem;
+    --lrb-frame-border: rgba(24, 33, 38, 0.1);
+    --lrb-frame-accent: rgba(217, 119, 87, 0.12);
+    --lrb-frame-top: rgba(255, 252, 247, 0.98);
+    --lrb-frame-bottom: rgba(246, 239, 229, 0.96);
+    --lrb-frame-shadow: var(--demo-shadow-soft);
+    --lrb-divider: rgba(24, 33, 38, 0.08);
+    --lrb-text-strong: var(--demo-text-strong);
+    --lrb-text-muted: var(--demo-text-muted);
+    --lrb-chip-bg: rgba(255, 255, 255, 0.78);
+    --lrb-chip-border: rgba(24, 33, 38, 0.08);
+    --lrb-chip-active-bg: rgba(217, 119, 87, 0.12);
+    --lrb-chip-active-border: rgba(217, 119, 87, 0.24);
+    --lrb-card-bg: rgba(255, 255, 255, 0.7);
+    --lrb-card-border: rgba(24, 33, 38, 0.08);
+    --lrb-card-strong-bg: rgba(255, 245, 240, 0.9);
+    --lrb-card-strong-border: rgba(217, 119, 87, 0.22);
+    --lrb-code-bg: rgba(255, 255, 255, 0.84);
+    --lrb-code-border: rgba(24, 33, 38, 0.08);
+    --lrb-output-bg: rgba(255, 247, 242, 0.94);
+    --lrb-output-border: rgba(217, 119, 87, 0.24);
+    --lrb-step-line: rgba(217, 119, 87, 0.35);
+    --lrb-panel-radius: var(--demo-radius-panel);
+    --lrb-card-radius: 1rem;
+  }
+
+  .dark #{{ $id }} {
+    --lrb-frame-border: rgba(255, 255, 255, 0.08);
+    --lrb-frame-accent: rgba(224, 136, 102, 0.14);
+    --lrb-frame-top: rgba(43, 39, 34, 0.98);
+    --lrb-frame-bottom: rgba(30, 28, 26, 0.98);
+    --lrb-frame-shadow: var(--demo-shadow-soft);
+    --lrb-divider: rgba(255, 255, 255, 0.08);
+    --lrb-text-strong: var(--demo-text-strong);
+    --lrb-text-muted: var(--demo-text-muted);
+    --lrb-chip-bg: rgba(255, 255, 255, 0.05);
+    --lrb-chip-border: rgba(255, 255, 255, 0.08);
+    --lrb-chip-active-bg: rgba(224, 136, 102, 0.16);
+    --lrb-chip-active-border: rgba(224, 136, 102, 0.24);
+    --lrb-card-bg: rgba(255, 255, 255, 0.04);
+    --lrb-card-border: rgba(255, 255, 255, 0.08);
+    --lrb-card-strong-bg: rgba(224, 136, 102, 0.1);
+    --lrb-card-strong-border: rgba(224, 136, 102, 0.22);
+    --lrb-code-bg: rgba(255, 255, 255, 0.04);
+    --lrb-code-border: rgba(255, 255, 255, 0.08);
+    --lrb-output-bg: rgba(224, 136, 102, 0.1);
+    --lrb-output-border: rgba(224, 136, 102, 0.24);
+    --lrb-step-line: rgba(224, 136, 102, 0.4);
+  }
+
+  #{{ $id }} .lrb-flow {
+    padding: 1.25rem;
+    border-radius: var(--lrb-panel-radius);
+    border: 1px solid var(--lrb-frame-border);
+    background:
+      radial-gradient(circle at top right, var(--lrb-frame-accent), transparent 34%),
+      linear-gradient(180deg, var(--lrb-frame-top), var(--lrb-frame-bottom));
+    box-shadow: 0 20px 60px var(--lrb-frame-shadow);
+  }
+
+  #{{ $id }} .lrb-header {
+    display: grid;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+  }
+
+  #{{ $id }} .lrb-eyebrow,
+  #{{ $id }} .lrb-kicker,
+  #{{ $id }} .lrb-chip-meta,
+  #{{ $id }} .lrb-panel-label,
+  #{{ $id }} .lrb-step-index {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--lrb-text-muted);
+  }
+
+  #{{ $id }} .lrb-title {
+    font-family: var(--font-sans);
+    font-size: 1.02rem;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--lrb-text-strong);
+  }
+
+  #{{ $id }} .lrb-instruction {
+    color: var(--lrb-text-muted);
+    font-size: 0.92rem;
+    line-height: 1.6;
+  }
+
+  #{{ $id }} .lrb-source-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.7rem;
+    margin-bottom: 0.95rem;
+  }
+
+  #{{ $id }} .lrb-source-button {
+    display: grid;
+    gap: 0.25rem;
+    align-items: start;
+    min-height: 5rem;
+    padding: 0.8rem 0.85rem;
+    border-radius: 0.95rem;
+    border: 1px solid var(--lrb-chip-border);
+    background: var(--lrb-chip-bg);
+    color: var(--lrb-text-strong);
+    text-align: left;
+    transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  #{{ $id }} .lrb-source-button:hover,
+  #{{ $id }} .lrb-source-button:focus-visible {
+    transform: translateY(-1px);
+    border-color: var(--lrb-chip-active-border);
+    box-shadow: 0 10px 24px rgba(26, 26, 26, 0.08);
+  }
+
+  #{{ $id }} .lrb-source-button[aria-pressed="true"] {
+    background: var(--lrb-chip-active-bg);
+    border-color: var(--lrb-chip-active-border);
+    box-shadow: 0 12px 26px rgba(217, 119, 87, 0.12);
+  }
+
+  .dark #{{ $id }} .lrb-source-button:hover,
+  .dark #{{ $id }} .lrb-source-button:focus-visible,
+  .dark #{{ $id }} .lrb-source-button[aria-pressed="true"] {
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.22);
+  }
+
+  #{{ $id }} .lrb-source-label {
+    font-family: var(--font-sans);
+    font-size: 0.92rem;
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  #{{ $id }} .lrb-source-meta {
+    color: var(--lrb-text-muted);
+    font-size: 0.8rem;
+    line-height: 1.4;
+  }
+
+  #{{ $id }} .lrb-process,
+  #{{ $id }} .lrb-output {
+    border-radius: var(--lrb-card-radius);
+    border: 1px solid var(--lrb-card-border);
+    background: var(--lrb-card-bg);
+  }
+
+  #{{ $id }} .lrb-process {
+    overflow: hidden;
+    margin-bottom: 0.95rem;
+  }
+
+  #{{ $id }} .lrb-process-header {
+    display: grid;
+    gap: 0.25rem;
+    padding: 1rem;
+    border-bottom: 1px solid var(--lrb-divider);
+    background: var(--lrb-card-strong-bg);
+    transition: opacity 0.18s ease, transform 0.18s ease;
+  }
+
+  #{{ $id }} .lrb-process-header.is-updating,
+  #{{ $id }} .lrb-process-body.is-updating {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  #{{ $id }} .lrb-process-title,
+  #{{ $id }} .lrb-output-title,
+  #{{ $id }} .lrb-step-title {
+    font-family: var(--font-sans);
+    font-size: 0.98rem;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--lrb-text-strong);
+  }
+
+  #{{ $id }} .lrb-process-summary,
+  #{{ $id }} .lrb-output-copy,
+  #{{ $id }} .lrb-step-copy {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--lrb-text-muted);
+  }
+
+  #{{ $id }} .lrb-process-body {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.35fr);
+    gap: 1rem;
+    padding: 1rem;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+  }
+
+  #{{ $id }} .lrb-panel-section {
+    display: grid;
+    gap: 0.55rem;
+    min-width: 0;
+  }
+
+  #{{ $id }} .lrb-example {
+    margin: 0;
+    padding: 0.85rem 0.9rem;
+    border-radius: 0.9rem;
+    border: 1px solid var(--lrb-code-border);
+    background: var(--lrb-code-bg);
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    line-height: 1.62;
+    white-space: pre-wrap;
+    color: var(--lrb-text-strong);
+  }
+
+  #{{ $id }} .lrb-step-list {
+    display: grid;
+    gap: 0.7rem;
+  }
+
+  #{{ $id }} .lrb-step-card {
+    position: relative;
+    display: grid;
+    gap: 0.28rem;
+    padding: 0.85rem 0.9rem 0.85rem 1rem;
+    border-radius: 0.95rem;
+    border: 1px solid var(--lrb-card-strong-border);
+    background: var(--lrb-card-strong-bg);
+  }
+
+  #{{ $id }} .lrb-step-card + .lrb-step-card::before {
+    content: "";
+    position: absolute;
+    top: -0.72rem;
+    left: 1.1rem;
+    width: 0.12rem;
+    height: 0.72rem;
+    border-radius: 999px;
+    background: var(--lrb-step-line);
+  }
+
+  #{{ $id }} .lrb-output {
+    padding: 1rem;
+    border-color: var(--lrb-output-border);
+    background: var(--lrb-output-bg);
+  }
+
+  #{{ $id }} .lrb-output-copy {
+    margin: 0.3rem 0 0.75rem;
+  }
+
+  #{{ $id }} .lrb-output-note {
+    margin-top: 0.7rem;
+    font-size: 0.86rem;
+    line-height: 1.55;
+    color: var(--lrb-text-muted);
+  }
+
+  #{{ $id }} .lrb-visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (max-width: 980px) {
+    #{{ $id }} .lrb-source-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    #{{ $id }} .lrb-process-body {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    #{{ $id }} .lrb-flow {
+      padding: 1rem;
+    }
+
+    #{{ $id }} .lrb-source-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<div id="{{ $id }}" class="lrb">
+  <div class="lrb-flow">
+    <div class="lrb-header">
+      <div class="lrb-eyebrow">Bronze ingestion</div>
+      <div class="lrb-title">Interactive source-to-bronze flow</div>
+      <p class="lrb-instruction">Select a source to see how it is ingested before every path lands in <code>raw_documents_bronze</code>.</p>
+    </div>
+
+    <div class="lrb-source-grid" role="tablist" aria-describedby="{{ $id }}-source-help">
+      <button type="button" class="lrb-source-button" role="tab" data-source="sitemap" aria-selected="false" aria-pressed="false">
+        <span class="lrb-chip-meta">Bronze source</span>
+        <span class="lrb-source-label">Sitemap</span>
+        <span class="lrb-source-meta">Trusted crawlable legal pages</span>
+      </button>
+      <button type="button" class="lrb-source-button" role="tab" data-source="search_intent" aria-selected="true" aria-pressed="true">
+        <span class="lrb-chip-meta">Bronze source</span>
+        <span class="lrb-source-label">Search Intent</span>
+        <span class="lrb-source-meta">User-style legal discovery queries</span>
+      </button>
+      <button type="button" class="lrb-source-button" role="tab" data-source="direct_url" aria-selected="false" aria-pressed="false">
+        <span class="lrb-chip-meta">Bronze source</span>
+        <span class="lrb-source-label">Direct URL</span>
+        <span class="lrb-source-meta">Manual targeted page ingestion</span>
+      </button>
+      <button type="button" class="lrb-source-button" role="tab" data-source="s3_pdf" aria-selected="false" aria-pressed="false">
+        <span class="lrb-chip-meta">Bronze source</span>
+        <span class="lrb-source-label">S3 / PDF Drop</span>
+        <span class="lrb-source-meta">Raw document and file intake</span>
+      </button>
+    </div>
+    <div id="{{ $id }}-source-help" class="lrb-visually-hidden">Choose one source tab to update the Bronze ingestion steps shown below.</div>
+
+    <section class="lrb-process" aria-live="polite">
+      <div class="lrb-process-header">
+        <div class="lrb-panel-label">Selected source</div>
+        <div class="lrb-process-title" data-process-title>Search Intent</div>
+        <div class="lrb-process-summary" data-process-summary>Discovery from legal-style user phrasing, then filtered into usable source content.</div>
+      </div>
+
+      <div class="lrb-process-body">
+        <section class="lrb-panel-section">
+          <div class="lrb-panel-label" data-input-title>Input signal</div>
+          <pre class="lrb-example" data-input-example></pre>
+        </section>
+
+        <section class="lrb-panel-section">
+          <div class="lrb-panel-label">Bronze steps</div>
+          <div class="lrb-step-list" data-steps-list></div>
+        </section>
+      </div>
+    </section>
+
+    <section class="lrb-output">
+      <div class="lrb-kicker">Output</div>
+      <div class="lrb-output-title"><code>raw_documents_bronze</code></div>
+      <p class="lrb-output-copy">Every ingestion path converges into one raw Bronze table before Silver-specific structuring begins.</p>
+      <pre class="lrb-example">table: raw_documents_bronze
+source_type: sitemap | search_intent | direct_url | s3_pdf
+source_locator: canonical URL or file key
+raw_markdown: cleaned page or extracted document text
+content_hash: stable change detection hash
+fetched_at: ingestion timestamp
+silver_status: ready_for_normalization</pre>
+      <p class="lrb-output-note">Metadata shaping, quality flags, and chunk generation happen in the Silver layer described in the next section.</p>
+    </section>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var root = document.getElementById("{{ $id }}");
+    if (!root || root.dataset.initialized === "true") {
+      return;
+    }
+    root.dataset.initialized = "true";
+
+    var state = {
+      activeSource: "search_intent"
+    };
+
+    var sources = {
+      sitemap: {
+        label: "Sitemap",
+        summary: "Trusted crawlable pages discovered from a known legal source.",
+        input_title: "Input signal",
+        input_example: [
+          "sitemap: https://example-law.de/sitemap.xml",
+          "seed_url: https://example-law.de/mietrecht/kündigung-fristen"
+        ].join("\n"),
+        steps: [
+          {
+            title: "Parse sitemap",
+            copy: "Read the sitemap and extract candidate legal pages from a trusted domain."
+          },
+          {
+            title: "Select target page",
+            copy: "Choose one relevant page URL that should be carried into the Bronze crawl queue."
+          },
+          {
+            title: "Fetch and clean",
+            copy: "Download the selected page and strip navigation, footer noise, and layout clutter."
+          },
+          {
+            title: "Store Bronze record",
+            copy: "Persist the cleaned markdown plus source URL and a stable content hash."
+          }
+        ]
+      },
+      search_intent: {
+        label: "Search Intent",
+        summary: "Discovery from legal-style user phrasing, then filtered into usable source content.",
+        input_title: "Input signal",
+        input_example: [
+          "query: kündigung wohnung frist widerspruch",
+          "candidate_url: https://example-law.de/ratgeber/widerspruch-kündigung"
+        ].join("\n"),
+        steps: [
+          {
+            title: "Run discovery query",
+            copy: "Start from a user-style legal phrase to surface pages that match real retrieval intent."
+          },
+          {
+            title: "Filter weak candidates",
+            copy: "Remove thin, irrelevant, or low-trust results before any page is ingested."
+          },
+          {
+            title: "Fetch selected result",
+            copy: "Pull the strongest remaining page into the ingestion flow as the Bronze source document."
+          },
+          {
+            title: "Normalize for Bronze",
+            copy: "Convert the page into cleaned markdown and persist it as one canonical raw document."
+          }
+        ]
+      },
+      direct_url: {
+        label: "Direct URL",
+        summary: "Manually targeted ingestion from a known useful source page.",
+        input_title: "Input signal",
+        input_example: [
+          "url: https://example-law.de/bgb/paragraf-573"
+        ].join("\n"),
+        steps: [
+          {
+            title: "Register supplied URL",
+            copy: "Skip discovery and ingest one manually chosen page that is already known to be relevant."
+          },
+          {
+            title: "Fetch content directly",
+            copy: "Download the page immediately without sitemap expansion or search-intent ranking."
+          },
+          {
+            title: "Extract main body",
+            copy: "Keep the legal text and remove surrounding chrome, widgets, or unrelated page fragments."
+          },
+          {
+            title: "Write Bronze document",
+            copy: "Store the canonical markdown, source locator, and content hash in the shared Bronze table."
+          }
+        ]
+      },
+      s3_pdf: {
+        label: "S3 / PDF Drop",
+        summary: "Raw file intake for documents that do not arrive as normal web pages.",
+        input_title: "Input signal",
+        input_example: [
+          "file_key: uploads/legal/urteil-landgericht-berlin.pdf"
+        ].join("\n"),
+        steps: [
+          {
+            title: "Ingest dropped file",
+            copy: "Pick up the uploaded document from the raw drop location instead of crawling a web page."
+          },
+          {
+            title: "Extract document text",
+            copy: "Turn the PDF into plain text that can be cleaned and normalized like other Bronze inputs."
+          },
+          {
+            title: "Remove layout noise",
+            copy: "Clean page headers, repeated footers, and broken line structure introduced by the file format."
+          },
+          {
+            title: "Persist Bronze row",
+            copy: "Store the extracted markdown, file key, and hash in the same raw Bronze destination."
+          }
+        ]
+      }
+    };
+
+    var buttons = Array.prototype.slice.call(root.querySelectorAll(".lrb-source-button"));
+    var processHeader = root.querySelector(".lrb-process-header");
+    var processBody = root.querySelector(".lrb-process-body");
+    var processTitle = root.querySelector("[data-process-title]");
+    var processSummary = root.querySelector("[data-process-summary]");
+    var inputTitle = root.querySelector("[data-input-title]");
+    var inputExample = root.querySelector("[data-input-example]");
+    var stepsList = root.querySelector("[data-steps-list]");
+
+    function render(sourceId) {
+      var source = sources[sourceId];
+      if (!source) {
+        return;
+      }
+
+      state.activeSource = sourceId;
+
+      buttons.forEach(function (button) {
+        var isActive = button.getAttribute("data-source") === sourceId;
+        button.setAttribute("aria-pressed", isActive ? "true" : "false");
+        button.setAttribute("aria-selected", isActive ? "true" : "false");
+      });
+
+      processHeader.classList.add("is-updating");
+      processBody.classList.add("is-updating");
+
+      window.setTimeout(function () {
+        processTitle.textContent = source.label;
+        processSummary.textContent = source.summary;
+        inputTitle.textContent = source.input_title;
+        inputExample.textContent = source.input_example;
+
+        stepsList.innerHTML = "";
+        source.steps.forEach(function (step, index) {
+          var card = document.createElement("div");
+          card.className = "lrb-step-card";
+
+          var stepIndex = document.createElement("div");
+          stepIndex.className = "lrb-step-index";
+          stepIndex.textContent = "Step " + (index + 1);
+
+          var stepTitle = document.createElement("div");
+          stepTitle.className = "lrb-step-title";
+          stepTitle.textContent = step.title;
+
+          var stepCopy = document.createElement("div");
+          stepCopy.className = "lrb-step-copy";
+          stepCopy.textContent = step.copy;
+
+          card.appendChild(stepIndex);
+          card.appendChild(stepTitle);
+          card.appendChild(stepCopy);
+          stepsList.appendChild(card);
+        });
+
+        processHeader.classList.remove("is-updating");
+        processBody.classList.remove("is-updating");
+      }, 120);
+    }
+
+    buttons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        var nextSource = button.getAttribute("data-source");
+        if (!nextSource || nextSource === state.activeSource) {
+          return;
+        }
+        render(nextSource);
+      });
+    });
+
+    render(state.activeSource);
+  })();
+</script>

@@ -192,16 +192,67 @@ That is not a dramatic jump, but it is enough to show that retrieval can help in
 
 Here is the current comparison:
 
-| Setup | Weighted total | Delta vs benchmark |
-|---|---:|---:|
-| Benchmark only | 3.150 | 0.000 |
-| Hybrid (`top_k=6`, `alpha=0.7`) | 3.275 | +0.125 |
-| Hybrid (`top_k=4`, `alpha=0.7`) | 3.225 | +0.075 |
-| Hybrid (`top_k=8`, `alpha=0.7`) | 3.125 | -0.025 |
-| Hybrid (`top_k=6`, `alpha=0.5`) | 3.212 | +0.062 |
-| Hybrid (`top_k=6`, `alpha=0.85`) | 3.138 | -0.012 |
-| Vector only | 3.087 | -0.062 |
-| BM25 only | 3.075 | -0.075 |
+<div class="table-card table-card--results">
+  <div class="table-card__header">
+    <div class="table-card__eyebrow">GerLayQA sample · 20 questions</div>
+    <p class="table-card__summary">
+      Best run: <strong>Hybrid (`top_k=6`, `alpha=0.7`)</strong> with a <strong>+0.125</strong> weighted lift over the benchmark.
+    </p>
+  </div>
+  <div class="table-card__scroller">
+    <table>
+      <thead>
+        <tr>
+          <th>Setup</th>
+          <th>Weighted total</th>
+          <th>Delta vs benchmark</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="table-card__row table-card__row--baseline">
+          <td><span class="table-card__setup">Benchmark only</span></td>
+          <td><span class="table-card__metric">3.150</span></td>
+          <td><span class="delta-pill delta-pill--neutral">0.000</span></td>
+        </tr>
+        <tr class="table-card__row table-card__row--best">
+          <td><span class="table-card__setup">Hybrid (`top_k=6`, `alpha=0.7`)</span></td>
+          <td><span class="table-card__metric">3.275</span></td>
+          <td><span class="delta-pill delta-pill--positive">+0.125</span></td>
+        </tr>
+        <tr class="table-card__row">
+          <td><span class="table-card__setup">Hybrid (`top_k=4`, `alpha=0.7`)</span></td>
+          <td><span class="table-card__metric">3.225</span></td>
+          <td><span class="delta-pill delta-pill--positive">+0.075</span></td>
+        </tr>
+        <tr class="table-card__row">
+          <td><span class="table-card__setup">Hybrid (`top_k=8`, `alpha=0.7`)</span></td>
+          <td><span class="table-card__metric">3.125</span></td>
+          <td><span class="delta-pill delta-pill--negative">-0.025</span></td>
+        </tr>
+        <tr class="table-card__row">
+          <td><span class="table-card__setup">Hybrid (`top_k=6`, `alpha=0.5`)</span></td>
+          <td><span class="table-card__metric">3.212</span></td>
+          <td><span class="delta-pill delta-pill--positive">+0.062</span></td>
+        </tr>
+        <tr class="table-card__row">
+          <td><span class="table-card__setup">Hybrid (`top_k=6`, `alpha=0.85`)</span></td>
+          <td><span class="table-card__metric">3.138</span></td>
+          <td><span class="delta-pill delta-pill--negative">-0.012</span></td>
+        </tr>
+        <tr class="table-card__row">
+          <td><span class="table-card__setup">Vector only</span></td>
+          <td><span class="table-card__metric">3.087</span></td>
+          <td><span class="delta-pill delta-pill--negative">-0.062</span></td>
+        </tr>
+        <tr class="table-card__row">
+          <td><span class="table-card__setup">BM25 only</span></td>
+          <td><span class="table-card__metric">3.075</span></td>
+          <td><span class="delta-pill delta-pill--negative">-0.075</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
 Three things stand out from this result set:
 

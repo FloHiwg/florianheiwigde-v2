@@ -34,6 +34,18 @@
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
   --radius: 0.5rem;
+
+  /* Embedded demo / product card tokens */
+  --demo-accent-warm: #D97757;
+  --demo-accent-success: #2E9F5D;
+  --demo-surface-warm: #FBF5EE;
+  --demo-surface-deep: #1F3F3F;
+  --demo-text-strong: #192328;
+  --demo-text-muted: #5D6A70;
+  --demo-radius-panel: 1.25rem;
+  --demo-radius-bubble: 1.35rem;
+  --demo-radius-pill: 999px;
+  --demo-shadow-soft: 0 18px 44px rgba(43, 31, 18, 0.08);
 }
 
 .dark {
@@ -53,6 +65,13 @@
   --border: #333333;
   --ring: #E08866;
   --header-background: rgba(28, 28, 28, 0.9);
+  --demo-accent-warm: #E08866;
+  --demo-accent-success: #58C27D;
+  --demo-surface-warm: #322D28;
+  --demo-surface-deep: #274948;
+  --demo-text-strong: #F3EEE7;
+  --demo-text-muted: #C2B8AA;
+  --demo-shadow-soft: 0 18px 44px rgba(0, 0, 0, 0.28);
 }
 
 /* Base Styles */
@@ -1061,6 +1080,7 @@ main {
 .blog-post-content thead th {
   padding: 0 1rem 0.75rem;
   border-bottom: 1px solid var(--border);
+  font-family: var(--font-mono);
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.08em;
@@ -1085,11 +1105,11 @@ main {
   margin: 2rem 0;
   padding: 1.25rem;
   border: 1px solid rgba(217, 119, 87, 0.18);
-  border-radius: 1.25rem;
+  border-radius: var(--demo-radius-panel);
   background:
     radial-gradient(circle at top right, rgba(217, 119, 87, 0.12), transparent 34%),
     linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(230, 228, 221, 0.9));
-  box-shadow: 0 18px 44px rgba(43, 31, 18, 0.08);
+  box-shadow: var(--demo-shadow-soft);
 }
 
 .dark .table-card {
@@ -1097,7 +1117,7 @@ main {
   background:
     radial-gradient(circle at top right, rgba(224, 136, 102, 0.14), transparent 36%),
     linear-gradient(180deg, rgba(44, 44, 44, 0.92), rgba(37, 37, 37, 0.98));
-  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.28);
+  box-shadow: var(--demo-shadow-soft);
 }
 
 .table-card__header {
@@ -1121,7 +1141,7 @@ main {
 }
 
 .blog-post-content .table-card__summary strong {
-  color: var(--primary);
+  color: var(--demo-accent-warm);
 }
 
 .table-card__scroller {
@@ -1197,6 +1217,7 @@ main {
 
 .table-card__setup {
   display: inline-block;
+  font-family: var(--font-sans);
   font-weight: 600;
   color: var(--foreground);
 }

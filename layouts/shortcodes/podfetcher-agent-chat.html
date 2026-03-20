@@ -2,46 +2,51 @@
   #podfetcher-agent-example {
     margin: 2rem 0;
     --pf-frame-border: rgba(24, 33, 38, 0.1);
+    --pf-frame-accent: rgba(217, 119, 87, 0.1);
     --pf-frame-bg-top: rgba(255, 252, 247, 0.98);
     --pf-frame-bg-bottom: rgba(246, 239, 229, 0.96);
-    --pf-frame-shadow: rgba(43, 35, 23, 0.12);
+    --pf-frame-shadow: var(--demo-shadow-soft);
     --pf-divider: rgba(24, 33, 38, 0.08);
-    --pf-title: #192328;
-    --pf-muted: #5d6a70;
+    --pf-title: var(--demo-text-strong);
+    --pf-muted: var(--demo-text-muted);
     --pf-status-bg: rgba(255, 255, 255, 0.74);
     --pf-status-border: rgba(24, 33, 38, 0.08);
-    --pf-status-dot: #2e9f5d;
-    --pf-user-bg: #1f3f3f;
+    --pf-status-dot: var(--demo-accent-success);
+    --pf-user-bg: var(--demo-surface-deep);
     --pf-user-text: #f2f7f4;
     --pf-user-label: rgba(255, 255, 255, 0.72);
-    --pf-agent-bg: #fbf5ee;
-    --pf-agent-text: #192328;
+    --pf-agent-bg: var(--demo-surface-warm);
+    --pf-agent-text: var(--demo-text-strong);
     --pf-agent-border: rgba(25, 35, 40, 0.08);
-    --pf-agent-label: #d85f3b;
+    --pf-agent-label: var(--demo-accent-warm);
     --pf-typing-bg: rgba(255, 252, 247, 0.95);
     --pf-typing-border: rgba(25, 35, 40, 0.08);
     --pf-typing-shadow: rgba(44, 31, 22, 0.08);
     --pf-dot: rgba(216, 95, 59, 0.78);
+    --pf-panel-radius: var(--demo-radius-panel);
+    --pf-bubble-radius: var(--demo-radius-bubble);
+    --pf-pill-radius: var(--demo-radius-pill);
   }
 
   .dark #podfetcher-agent-example {
     --pf-frame-border: rgba(255, 255, 255, 0.08);
+    --pf-frame-accent: rgba(224, 136, 102, 0.14);
     --pf-frame-bg-top: rgba(43, 39, 34, 0.98);
     --pf-frame-bg-bottom: rgba(30, 28, 26, 0.98);
-    --pf-frame-shadow: rgba(0, 0, 0, 0.34);
+    --pf-frame-shadow: var(--demo-shadow-soft);
     --pf-divider: rgba(255, 255, 255, 0.08);
-    --pf-title: #f3eee7;
-    --pf-muted: #c2b8aa;
+    --pf-title: var(--demo-text-strong);
+    --pf-muted: var(--demo-text-muted);
     --pf-status-bg: rgba(255, 255, 255, 0.06);
     --pf-status-border: rgba(255, 255, 255, 0.1);
-    --pf-status-dot: #58c27d;
-    --pf-user-bg: #274948;
+    --pf-status-dot: var(--demo-accent-success);
+    --pf-user-bg: var(--demo-surface-deep);
     --pf-user-text: #eff7f3;
     --pf-user-label: rgba(255, 255, 255, 0.76);
-    --pf-agent-bg: #322d28;
-    --pf-agent-text: #f3eee7;
+    --pf-agent-bg: var(--demo-surface-warm);
+    --pf-agent-text: var(--demo-text-strong);
     --pf-agent-border: rgba(255, 255, 255, 0.08);
-    --pf-agent-label: #f09b73;
+    --pf-agent-label: var(--demo-accent-warm);
     --pf-typing-bg: rgba(50, 45, 40, 0.94);
     --pf-typing-border: rgba(255, 255, 255, 0.08);
     --pf-typing-shadow: rgba(0, 0, 0, 0.24);
@@ -50,9 +55,11 @@
 
   #podfetcher-agent-example .pf-chat-frame {
     padding: 1rem;
-    border-radius: 1.6rem;
+    border-radius: var(--pf-panel-radius);
     border: 1px solid var(--pf-frame-border);
-    background: linear-gradient(180deg, var(--pf-frame-bg-top), var(--pf-frame-bg-bottom));
+    background:
+      radial-gradient(circle at top right, var(--pf-frame-accent), transparent 32%),
+      linear-gradient(180deg, var(--pf-frame-bg-top), var(--pf-frame-bg-bottom));
     box-shadow: 0 20px 60px var(--pf-frame-shadow);
     overflow: hidden;
   }
@@ -66,15 +73,35 @@
     border-bottom: 1px solid var(--pf-divider);
   }
 
+  #podfetcher-agent-example .pf-chat-heading {
+    display: grid;
+    gap: 0.22rem;
+  }
+
+  #podfetcher-agent-example .pf-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--pf-muted);
+  }
+
   #podfetcher-agent-example .pf-chat-topbar strong {
     display: block;
+    font-family: var(--font-sans);
     font-size: 0.98rem;
+    font-weight: 600;
+    line-height: 1.35;
     color: var(--pf-title);
   }
 
-  #podfetcher-agent-example .pf-chat-topbar span {
+  #podfetcher-agent-example .pf-chat-subtitle {
+    display: block;
+    font-family: var(--font-mono);
     color: var(--pf-muted);
-    font-size: 0.84rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.03em;
   }
 
   #podfetcher-agent-example .pf-status {
@@ -82,11 +109,14 @@
     align-items: center;
     gap: 0.45rem;
     padding: 0.45rem 0.72rem;
-    border-radius: 999px;
+    border-radius: var(--pf-pill-radius);
     background: var(--pf-status-bg);
     border: 1px solid var(--pf-status-border);
+    font-family: var(--font-mono);
     color: var(--pf-muted);
-    font-size: 0.8rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
     white-space: nowrap;
   }
 
@@ -133,8 +163,8 @@
   #podfetcher-agent-example .pf-bubble,
   #podfetcher-agent-example .pf-typing {
     max-width: min(86%, 36rem);
-    border-radius: 1.35rem;
-    line-height: 1.55;
+    border-radius: var(--pf-bubble-radius);
+    line-height: 1.6;
     font-size: 0.98rem;
   }
 
@@ -158,9 +188,10 @@
   #podfetcher-agent-example .pf-label {
     display: block;
     margin-bottom: 0.5rem;
+    font-family: var(--font-mono);
     font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
+    font-weight: 500;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
   }
 
@@ -179,7 +210,11 @@
     padding: 0.8rem 0.95rem;
     background: var(--pf-typing-bg);
     border: 1px solid var(--pf-typing-border);
+    border-radius: var(--pf-bubble-radius);
+    font-family: var(--font-mono);
     color: var(--pf-muted);
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
     box-shadow: 0 12px 30px var(--pf-typing-shadow);
   }
 
@@ -207,6 +242,8 @@
   #podfetcher-agent-example .pf-summary {
     margin: 0.75rem 0 0;
     padding-left: 1rem;
+    font-size: 0.94rem;
+    line-height: 1.6;
   }
 
   #podfetcher-agent-example .pf-summary li {
@@ -247,9 +284,10 @@
 <div id="podfetcher-agent-example">
   <div class="pf-chat-frame">
     <div class="pf-chat-topbar">
-      <div>
+      <div class="pf-chat-heading">
+        <span class="pf-eyebrow">Podfetcher demo</span>
         <strong>Agent Workflow Example</strong>
-        <span>Latest episode lookup plus summary via Podfetcher</span>
+        <span class="pf-chat-subtitle">Latest episode lookup plus summary via Podfetcher</span>
       </div>
       <div class="pf-status">Demo flow</div>
     </div>

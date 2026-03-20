@@ -1222,6 +1222,15 @@ main {
   color: var(--foreground);
 }
 
+.table-card__setup-meta {
+  display: block;
+  margin-top: 0.18rem;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.04em;
+  color: var(--muted-foreground);
+}
+
 .table-card__metric {
   font-family: var(--font-mono);
   font-size: 0.94rem;
@@ -1274,8 +1283,88 @@ main {
     border-radius: 1rem;
   }
 
+  .table-card__scroller {
+    overflow-x: visible;
+  }
+
   .table-card__scroller table {
-    min-width: 32rem;
+    min-width: 0;
+    width: 100%;
+    border-spacing: 0;
+  }
+
+  .table-card__scroller thead {
+    display: none;
+  }
+
+  .table-card__scroller tbody {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .table-card__row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .table-card__row:hover td {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .table-card__row td {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+
+  .table-card__row td:first-child {
+    grid-column: 1 / -1;
+    border-radius: 0.95rem 0.95rem 0 0;
+    border-right: 1px solid rgba(26, 26, 26, 0.06);
+  }
+
+  .table-card__row td:nth-child(2) {
+    border-radius: 0 0 0 0.95rem;
+    border-right: none;
+    align-items: flex-start;
+  }
+
+  .table-card__row td:nth-child(3) {
+    border-radius: 0 0 0.95rem 0;
+    align-items: flex-end;
+  }
+
+  .dark .table-card__row td:first-child {
+    border-right-color: rgba(240, 240, 240, 0.06);
+  }
+
+  .table-card__row td:nth-child(2)::before,
+  .table-card__row td:nth-child(3)::before {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+  }
+
+  .table-card__row td:nth-child(2)::before {
+    content: "Score";
+  }
+
+  .table-card__row td:nth-child(3)::before {
+    content: "Delta";
+  }
+
+  .table-card__setup {
+    font-size: 0.96rem;
+  }
+
+  .table-card__setup-meta {
+    font-size: 0.7rem;
   }
 
   .blog-post-content thead th,
@@ -1283,6 +1372,10 @@ main {
   .table-card__row td {
     padding-left: 0.8rem;
     padding-right: 0.8rem;
+  }
+
+  .delta-pill {
+    min-width: 0;
   }
 }
 

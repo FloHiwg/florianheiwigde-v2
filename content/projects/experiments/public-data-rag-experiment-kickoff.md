@@ -215,27 +215,42 @@ Here is the current comparison:
           <td><span class="delta-pill delta-pill--neutral">0.000</span></td>
         </tr>
         <tr class="table-card__row table-card__row--best">
-          <td><span class="table-card__setup">Hybrid (`top_k=6`, `alpha=0.7`)</span></td>
+          <td>
+            <span class="table-card__setup">Hybrid</span>
+            <span class="table-card__setup-meta">k=6 · α=0.7</span>
+          </td>
           <td><span class="table-card__metric">3.275</span></td>
           <td><span class="delta-pill delta-pill--positive">+0.125</span></td>
         </tr>
         <tr class="table-card__row">
-          <td><span class="table-card__setup">Hybrid (`top_k=4`, `alpha=0.7`)</span></td>
+          <td>
+            <span class="table-card__setup">Hybrid</span>
+            <span class="table-card__setup-meta">k=4 · α=0.7</span>
+          </td>
           <td><span class="table-card__metric">3.225</span></td>
           <td><span class="delta-pill delta-pill--positive">+0.075</span></td>
         </tr>
         <tr class="table-card__row">
-          <td><span class="table-card__setup">Hybrid (`top_k=8`, `alpha=0.7`)</span></td>
+          <td>
+            <span class="table-card__setup">Hybrid</span>
+            <span class="table-card__setup-meta">k=8 · α=0.7</span>
+          </td>
           <td><span class="table-card__metric">3.125</span></td>
           <td><span class="delta-pill delta-pill--negative">-0.025</span></td>
         </tr>
         <tr class="table-card__row">
-          <td><span class="table-card__setup">Hybrid (`top_k=6`, `alpha=0.5`)</span></td>
+          <td>
+            <span class="table-card__setup">Hybrid</span>
+            <span class="table-card__setup-meta">k=6 · α=0.5</span>
+          </td>
           <td><span class="table-card__metric">3.212</span></td>
           <td><span class="delta-pill delta-pill--positive">+0.062</span></td>
         </tr>
         <tr class="table-card__row">
-          <td><span class="table-card__setup">Hybrid (`top_k=6`, `alpha=0.85`)</span></td>
+          <td>
+            <span class="table-card__setup">Hybrid</span>
+            <span class="table-card__setup-meta">k=6 · α=0.85</span>
+          </td>
           <td><span class="table-card__metric">3.138</span></td>
           <td><span class="delta-pill delta-pill--negative">-0.012</span></td>
         </tr>

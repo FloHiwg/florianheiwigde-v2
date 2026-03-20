@@ -96,9 +96,32 @@
 
   #{{ $id }} .lrb-source-grid {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
     gap: 0.7rem;
+  }
+
+  #{{ $id }} .lrb-source-groups {
+    display: grid;
+    gap: 0.9rem;
     margin-bottom: 0.95rem;
+  }
+
+  #{{ $id }} .lrb-source-group {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  #{{ $id }} .lrb-source-group-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+  }
+
+  #{{ $id }} .lrb-source-group-copy {
+    font-size: 0.84rem;
+    line-height: 1.5;
+    color: var(--lrb-text-muted);
   }
 
   #{{ $id }} .lrb-source-button {
@@ -194,7 +217,7 @@
 
   #{{ $id }} .lrb-process-body {
     display: grid;
-    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.35fr);
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.4fr);
     gap: 1rem;
     padding: 1rem;
     transition: opacity 0.18s ease, transform 0.18s ease;
@@ -222,6 +245,26 @@
   #{{ $id }} .lrb-step-list {
     display: grid;
     gap: 0.7rem;
+  }
+
+  #{{ $id }} .lrb-step-stack {
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  #{{ $id }} .lrb-step-section {
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  #{{ $id }} .lrb-relationship-card {
+    padding: 0.85rem 0.9rem;
+    border-radius: 0.95rem;
+    border: 1px solid var(--lrb-card-border);
+    background: var(--lrb-card-bg);
+    font-size: 0.88rem;
+    line-height: 1.58;
+    color: var(--lrb-text-muted);
   }
 
   #{{ $id }} .lrb-step-card {
@@ -275,10 +318,6 @@
   }
 
   @media (max-width: 980px) {
-    #{{ $id }} .lrb-source-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
     #{{ $id }} .lrb-process-body {
       grid-template-columns: 1fr;
     }
@@ -303,27 +342,44 @@
       <p class="lrb-instruction">Select a source to see how it is ingested before every path lands in <code>raw_documents_bronze</code>.</p>
     </div>
 
-    <div class="lrb-source-grid" role="tablist" aria-describedby="{{ $id }}-source-help">
-      <button type="button" class="lrb-source-button" role="tab" data-source="sitemap" aria-selected="false" aria-pressed="false">
-        <span class="lrb-chip-meta">Bronze source</span>
-        <span class="lrb-source-label">Sitemap</span>
-        <span class="lrb-source-meta">Trusted crawlable legal pages</span>
-      </button>
-      <button type="button" class="lrb-source-button" role="tab" data-source="search_intent" aria-selected="true" aria-pressed="true">
-        <span class="lrb-chip-meta">Bronze source</span>
-        <span class="lrb-source-label">Search Intent</span>
-        <span class="lrb-source-meta">User-style legal discovery queries</span>
-      </button>
-      <button type="button" class="lrb-source-button" role="tab" data-source="direct_url" aria-selected="false" aria-pressed="false">
-        <span class="lrb-chip-meta">Bronze source</span>
-        <span class="lrb-source-label">Direct URL</span>
-        <span class="lrb-source-meta">Manual targeted page ingestion</span>
-      </button>
-      <button type="button" class="lrb-source-button" role="tab" data-source="s3_pdf" aria-selected="false" aria-pressed="false">
-        <span class="lrb-chip-meta">Bronze source</span>
-        <span class="lrb-source-label">S3 / PDF Drop</span>
-        <span class="lrb-source-meta">Raw document and file intake</span>
-      </button>
+    <div class="lrb-source-groups" role="tablist" aria-describedby="{{ $id }}-source-help">
+      <div class="lrb-source-group">
+        <div class="lrb-source-group-header">
+          <div class="lrb-kicker">Web scraper paths</div>
+          <div class="lrb-source-group-copy">All three paths converge on the same web-scraper ingestion logic. Sitemap and Search Intent just add discovery steps in front.</div>
+        </div>
+        <div class="lrb-source-grid">
+          <button type="button" class="lrb-source-button" role="tab" data-source="sitemap" aria-selected="false" aria-pressed="false">
+            <span class="lrb-chip-meta">Web source</span>
+            <span class="lrb-source-label">Sitemap</span>
+            <span class="lrb-source-meta">Trusted crawlable legal pages</span>
+          </button>
+          <button type="button" class="lrb-source-button" role="tab" data-source="search_intent" aria-selected="true" aria-pressed="true">
+            <span class="lrb-chip-meta">Web source</span>
+            <span class="lrb-source-label">Search Intent</span>
+            <span class="lrb-source-meta">User-style legal discovery queries</span>
+          </button>
+          <button type="button" class="lrb-source-button" role="tab" data-source="direct_url" aria-selected="false" aria-pressed="false">
+            <span class="lrb-chip-meta">Web source</span>
+            <span class="lrb-source-label">Direct URL</span>
+            <span class="lrb-source-meta">Base page ingestion path</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="lrb-source-group">
+        <div class="lrb-source-group-header">
+          <div class="lrb-kicker">Document drops</div>
+          <div class="lrb-source-group-copy">Separate file-intake flow for PDFs and uploaded documents that do not use the web scraper path.</div>
+        </div>
+        <div class="lrb-source-grid">
+          <button type="button" class="lrb-source-button" role="tab" data-source="s3_pdf" aria-selected="false" aria-pressed="false">
+            <span class="lrb-chip-meta">File source</span>
+            <span class="lrb-source-label">S3 / PDF Drop</span>
+            <span class="lrb-source-meta">Raw document and file intake</span>
+          </button>
+        </div>
+      </div>
     </div>
     <div id="{{ $id }}-source-help" class="lrb-visually-hidden">Choose one source tab to update the Bronze ingestion steps shown below.</div>
 
@@ -338,11 +394,21 @@
         <section class="lrb-panel-section">
           <div class="lrb-panel-label" data-input-title>Input signal</div>
           <pre class="lrb-example" data-input-example></pre>
+          <div class="lrb-panel-label">Relationship to shared logic</div>
+          <div class="lrb-relationship-card" data-relationship-copy></div>
         </section>
 
         <section class="lrb-panel-section">
-          <div class="lrb-panel-label">Bronze steps</div>
-          <div class="lrb-step-list" data-steps-list></div>
+          <div class="lrb-step-stack">
+            <div class="lrb-step-section">
+              <div class="lrb-panel-label" data-front-steps-title>Source-specific front steps</div>
+              <div class="lrb-step-list" data-front-steps-list></div>
+            </div>
+            <div class="lrb-step-section">
+              <div class="lrb-panel-label" data-shared-steps-title>Shared downstream path</div>
+              <div class="lrb-step-list" data-shared-steps-list></div>
+            </div>
+          </div>
         </section>
       </div>
     </section>
@@ -380,11 +446,14 @@ silver_status: ready_for_normalization</pre>
         label: "Sitemap",
         summary: "Trusted crawlable pages discovered from a known legal source.",
         input_title: "Input signal",
+        relationship: "Adds discovery and selection steps before handing one resolved page URL into the shared Direct URL-style scraper flow.",
+        front_title: "Sitemap-specific front steps",
+        shared_title: "Shared web-scraper path",
         input_example: [
           "sitemap: https://example-law.de/sitemap.xml",
           "seed_url: https://example-law.de/mietrecht/kündigung-fristen"
         ].join("\n"),
-        steps: [
+        front_steps: [
           {
             title: "Parse sitemap",
             copy: "Read the sitemap and extract candidate legal pages from a trusted domain."
@@ -392,6 +461,12 @@ silver_status: ready_for_normalization</pre>
           {
             title: "Select target page",
             copy: "Choose one relevant page URL that should be carried into the Bronze crawl queue."
+          }
+        ],
+        shared_steps: [
+          {
+            title: "Use resolved URL",
+            copy: "Pass the selected page URL into the same web-scraper path used by Direct URL ingestion."
           },
           {
             title: "Fetch and clean",
@@ -407,11 +482,14 @@ silver_status: ready_for_normalization</pre>
         label: "Search Intent",
         summary: "Discovery from legal-style user phrasing, then filtered into usable source content.",
         input_title: "Input signal",
+        relationship: "Adds query-based discovery and candidate filtering in front of the shared Direct URL-style scraper path.",
+        front_title: "Search-intent front steps",
+        shared_title: "Shared web-scraper path",
         input_example: [
           "query: kündigung wohnung frist widerspruch",
           "candidate_url: https://example-law.de/ratgeber/widerspruch-kündigung"
         ].join("\n"),
-        steps: [
+        front_steps: [
           {
             title: "Run discovery query",
             copy: "Start from a user-style legal phrase to surface pages that match real retrieval intent."
@@ -419,6 +497,12 @@ silver_status: ready_for_normalization</pre>
           {
             title: "Filter weak candidates",
             copy: "Remove thin, irrelevant, or low-trust results before any page is ingested."
+          }
+        ],
+        shared_steps: [
+          {
+            title: "Use resolved URL",
+            copy: "Hand the strongest candidate URL into the same scraper logic that Direct URL uses directly."
           },
           {
             title: "Fetch selected result",
@@ -434,14 +518,19 @@ silver_status: ready_for_normalization</pre>
         label: "Direct URL",
         summary: "Manually targeted ingestion from a known useful source page.",
         input_title: "Input signal",
+        relationship: "This is the core web-scraper path. Sitemap and Search Intent both end by passing a resolved URL into this same ingestion logic.",
+        front_title: "Source-specific front steps",
+        shared_title: "Core web-scraper path",
         input_example: [
           "url: https://example-law.de/bgb/paragraf-573"
         ].join("\n"),
-        steps: [
+        front_steps: [
           {
             title: "Register supplied URL",
             copy: "Skip discovery and ingest one manually chosen page that is already known to be relevant."
-          },
+          }
+        ],
+        shared_steps: [
           {
             title: "Fetch content directly",
             copy: "Download the page immediately without sitemap expansion or search-intent ranking."
@@ -460,14 +549,19 @@ silver_status: ready_for_normalization</pre>
         label: "S3 / PDF Drop",
         summary: "Raw file intake for documents that do not arrive as normal web pages.",
         input_title: "Input signal",
+        relationship: "Separate Bronze path. It bypasses the web scraper and lands in the same Bronze table through file extraction logic.",
+        front_title: "File-intake front steps",
+        shared_title: "Shared file normalization path",
         input_example: [
           "file_key: uploads/legal/urteil-landgericht-berlin.pdf"
         ].join("\n"),
-        steps: [
+        front_steps: [
           {
             title: "Ingest dropped file",
             copy: "Pick up the uploaded document from the raw drop location instead of crawling a web page."
-          },
+          }
+        ],
+        shared_steps: [
           {
             title: "Extract document text",
             copy: "Turn the PDF into plain text that can be cleaned and normalized like other Bronze inputs."
@@ -491,7 +585,36 @@ silver_status: ready_for_normalization</pre>
     var processSummary = root.querySelector("[data-process-summary]");
     var inputTitle = root.querySelector("[data-input-title]");
     var inputExample = root.querySelector("[data-input-example]");
-    var stepsList = root.querySelector("[data-steps-list]");
+    var relationshipCopy = root.querySelector("[data-relationship-copy]");
+    var frontStepsTitle = root.querySelector("[data-front-steps-title]");
+    var frontStepsList = root.querySelector("[data-front-steps-list]");
+    var sharedStepsTitle = root.querySelector("[data-shared-steps-title]");
+    var sharedStepsList = root.querySelector("[data-shared-steps-list]");
+
+    function renderStepList(target, steps) {
+      target.innerHTML = "";
+      steps.forEach(function (step, index) {
+        var card = document.createElement("div");
+        card.className = "lrb-step-card";
+
+        var stepIndex = document.createElement("div");
+        stepIndex.className = "lrb-step-index";
+        stepIndex.textContent = "Step " + (index + 1);
+
+        var stepTitle = document.createElement("div");
+        stepTitle.className = "lrb-step-title";
+        stepTitle.textContent = step.title;
+
+        var stepCopy = document.createElement("div");
+        stepCopy.className = "lrb-step-copy";
+        stepCopy.textContent = step.copy;
+
+        card.appendChild(stepIndex);
+        card.appendChild(stepTitle);
+        card.appendChild(stepCopy);
+        target.appendChild(card);
+      });
+    }
 
     function render(sourceId) {
       var source = sources[sourceId];
@@ -515,29 +638,11 @@ silver_status: ready_for_normalization</pre>
         processSummary.textContent = source.summary;
         inputTitle.textContent = source.input_title;
         inputExample.textContent = source.input_example;
-
-        stepsList.innerHTML = "";
-        source.steps.forEach(function (step, index) {
-          var card = document.createElement("div");
-          card.className = "lrb-step-card";
-
-          var stepIndex = document.createElement("div");
-          stepIndex.className = "lrb-step-index";
-          stepIndex.textContent = "Step " + (index + 1);
-
-          var stepTitle = document.createElement("div");
-          stepTitle.className = "lrb-step-title";
-          stepTitle.textContent = step.title;
-
-          var stepCopy = document.createElement("div");
-          stepCopy.className = "lrb-step-copy";
-          stepCopy.textContent = step.copy;
-
-          card.appendChild(stepIndex);
-          card.appendChild(stepTitle);
-          card.appendChild(stepCopy);
-          stepsList.appendChild(card);
-        });
+        relationshipCopy.textContent = source.relationship;
+        frontStepsTitle.textContent = source.front_title;
+        sharedStepsTitle.textContent = source.shared_title;
+        renderStepList(frontStepsList, source.front_steps);
+        renderStepList(sharedStepsList, source.shared_steps);
 
         processHeader.classList.remove("is-updating");
         processBody.classList.remove("is-updating");

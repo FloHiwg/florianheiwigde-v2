@@ -76,8 +76,6 @@ That part of the design matters because iteration speed is part of the product h
 
 The next Bronze improvements are mostly about source quality control: tighter domain filtering, better source scoring, and stronger rules for deciding which discovered documents are worth carrying into Silver.
 
-{{< figure src="/images/legal-rag-ingestion-stream-fusion.svg" alt="Diagram showing multiple ingestion input streams merging into one unified document pool" caption="Ingestion stream fusion: sitemaps, direct URLs, search-intent discovery, and S3/PDF drops converge through one refresh-aware ingestion layer into a single canonical document pool." class="blog-post-figure" >}}
-
 ### Silver: Normalization and Chunking
 
 The Silver layer turns noisy raw text into a retrieval asset. Its job is not just cleanup. It is the point where the corpus becomes structured enough to support ranking, filtering, and later diagnosis.
@@ -299,8 +297,6 @@ In other words: I now have a real system, not disconnected notebooks and one-off
 ## What Are The Next Steps
 
 This kickoff established the baseline. The next work is straightforward and can now be tracked as a concrete todo list.
-
-{{< figure src="/images/legal-rag-experiment-roadmap.svg" alt="Roadmap diagram showing four next experiment tracks for the legal RAG project" caption="Roadmap for the next phase: judgments integration, commentary reproducibility tests, agent workflow optimization, and retrieval tuning." class="blog-post-figure" >}}
 
 <div class="next-steps-checklist">
   <div class="next-step-card">

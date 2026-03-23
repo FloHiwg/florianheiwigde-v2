@@ -3,6 +3,7 @@ languageCode = 'en-us'
 title = 'Florian G. Heiwig'
 relativeURLs = false
 uglyURLs = false
+disableKinds = ['taxonomy', 'term']
 
 [params]
   description = "Berlin-based product professional, software developer, and entrepreneur."

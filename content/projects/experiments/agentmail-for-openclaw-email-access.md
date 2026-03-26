@@ -5,6 +5,13 @@ draft: false
 description: "How I added email access to my OpenClaw workflow by testing provider options, discovering IMAP limits in Agent Mail, and shipping a custom CLI wrapper around the Agent Mail SDK."
 ---
 
+<div class="article-demo-cta">
+  <div class="article-demo-cta__eyebrow">ClawHub skill</div>
+  <h3 class="article-demo-cta__title">Open the Agentmail ClawHub skill</h3>
+  <p class="article-demo-cta__copy">Use the published ClawHub skill if you want the Agentmail MCP CLI wrapper in an OpenClaw or agent workflow without rebuilding the integration yourself.</p>
+  <a class="article-demo-cta__button" href="https://clawhub.ai/flohiwg/agentmail-mcp-cli">Open ClawHub skill</a>
+</div>
+
 ## Introduction
 
 After setting up my OpenClaw briefings, the next step was email.

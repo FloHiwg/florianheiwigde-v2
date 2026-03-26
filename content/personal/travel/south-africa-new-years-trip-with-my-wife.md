@@ -53,13 +53,12 @@ The Vineyard Hotel fit that logic well on paper because it offered a calmer hote
 
 Cost-wise, Cape Town hotel spend sat in the meaningful-but-manageable range for the trip. The safari was clearly the premium spend. That meant the Cape Town hotel needed to feel good enough to justify several nights, but it did not need to become the entire identity of the trip.
 
-What to flesh out here in the next pass:
-
-- First impression on arrival
-- Room, pool, breakfast, and atmosphere
-- Location and how convenient it was for your specific plans
-- What worked especially well as a couple base
-- The main downside or tradeoff of this hotel choice
+> Open questions:
+> What was your first impression when you arrived at The Vineyard Hotel?
+> How would you describe the room, pool, breakfast, and overall atmosphere?
+> How convenient was the location for the specific things you wanted to do in Cape Town?
+> What worked especially well about this hotel as a couple base?
+> What was the main downside or tradeoff of this hotel choice?
 
 ### Day by Day
 
@@ -71,11 +70,10 @@ This was exactly the right kind of arrival day: visual enough to feel like the t
 
 The value of a day like this is often underestimated. On paper it can look "light." In practice it gives the trip tone. The V&A Waterfront is an easy re-entry into movement, food, and scenery, while the pool and wine keep the day from becoming a checklist.
 
-What to add here:
-
-- The first visual moment that made Cape Town feel different from Berlin
-- Whether the Waterfront felt polished, touristy, or genuinely enjoyable
-- The first emotional "we made the right choice" moment
+> Open questions:
+> What was the first visual moment that made Cape Town feel clearly different from Berlin?
+> Did the Waterfront feel polished, touristy, genuinely enjoyable, or some mix of all three?
+> What was the first emotional "we made the right choice" moment of the trip?
 
 #### December 30, 2025: Table Mountain Hike
 
@@ -85,13 +83,12 @@ This should become one of the visual anchors of the article, because it is one o
 
 The planning value here is also high. Table Mountain is one of those attractions where timing matters much more than people expect. A concrete recommendation here would be stronger than a generic "go early."
 
-What to add here:
-
-- Route and start time
-- Difficulty level in real terms
-- Weather and visibility
-- The strongest visual moment
-- What you would tell someone to bring or to avoid
+> Open questions:
+> Which route did you take and when did you start?
+> How difficult did the hike feel in real terms, not just on paper?
+> What were the weather and visibility conditions like?
+> What was the strongest visual moment of the day?
+> What would you tell someone to bring, and what would you tell them to avoid?
 
 #### December 31, 2025: Wine Tasting and New Year's Eve
 
@@ -103,13 +100,12 @@ This day is one of the strongest narrative anchors in the whole article because 
 
 It should not just read like "wine tasting, then dinner." It should explain why this version of New Year's worked better than a party-heavy or logistics-heavy alternative. If the day felt balanced, that is the real takeaway.
 
-What to add here:
-
-- Why Groot Constantia specifically
-- Whether the tasting felt worthwhile or more like a tourist checkbox
-- How the day transitioned into the evening
-- Whether New Year's Eve lived up to expectations
-- The best moment of the whole Cape Town half, if this was it
+> Open questions:
+> Why did you choose Groot Constantia specifically?
+> Did the tasting feel worthwhile or more like a tourist checkbox?
+> How did the day transition from wine tasting into the evening?
+> Did New Year's Eve live up to expectations?
+> Was this the best moment of the Cape Town half of the trip? If yes, why?
 
 #### January 1, 2026: Pool and City Day
 
@@ -117,11 +113,10 @@ A slower day here was not a gap in the itinerary. It was part of why the route w
 
 One of the recurring lessons of this whole trip is that alternating high-intensity days with softer recovery days made the better hotel choices pay off. This is especially true in Cape Town, where it is easy to overpack the schedule because there are many obvious day-trip options.
 
-What to add here:
-
-- Whether the city felt slow or half-closed on New Year's Day
-- What made the day enjoyable even without one giant highlight
-- Whether this was one of the moments where the hotel choice proved itself
+> Open questions:
+> Did Cape Town feel slow, quiet, or half-closed on New Year's Day?
+> What made this day enjoyable even without one dominant highlight?
+> Was this one of the moments where the hotel choice clearly paid off?
 
 #### January 2, 2026: Penguins and Cape of Good Hope
 
@@ -131,13 +126,12 @@ This is one of the practical high-value sections because it is the kind of day m
 
 What matters here is not just that you did it, but whether it justified the time and driving. That is exactly the type of decision-making readers care about.
 
-What to add here:
-
-- Start time and routing
-- Whether the penguin stop felt worth the crowd factor
-- Which viewpoint or stretch of the drive stood out most
-- Whether this was one of the "this made the trip" days
-- What you would skip or do differently next time, if anything
+> Open questions:
+> What time did you start and how did you route the day?
+> Did the penguin stop feel worth the crowd factor?
+> Which viewpoint or stretch of the drive stood out most?
+> Was this one of the days that really made the trip?
+> If you did this day again, what would you skip or do differently?
 
 ### Lessons Learned
 
@@ -157,12 +151,11 @@ Cape Town was flexible, social, and self-directed. Safari was the opposite in a 
 
 That chapter change is not just logistics. It is the reason the route feels like two meaningful trips in one.
 
-What to add here:
-
-- Airport and domestic flight experience
-- Transfer to the lodge
-- The first visual sign that the trip had changed
-- Whether the structured safari mode felt immediately relaxing or initially restrictive
+> Open questions:
+> How did the airport and domestic flight experience feel?
+> How smooth was the transfer from Hoedspruit to the lodge?
+> What was the first visual sign that the trip had completely changed?
+> Did the structured safari rhythm feel immediately relaxing or initially restrictive?
 
 ## Safari Lodge
 
@@ -178,19 +171,15 @@ It is also where a lot of the budget concentrates. The lodge is not just a hotel
 
 What made the one-lodge strategy strong is that it reduced friction. We did not have to re-pack, move, compare multiple camps, or lose time to transfers. For a couple trip, that was probably the right tradeoff. The downside is obvious: you do not sample different lodge styles or reserve areas.
 
-This is also the right place to add preparation value later:
-
-- what mornings and evenings felt like temperature-wise
-- what clothing mattered
-- whether binoculars, camera gear, or layers mattered more than expected
-
-What to add here in the next draft:
-
-- Why you chose Nyati over alternatives
-- Arrival experience
-- Room, food, service, and atmosphere
-- What made it feel special
-- The main downside or tradeoff
+> Open questions:
+> Why did you choose Nyati over other lodge options?
+> How did the arrival experience feel?
+> How would you describe the room, food, service, and overall atmosphere?
+> What made the lodge feel special rather than just functional?
+> What was the main downside or tradeoff?
+> What did mornings and evenings feel like temperature-wise?
+> What clothing mattered most?
+> Did binoculars, camera gear, or extra layers matter more than expected?
 
 ### Day by Day (Safari Diary)
 
@@ -219,11 +208,10 @@ Animals seen:
 
 Seeing elephant, rhino, lion, buffalo, and giraffe that early creates a very specific problem: it raises the internal bar immediately. That is worth mentioning because it changes how the following days feel.
 
-What to add here:
-
-- First feeling on the vehicle
-- The exact moment the safari half became "real"
-- Whether the early lion and rhino sightings reset expectations too high
+> Open questions:
+> What was your first feeling sitting on the safari vehicle?
+> What exact moment made the safari half feel fully real?
+> Did seeing lion and rhino so early reset expectations too high for the following days?
 
 #### January 4, 2026: Morning, Afternoon, and Night Drives
 
@@ -241,11 +229,10 @@ Animals seen:
 
 This day should highlight one of the most important safari truths: the experience changes dramatically by time of day, and birdlife ends up mattering much more than many first-time visitors expect.
 
-What to add here:
-
-- Difference between morning, afternoon, and night drives
-- Which period felt most rewarding
-- What surprised you beyond the obvious "big animal" sightings
+> Open questions:
+> What was the difference between morning, afternoon, and night drives?
+> Which period felt most rewarding and why?
+> What surprised you beyond the obvious big-animal sightings?
 
 #### January 5, 2026: Safari and Blyde Canyon Wildlife
 
@@ -274,21 +261,20 @@ This is a good tradeoff section because it shows what happens when you briefly b
 
 That can be useful for pacing, but it is also where you can be more opinionated. If part of the day felt less worth it, this is exactly the kind of article section where saying so helps the reader.
 
-What to add here:
-
-- How the canyon day differed from the lodge rhythm
-- Whether the switch in scenery felt refreshing or diluted the safari flow
-- Favorite landscape moment
-- Anything that felt skippable
+> Open questions:
+> How did the canyon day feel different from the normal lodge rhythm?
+> Did the switch in scenery feel refreshing or did it dilute the safari flow?
+> What was your favorite landscape moment?
+> Was there anything on this day that felt skippable?
 
 #### January 6, 2026: Open Slot to Reconstruct
 
 This is the one day where the current diary notes are incomplete.
 
-Notes to expand:
-
-- Rebuild from photos, phone notes, or memory
-- Add mood of the day even if not every animal can be reconstructed
+> Open questions:
+> Can you reconstruct this day from photos, phone notes, or memory?
+> Even if you cannot rebuild every sighting, what was the mood of the day?
+> Did anything small but memorable happen that belongs here?
 
 #### January 7, 2026: Kruger Safari Day
 
@@ -308,12 +294,11 @@ Animals seen:
 
 This is another high-value comparison section because readers want to understand the difference between lodge drives and a dedicated Kruger day.
 
-What to add here:
-
-- How the Kruger day differed from lodge drives
-- Whether it felt broader, busier, more open, or more classic
-- Best sighting of the day
-- Whether this day was essential or optional in hindsight
+> Open questions:
+> How did the Kruger day differ from the lodge drives?
+> Did it feel broader, busier, more open, or more classic?
+> What was the best sighting of the day?
+> In hindsight, was this day essential or optional?
 
 #### January 8, 2026: Leopard and Black Rhino Morning
 
@@ -327,11 +312,10 @@ Animals seen:
 
 This is a strong candidate for the best safari day or at least the most memorable wildlife morning, and the article should say that clearly if it was.
 
-What to add here:
-
-- Leopard sighting details
-- Why this was one of the strongest safari days
-- Whether this was the emotional high point of the whole trip
+> Open questions:
+> What exactly happened during the leopard sighting?
+> Why was this one of the strongest safari days?
+> Was this the emotional high point of the whole trip?
 
 #### January 9, 2026: Departure Day
 
@@ -339,11 +323,10 @@ Departure days matter more on safari than they do in a city because the rhythm s
 
 This is the right place to answer one of the key planning questions directly: did six nights feel right, too long, or exactly right?
 
-What to add here:
-
-- Final morning at the lodge
-- Last impressions before leaving
-- Whether six nights felt right
+> Open questions:
+> How did the final morning at the lodge feel?
+> What were your last impressions before leaving?
+> Did six nights feel right, too long, or exactly right?
 
 ### Lessons Learned
 
@@ -362,11 +345,10 @@ The way back felt very different from the outbound flight because by then the tr
 
 That is worth emphasizing because it explains why this split worked so well. One half made the other half stronger.
 
-What to add here:
-
-- Departure logistics
-- Final travel fatigue
-- First reflection on what part of the route actually made the trip
+> Open questions:
+> How smooth were the departure logistics?
+> How much travel fatigue had built up by then?
+> What was your first reflection on which part of the route actually made the trip?
 
 ## Overall Lessons Learned
 

@@ -383,11 +383,33 @@ function initTravelProgressMap() {
   }
 
   const canvas = root.querySelector('[data-travel-map-canvas]');
+  const titleEl = root.querySelector('[data-travel-map-title]');
   const labelEl = root.querySelector('[data-travel-map-label]');
   const detailEl = root.querySelector('[data-travel-map-detail]');
+  const toggleButton = root.querySelector('[data-travel-map-toggle]');
   if (!canvas) {
     return;
   }
+
+  const storageKey = 'travel-progress-map:minimized';
+  let isMinimized = false;
+
+  const applyMinimizedState = () => {
+    root.classList.toggle('travel-progress-map--minimized', isMinimized);
+    if (toggleButton) {
+      toggleButton.setAttribute('aria-expanded', String(!isMinimized));
+      toggleButton.setAttribute('aria-label', isMinimized ? 'Expand route map' : 'Minimize route map');
+      toggleButton.setAttribute('title', isMinimized ? 'Expand map' : 'Minimize map');
+    }
+  };
+
+  try {
+    isMinimized = window.localStorage.getItem(storageKey) === 'true';
+  } catch (error) {
+    isMinimized = false;
+  }
+
+  applyMinimizedState();
 
   const map = window.L.map(canvas, {
     zoomControl: false,
@@ -477,8 +499,14 @@ function initTravelProgressMap() {
       layer.setStyle(buildTravelLegStyle(leg.mode, active));
     });
 
+    const activeStopLabel = section.label || stopIndex.get(section.stop)?.label || 'Journey overview';
+
+    if (titleEl) {
+      titleEl.textContent = activeStopLabel;
+    }
+
     if (labelEl) {
-      labelEl.textContent = section.label || stopIndex.get(section.stop)?.label || 'Journey overview';
+      labelEl.textContent = activeStopLabel;
     }
 
     if (detailEl) {
@@ -543,6 +571,21 @@ function initTravelProgressMap() {
   updateOverlayVisibility();
   window.addEventListener('scroll', updateOverlayVisibility, { passive: true });
   window.addEventListener('resize', updateOverlayVisibility);
+
+  if (toggleButton) {
+    toggleButton.addEventListener('click', () => {
+      isMinimized = !isMinimized;
+      applyMinimizedState();
+      map.invalidateSize();
+      updateOverlayVisibility();
+
+      try {
+        window.localStorage.setItem(storageKey, String(isMinimized));
+      } catch (error) {
+        // Ignore storage failures and keep the in-memory state.
+      }
+    });
+  }
 }
 
 function initTravelInlineMaps() {

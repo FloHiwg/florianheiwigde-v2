@@ -91,10 +91,24 @@
     <div class="travel-progress-map__topbar">
       <div class="travel-progress-map__heading">
         <span class="travel-progress-map__eyebrow">Travel overlay</span>
-        <strong class="travel-progress-map__title">South Africa route</strong>
-        <span class="travel-progress-map__subtitle" data-travel-map-label>Journey overview</span>
+        <strong class="travel-progress-map__title" data-travel-map-title>Journey overview</strong>
       </div>
-      <div class="travel-progress-map__status">Live map</div>
+      <div class="travel-progress-map__actions">
+        <div class="travel-progress-map__status">Live map</div>
+        <button
+          type="button"
+          class="travel-progress-map__toggle"
+          data-travel-map-toggle
+          aria-expanded="true"
+          aria-label="Minimize route map"
+          title="Minimize map"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 12h12"></path>
+          </svg>
+          <span class="travel-progress-map__toggle-label">Live map</span>
+        </button>
+      </div>
     </div>
     <div class="travel-progress-map__meta">
       <span class="travel-map-pill">{{ len .route.stops }} stops</span>

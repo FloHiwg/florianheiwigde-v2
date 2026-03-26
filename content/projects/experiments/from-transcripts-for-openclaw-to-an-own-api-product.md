@@ -5,6 +5,16 @@ draft: false
 description: "How I identified a gap in agent-first podcast transcript access and turned it into Podfetcher: an API product with billing, docs, SDK, CLI, and MCP integration."
 ---
 
+<div class="article-demo-cta">
+  <div class="article-demo-cta__eyebrow">Product links</div>
+  <h3 class="article-demo-cta__title">Open Podfetcher and the ClawHub skill</h3>
+  <p class="article-demo-cta__copy">Use the live Podfetcher product directly or open the ClawHub skill if you want to plug the transcript workflow into an agent setup.</p>
+  <div class="article-demo-cta__actions">
+    <a class="article-demo-cta__button" href="https://podfetcher.com/">Open Podfetcher</a>
+    <a class="article-demo-cta__button article-demo-cta__button--secondary" href="https://clawhub.ai/flohiwg/podfetcher-tools">Open ClawHub skill</a>
+  </div>
+</div>
+
 ## Introduction
 
 I started with a recurring workflow problem: deciding which podcast episodes were worth my attention without manually skimming episode pages.

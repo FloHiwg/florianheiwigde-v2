@@ -1941,6 +1941,12 @@ main {
   line-height: 1.6;
 }
 
+.article-demo-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
 .article-demo-cta__button {
   display: inline-flex;
   align-items: center;
@@ -1955,6 +1961,11 @@ main {
   letter-spacing: 0.04em;
   text-transform: uppercase;
   transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.article-demo-cta__button--secondary {
+  background: transparent;
+  border: 1px solid rgba(217, 119, 87, 0.32);
 }
 
 .blog-post-content .article-demo-cta__button,
@@ -1975,6 +1986,10 @@ main {
 
 .dark .article-demo-cta__button:hover {
   background: #f09b73;
+}
+
+.dark .article-demo-cta__button--secondary {
+  border-color: rgba(224, 136, 102, 0.38);
 }
 
 .legal-rag-explorer-shell {

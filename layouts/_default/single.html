@@ -83,6 +83,44 @@
     </article>
   </main>
 
+  {{ $travelMapId := .Params.travelMapId }}
+  {{ if $travelMapId }}
+  {{ $travelMap := index site.Data.travel $travelMapId }}
+  {{ with $travelMap }}
+  <aside class="travel-progress-map js-travel-progress-map" data-map='{{ . | jsonify }}' aria-label="Trip progress map">
+    <div class="travel-progress-map__topbar">
+      <div class="travel-progress-map__heading">
+        <span class="travel-progress-map__eyebrow">Travel overlay</span>
+        <strong class="travel-progress-map__title" data-travel-map-title>Journey overview</strong>
+      </div>
+      <div class="travel-progress-map__actions">
+        <div class="travel-progress-map__status">Live map</div>
+        <button
+          type="button"
+          class="travel-progress-map__toggle"
+          data-travel-map-toggle
+          aria-expanded="true"
+          aria-label="Minimize route map"
+          title="Minimize map"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 12h12"></path>
+          </svg>
+          <span class="travel-progress-map__toggle-label">Live map</span>
+        </button>
+      </div>
+    </div>
+    <div class="travel-progress-map__meta">
+      <span class="travel-map-pill">{{ len .route.stops }} stops</span>
+    </div>
+    <div class="travel-progress-map__detail" data-travel-map-detail>Scroll the article to follow the route.</div>
+    <div class="travel-progress-map__frame">
+      <div class="travel-progress-map__canvas" data-travel-map-canvas></div>
+    </div>
+  </aside>
+  {{ end }}
+  {{ end }}
+
   {{ partial "footer.html" . }}
 </body>
 

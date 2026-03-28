@@ -1,0 +1,607 @@
+route:
+  stops:
+    - id: lake-tahoe
+      label: Lake Tahoe
+      lat: 38.9399
+      lng: -119.9772
+      kind: nature
+    - id: yosemite
+      label: Yosemite area
+      lat: 37.5701
+      lng: -119.7462
+      kind: park
+    - id: sequoia
+      label: Sequoia area
+      lat: 36.4906
+      lng: -118.8258
+      kind: park
+    - id: las-vegas
+      label: Las Vegas
+      lat: 36.1699
+      lng: -115.1398
+      kind: city
+    - id: grand-canyon
+      label: Grand Canyon area
+      lat: 36.0544
+      lng: -112.1401
+      kind: park
+    - id: bryce
+      label: Bryce Canyon
+      lat: 37.593
+      lng: -112.1871
+      kind: park
+    - id: yellowstone
+      label: Yellowstone
+      lat: 45.026
+      lng: -110.702
+      kind: park
+    - id: los-angeles
+      label: Los Angeles
+      lat: 33.7701
+      lng: -118.1937
+      kind: city
+    - id: monterey
+      label: Monterey
+      lat: 36.6002
+      lng: -121.8947
+      kind: coast
+    - id: san-francisco
+      label: San Francisco
+      lat: 37.7749
+      lng: -122.4194
+      kind: city
+  legs:
+    - id: lake-tahoe-to-yosemite
+      from: lake-tahoe
+      to: yosemite
+      mode: drive
+      label: Lake Tahoe to Yosemite
+    - id: yosemite-to-sequoia
+      from: yosemite
+      to: sequoia
+      mode: drive
+      label: Yosemite to Sequoia
+    - id: sequoia-to-las-vegas
+      from: sequoia
+      to: las-vegas
+      mode: flight
+      label: Fresno to Las Vegas
+    - id: las-vegas-to-grand-canyon
+      from: las-vegas
+      to: grand-canyon
+      mode: drive
+      label: Las Vegas to Grand Canyon
+    - id: grand-canyon-to-bryce
+      from: grand-canyon
+      to: bryce
+      mode: drive
+      label: Grand Canyon to Bryce
+    - id: bryce-to-yellowstone
+      from: bryce
+      to: yellowstone
+      mode: flight
+      label: Bryce to Yellowstone via Salt Lake City and Bozeman
+    - id: yellowstone-to-los-angeles
+      from: yellowstone
+      to: los-angeles
+      mode: flight
+      label: Bozeman to Los Angeles
+    - id: los-angeles-to-monterey
+      from: los-angeles
+      to: monterey
+      mode: drive
+      label: Los Angeles to Monterey
+    - id: monterey-to-san-francisco
+      from: monterey
+      to: san-francisco
+      mode: drive
+      label: Monterey to San Francisco
+sectionStops:
+  - heading: intro
+    stop: lake-tahoe
+    label: Trip overview
+    detail: A long Western USA loop through parks, cities, desert, and coast.
+  - heading: from-berlin-to-lake-tahoe
+    stop: lake-tahoe
+    label: Arrival into the route
+    detail: Berlin to San Francisco, then straight on to Lake Tahoe.
+  - heading: lake-tahoe
+    stop: lake-tahoe
+    label: Lake Tahoe
+    detail: Alpine start and first nature base of the route.
+  - heading: from-lake-tahoe-to-yosemite
+    stop: yosemite
+    activeLeg: lake-tahoe-to-yosemite
+    label: To Yosemite
+    detail: Road transfer into the first major national-park section.
+  - heading: yosemite
+    stop: yosemite
+    label: Yosemite
+    detail: Valley days, park logistics, and big landscape moments.
+  - heading: from-yosemite-to-sequoia
+    stop: sequoia
+    activeLeg: yosemite-to-sequoia
+    label: To Sequoia
+    detail: Shorter connector leg between two major park areas.
+  - heading: sequoia
+    stop: sequoia
+    label: Sequoia
+    detail: Giant trees, shorter stay, more route efficiency than city comfort.
+  - heading: from-sequoia-to-las-vegas
+    stop: las-vegas
+    activeLeg: sequoia-to-las-vegas
+    label: To Las Vegas
+    detail: Leaving the California parks and resetting in the city.
+  - heading: las-vegas
+    stop: las-vegas
+    label: Las Vegas
+    detail: Pool, Strip, and Death Valley as a desert side trip.
+  - heading: from-las-vegas-to-grand-canyon
+    stop: grand-canyon
+    activeLeg: las-vegas-to-grand-canyon
+    label: To Grand Canyon
+    detail: Back into road-trip mode after the city break.
+  - heading: grand-canyon
+    stop: grand-canyon
+    label: Grand Canyon
+    detail: Canyon viewpoints plus the Antelope Canyon side trip.
+  - heading: from-grand-canyon-to-bryce
+    stop: bryce
+    activeLeg: grand-canyon-to-bryce
+    label: To Bryce
+    detail: Southwest driving leg into a quieter stop.
+  - heading: bryce
+    stop: bryce
+    label: Bryce
+    detail: Hoodoo landscapes and a shorter but distinct park stay.
+  - heading: from-bryce-to-yellowstone
+    stop: yellowstone
+    activeLeg: bryce-to-yellowstone
+    label: To Yellowstone
+    detail: The biggest route jump, using both driving and flights.
+  - heading: yellowstone
+    stop: yellowstone
+    label: Yellowstone
+    detail: Large-scale park days around Gardiner and the north entrance.
+  - heading: from-yellowstone-to-los-angeles
+    stop: los-angeles
+    activeLeg: yellowstone-to-los-angeles
+    label: To Los Angeles
+    detail: Another reset from nature scale back into urban California.
+  - heading: los-angeles
+    stop: los-angeles
+    label: Los Angeles
+    detail: Long Beach base, city time, and a San Diego day trip.
+  - heading: from-los-angeles-to-monterey
+    stop: monterey
+    activeLeg: los-angeles-to-monterey
+    label: North to Monterey
+    detail: Start of the final California return leg.
+  - heading: monterey
+    stop: monterey
+    label: Monterey
+    detail: Slower coastal stop before the final city finish.
+  - heading: from-monterey-to-san-francisco
+    stop: san-francisco
+    activeLeg: monterey-to-san-francisco
+    label: To San Francisco
+    detail: Final driving leg into the closing city stop.
+  - heading: san-francisco
+    stop: san-francisco
+    label: San Francisco
+    detail: Final city stay before flying home.
+  - heading: from-san-francisco-to-berlin
+    stop: san-francisco
+    label: Flying home
+    detail: The route ends in San Francisco before the return to Berlin.
+  - heading: overall-lessons-learned
+    stop: san-francisco
+    label: Looking back on the route
+    detail: Pacing, flights inside the route, and what the loop got right.
+  - heading: final-verdict
+    stop: san-francisco
+    label: Final verdict
+    detail: Was the variety worth the complexity?
+inlineMaps:
+  lake-tahoe-base:
+    title: Lake Tahoe base
+    description: Hotel base and the most likely anchors around the first stop.
+    center: [38.942, -119.972]
+    zoom: 11
+    markers:
+      - label: Station House Inn
+        lat: 38.9546
+        lng: -119.9438
+        kind: hotel
+      - label: Heavenly Gondola
+        lat: 38.9551
+        lng: -119.9407
+        kind: highlight
+      - label: South Lake Tahoe shoreline
+        lat: 38.9399
+        lng: -119.9772
+        kind: lake
+  lake-tahoe-day:
+    title: Lake Tahoe day
+    description: A compact South Lake Tahoe view for the first full day.
+    center: [38.944, -119.97]
+    zoom: 11
+    markers:
+      - label: Station House Inn
+        lat: 38.9546
+        lng: -119.9438
+        kind: hotel
+      - label: Emerald Bay area
+        lat: 38.9541
+        lng: -120.1086
+        kind: viewpoint
+      - label: Heavenly area
+        lat: 38.9551
+        lng: -119.9407
+        kind: activity
+    path:
+      - [38.9546, -119.9438]
+      - [38.9541, -120.1086]
+      - [38.9551, -119.9407]
+  yosemite-base:
+    title: Yosemite base
+    description: Mariposa as the accommodation anchor outside the park.
+    center: [37.5701, -119.872]
+    zoom: 9
+    markers:
+      - label: Yosemite Plaisance Bed & Breakfast
+        lat: 37.487
+        lng: -119.966
+        kind: hotel
+      - label: Yosemite Valley
+        lat: 37.7459
+        lng: -119.5936
+        kind: park
+  yosemite-valley:
+    title: Yosemite Valley day
+    description: Core valley highlights and the main scenic anchor.
+    center: [37.744, -119.593]
+    zoom: 11
+    markers:
+      - label: Yosemite Valley
+        lat: 37.7459
+        lng: -119.5936
+        kind: park
+      - label: Tunnel View
+        lat: 37.7154
+        lng: -119.6761
+        kind: viewpoint
+      - label: Yosemite Falls area
+        lat: 37.7565
+        lng: -119.5967
+        kind: waterfall
+  sequoia-base:
+    title: Sequoia base
+    description: Practical hotel base south of Sequoia National Park.
+    center: [36.203, -119.089]
+    zoom: 9
+    markers:
+      - label: Super 8 by Wyndham Lindsay Olive Tree
+        lat: 36.2037
+        lng: -119.0881
+        kind: hotel
+      - label: Giant Forest area
+        lat: 36.5617
+        lng: -118.7515
+        kind: park
+  sequoia-day:
+    title: Sequoia day
+    description: Giant sequoia highlights from the short park stop.
+    center: [36.57, -118.77]
+    zoom: 10
+    markers:
+      - label: Giant Forest Museum
+        lat: 36.5647
+        lng: -118.7737
+        kind: park
+      - label: General Sherman Tree
+        lat: 36.5816
+        lng: -118.7519
+        kind: highlight
+      - label: Moro Rock
+        lat: 36.5463
+        lng: -118.7651
+        kind: viewpoint
+  las-vegas-base:
+    title: Las Vegas base
+    description: Strip hotel base with room for city and desert transitions.
+    center: [36.102, -115.172]
+    zoom: 12
+    markers:
+      - label: MGM Grand
+        lat: 36.1024
+        lng: -115.1696
+        kind: hotel
+      - label: Bellagio fountains area
+        lat: 36.1126
+        lng: -115.1767
+        kind: highlight
+  death-valley-day:
+    title: Death Valley day trip
+    description: The desert loop from Las Vegas into the basin highlights.
+    center: [36.25, -116.82]
+    zoom: 8
+    markers:
+      - label: Las Vegas
+        lat: 36.1024
+        lng: -115.1696
+        kind: city
+      - label: Zabriskie Point
+        lat: 36.4205
+        lng: -116.8103
+        kind: viewpoint
+      - label: Badwater Basin
+        lat: 36.2299
+        lng: -116.767
+        kind: highlight
+    path:
+      - [36.1024, -115.1696]
+      - [36.4205, -116.8103]
+      - [36.2299, -116.767]
+  grand-canyon-base:
+    title: Grand Canyon base
+    description: Hotel stop positioned for both the canyon and Antelope Canyon excursion.
+    center: [35.198, -111.651]
+    zoom: 8
+    markers:
+      - label: Americana Motor Hotel
+        lat: 35.1981
+        lng: -111.6506
+        kind: hotel
+      - label: Grand Canyon South Rim
+        lat: 36.0544
+        lng: -112.1401
+        kind: park
+  grand-canyon-day:
+    title: Grand Canyon day
+    description: South Rim viewpoints for the main canyon day.
+    center: [36.06, -112.135]
+    zoom: 11
+    markers:
+      - label: Mather Point
+        lat: 36.0622
+        lng: -112.1093
+        kind: viewpoint
+      - label: Yavapai Point
+        lat: 36.0675
+        lng: -112.1105
+        kind: viewpoint
+      - label: Grand Canyon Village
+        lat: 36.0544
+        lng: -112.1401
+        kind: village
+  antelope-canyon-day:
+    title: Antelope Canyon day
+    description: Longer excursion east from the Grand Canyon base toward Page.
+    center: [36.47, -111.37]
+    zoom: 8
+    markers:
+      - label: Americana Motor Hotel
+        lat: 35.1981
+        lng: -111.6506
+        kind: hotel
+      - label: Antelope Canyon
+        lat: 36.8619
+        lng: -111.3743
+        kind: highlight
+      - label: Horseshoe Bend area
+        lat: 36.8796
+        lng: -111.5104
+        kind: viewpoint
+    path:
+      - [35.1981, -111.6506]
+      - [36.8619, -111.3743]
+      - [36.8796, -111.5104]
+  bryce-base:
+    title: Bryce base
+    description: Quiet accommodation base near Bryce Canyon National Park.
+    center: [37.625, -112.083]
+    zoom: 10
+    markers:
+      - label: Bryce Pioneer Village
+        lat: 37.6254
+        lng: -112.0824
+        kind: hotel
+      - label: Bryce Amphitheater
+        lat: 37.6236
+        lng: -112.1677
+        kind: park
+  bryce-day:
+    title: Bryce day
+    description: Main scenic anchors around the Bryce amphitheater.
+    center: [37.623, -112.168]
+    zoom: 11
+    markers:
+      - label: Sunrise Point
+        lat: 37.6224
+        lng: -112.1659
+        kind: viewpoint
+      - label: Sunset Point
+        lat: 37.6226
+        lng: -112.1677
+        kind: viewpoint
+      - label: Inspiration Point
+        lat: 37.6131
+        lng: -112.1678
+        kind: viewpoint
+  yellowstone-base:
+    title: Yellowstone base
+    description: Gardiner and the north entrance as the Yellowstone anchor.
+    center: [45.031, -110.705]
+    zoom: 10
+    markers:
+      - label: The Antler Lodge
+        lat: 45.0314
+        lng: -110.7056
+        kind: hotel
+      - label: Roosevelt Arch
+        lat: 45.0271
+        lng: -110.7047
+        kind: gate
+  yellowstone-north:
+    title: Yellowstone north loop
+    description: Mammoth and northern Yellowstone anchors from Gardiner.
+    center: [44.976, -110.702]
+    zoom: 10
+    markers:
+      - label: Gardiner
+        lat: 45.0314
+        lng: -110.7056
+        kind: town
+      - label: Mammoth Hot Springs
+        lat: 44.9763
+        lng: -110.7013
+        kind: highlight
+      - label: Lamar Valley
+        lat: 44.877
+        lng: -110.1808
+        kind: wildlife
+  yellowstone-geysers:
+    title: Yellowstone geyser day
+    description: The longer push toward the central geyser basins.
+    center: [44.55, -110.83]
+    zoom: 9
+    markers:
+      - label: Old Faithful
+        lat: 44.4605
+        lng: -110.8281
+        kind: geyser
+      - label: Grand Prismatic Spring
+        lat: 44.525, 
+        lng: -110.8382
+        kind: highlight
+      - label: Norris Geyser Basin
+        lat: 44.7261
+        lng: -110.704
+        kind: geyser
+  los-angeles-base:
+    title: Los Angeles base
+    description: Long Beach as the Southern California hotel anchor.
+    center: [33.77, -118.194]
+    zoom: 10
+    markers:
+      - label: The Cove Long Beach
+        lat: 33.8041
+        lng: -118.1094
+        kind: hotel
+      - label: Downtown Long Beach
+        lat: 33.7701
+        lng: -118.1937
+        kind: city
+      - label: Santa Monica
+        lat: 34.0195
+        lng: -118.4912
+        kind: highlight
+  los-angeles-day:
+    title: Los Angeles day
+    description: Core city anchors depending on how broad the day became.
+    center: [34.04, -118.35]
+    zoom: 10
+    markers:
+      - label: Griffith Observatory
+        lat: 34.1184
+        lng: -118.3004
+        kind: viewpoint
+      - label: Santa Monica Pier
+        lat: 34.0094
+        lng: -118.4973
+        kind: highlight
+      - label: Hollywood area
+        lat: 34.1016
+        lng: -118.3269
+        kind: city
+  san-diego-day:
+    title: San Diego day trip
+    description: A long Southern California day away from the LA base.
+    center: [33.05, -117.9]
+    zoom: 8
+    markers:
+      - label: Long Beach
+        lat: 33.7701
+        lng: -118.1937
+        kind: base
+      - label: Balboa Park
+        lat: 32.7341
+        lng: -117.1446
+        kind: highlight
+      - label: La Jolla Cove
+        lat: 32.8503
+        lng: -117.2725
+        kind: coast
+    path:
+      - [33.7701, -118.1937]
+      - [32.7341, -117.1446]
+      - [32.8503, -117.2725]
+  monterey-base:
+    title: Monterey base
+    description: Small coastal hotel stop before the San Francisco finish.
+    center: [36.597, -121.893]
+    zoom: 11
+    markers:
+      - label: Villa Franca Inn
+        lat: 36.5957
+        lng: -121.8942
+        kind: hotel
+      - label: Monterey Bay
+        lat: 36.6002
+        lng: -121.8947
+        kind: coast
+  monterey-day:
+    title: Monterey day
+    description: Classic Monterey anchors for a slower coastal stop.
+    center: [36.57, -121.93]
+    zoom: 11
+    markers:
+      - label: Monterey Bay Aquarium
+        lat: 36.6182
+        lng: -121.9018
+        kind: highlight
+      - label: Cannery Row
+        lat: 36.6162
+        lng: -121.8986
+        kind: town
+      - label: Carmel-by-the-Sea
+        lat: 36.5552
+        lng: -121.9233
+        kind: coast
+  san-francisco-base:
+    title: San Francisco base
+    description: Final city base before the long-haul return.
+    center: [37.786, -122.411]
+    zoom: 12
+    markers:
+      - label: King George Hotel
+        lat: 37.7861
+        lng: -122.4112
+        kind: hotel
+      - label: Union Square
+        lat: 37.788
+        lng: -122.4075
+        kind: city
+      - label: Fisherman's Wharf
+        lat: 37.808
+        lng: -122.4177
+        kind: highlight
+  san-francisco-day:
+    title: San Francisco day
+    description: Core city anchors for the final stop.
+    center: [37.798, -122.445]
+    zoom: 11
+    markers:
+      - label: Golden Gate Bridge viewpoint
+        lat: 37.8078
+        lng: -122.475
+        kind: viewpoint
+      - label: Alamo Square
+        lat: 37.7764
+        lng: -122.4346
+        kind: viewpoint
+      - label: Ferry Building
+        lat: 37.7955
+        lng: -122.3937
+        kind: city

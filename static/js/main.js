@@ -287,6 +287,382 @@ function initProductGalleryModal() {
   });
 }
 
+function parseTravelMapData(rawValue) {
+  if (!rawValue) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(rawValue);
+  } catch (error) {
+    console.warn('Failed to parse travel map data.', error);
+    return null;
+  }
+}
+
+function createTravelTileLayer() {
+  return window.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  });
+}
+
+function buildTravelMarker(map, stop, active) {
+  const color = active ? '#D97757' : '#5B6C73';
+  const marker = window.L.circleMarker([stop.lat, stop.lng], {
+    radius: active ? 8 : 6,
+    color,
+    weight: active ? 3 : 2,
+    fillColor: active ? '#D97757' : '#F4F2EB',
+    fillOpacity: 1
+  });
+
+  if (stop.label) {
+    marker.bindTooltip(stop.label, {
+      direction: 'top',
+      offset: [0, -6]
+    });
+  }
+
+  marker.addTo(map);
+  return marker;
+}
+
+function buildTravelLegStyle(mode, active) {
+  const palette = {
+    flight: { color: '#D97757', dashArray: '8 8' },
+    drive: { color: '#3A6D72', dashArray: '' },
+    train: { color: '#4B5A8A', dashArray: '10 4' }
+  };
+
+  const selected = palette[mode] || palette.drive;
+
+  return {
+    color: selected.color,
+    weight: active ? 4 : 2.5,
+    opacity: active ? 0.95 : 0.45,
+    dashArray: selected.dashArray
+  };
+}
+
+function collectTravelBounds(route, stopIndex) {
+  const points = [];
+
+  (route.stops || []).forEach((stop) => {
+    points.push([stop.lat, stop.lng]);
+  });
+
+  (route.legs || []).forEach((leg) => {
+    if (Array.isArray(leg.path) && leg.path.length) {
+      leg.path.forEach((point) => {
+        if (Array.isArray(point) && point.length === 2) {
+          points.push(point);
+        }
+      });
+      return;
+    }
+
+    const from = stopIndex.get(leg.from);
+    const to = stopIndex.get(leg.to);
+    if (from && to) {
+      points.push([from.lat, from.lng], [to.lat, to.lng]);
+    }
+  });
+
+  return points;
+}
+
+function initTravelProgressMap() {
+  const root = document.querySelector('.js-travel-progress-map');
+  if (!root || typeof window.L === 'undefined') {
+    return;
+  }
+
+  const travelMap = parseTravelMapData(root.dataset.map);
+  if (!travelMap || !travelMap.route || !Array.isArray(travelMap.route.stops)) {
+    return;
+  }
+
+  const canvas = root.querySelector('[data-travel-map-canvas]');
+  const titleEl = root.querySelector('[data-travel-map-title]');
+  const labelEl = root.querySelector('[data-travel-map-label]');
+  const detailEl = root.querySelector('[data-travel-map-detail]');
+  const toggleButton = root.querySelector('[data-travel-map-toggle]');
+  if (!canvas) {
+    return;
+  }
+
+  const storageKey = 'travel-progress-map:minimized';
+  let isMinimized = false;
+
+  const applyMinimizedState = () => {
+    root.classList.toggle('travel-progress-map--minimized', isMinimized);
+    if (toggleButton) {
+      toggleButton.setAttribute('aria-expanded', String(!isMinimized));
+      toggleButton.setAttribute('aria-label', isMinimized ? 'Expand route map' : 'Minimize route map');
+      toggleButton.setAttribute('title', isMinimized ? 'Expand map' : 'Minimize map');
+    }
+  };
+
+  try {
+    isMinimized = window.localStorage.getItem(storageKey) === 'true';
+  } catch (error) {
+    isMinimized = false;
+  }
+
+  applyMinimizedState();
+
+  const map = window.L.map(canvas, {
+    zoomControl: false,
+    attributionControl: false,
+    dragging: false,
+    scrollWheelZoom: false,
+    doubleClickZoom: false,
+    boxZoom: false,
+    keyboard: false,
+    tap: false,
+    touchZoom: false
+  });
+
+  createTravelTileLayer().addTo(map);
+
+  const stopIndex = new Map();
+  travelMap.route.stops.forEach((stop) => {
+    stopIndex.set(stop.id, stop);
+  });
+
+  const legLayers = new Map();
+  const markerLayers = new Map();
+
+  (travelMap.route.legs || []).forEach((leg) => {
+    const from = stopIndex.get(leg.from);
+    const to = stopIndex.get(leg.to);
+    if (!from || !to) {
+      return;
+    }
+
+    const points = Array.isArray(leg.path) && leg.path.length
+      ? leg.path
+      : [[from.lat, from.lng], [to.lat, to.lng]];
+
+    const layer = window.L.polyline(points, buildTravelLegStyle(leg.mode, false));
+    layer.addTo(map);
+    legLayers.set(leg.id, { leg, layer });
+  });
+
+  travelMap.route.stops.forEach((stop, index) => {
+    const marker = buildTravelMarker(map, stop, index === 0);
+    markerLayers.set(stop.id, marker);
+  });
+
+  const bounds = collectTravelBounds(travelMap.route, stopIndex);
+  if (bounds.length) {
+    map.fitBounds(bounds, {
+      padding: [20, 20]
+    });
+  }
+
+  const sectionMap = new Map();
+  (travelMap.sectionStops || []).forEach((section) => {
+    const element = document.getElementById(section.heading);
+    if (element) {
+      sectionMap.set(section.heading, { ...section, element });
+    }
+  });
+
+  const sections = Array.from(sectionMap.values());
+  let activeHeading = null;
+
+  const setActiveState = (section) => {
+    if (!section || activeHeading === section.heading) {
+      return;
+    }
+
+    activeHeading = section.heading;
+
+    markerLayers.forEach((marker, stopId) => {
+      const active = stopId === section.stop;
+      marker.setStyle({
+        radius: active ? 8 : 6,
+        color: active ? '#D97757' : '#5B6C73',
+        weight: active ? 3 : 2,
+        fillColor: active ? '#D97757' : '#F4F2EB'
+      });
+      if (active) {
+        marker.openTooltip();
+      } else {
+        marker.closeTooltip();
+      }
+    });
+
+    legLayers.forEach(({ leg, layer }) => {
+      const active = leg.id === section.activeLeg;
+      layer.setStyle(buildTravelLegStyle(leg.mode, active));
+    });
+
+    const activeStopLabel = section.label || stopIndex.get(section.stop)?.label || 'Journey overview';
+
+    if (titleEl) {
+      titleEl.textContent = activeStopLabel;
+    }
+
+    if (labelEl) {
+      labelEl.textContent = activeStopLabel;
+    }
+
+    if (detailEl) {
+      detailEl.textContent = section.detail || 'Scroll the article to follow the route.';
+    }
+  };
+
+  const updateActiveSection = () => {
+    if (!sections.length) {
+      return;
+    }
+
+    const offset = window.innerHeight * 0.28;
+    let current = sections[0];
+
+    sections.forEach((section) => {
+      if (section.element.getBoundingClientRect().top <= offset) {
+        current = section;
+      }
+    });
+
+    setActiveState(current);
+  };
+
+  updateActiveSection();
+  window.addEventListener('scroll', updateActiveSection, { passive: true });
+  window.addEventListener('resize', updateActiveSection);
+
+  const inlineMaps = Array.from(document.querySelectorAll('.js-travel-inline-map'));
+  if (!inlineMaps.length) {
+    return;
+  }
+
+  const updateOverlayVisibility = () => {
+    const overlayRect = root.getBoundingClientRect();
+    const padding = 16;
+
+    const overlapsInlineMap = inlineMaps.some((card) => {
+      const disclosure = card.closest('.js-travel-inline-map-disclosure');
+      if (disclosure && !disclosure.open) {
+        return false;
+      }
+
+      const rect = card.getBoundingClientRect();
+      if (rect.width === 0 || rect.height === 0) {
+        return false;
+      }
+
+      const horizontalOverlap =
+        rect.left < overlayRect.right + padding &&
+        rect.right > overlayRect.left - padding;
+      const verticalOverlap =
+        rect.top < overlayRect.bottom + padding &&
+        rect.bottom > overlayRect.top - padding;
+
+      return horizontalOverlap && verticalOverlap;
+    });
+
+    root.classList.toggle('travel-progress-map--avoiding', overlapsInlineMap);
+  };
+
+  updateOverlayVisibility();
+  window.addEventListener('scroll', updateOverlayVisibility, { passive: true });
+  window.addEventListener('resize', updateOverlayVisibility);
+
+  if (toggleButton) {
+    toggleButton.addEventListener('click', () => {
+      isMinimized = !isMinimized;
+      applyMinimizedState();
+      map.invalidateSize();
+      updateOverlayVisibility();
+
+      try {
+        window.localStorage.setItem(storageKey, String(isMinimized));
+      } catch (error) {
+        // Ignore storage failures and keep the in-memory state.
+      }
+    });
+  }
+}
+
+function initTravelInlineMaps() {
+  const cards = document.querySelectorAll('.js-travel-inline-map');
+  if (!cards.length || typeof window.L === 'undefined') {
+    return;
+  }
+
+  cards.forEach((card) => {
+    const mapData = parseTravelMapData(card.dataset.map);
+    const canvas = card.querySelector('[data-travel-inline-map-canvas]');
+    if (!mapData || !canvas) {
+      return;
+    }
+
+    const map = window.L.map(canvas, {
+      zoomControl: true,
+      scrollWheelZoom: false
+    });
+
+    createTravelTileLayer().addTo(map);
+
+    const bounds = [];
+
+    (mapData.markers || []).forEach((marker) => {
+      const layer = window.L.circleMarker([marker.lat, marker.lng], {
+        radius: 6,
+        color: '#D97757',
+        weight: 2,
+        fillColor: '#F4F2EB',
+        fillOpacity: 1
+      });
+
+      if (marker.label) {
+        layer.bindPopup(marker.label);
+      }
+
+      layer.addTo(map);
+      bounds.push([marker.lat, marker.lng]);
+    });
+
+    if (Array.isArray(mapData.path) && mapData.path.length) {
+      window.L.polyline(mapData.path, buildTravelLegStyle('drive', true)).addTo(map);
+      mapData.path.forEach((point) => {
+        if (Array.isArray(point) && point.length === 2) {
+          bounds.push(point);
+        }
+      });
+    }
+
+    if (Array.isArray(mapData.center) && typeof mapData.zoom === 'number') {
+      map.setView(mapData.center, mapData.zoom);
+    } else if (bounds.length) {
+      map.fitBounds(bounds, { padding: [20, 20] });
+    }
+
+    const disclosure = card.closest('.js-travel-inline-map-disclosure');
+    if (disclosure) {
+      disclosure.addEventListener('toggle', () => {
+        if (!disclosure.open) {
+          return;
+        }
+
+        window.setTimeout(() => {
+          map.invalidateSize();
+
+          if (Array.isArray(mapData.center) && typeof mapData.zoom === 'number') {
+            map.setView(mapData.center, mapData.zoom);
+          } else if (bounds.length) {
+            map.fitBounds(bounds, { padding: [20, 20] });
+          }
+        }, 180);
+      });
+    }
+  });
+}
+
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
@@ -294,6 +670,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initArticleImageViewer();
   initProductGalleryModal();
   initConsentSettingsLinks();
+  initTravelProgressMap();
+  initTravelInlineMaps();
 
   // Theme toggle event listeners
   document.querySelectorAll('.theme-toggle').forEach(btn => {

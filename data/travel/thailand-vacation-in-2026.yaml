@@ -1,0 +1,329 @@
+route:
+  stops:
+    - id: bangkok
+      label: Bangkok
+      lat: 13.7563
+      lng: 100.5018
+      kind: city
+    - id: chiang-rai
+      label: Chiang Rai
+      lat: 19.9105
+      lng: 99.8406
+      kind: north
+    - id: chiang-mai
+      label: Chiang Mai
+      lat: 18.7883
+      lng: 98.9853
+      kind: north
+    - id: khao-sok
+      label: Khao Sok
+      lat: 8.9193
+      lng: 98.5267
+      kind: nature
+    - id: koh-yao-yai
+      label: Koh Yao Yai
+      lat: 8.0594
+      lng: 98.5923
+      kind: island
+    - id: singapore
+      label: Singapore
+      lat: 1.3521
+      lng: 103.8198
+      kind: city
+  legs:
+    - id: bangkok-to-chiang-rai
+      from: bangkok
+      to: chiang-rai
+      mode: flight
+      label: Bangkok to Chiang Rai
+    - id: chiang-rai-to-chiang-mai
+      from: chiang-rai
+      to: chiang-mai
+      mode: drive
+      label: Chiang Rai to Chiang Mai
+    - id: chiang-mai-to-khao-sok
+      from: chiang-mai
+      to: khao-sok
+      mode: flight
+      label: Chiang Mai to Khao Sok via Phuket
+    - id: khao-sok-to-koh-yao-yai
+      from: khao-sok
+      to: koh-yao-yai
+      mode: drive
+      label: Khao Sok to Koh Yao Yai
+    - id: koh-yao-yai-to-singapore
+      from: koh-yao-yai
+      to: singapore
+      mode: flight
+      label: Koh Yao Yai to Singapore via Phuket
+sectionStops:
+  - heading: intro
+    stop: bangkok
+    label: Trip overview
+    detail: A Thailand route that moves from city to north to jungle to island, then ends in Singapore.
+  - heading: from-berlin-to-bangkok
+    stop: bangkok
+    label: Arrival in Bangkok
+    detail: Long-haul arrival into the first urban chapter of the trip.
+  - heading: bangkok
+    stop: bangkok
+    label: Bangkok
+    detail: The city opening and first landing point of the route.
+  - heading: from-bangkok-to-chiang-rai
+    stop: chiang-rai
+    activeLeg: bangkok-to-chiang-rai
+    label: To Chiang Rai
+    detail: Shift from the capital into northern Thailand.
+  - heading: chiang-rai
+    stop: chiang-rai
+    label: Chiang Rai
+    detail: A short northern stop with a different mood from Bangkok.
+  - heading: from-chiang-rai-to-chiang-mai
+    stop: chiang-mai
+    activeLeg: chiang-rai-to-chiang-mai
+    label: To Chiang Mai
+    detail: Moving deeper into the northern Thailand section.
+  - heading: chiang-mai
+    stop: chiang-mai
+    label: Chiang Mai
+    detail: The longer northern base and likely cultural center of the route.
+  - heading: from-chiang-mai-to-khao-sok
+    stop: khao-sok
+    activeLeg: chiang-mai-to-khao-sok
+    label: To Khao Sok
+    detail: Major shift from northern city travel into inland southern nature.
+  - heading: khao-sok
+    stop: khao-sok
+    label: Khao Sok
+    detail: Nature, scenery, and a slower inland chapter.
+  - heading: from-khao-sok-to-koh-yao-yai
+    stop: koh-yao-yai
+    activeLeg: khao-sok-to-koh-yao-yai
+    label: To Koh Yao Yai
+    detail: Transition from inland nature into the island stay.
+  - heading: koh-yao-yai
+    stop: koh-yao-yai
+    label: Koh Yao Yai
+    detail: The premium island block and relaxation phase of the route.
+  - heading: from-koh-yao-yai-to-singapore
+    stop: singapore
+    activeLeg: koh-yao-yai-to-singapore
+    label: To Singapore
+    detail: Leaving Thailand and ending with one final city stop.
+  - heading: singapore
+    stop: singapore
+    label: Singapore
+    detail: A compact city finish before the return to Berlin.
+  - heading: from-singapore-to-berlin
+    stop: singapore
+    label: Flying home
+    detail: Final long-haul leg back to Berlin.
+  - heading: overall-lessons-learned
+    stop: singapore
+    label: Looking back on the route
+    detail: Reflecting on which parts of the multi-stop route were actually essential.
+  - heading: final-verdict
+    stop: singapore
+    label: Final verdict
+    detail: Did the variety justify the complexity?
+inlineMaps:
+  bangkok-base:
+    title: Bangkok base
+    description: Hotel base in Pratunam, plus the major temple, canal, and market stops from the Bangkok opening.
+    center: [13.7525, 100.5345]
+    zoom: 12
+    markers:
+      - label: Vince Hotel Pratunam
+        lat: 13.753
+        lng: 100.5315
+        kind: hotel
+      - label: Grand Palace
+        lat: 13.7501
+        lng: 100.4913
+        kind: highlight
+      - label: Wat Arun
+        lat: 13.7437
+        lng: 100.4889
+        kind: temple
+      - label: Jim Thompson House
+        lat: 13.7493
+        lng: 100.5289
+        kind: highlight
+      - label: Golden Mount
+        lat: 13.7538
+        lng: 100.5062
+        kind: viewpoint
+      - label: Chinatown
+        lat: 13.7396
+        lng: 100.5102
+        kind: market
+  chiang-rai-base:
+    title: Chiang Rai base
+    description: One-night base, temple circuit, and Saturday night market in Chiang Rai.
+    center: [19.919, 99.782]
+    zoom: 11
+    markers:
+      - label: Mora Boutique Hotel
+        lat: 19.9084
+        lng: 99.8326
+        kind: hotel
+      - label: White Temple
+        lat: 19.8243
+        lng: 99.7639
+        kind: temple
+      - label: Blue Temple
+        lat: 19.9175
+        lng: 99.8419
+        kind: temple
+      - label: Wat Huay Pla Kang
+        lat: 19.9312
+        lng: 99.8075
+        kind: temple
+      - label: Chiang Rai Night Bazaar
+        lat: 19.9076
+        lng: 99.8318
+        kind: market
+  chiang-mai-base:
+    title: Chiang Mai base
+    description: Old Town base with the Sunday market, temple circuit, Nimman, and Doi Suthep.
+    center: [18.795, 98.97]
+    zoom: 12
+    markers:
+      - label: T Heritage Hotel
+        lat: 18.7874
+        lng: 98.9907
+        kind: hotel
+      - label: Sunday Night Market
+        lat: 18.7871
+        lng: 98.9868
+        kind: market
+      - label: Wat Sri Suphan
+        lat: 18.7768
+        lng: 98.9884
+        kind: temple
+      - label: Wat Chedi Luang
+        lat: 18.7878
+        lng: 98.9878
+        kind: temple
+      - label: Nimman
+        lat: 18.7968
+        lng: 98.9689
+        kind: neighborhood
+      - label: Doi Suthep
+        lat: 18.8047
+        lng: 98.9215
+        kind: viewpoint
+  khao-sok-base:
+    title: Khao Sok base
+    description: Rougher nature base near the national park, with strong scenery but limited comfort.
+    center: [8.919, 98.526]
+    zoom: 11
+    markers:
+      - label: Phu Siab Mhok@KhaoSok
+        lat: 8.9193
+        lng: 98.5267
+        kind: hotel
+      - label: Khao Sok National Park area
+        lat: 8.9146
+        lng: 98.5255
+        kind: nature
+      - label: Nearby village restaurants
+        lat: 8.9141
+        lng: 98.5278
+        kind: food
+  khao-sok-day:
+    title: Khao Sok activities
+    description: Lake tour, jungle walk, cave stop, and the night safari area.
+    center: [8.93, 98.63]
+    zoom: 10
+    markers:
+      - label: Khao Sok village
+        lat: 8.9146
+        lng: 98.5255
+        kind: base
+      - label: Cheow Lan Lake area
+        lat: 8.9506
+        lng: 98.7104
+        kind: highlight
+      - label: Jungle trek area
+        lat: 8.938
+        lng: 98.676
+        kind: trail
+      - label: Cave stop
+        lat: 8.942
+        lng: 98.689
+        kind: cave
+      - label: Park entrance area
+        lat: 8.9174
+        lng: 98.5252
+        kind: park
+      - label: Night safari start area
+        lat: 8.9168
+        lng: 98.5239
+        kind: nature
+  koh-yao-yai-base:
+    title: Koh Yao Yai base
+    description: Premium island base and the payoff chapter of the route.
+    center: [8.0605, 98.5923]
+    zoom: 12
+    markers:
+      - label: Santhiya Koh Yao Yai
+        lat: 8.0605
+        lng: 98.5923
+        kind: hotel
+      - label: Village shop area
+        lat: 8.0489
+        lng: 98.5901
+        kind: town
+      - label: Koh Yao Yai east coast
+        lat: 8.0594
+        lng: 98.5923
+        kind: island
+  koh-yao-yai-days:
+    title: Koh Yao Yai island days
+    description: Scooter day, sandbank stop, and the private longtail tour through the Hong Islands area.
+    center: [8.065, 98.49]
+    zoom: 10
+    markers:
+      - label: Santhiya Koh Yao Yai
+        lat: 8.0605
+        lng: 98.5923
+        kind: hotel
+      - label: Laem Had sandbank
+        lat: 8.1543
+        lng: 98.4237
+        kind: beach
+      - label: Southern island beach
+        lat: 7.968
+        lng: 98.575
+        kind: beach
+      - label: Hong Island
+        lat: 8.0734
+        lng: 98.4304
+        kind: island
+      - label: Pak Bia
+        lat: 8.0965
+        lng: 98.4597
+        kind: island
+      - label: Hong Lagoon
+        lat: 8.0684
+        lng: 98.4328
+        kind: highlight
+  singapore-base:
+    title: Singapore base
+    description: One-night city base near the river and central districts.
+    center: [1.2868, 103.8472]
+    zoom: 13
+    markers:
+      - label: Hotel Bencoolen @ Hong Kong Street area
+        lat: 1.2868
+        lng: 103.8472
+        kind: hotel
+      - label: Clarke Quay area
+        lat: 1.2897
+        lng: 103.846
+        kind: city
+      - label: Marina Bay
+        lat: 1.2834
+        lng: 103.8607
+        kind: highlight

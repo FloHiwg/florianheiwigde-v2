@@ -276,6 +276,496 @@ button {
   }
 }
 
+.travel-progress-map {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  z-index: 45;
+  width: min(22rem, calc(100vw - 2rem));
+  padding: 1rem;
+  border: 1px solid rgba(24, 33, 38, 0.1);
+  border-radius: var(--demo-radius-panel);
+  background:
+    radial-gradient(circle at top right, rgba(217, 119, 87, 0.1), transparent 32%),
+    linear-gradient(180deg, rgba(255, 252, 247, 0.98), rgba(246, 239, 229, 0.96));
+  box-shadow: 0 20px 60px var(--demo-shadow-soft);
+  backdrop-filter: blur(12px);
+  transition: opacity 220ms ease, transform 220ms ease, visibility 220ms ease;
+}
+
+.travel-progress-map--minimized {
+  width: auto;
+  padding: 0.85rem;
+}
+
+.dark .travel-progress-map {
+  border-color: rgba(255, 255, 255, 0.08);
+  background:
+    radial-gradient(circle at top right, rgba(224, 136, 102, 0.14), transparent 34%),
+    linear-gradient(180deg, rgba(43, 39, 34, 0.98), rgba(30, 28, 26, 0.98));
+}
+
+.travel-progress-map--avoiding {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(0.75rem) scale(0.97);
+}
+
+.travel-progress-map__topbar,
+.travel-inline-map-card__topbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.9rem;
+}
+
+.travel-progress-map__heading,
+.travel-inline-map-card__heading {
+  display: grid;
+  gap: 0.22rem;
+  min-width: 0;
+}
+
+.travel-progress-map__eyebrow,
+.travel-inline-map-card__eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--demo-text-muted);
+}
+
+.travel-progress-map__title,
+.travel-inline-map-card__title {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.98rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--demo-text-strong);
+}
+
+.travel-progress-map__subtitle {
+  display: block;
+  font-family: var(--font-mono);
+  color: var(--demo-text-muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.03em;
+}
+
+.travel-progress-map__actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex-shrink: 0;
+}
+
+.travel-progress-map__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.72rem;
+  border-radius: var(--demo-radius-pill);
+  background: rgba(255, 255, 255, 0.74);
+  border: 1px solid rgba(24, 33, 38, 0.08);
+  font-family: var(--font-mono);
+  color: var(--demo-text-muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.travel-progress-map__status::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: var(--demo-accent-success);
+}
+
+.dark .travel-progress-map__status {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.travel-progress-map__toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  width: 2.2rem;
+  height: 2.2rem;
+  border: 1px solid rgba(24, 33, 38, 0.08);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.74);
+  color: var(--demo-text-muted);
+  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.travel-progress-map__toggle:hover {
+  background: rgba(217, 119, 87, 0.12);
+  border-color: rgba(217, 119, 87, 0.22);
+  color: #8c372a;
+}
+
+.travel-progress-map__toggle svg {
+  width: 1rem;
+  height: 1rem;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.travel-progress-map__toggle-label {
+  display: none;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.travel-progress-map--minimized .travel-progress-map__toggle svg {
+  transform: rotate(180deg);
+}
+
+.travel-progress-map--minimized .travel-progress-map__toggle {
+  width: auto;
+  padding: 0.55rem 0.85rem;
+}
+
+.travel-progress-map--minimized .travel-progress-map__toggle-label {
+  display: inline;
+}
+
+.dark .travel-progress-map__toggle {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: var(--demo-text-muted);
+}
+
+.dark .travel-progress-map__toggle:hover {
+  background: rgba(224, 136, 102, 0.18);
+  border-color: rgba(224, 136, 102, 0.24);
+  color: #f2a89a;
+}
+
+.travel-progress-map__meta,
+.travel-inline-map-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.travel-progress-map__meta {
+  margin-top: 0.85rem;
+}
+
+.travel-map-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 5.5rem;
+  padding: 0.32rem 0.65rem;
+  border-radius: var(--demo-radius-pill);
+  background: rgba(102, 102, 96, 0.12);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--demo-text-strong);
+}
+
+.travel-map-pill--warm {
+  background: rgba(217, 119, 87, 0.14);
+  color: #8c372a;
+}
+
+.dark .travel-map-pill {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--demo-text-strong);
+}
+
+.dark .travel-map-pill--warm {
+  background: rgba(224, 136, 102, 0.2);
+  color: #f2a89a;
+}
+
+.travel-progress-map__detail,
+.travel-inline-map-card__description,
+.travel-inline-map-card__caption {
+  color: var(--demo-text-muted);
+  font-size: 0.94rem;
+  line-height: 1.6;
+}
+
+.travel-progress-map__detail {
+  margin-top: 0.85rem;
+}
+
+.travel-progress-map--minimized .travel-progress-map__meta,
+.travel-progress-map--minimized .travel-progress-map__detail,
+.travel-progress-map--minimized .travel-progress-map__frame,
+.travel-progress-map--minimized .travel-progress-map__heading,
+.travel-progress-map--minimized .travel-progress-map__status {
+  display: none;
+}
+
+.travel-progress-map--minimized .travel-progress-map__topbar {
+  justify-content: flex-end;
+}
+
+.travel-progress-map__frame,
+.travel-inline-map-card__frame {
+  margin-top: 0.95rem;
+  padding: 0.55rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(24, 33, 38, 0.08);
+  background: rgba(255, 255, 255, 0.54);
+}
+
+.dark .travel-progress-map__frame,
+.dark .travel-inline-map-card__frame {
+  border-color: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.travel-progress-map__canvas,
+.travel-inline-map__canvas {
+  border-radius: 0.95rem;
+  overflow: hidden;
+  background: var(--demo-surface-warm);
+}
+
+.travel-progress-map__canvas {
+  height: 12rem;
+}
+
+.travel-inline-map-card {
+  margin: 2rem 0;
+  padding: 1.25rem;
+  border: 1px solid rgba(217, 119, 87, 0.18);
+  border-radius: var(--demo-radius-panel);
+  background:
+    radial-gradient(circle at top right, rgba(217, 119, 87, 0.12), transparent 34%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(230, 228, 221, 0.9));
+  box-shadow: var(--demo-shadow-soft);
+}
+
+.dark .travel-inline-map-card {
+  border-color: rgba(224, 136, 102, 0.22);
+  background:
+    radial-gradient(circle at top right, rgba(224, 136, 102, 0.14), transparent 36%),
+    linear-gradient(180deg, rgba(44, 44, 44, 0.92), rgba(37, 37, 37, 0.98));
+}
+
+.travel-inline-map-card--collapsible {
+  padding: 0;
+  overflow: hidden;
+}
+
+.travel-inline-map-card__summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 1.1rem 1.25rem;
+}
+
+.travel-inline-map-card__summary::-webkit-details-marker {
+  display: none;
+}
+
+.travel-inline-map-card__summary::marker {
+  display: none;
+}
+
+.travel-inline-map-card__summary .travel-inline-map-card__topbar {
+  position: relative;
+  padding-left: 2rem;
+}
+
+.travel-inline-map-card__summary .travel-inline-map-card__topbar::after {
+  content: "";
+  position: absolute;
+  top: 0.2rem;
+  left: 0;
+  display: inline-flex;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-right: 2px solid var(--demo-text-muted);
+  border-bottom: 2px solid var(--demo-text-muted);
+  transform: rotate(-45deg);
+  transition: transform 180ms ease, border-color 180ms ease;
+}
+
+.travel-inline-map-card[open] .travel-inline-map-card__summary {
+  border-bottom: 1px solid rgba(24, 33, 38, 0.08);
+}
+
+.dark .travel-inline-map-card[open] .travel-inline-map-card__summary {
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+.travel-inline-map-card[open] .travel-inline-map-card__summary .travel-inline-map-card__topbar::after {
+  transform: rotate(45deg);
+}
+
+.travel-inline-map-card--collapsible > figure {
+  padding: 1rem 1.25rem 1.25rem;
+}
+
+.travel-inline-map__canvas {
+  height: 17rem;
+}
+
+.travel-inline-map-card__caption {
+  margin-top: 0.85rem;
+}
+
+.travel-inline-map-missing {
+  margin: 1rem 0;
+  color: #a53d2d;
+  font-size: 0.92rem;
+}
+
+.travel-progress-map .leaflet-control-zoom,
+.travel-inline-map-card .leaflet-control-zoom {
+  border: 1px solid rgba(24, 33, 38, 0.08);
+  border-radius: 0.95rem;
+  overflow: hidden;
+  box-shadow: 0 12px 24px rgba(43, 31, 18, 0.08);
+}
+
+.travel-progress-map .leaflet-control-zoom a,
+.travel-inline-map-card .leaflet-control-zoom a {
+  width: 2rem;
+  height: 2rem;
+  line-height: 2rem;
+  border-bottom: 1px solid rgba(24, 33, 38, 0.08);
+  background: rgba(255, 252, 247, 0.94);
+  color: var(--demo-text-strong);
+}
+
+.travel-progress-map .leaflet-control-zoom a:last-child,
+.travel-inline-map-card .leaflet-control-zoom a:last-child {
+  border-bottom: none;
+}
+
+.travel-progress-map .leaflet-control-zoom a:hover,
+.travel-inline-map-card .leaflet-control-zoom a:hover {
+  background: rgba(251, 245, 238, 0.98);
+}
+
+.dark .travel-progress-map .leaflet-control-zoom,
+.dark .travel-inline-map-card .leaflet-control-zoom {
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.24);
+}
+
+.dark .travel-progress-map .leaflet-control-zoom a,
+.dark .travel-inline-map-card .leaflet-control-zoom a {
+  border-color: rgba(255, 255, 255, 0.08);
+  background: rgba(50, 45, 40, 0.94);
+  color: var(--demo-text-strong);
+}
+
+.travel-progress-map .leaflet-popup-content-wrapper,
+.travel-inline-map-card .leaflet-popup-content-wrapper {
+  border-radius: 1rem;
+  border: 1px solid rgba(24, 33, 38, 0.08);
+  background: rgba(255, 252, 247, 0.98);
+  color: var(--demo-text-strong);
+  box-shadow: 0 16px 32px rgba(43, 31, 18, 0.12);
+}
+
+.travel-progress-map .leaflet-popup-tip,
+.travel-inline-map-card .leaflet-popup-tip {
+  background: rgba(255, 252, 247, 0.98);
+}
+
+.dark .travel-progress-map .leaflet-popup-content-wrapper,
+.dark .travel-inline-map-card .leaflet-popup-content-wrapper {
+  border-color: rgba(255, 255, 255, 0.08);
+  background: rgba(50, 45, 40, 0.98);
+  color: var(--demo-text-strong);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.28);
+}
+
+.dark .travel-progress-map .leaflet-popup-tip,
+.dark .travel-inline-map-card .leaflet-popup-tip {
+  background: rgba(50, 45, 40, 0.98);
+}
+
+.travel-progress-map .leaflet-popup-content,
+.travel-inline-map-card .leaflet-popup-content {
+  margin: 0.7rem 0.8rem;
+  font-family: var(--font-sans);
+  font-size: 0.94rem;
+  line-height: 1.45;
+}
+
+.travel-progress-map .leaflet-container,
+.travel-inline-map-card .leaflet-container {
+  font-family: var(--font-sans);
+}
+
+@media (max-width: 900px) {
+  .travel-progress-map {
+    right: 1rem;
+    bottom: 1rem;
+    width: min(19rem, calc(100vw - 1.5rem));
+  }
+
+  .travel-progress-map__canvas {
+    height: 10rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .travel-progress-map__topbar,
+  .travel-inline-map-card__topbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  .travel-progress-map {
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    width: auto;
+    padding: 0.9rem;
+  }
+
+  .travel-progress-map__detail {
+    font-size: 0.88rem;
+  }
+
+  .travel-progress-map__canvas {
+    height: 9rem;
+  }
+
+  .travel-inline-map-card {
+    padding: 1rem;
+  }
+
+  .travel-inline-map-card__summary {
+    padding: 1rem;
+  }
+
+  .travel-inline-map-card--collapsible > figure {
+    padding: 0.95rem 1rem 1rem;
+  }
+
+  .travel-inline-map__canvas {
+    height: 14rem;
+  }
+}
+
 .menu-toggle {
   display: flex;
   align-items: center;

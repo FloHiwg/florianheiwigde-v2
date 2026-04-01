@@ -1,7 +1,13 @@
 {
   "permissions": {
     "allow": [
-      "Bash(hugo:*)"
+      "Bash(hugo:*)",
+      "Bash(ls /Users/florianheiwig/dev/1_private/projects/florianheiwigde-v2/*.toml /Users/florianheiwig/dev/1_private/projects/florianheiwigde-v2/*.yaml /Users/florianheiwig/dev/1_private/projects/florianheiwigde-v2/*.yml)",
+      "Bash(ls:*)",
+      "Bash(mkdir -p /Users/florianheiwig/dev/1_private/projects/florianheiwigde-v2/static/projects/experiments/legal-rag-chat-explorer)",
+      "Bash(cp /Users/florianheiwig/dev/1_private/projects/florianheiwigde-v2/legal-rag-chat-explorer.html /Users/florianheiwig/dev/1_private/projects/florianheiwigde-v2/static/projects/experiments/legal-rag-chat-explorer/index.html)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ]
   }
 }

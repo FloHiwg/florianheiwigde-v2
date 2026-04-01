@@ -2867,6 +2867,33 @@ main {
   box-shadow: none;
 }
 
+.next-step-box--done {
+  position: relative;
+  border-color: rgba(47, 124, 90, 0.3);
+  background: rgba(236, 247, 241, 0.98);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+}
+
+.next-step-box--done::after {
+  content: "✓";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: rgba(47, 124, 90, 0.96);
+}
+
+.dark .next-step-box--done {
+  border-color: rgba(88, 194, 125, 0.28);
+  background: rgba(88, 194, 125, 0.12);
+}
+
+.dark .next-step-box--done::after {
+  color: rgba(140, 231, 170, 0.96);
+}
+
 .blog-post-content .next-step-content {
   margin: 0;
   font-size: 0.98rem;

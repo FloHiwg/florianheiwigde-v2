@@ -1,0 +1,237 @@
+{{- $id := printf "legal-rag-judgment-bronze-silver-%d" .Ordinal -}}
+<style>
+  #{{ $id }} {
+    margin: 1.8rem 0 2.2rem;
+    --lrj-frame-border: rgba(24, 33, 38, 0.1);
+    --lrj-frame-accent: rgba(217, 119, 87, 0.12);
+    --lrj-frame-top: rgba(255, 252, 247, 0.98);
+    --lrj-frame-bottom: rgba(246, 239, 229, 0.96);
+    --lrj-frame-shadow: var(--demo-shadow-soft);
+    --lrj-text-strong: var(--demo-text-strong);
+    --lrj-text-muted: var(--demo-text-muted);
+    --lrj-card-bg: rgba(255, 255, 255, 0.72);
+    --lrj-card-border: rgba(24, 33, 38, 0.08);
+    --lrj-bronze-bg: rgba(255, 245, 240, 0.9);
+    --lrj-bronze-border: rgba(217, 119, 87, 0.24);
+    --lrj-silver-bg: rgba(236, 247, 241, 0.92);
+    --lrj-silver-border: rgba(47, 124, 90, 0.22);
+    --lrj-code-bg: rgba(255, 255, 255, 0.84);
+    --lrj-code-border: rgba(24, 33, 38, 0.08);
+    --lrj-divider: rgba(24, 33, 38, 0.08);
+    --lrj-panel-radius: var(--demo-radius-panel);
+  }
+
+  .dark #{{ $id }} {
+    --lrj-frame-border: rgba(255, 255, 255, 0.08);
+    --lrj-frame-accent: rgba(224, 136, 102, 0.14);
+    --lrj-frame-top: rgba(43, 39, 34, 0.98);
+    --lrj-frame-bottom: rgba(30, 28, 26, 0.98);
+    --lrj-frame-shadow: var(--demo-shadow-soft);
+    --lrj-text-strong: var(--demo-text-strong);
+    --lrj-text-muted: var(--demo-text-muted);
+    --lrj-card-bg: rgba(255, 255, 255, 0.04);
+    --lrj-card-border: rgba(255, 255, 255, 0.08);
+    --lrj-bronze-bg: rgba(224, 136, 102, 0.1);
+    --lrj-bronze-border: rgba(224, 136, 102, 0.22);
+    --lrj-silver-bg: rgba(88, 194, 125, 0.1);
+    --lrj-silver-border: rgba(88, 194, 125, 0.22);
+    --lrj-code-bg: rgba(255, 255, 255, 0.04);
+    --lrj-code-border: rgba(255, 255, 255, 0.08);
+    --lrj-divider: rgba(255, 255, 255, 0.08);
+  }
+
+  #{{ $id }} .lrj-shell {
+    padding: 1.2rem;
+    border-radius: var(--lrj-panel-radius);
+    border: 1px solid var(--lrj-frame-border);
+    background:
+      radial-gradient(circle at top right, var(--lrj-frame-accent), transparent 34%),
+      linear-gradient(180deg, var(--lrj-frame-top), var(--lrj-frame-bottom));
+    box-shadow: 0 20px 60px var(--lrj-frame-shadow);
+  }
+
+  #{{ $id }} .lrj-header,
+  #{{ $id }} .lrj-column,
+  #{{ $id }} .lrj-stage,
+  #{{ $id }} .lrj-meta {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  #{{ $id }} .lrj-eyebrow,
+  #{{ $id }} .lrj-kicker,
+  #{{ $id }} .lrj-stage-index {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--lrj-text-muted);
+  }
+
+  #{{ $id }} .lrj-title,
+  #{{ $id }} .lrj-column-title,
+  #{{ $id }} .lrj-stage-title {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--lrj-text-strong);
+  }
+
+  #{{ $id }} .lrj-copy,
+  #{{ $id }} .lrj-column-copy,
+  #{{ $id }} .lrj-stage-copy,
+  #{{ $id }} .lrj-meta-copy {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--lrj-text-muted);
+  }
+
+  #{{ $id }} .lrj-column {
+    padding: 1rem;
+    border-radius: 1rem;
+    border: 1px solid var(--lrj-card-border);
+    background: var(--lrj-card-bg);
+  }
+
+  #{{ $id }} .lrj-column--bronze {
+    background: var(--lrj-bronze-bg);
+    border-color: var(--lrj-bronze-border);
+  }
+
+  #{{ $id }} .lrj-column--silver {
+    background: var(--lrj-silver-bg);
+    border-color: var(--lrj-silver-border);
+  }
+
+  #{{ $id }} .lrj-stages {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin-top: 0.9rem;
+    margin-bottom: 0.9rem;
+  }
+
+  #{{ $id }} .lrj-stage {
+    padding: 0.95rem;
+    border-radius: 0.95rem;
+    border: 1px solid var(--lrj-card-border);
+    background: var(--lrj-card-bg);
+    position: relative;
+  }
+
+  #{{ $id }} .lrj-stage::after {
+    display: none;
+  }
+
+  #{{ $id }} .lrj-stage:last-child::after {
+    display: none;
+  }
+
+  #{{ $id }} .lrj-example {
+    margin: 0.55rem 0 0;
+    padding: 0.8rem 0.88rem;
+    border-radius: 0.9rem;
+    border: 1px solid var(--lrj-code-border);
+    background: var(--lrj-code-bg);
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    color: var(--lrj-text-strong);
+  }
+
+  #{{ $id }} .lrj-meta-list {
+    display: grid;
+    gap: 0.65rem;
+    margin-top: 0.35rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #{{ $id }} .lrj-meta {
+    padding: 0.75rem 0.8rem;
+    border-radius: 0.85rem;
+    border: 1px solid var(--lrj-card-border);
+    background: var(--lrj-card-bg);
+  }
+
+  @media (max-width: 960px) {
+    #{{ $id }} .lrj-stages {
+      grid-template-columns: 1fr;
+    }
+
+    #{{ $id }} .lrj-meta-list {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    #{{ $id }} .lrj-shell {
+      padding: 1rem;
+    }
+  }
+</style>
+
+<div id="{{ $id }}" class="lrj">
+  <div class="lrj-shell">
+    <div class="lrj-header">
+      <div class="lrj-eyebrow">Judgment ingestion</div>
+      <div class="lrj-title">From Bronze judgment intake to deterministic Silver chunks</div>
+      <p class="lrj-copy">This source path keeps the shared Bronze and Silver architecture, but swaps the expensive LLM normalization step for a judgment-specific deterministic transformation.</p>
+    </div>
+
+    <section class="lrj-column lrj-column--bronze">
+      <div class="lrj-kicker">Bronze input</div>
+      <div class="lrj-column-title"><code>raw_documents_bronze</code></div>
+      <p class="lrj-column-copy">Open Legal Data judgments land as one canonical Bronze document with cleaned markdown, source metadata, and a stable content hash.</p>
+      <pre class="lrj-example">source_type: open_legal_data
+document_type: judgment
+court: LG Bonn
+judgment_date: 2021-02-18
+raw_markdown: "Tenor ..."</pre>
+    </section>
+
+    <div class="lrj-stages">
+      <section class="lrj-stage">
+        <div class="lrj-stage-index">Step 1</div>
+        <div class="lrj-stage-title">Normalize headings</div>
+        <div class="lrj-stage-copy">Repair OCR spacing, strip numbering noise, and map variants like <code>T e n o r</code> or <code>Entscheidungsgründe</code> to known section labels.</div>
+      </section>
+
+      <section class="lrj-stage">
+        <div class="lrj-stage-index">Step 2</div>
+        <div class="lrj-stage-title">Detect legal sections</div>
+        <div class="lrj-stage-copy">Classify core judgment blocks such as header, operative part, facts, and reasoning, including fallback transition patterns when headings are missing.</div>
+      </section>
+
+      <section class="lrj-stage">
+        <div class="lrj-stage-index">Step 3</div>
+        <div class="lrj-stage-title">Chunk by paragraph logic</div>
+        <div class="lrj-stage-copy">Accumulate paragraph blocks into retrieval chunks without splitting legal reasoning mid-argument, then attach extracted citation metadata.</div>
+      </section>
+    </div>
+
+    <section class="lrj-column lrj-column--silver">
+      <div class="lrj-kicker">Silver output</div>
+      <div class="lrj-column-title">Retrieval-ready judgment chunks</div>
+      <p class="lrj-column-copy">The output keeps the shared Silver shape while enriching chunks with judgment-specific metadata that improves filtering and grounding.</p>
+      <pre class="lrj-example">chunk_id: old_98421_04
+section_type: entscheidungsgruende
+chunk_text: "Nach § 249 BGB ..."
+cited_laws: § 249 BGB, § 7 StVG
+jurisdiction: ordentliche_gerichtsbarkeit</pre>
+
+      <div class="lrj-meta-list">
+        <div class="lrj-meta">
+          <div class="lrj-kicker">Shared retrieval</div>
+          <div class="lrj-meta-copy">Vector, FTS, and hybrid retrieval still query the same Silver layer as the other source types.</div>
+        </div>
+        <div class="lrj-meta">
+          <div class="lrj-kicker">Source-specific gain</div>
+          <div class="lrj-meta-copy">Judgments add court reasoning, section labels, and statute citations without forcing a second retrieval system.</div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

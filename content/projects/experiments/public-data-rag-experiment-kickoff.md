@@ -1,7 +1,7 @@
 ---
 title: "Building a Public-Data RAG System for German Legal QA"
-date: 2026-03-09
-draft: false
+date: 2026-04-01
+draft: true
 description: "An engineering case study of my German legal RAG project: building the ingestion, retrieval, and evaluation pipeline end-to-end with public data, measuring the baseline honestly, and outlining the next iteration path."
 ---
 
@@ -132,7 +132,7 @@ The biggest tradeoff in evaluation has been realism versus cleanliness. I tested
 - Law-student exam questions provided clear target answers, but benchmark-only runs reached near-100% performance, a strong sign of leakage or memorization effects from public training data.
 - That result reinforced an important follow-up question: how much proprietary legal commentary can models already reproduce without explicit retrieval context? I will tackle this in a separate experiment.
 
-The most useful current option came from a Hugging Face dataset a former colleague pointed me to: [DomainLLM/gerlayqa-bgb-paraphrased](https://huggingface.co/datasets/DomainLLM/gerlayqa-bgb-paraphrased). It contains a large set of practical legal Q&A pairs across domains, often with law references, and is a better fit for this use case than academic exam-style prompts.
+The most useful current option came from a Hugging Face datasetit : [DomainLLM/gerlayqa-bgb-paraphrased](https://huggingface.co/datasets/DomainLLM/gerlayqa-bgb-paraphrased). It contains a large set of practical legal Q&A pairs across domains, often with law references, and is a better fit for this use case than academic exam-style prompts.
 
 The next evaluation improvement is not mainly about more runs. It is about better benchmark hygiene: reducing leakage risk further, segmenting results by question type, and making failure analysis easier to inspect than a single aggregate score.
 

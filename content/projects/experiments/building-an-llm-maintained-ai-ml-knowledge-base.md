@@ -1,7 +1,6 @@
 ---
 title: "Building an LLM-Maintained AI/ML Knowledge Base"
 date: 2026-04-08
-draft: true
 description: "A case study of an Obsidian-based AI/ML knowledge base where raw sources, generated summaries, and a concept wiki are maintained incrementally with Claude Code."
 ---
 
@@ -9,29 +8,25 @@ description: "A case study of an Obsidian-based AI/ML knowledge base where raw s
 
 This project is an experiment in building what Andrej Karpathy called an [“LLM Knowledge Base”](https://x.com/karpathy/status/2039805659525644595).
 
-The basic idea, in my own words, is this: instead of using an LLM only as a chatbot on top of documents, use it to maintain the knowledge base itself. Raw sources get collected locally as Markdown and images, the LLM turns them into summaries and concept pages, Obsidian becomes the frontend for browsing everything, and over time the same system can support questions, generated outputs, and maintenance workflows.
+The starting idea is simple:
+
+What happens if the LLM is not just the thing that answers questions, but the thing that maintains the knowledge base itself?
+
+That is the framing I took from Karpathy's post. Raw sources get collected locally as Markdown and images. The LLM turns them into summaries and concept pages. Obsidian becomes the frontend for browsing everything. Over time, the same setup can support Q&A, generated outputs, search, and maintenance workflows.
 
 That is the workflow I am trying to build here for AI and ML topics.
 
-What I like about this approach is that it stays local and inspectable. The whole thing is just Markdown, images, a repo, Obsidian, and an LLM workflow on top. The goal is not a polished product yet. The goal is to see whether this is a practical way to build and maintain a personal AI/ML wiki.
+What I like about this approach is that it stays local and inspectable. The whole thing is just Markdown, images, a repo, Obsidian, and an LLM workflow on top. The goal is not to build a polished product yet. The goal is to see whether this is a practical way to build and maintain a personal AI/ML wiki.
 
-## What I Built So Far
+## Project Snapshot
 
-So far, I have mainly built the first version of the workflow.
+At a high level, this experiment currently combines three pieces:
 
-First, I set up article ingest with MarkSnip. That gives me local Markdown copies of web articles together with their downloaded images, which is important because I want the source material to stay local and easy for the LLM to inspect.
+- an ingest flow that clips AI/ML web articles into local Markdown with images
+- a cleanup step that fixes broken local image references so the raw source remains readable in Obsidian
+- a Claude Code skill that processes new articles into summaries and folds them into a growing wiki
 
-Second, I wrote a small Python script to fix broken local image references after clipping. Without that step, the Markdown often does not render properly in Obsidian because the image paths are URL-encoded in a messy way. The script is small, but it removes enough friction that the source folder stays usable.
-
-Third, I created a Claude Code skill for processing new articles. The intended workflow is:
-
-- fix the local image references if needed
-- generate a summary of the article
-- incorporate the new material into the wiki by updating or expanding the relevant concept pages
-
-That is the part I care about most. I do not just want a folder of saved articles. I want a workflow where new sources gradually get compiled into a more structured wiki.
-
-The repository already has the beginnings of that structure. There is a raw article layer, a summary layer, and a concept wiki that groups ideas into areas like training, evaluation, inference, architecture, and applications.
+The current system is still small, but the core loop already exists. There is a raw article layer, a summary layer, and a concept wiki that groups material into areas like training, evaluation, inference, architecture, and applications.
 
 <div class="article-demo-cta">
   <div class="article-demo-cta__eyebrow">Source repo</div>
@@ -39,6 +34,44 @@ The repository already has the beginnings of that structure. There is a raw arti
   <p class="article-demo-cta__copy">Browse the raw articles, generated summaries, Claude skill, and concept wiki structure directly in the repository.</p>
   <a class="article-demo-cta__button" href="https://github.com/FloHiwg/ai-ml-knowledge-base">Open repository</a>
 </div>
+
+## Why This Experiment Exists
+
+I have been collecting technical material for a while, but the usual problem with that habit is obvious: collecting articles is easy, turning them into a usable system is not.
+
+A folder of saved links or clipped markdown can be useful for a while, but it does not automatically become a knowledge base. It only becomes one if the material is summarized, cross-linked, grouped into concepts, and kept in a form that is easy to revisit later.
+
+That is the part of Karpathy's framing I found most compelling. The LLM is not only there for question answering. It is there to do the maintenance work that usually never happens consistently: summarizing, linking, updating concept pages, and gradually turning a pile of source material into something more structured.
+
+So this project is less about building a chatbot over documents and more about building a workflow that compiles raw reading material into a wiki.
+
+## What I Built So Far
+
+So far, I have mainly built the first version of that workflow.
+
+### Ingest Layer
+
+I set up article ingest with MarkSnip. That gives me local Markdown copies of web articles together with their downloaded images.
+
+That matters because I want the source material to stay local, browsable in Obsidian, and easy for the LLM to inspect directly. I do not want the workflow to depend on a live website still being available later.
+
+### Cleanup Layer
+
+After clipping, local image references are often broken because the paths are URL-encoded in a messy way. To fix that, I wrote a small Python script that rewrites those references to the correct local files.
+
+This is a small part of the system, but it is an important one. If the raw source layer is annoying to use, the whole workflow breaks down very quickly. Fixing the article render quality keeps the input layer usable.
+
+### Processing Layer
+
+The main piece so far is a Claude Code skill for processing new articles.
+
+The intended flow is simple:
+
+- fix local image references if needed
+- generate a summary of the article
+- incorporate the article into the wiki by updating or expanding the relevant concept pages
+
+That is the part I care about most. I do not just want a folder of saved articles. I want a repeatable process where new sources gradually get compiled into a more structured wiki.
 
 ## Next Steps
 
@@ -56,6 +89,6 @@ If that works well, then my own queries and explorations start compounding insid
 
 ## Current State
 
-Right now this is still a small system, but the basic loop exists: ingest articles, clean them up, summarize them, and start compiling them into a wiki. That is enough to make the project interesting already.
+Right now this is still a small system, but the basic loop exists: ingest articles, clean them up, summarize them, and start compiling them into a wiki.
 
-The next question is whether I can make the wiki rich enough, and the workflows strong enough, that the LLM can use it not just as a pile of notes but as a real working knowledge base.
+That is enough to make the project interesting already. The next question is whether I can grow the wiki far enough, and tighten the workflows enough, that the LLM can use it not just as a pile of notes but as a real working knowledge base.

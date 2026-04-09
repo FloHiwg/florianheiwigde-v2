@@ -86,6 +86,8 @@ For storage, I used SQLite with `sqlite-vec`. I like this setup because it keeps
 
 I also built a small web UI on top instead of stopping at a terminal tool. The main reason is usability: search-as-you-type is much nicer in a browser than in a CLI for this kind of task. Each result also uses Obsidian deep links via the `obsidian://open` URI scheme, so clicking a match opens the exact file directly in the desktop vault without needing an extra plugin.
 
+{{< figure src="/images/knowledge-base-search-ui-results.webp" alt="Semantic search UI for the AI ML knowledge base showing DPO search results with Obsidian deep links" caption="Current search UI over the vault, combining semantic ranking with direct open-in-Obsidian links." class="blog-post-figure" >}}
+
 ## Next Steps
 
 The next steps are mostly about making the wiki easier for the LLM to use and easier to grow:

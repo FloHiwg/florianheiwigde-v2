@@ -20,11 +20,12 @@ What I like about this approach is that it stays local and inspectable. The whol
 
 ## Project Snapshot
 
-At a high level, this experiment currently combines three pieces:
+At a high level, this experiment currently combines four pieces:
 
 - an ingest flow that clips AI/ML web articles into local Markdown with images
 - a cleanup step that fixes broken local image references so the raw source remains readable in Obsidian
 - a Claude Code skill that processes new articles into summaries and folds them into a growing wiki
+- a lightweight semantic search engine over the vault with a small web UI and direct Obsidian deep links
 
 The current system is still small, but the core loop already exists. There is a raw article layer, a summary layer, and a concept wiki that groups material into areas like training, evaluation, inference, architecture, and applications.
 
@@ -73,13 +74,25 @@ The intended flow is simple:
 
 That is the part I care about most. I do not just want a folder of saved articles. I want a repeatable process where new sources gradually get compiled into a more structured wiki.
 
+### Search Layer
+
+I also extended the project with a rough search engine over the wiki.
+
+The goal here was not to build heavy retrieval infrastructure. I wanted something lightweight, local, and inspectable that makes the existing vault easier to navigate for both me and the LLM.
+
+For embeddings, I chose `all-MiniLM-L6-v2`. I preferred it over raw BERT because raw BERT `CLS` embeddings are not good semantic retrieval embeddings. `all-MiniLM-L6-v2` is a distilled BERT model fine-tuned with the Sentence-BERT setup specifically for semantic similarity, so it is much better suited to this job. It is also very cheap to run: about `22M` parameters, small enough to run comfortably on CPU, and roughly `80MB` in size. At the current scale of the vault, that speed and simplicity matter more than squeezing out a bit more quality from a larger model.
+
+For storage, I used SQLite with `sqlite-vec`. I like this setup because it keeps everything in one local file, with no separate service to run and no hidden vector store. The embeddings live alongside the metadata, and the schema includes file modification times so re-indexing can stay incremental. Only files that changed since the last run need to be embedded again.
+
+I also built a small web UI on top instead of stopping at a terminal tool. The main reason is usability: search-as-you-type is much nicer in a browser than in a CLI for this kind of task. Each result also uses Obsidian deep links via the `obsidian://open` URI scheme, so clicking a match opens the exact file directly in the desktop vault without needing an extra plugin.
+
 ## Next Steps
 
 The next steps are mostly about making the wiki easier for the LLM to use and easier to grow:
 
 - keep growing the wiki with more source articles
 - add an index for the summaries so the LLM can find cross-references more easily
-- build a rough search engine over the wiki
+- improve the search and retrieval layer as the vault grows
 - add linting and health checks
 - build a process that incorporates the output of my own queries back into the wiki
 
@@ -89,6 +102,6 @@ If that works well, then my own queries and explorations start compounding insid
 
 ## Current State
 
-Right now this is still a small system, but the basic loop exists: ingest articles, clean them up, summarize them, and start compiling them into a wiki.
+Right now this is still a small system, but the basic loop exists: ingest articles, clean them up, summarize them, compile them into a wiki, and search across the vault through a lightweight local interface.
 
 That is enough to make the project interesting already. The next question is whether I can grow the wiki far enough, and tighten the workflows enough, that the LLM can use it not just as a pile of notes but as a real working knowledge base.

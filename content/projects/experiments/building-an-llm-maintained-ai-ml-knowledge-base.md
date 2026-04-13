@@ -20,12 +20,13 @@ What I like about this approach is that it stays local and inspectable. The whol
 
 ## Project Snapshot
 
-At a high level, this experiment currently combines four pieces:
+At a high level, this experiment currently combines five pieces:
 
 - an ingest flow that clips AI/ML web articles into local Markdown with images
 - a cleanup step that fixes broken local image references so the raw source remains readable in Obsidian
 - a Claude Code skill that processes new articles into summaries and folds them into a growing wiki
 - a lightweight semantic search engine over the vault with a small web UI and direct Obsidian deep links
+- a compact QA index that lets the LLM navigate the processed sources without needing retrieval infrastructure first
 
 The current system is still small, but the core loop already exists. There is a raw article layer, a summary layer, and a concept wiki that groups material into areas like training, evaluation, inference, architecture, and applications.
 
@@ -71,6 +72,7 @@ The intended flow is simple:
 - fix local image references if needed
 - generate a summary of the article
 - incorporate the article into the wiki by updating or expanding the relevant concept pages
+- add or update the article entry in the QA index
 
 That is the part I care about most. I do not just want a folder of saved articles. I want a repeatable process where new sources gradually get compiled into a more structured wiki.
 
@@ -88,12 +90,21 @@ I also built a small web UI on top instead of stopping at a terminal tool. The m
 
 {{< figure src="/images/knowledge-base-search-ui-results.webp" alt="Semantic search UI for the AI ML knowledge base showing DPO search results with Obsidian deep links" caption="Current search UI over the vault, combining semantic ranking with direct open-in-Obsidian links." class="blog-post-figure" >}}
 
+### QA Index Layer
+
+After building the semantic search app, the next step was enabling context-only Q&A without having to rely on retrieval infrastructure for every question.
+
+The solution was a master index at `knowledge-base/qa-index.md` with one compact entry per processed source. Each entry contains a file pointer, the source type, topic tags, and a short description that names the specific technique, claim, or finding in the document. At the current scale, the whole file is compact enough to fit into a single LLM context window, which makes it useful as a first navigation layer before deeper reading.
+
+To keep the index up to date automatically, I added a new step to the `/process-article` skill. After updating the wiki, the skill now also creates or updates the QA index entry for that source. The rules are intentionally simple: one entry per source, under `100` words, and topic tags aligned with the wiki taxonomy. If the file does not exist yet, the workflow creates it. If the source was already processed earlier, it updates the existing entry instead of duplicating it.
+
+I then bootstrapped the index by reading all existing summaries and writing one entry for each source in a single pass. That gave the project a compact overview layer that sits between the raw wiki and the more flexible semantic search tool.
+
 ## Next Steps
 
 The next steps are mostly about making the wiki easier for the LLM to use and easier to grow:
 
 - keep growing the wiki with more source articles
-- add an index for the summaries so the LLM can find cross-references more easily
 - improve the search and retrieval layer as the vault grows
 - add linting and health checks
 - build a process that incorporates the output of my own queries back into the wiki
@@ -104,6 +115,6 @@ If that works well, then my own queries and explorations start compounding insid
 
 ## Current State
 
-Right now this is still a small system, but the basic loop exists: ingest articles, clean them up, summarize them, compile them into a wiki, and search across the vault through a lightweight local interface.
+Right now this is still a small system, but the basic loop exists: ingest articles, clean them up, summarize them, compile them into a wiki, maintain a compact QA index, and search across the vault through a lightweight local interface.
 
 That is enough to make the project interesting already. The next question is whether I can grow the wiki far enough, and tighten the workflows enough, that the LLM can use it not just as a pile of notes but as a real working knowledge base.

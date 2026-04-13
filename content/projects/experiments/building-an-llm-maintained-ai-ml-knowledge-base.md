@@ -20,13 +20,14 @@ What I like about this approach is that it stays local and inspectable. The whol
 
 ## Project Snapshot
 
-At a high level, this experiment currently combines five pieces:
+At a high level, this experiment currently combines six pieces:
 
 - an ingest flow that clips AI/ML web articles into local Markdown with images
 - a cleanup step that fixes broken local image references so the raw source remains readable in Obsidian
 - a Claude Code skill that processes new articles into summaries and folds them into a growing wiki
 - a lightweight semantic search engine over the vault with a small web UI and direct Obsidian deep links
 - a compact QA index that lets the LLM navigate the processed sources without needing retrieval infrastructure first
+- a discovery loop where Perplexity scans the wiki for issues, missing topics, and strong related sources to ingest next
 
 The current system is still small, but the core loop already exists. There is a raw article layer, a summary layer, and a concept wiki that groups material into areas like training, evaluation, inference, architecture, and applications.
 
@@ -100,6 +101,18 @@ To keep the index up to date automatically, I added a new step to the `/process-
 
 I then bootstrapped the index by reading all existing summaries and writing one entry for each source in a single pass. That gave the project a compact overview layer that sits between the raw wiki and the more flexible semantic search tool.
 
+### Discovery Layer
+
+Once the basic wiki existed, I started using Perplexity as a kind of external reviewer for the vault.
+
+I would give it access to the wiki and ask it to scan for obvious issues, missing topic areas, and places where the concept coverage was still thin or uneven.
+
+That turned out to be useful because the problem is not only processing articles I already saved. The problem is also deciding what the wiki should learn next.
+
+I also used it as a recommendation engine constrained by my taste. Instead of asking for generic AI reading lists, I pointed it at authors and sources I already found valuable and asked for adjacent authors, similar articles, and similarly high-quality material.
+
+That gave me a better way to extend the knowledge base. The wiki itself became part of the prompt for deciding what to ingest next, and Perplexity became a tool for spotting blind spots and surfacing good follow-on sources.
+
 ## Next Steps
 
 The next steps are mostly about making the wiki easier for the LLM to use and easier to grow:
@@ -115,6 +128,6 @@ If that works well, then my own queries and explorations start compounding insid
 
 ## Current State
 
-Right now this is still a small system, but the basic loop exists: ingest articles, clean them up, summarize them, compile them into a wiki, maintain a compact QA index, and search across the vault through a lightweight local interface.
+Right now this is still a small system, but the basic loop exists: ingest articles, clean them up, summarize them, compile them into a wiki, maintain a compact QA index, search across the vault through a lightweight local interface, and use the wiki itself to drive discovery of what to add next.
 
 That is enough to make the project interesting already. The next question is whether I can grow the wiki far enough, and tighten the workflows enough, that the LLM can use it not just as a pile of notes but as a real working knowledge base.

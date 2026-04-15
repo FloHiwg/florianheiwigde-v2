@@ -29,7 +29,7 @@ The workflow was simple, but it captured a lot of what I want this system to do 
 
 The first input was a podcast episode.
 
-For this step I used the Podfetcher API workflow I described in a different article together with my own OpenClaw agent. I gave the agent the episode, let it access the transcript, and asked it to extract the resources mentioned in the conversation.
+For this step I used the Podfetcher API workflow I described in [the Podfetcher article](/projects/experiments/from-transcripts-for-openclaw-to-an-own-api-product/) together with my own OpenClaw agent. I gave the agent the episode, let it access the transcript, and asked it to extract the resources mentioned in the conversation.
 
 That gave me an initial source list tied to one concrete topic instead of having to collect links manually while listening.
 

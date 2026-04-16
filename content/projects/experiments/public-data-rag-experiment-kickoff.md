@@ -197,96 +197,21 @@ It is easy to automate, easy to scale, and easy to adjust based on observed rele
 
 ## Current Results: Small But Real RAG Lift
 
-I now have a first stable comparison on a fixed 20-question GerLayQA sample. The benchmark-only setup reached a weighted total of `3.15`. The best RAG configuration was hybrid retrieval with `top_k=6` and `alpha=0.7`, which reached `3.275` for a `+0.125` improvement.
+I now have two stable 10-question comparisons on fixed GerLayQA slices: one for Werkvertrag and one for Schuldrecht B2B. The results diverge enough that averaging them into one number hides the useful story, so I now show them separately instead of squashing them together.
 
-That is not a dramatic jump, but it is enough to show that retrieval can help in this setup when it is tuned carefully. Just turning retrieval on is not sufficient.
+That is still not a dramatic jump overall, but it is enough to show that retrieval can help in this setup when it is tuned carefully. Just turning retrieval on is not sufficient, and the best settings are not equally portable across slices.
 
 Here is the current comparison:
 
-<div class="table-card table-card--results">
-  <div class="table-card__header">
-    <div class="table-card__eyebrow">GerLayQA sample · 20 questions</div>
-    <p class="table-card__summary">
-      Best run: <strong>Hybrid (`top_k=6`, `alpha=0.7`)</strong> with a <strong>+0.125</strong> weighted lift over the benchmark.
-    </p>
-  </div>
-  <div class="table-card__scroller">
-    <table>
-      <thead>
-        <tr>
-          <th>Setup</th>
-          <th>Weighted total</th>
-          <th>Delta vs benchmark</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="table-card__row table-card__row--baseline">
-          <td><span class="table-card__setup">Benchmark only</span></td>
-          <td><span class="table-card__metric">3.150</span></td>
-          <td><span class="delta-pill delta-pill--neutral">0.000</span></td>
-        </tr>
-        <tr class="table-card__row table-card__row--best">
-          <td>
-            <span class="table-card__setup">Hybrid</span>
-            <span class="table-card__setup-meta">k=6 · α=0.7</span>
-          </td>
-          <td><span class="table-card__metric">3.275</span></td>
-          <td><span class="delta-pill delta-pill--positive">+0.125</span></td>
-        </tr>
-        <tr class="table-card__row">
-          <td>
-            <span class="table-card__setup">Hybrid</span>
-            <span class="table-card__setup-meta">k=4 · α=0.7</span>
-          </td>
-          <td><span class="table-card__metric">3.225</span></td>
-          <td><span class="delta-pill delta-pill--positive">+0.075</span></td>
-        </tr>
-        <tr class="table-card__row">
-          <td>
-            <span class="table-card__setup">Hybrid</span>
-            <span class="table-card__setup-meta">k=8 · α=0.7</span>
-          </td>
-          <td><span class="table-card__metric">3.125</span></td>
-          <td><span class="delta-pill delta-pill--negative">-0.025</span></td>
-        </tr>
-        <tr class="table-card__row">
-          <td>
-            <span class="table-card__setup">Hybrid</span>
-            <span class="table-card__setup-meta">k=6 · α=0.5</span>
-          </td>
-          <td><span class="table-card__metric">3.212</span></td>
-          <td><span class="delta-pill delta-pill--positive">+0.062</span></td>
-        </tr>
-        <tr class="table-card__row">
-          <td>
-            <span class="table-card__setup">Hybrid</span>
-            <span class="table-card__setup-meta">k=6 · α=0.85</span>
-          </td>
-          <td><span class="table-card__metric">3.138</span></td>
-          <td><span class="delta-pill delta-pill--negative">-0.012</span></td>
-        </tr>
-        <tr class="table-card__row">
-          <td><span class="table-card__setup">Vector only</span></td>
-          <td><span class="table-card__metric">3.087</span></td>
-          <td><span class="delta-pill delta-pill--negative">-0.062</span></td>
-        </tr>
-        <tr class="table-card__row">
-          <td><span class="table-card__setup">BM25 only</span></td>
-          <td><span class="table-card__metric">3.075</span></td>
-          <td><span class="delta-pill delta-pill--negative">-0.075</span></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
+{{< legal-rag-results-tabs >}}
 
-Three things stand out from this result set:
+Three things stand out from this split view:
 
-1. **Hybrid retrieval is the only configuration that produced a reliable lift.** Both vector-only and BM25-only runs underperformed the benchmark. That suggests the useful signal is distributed across both lexical and semantic retrieval, and neither one is strong enough alone yet.
-2. **More context is not automatically better.** Increasing `top_k` from `6` to `8` pushed the score below the benchmark, which is a strong sign that additional retrieved context introduced noise rather than grounding.
-3. **The blend weight matters.** `alpha=0.7` outperformed both `alpha=0.5` and `alpha=0.85`, which suggests the current system benefits from a balanced hybrid merge rather than strongly favoring vector retrieval.
+1. **Werkvertrag is where hybrid retrieval currently helps most.** The best run there is hybrid at `k=6` and `alpha=0.7`, with a `+0.335` weighted lift over the benchmark.
+2. **Schuldrecht B2B is much flatter.** The best run there is hybrid at `k=8` and `alpha=0.7`, but the gain is only `+0.040`, and several nearby settings regress below the benchmark.
+3. **The tuning signal is not universal.** A setup that works clearly in one slice does not transfer cleanly to the other, which is a useful reminder that retrieval behavior is still domain-sensitive even within closely related legal subsets.
 
-Looking at the dimensions, the best hybrid setup improved correctness, completeness, structure, and grounding at the same time, but only by small margins. That is useful because it suggests the gain is not a scoring artifact concentrated in one dimension.
+Looking at the dimensions, Werkvertrag improves across correctness, completeness, normalized precision, structure, and grounding. Schuldrecht B2B is much more mixed: its best run improves correctness, completeness, and normalized precision slightly, keeps structure flat, and gives back a bit of grounding.
 
 The practical interpretation is straightforward: retrieval quality matters more than the mere presence of retrieval. The current evidence does not support a broad claim that "RAG beats the benchmark" in this domain by default. It does support the narrower claim that tuned hybrid retrieval can produce a measurable, if still modest, improvement.
 

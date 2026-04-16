@@ -1,0 +1,383 @@
+{{- $id := printf "legal-rag-results-tabs-%d" now.UnixNano -}}
+<style>
+  #{{ $id }} {
+    margin: 1.5rem 0 2rem;
+  }
+
+  #{{ $id }} .lrr-tablist {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  #{{ $id }} .lrr-tab {
+    appearance: none;
+    border: 1px solid rgba(217, 119, 87, 0.18);
+    background:
+      radial-gradient(circle at top right, rgba(217, 119, 87, 0.08), transparent 34%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(230, 228, 221, 0.9));
+    color: var(--foreground);
+    border-radius: 999px;
+    padding: 0.7rem 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    font: inherit;
+    cursor: pointer;
+    transition: transform 160ms ease, border-color 160ms ease, background 160ms ease, box-shadow 160ms ease;
+  }
+
+  #{{ $id }} .lrr-tab:hover {
+    transform: translateY(-1px);
+    border-color: rgba(217, 119, 87, 0.32);
+    box-shadow: var(--demo-shadow-soft);
+  }
+
+  #{{ $id }} .lrr-tab[aria-selected="true"] {
+    background: var(--demo-accent-warm);
+    border-color: rgba(217, 119, 87, 0.4);
+    color: var(--demo-text-strong);
+    box-shadow: var(--demo-shadow-soft);
+  }
+
+  #{{ $id }} .lrr-tab-label {
+    font-weight: 700;
+  }
+
+  #{{ $id }} .lrr-tab-meta {
+    font-size: 0.88rem;
+    color: var(--muted-foreground);
+  }
+
+  #{{ $id }} .lrr-tab[aria-selected="true"] .lrr-tab-meta {
+    color: rgba(72, 48, 39, 0.78);
+  }
+
+  #{{ $id }} .lrr-panel {
+    display: none;
+  }
+
+  #{{ $id }} .lrr-panel.is-active {
+    display: block;
+  }
+
+  #{{ $id }} .lrr-panel-note {
+    margin-top: 0.9rem;
+    border: 1px solid rgba(217, 119, 87, 0.2);
+    background:
+      radial-gradient(circle at top right, rgba(217, 119, 87, 0.12), transparent 34%),
+      linear-gradient(180deg, rgba(255, 252, 247, 0.98), rgba(246, 239, 229, 0.96));
+    border-radius: 1rem;
+    padding: 1rem 1.1rem;
+    color: var(--demo-text-muted);
+    line-height: 1.6;
+    box-shadow: var(--demo-shadow-soft);
+    position: relative;
+  }
+
+  #{{ $id }} .lrr-panel-note::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 0.32rem;
+    border-radius: 1rem 0 0 1rem;
+    background: var(--demo-accent-warm);
+  }
+
+  #{{ $id }} .lrr-panel-note strong {
+    color: var(--demo-text-strong);
+  }
+
+  .dark #{{ $id }} .lrr-tab {
+    border-color: rgba(224, 136, 102, 0.22);
+    background:
+      radial-gradient(circle at top right, rgba(224, 136, 102, 0.14), transparent 36%),
+      linear-gradient(180deg, rgba(44, 44, 44, 0.92), rgba(37, 37, 37, 0.98));
+    color: var(--foreground);
+  }
+
+  .dark #{{ $id }} .lrr-tab:hover {
+    border-color: rgba(224, 136, 102, 0.38);
+  }
+
+  .dark #{{ $id }} .lrr-tab[aria-selected="true"] {
+    background: #f09b73;
+    color: var(--demo-text-strong);
+  }
+
+  .dark #{{ $id }} .lrr-tab[aria-selected="true"] .lrr-tab-meta {
+    color: rgba(72, 48, 39, 0.72);
+  }
+
+  .dark #{{ $id }} .lrr-panel-note {
+    border-color: rgba(224, 136, 102, 0.22);
+    background:
+      radial-gradient(circle at top right, rgba(224, 136, 102, 0.14), transparent 36%),
+      linear-gradient(180deg, rgba(43, 39, 34, 0.98), rgba(30, 28, 26, 0.98));
+  }
+
+  #{{ $id }} .lrr-visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+</style>
+
+<div id="{{ $id }}" class="lrr">
+  <div class="lrr-tablist" role="tablist" aria-describedby="{{ $id }}-help">
+    <button
+      type="button"
+      class="lrr-tab"
+      role="tab"
+      id="{{ $id }}-tab-werkvertrag"
+      aria-controls="{{ $id }}-panel-werkvertrag"
+      aria-selected="true"
+      data-panel="werkvertrag">
+      <span class="lrr-tab-label">Werkvertrag</span>
+      <span class="lrr-tab-meta">10 questions</span>
+    </button>
+    <button
+      type="button"
+      class="lrr-tab"
+      role="tab"
+      id="{{ $id }}-tab-schuldrecht"
+      aria-controls="{{ $id }}-panel-schuldrecht"
+      aria-selected="false"
+      data-panel="schuldrecht">
+      <span class="lrr-tab-label">Schuldrecht B2B</span>
+      <span class="lrr-tab-meta">10 questions</span>
+    </button>
+  </div>
+  <div id="{{ $id }}-help" class="lrr-visually-hidden">Switch between the two experiment slices to compare results separately.</div>
+
+  <section
+    id="{{ $id }}-panel-werkvertrag"
+    class="lrr-panel is-active"
+    role="tabpanel"
+    aria-labelledby="{{ $id }}-tab-werkvertrag">
+    <div class="table-card table-card--results">
+      <div class="table-card__header">
+        <div class="table-card__eyebrow">Werkvertrag · 10 questions</div>
+        <p class="table-card__summary">
+          Best run: <strong>Hybrid (`top_k=6`, `alpha=0.7`)</strong> with a <strong>+0.335</strong> weighted lift over the benchmark.
+        </p>
+      </div>
+      <div class="table-card__scroller">
+        <table>
+          <thead>
+            <tr>
+              <th>Setup</th>
+              <th>Weighted total</th>
+              <th>Delta vs benchmark</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-card__row table-card__row--baseline">
+              <td><span class="table-card__setup">Benchmark only</span></td>
+              <td><span class="table-card__metric">2.770</span></td>
+              <td><span class="delta-pill delta-pill--neutral">0.000</span></td>
+            </tr>
+            <tr class="table-card__row table-card__row--best">
+              <td>
+                <span class="table-card__setup">Hybrid</span>
+                <span class="table-card__setup-meta">k=6 · α=0.7</span>
+              </td>
+              <td><span class="table-card__metric">3.105</span></td>
+              <td><span class="delta-pill delta-pill--positive">+0.335</span></td>
+            </tr>
+            <tr class="table-card__row">
+              <td>
+                <span class="table-card__setup">Hybrid</span>
+                <span class="table-card__setup-meta">k=4 · α=0.7</span>
+              </td>
+              <td><span class="table-card__metric">2.895</span></td>
+              <td><span class="delta-pill delta-pill--positive">+0.125</span></td>
+            </tr>
+            <tr class="table-card__row">
+              <td>
+                <span class="table-card__setup">Hybrid</span>
+                <span class="table-card__setup-meta">k=8 · α=0.7</span>
+              </td>
+              <td><span class="table-card__metric">3.055</span></td>
+              <td><span class="delta-pill delta-pill--positive">+0.285</span></td>
+            </tr>
+            <tr class="table-card__row">
+              <td>
+                <span class="table-card__setup">Hybrid</span>
+                <span class="table-card__setup-meta">k=6 · α=0.5</span>
+              </td>
+              <td><span class="table-card__metric">2.930</span></td>
+              <td><span class="delta-pill delta-pill--positive">+0.160</span></td>
+            </tr>
+            <tr class="table-card__row">
+              <td>
+                <span class="table-card__setup">Hybrid</span>
+                <span class="table-card__setup-meta">k=6 · α=0.85</span>
+              </td>
+              <td><span class="table-card__metric">3.090</span></td>
+              <td><span class="delta-pill delta-pill--positive">+0.320</span></td>
+            </tr>
+            <tr class="table-card__row">
+              <td><span class="table-card__setup">Vector only</span></td>
+              <td><span class="table-card__metric">2.850</span></td>
+              <td><span class="delta-pill delta-pill--positive">+0.080</span></td>
+            </tr>
+            <tr class="table-card__row">
+              <td><span class="table-card__setup">BM25 only</span></td>
+              <td><span class="table-card__metric">2.770</span></td>
+              <td><span class="delta-pill delta-pill--neutral">0.000</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="lrr-panel-note">
+      <strong>What stands out:</strong> this slice responds clearly to retrieval tuning. The best hybrid run improves correctness, completeness, normalized precision, structure, and grounding at the same time, with the strongest gain coming from correctness.
+    </div>
+  </section>
+
+  <section
+    id="{{ $id }}-panel-schuldrecht"
+    class="lrr-panel"
+    role="tabpanel"
+    aria-labelledby="{{ $id }}-tab-schuldrecht"
+    hidden>
+    <div class="table-card table-card--results">
+      <div class="table-card__header">
+        <div class="table-card__eyebrow">Schuldrecht B2B · 10 questions</div>
+        <p class="table-card__summary">
+          Best run: <strong>Hybrid (`top_k=8`, `alpha=0.7`)</strong> with a <strong>+0.040</strong> weighted lift over the benchmark.
+        </p>
+      </div>
+      <div class="table-card__scroller">
+        <table>
+          <thead>
+            <tr>
+              <th>Setup</th>
+              <th>Weighted total</th>
+              <th>Delta vs benchmark</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-card__row table-card__row--baseline">
+              <td><span class="table-card__setup">Benchmark only</span></td>
+              <td><span class="table-card__metric">2.855</span></td>
+              <td><span class="delta-pill delta-pill--neutral">0.000</span></td>
+            </tr>
+            <tr class="table-card__row">
+              <td>
+                <span class="table-card__setup">Hybrid</span>
+                <span class="table-card__setup-meta">k=6 · α=0.7</span>
+              </td>
+              <td><span class="table-card__metric">2.855</span></td>
+              <td><span class="delta-pill delta-pill--neutral">0.000</span></td>
+            </tr>
+            <tr class="table-card__row">
+              <td>
+                <span class="table-card__setup">Hybrid</span>
+                <span class="table-card__setup-meta">k=4 · α=0.7</span>
+              </td>
+              <td><span class="table-card__metric">2.680</span></td>
+              <td><span class="delta-pill delta-pill--negative">-0.175</span></td>
+            </tr>
+            <tr class="table-card__row table-card__row--best">
+              <td>
+                <span class="table-card__setup">Hybrid</span>
+                <span class="table-card__setup-meta">k=8 · α=0.7</span>
+              </td>
+              <td><span class="table-card__metric">2.895</span></td>
+              <td><span class="delta-pill delta-pill--positive">+0.040</span></td>
+            </tr>
+            <tr class="table-card__row">
+              <td>
+                <span class="table-card__setup">Hybrid</span>
+                <span class="table-card__setup-meta">k=6 · α=0.5</span>
+              </td>
+              <td><span class="table-card__metric">2.805</span></td>
+              <td><span class="delta-pill delta-pill--negative">-0.050</span></td>
+            </tr>
+            <tr class="table-card__row">
+              <td>
+                <span class="table-card__setup">Hybrid</span>
+                <span class="table-card__setup-meta">k=6 · α=0.85</span>
+              </td>
+              <td><span class="table-card__metric">2.750</span></td>
+              <td><span class="delta-pill delta-pill--negative">-0.105</span></td>
+            </tr>
+            <tr class="table-card__row">
+              <td><span class="table-card__setup">Vector only</span></td>
+              <td><span class="table-card__metric">2.855</span></td>
+              <td><span class="delta-pill delta-pill--neutral">0.000</span></td>
+            </tr>
+            <tr class="table-card__row">
+              <td><span class="table-card__setup">BM25 only</span></td>
+              <td><span class="table-card__metric">2.830</span></td>
+              <td><span class="delta-pill delta-pill--negative">-0.025</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="lrr-panel-note">
+      <strong>What stands out:</strong> this slice is much flatter. Only the wider `top_k=8` hybrid run produces a small lift, while the best run improves correctness, completeness, and normalized precision slightly, keeps structure flat, and gives back a bit of grounding.
+    </div>
+  </section>
+</div>
+
+<script>
+  (function () {
+    var root = document.getElementById("{{ $id }}");
+    if (!root || root.dataset.initialized === "true") {
+      return;
+    }
+    root.dataset.initialized = "true";
+
+    var tabs = Array.prototype.slice.call(root.querySelectorAll(".lrr-tab"));
+    var panels = Array.prototype.slice.call(root.querySelectorAll(".lrr-panel"));
+
+    function activate(panelKey) {
+      tabs.forEach(function (tab) {
+        var isActive = tab.getAttribute("data-panel") === panelKey;
+        tab.setAttribute("aria-selected", isActive ? "true" : "false");
+        tab.setAttribute("tabindex", isActive ? "0" : "-1");
+      });
+
+      panels.forEach(function (panel) {
+        var isActive = panel.id === "{{ $id }}-panel-" + panelKey;
+        panel.classList.toggle("is-active", isActive);
+        if (isActive) {
+          panel.removeAttribute("hidden");
+        } else {
+          panel.setAttribute("hidden", "");
+        }
+      });
+    }
+
+    tabs.forEach(function (tab) {
+      tab.addEventListener("click", function () {
+        activate(tab.getAttribute("data-panel"));
+      });
+
+      tab.addEventListener("keydown", function (event) {
+        if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") {
+          return;
+        }
+
+        event.preventDefault();
+        var currentIndex = tabs.indexOf(tab);
+        var nextIndex = event.key === "ArrowRight"
+          ? (currentIndex + 1) % tabs.length
+          : (currentIndex - 1 + tabs.length) % tabs.length;
+        tabs[nextIndex].focus();
+        activate(tabs[nextIndex].getAttribute("data-panel"));
+      });
+    });
+  })();
+</script>

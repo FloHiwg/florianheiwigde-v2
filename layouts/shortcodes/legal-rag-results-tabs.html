@@ -154,8 +154,19 @@
       <span class="lrr-tab-label">Schuldrecht B2B</span>
       <span class="lrr-tab-meta">10 questions</span>
     </button>
+    <button
+      type="button"
+      class="lrr-tab"
+      role="tab"
+      id="{{ $id }}-tab-gbr"
+      aria-controls="{{ $id }}-panel-gbr"
+      aria-selected="false"
+      data-panel="gbr">
+      <span class="lrr-tab-label">GBR</span>
+      <span class="lrr-tab-meta">10 questions</span>
+    </button>
   </div>
-  <div id="{{ $id }}-help" class="lrr-visually-hidden">Switch between the two experiment slices to compare results separately.</div>
+  <div id="{{ $id }}-help" class="lrr-visually-hidden">Switch between the experiment slices to compare results separately.</div>
 
   <section
     id="{{ $id }}-panel-werkvertrag"
@@ -327,6 +338,93 @@
     </div>
     <div class="lrr-panel-note">
       <strong>What stands out:</strong> this slice is much flatter. Only the wider `top_k=8` hybrid run produces a small lift, while the best run improves correctness, completeness, and normalized precision slightly, keeps structure flat, and gives back a bit of grounding.
+    </div>
+  </section>
+
+  <section
+    id="{{ $id }}-panel-gbr"
+    class="lrr-panel"
+    role="tabpanel"
+    aria-labelledby="{{ $id }}-tab-gbr"
+    hidden>
+    <div class="table-card table-card--results">
+      <div class="table-card__header">
+        <div class="table-card__eyebrow">GBR · 10 questions</div>
+        <p class="table-card__summary">
+          Best run: <strong>Vector only</strong> with a <strong>+0.120</strong> weighted lift over the benchmark.
+        </p>
+      </div>
+      <div class="table-card__scroller">
+        <table>
+          <thead>
+            <tr>
+              <th>Setup</th>
+              <th>Weighted total</th>
+              <th>Delta vs benchmark</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-card__row table-card__row--baseline">
+              <td><span class="table-card__setup">Benchmark only</span></td>
+              <td><span class="table-card__metric">2.900</span></td>
+              <td><span class="delta-pill delta-pill--neutral">0.000</span></td>
+            </tr>
+            <tr class="table-card__row">
+              <td>
+                <span class="table-card__setup">Hybrid</span>
+                <span class="table-card__setup-meta">k=6 · α=0.7</span>
+              </td>
+              <td><span class="table-card__metric">2.915</span></td>
+              <td><span class="delta-pill delta-pill--positive">+0.015</span></td>
+            </tr>
+            <tr class="table-card__row">
+              <td>
+                <span class="table-card__setup">Hybrid</span>
+                <span class="table-card__setup-meta">k=4 · α=0.7</span>
+              </td>
+              <td><span class="table-card__metric">2.910</span></td>
+              <td><span class="delta-pill delta-pill--positive">+0.010</span></td>
+            </tr>
+            <tr class="table-card__row">
+              <td>
+                <span class="table-card__setup">Hybrid</span>
+                <span class="table-card__setup-meta">k=8 · α=0.7</span>
+              </td>
+              <td><span class="table-card__metric">2.940</span></td>
+              <td><span class="delta-pill delta-pill--positive">+0.040</span></td>
+            </tr>
+            <tr class="table-card__row">
+              <td>
+                <span class="table-card__setup">Hybrid</span>
+                <span class="table-card__setup-meta">k=6 · α=0.5</span>
+              </td>
+              <td><span class="table-card__metric">2.700</span></td>
+              <td><span class="delta-pill delta-pill--negative">-0.200</span></td>
+            </tr>
+            <tr class="table-card__row">
+              <td>
+                <span class="table-card__setup">Hybrid</span>
+                <span class="table-card__setup-meta">k=6 · α=0.85</span>
+              </td>
+              <td><span class="table-card__metric">2.990</span></td>
+              <td><span class="delta-pill delta-pill--positive">+0.090</span></td>
+            </tr>
+            <tr class="table-card__row table-card__row--best">
+              <td><span class="table-card__setup">Vector only</span></td>
+              <td><span class="table-card__metric">3.020</span></td>
+              <td><span class="delta-pill delta-pill--positive">+0.120</span></td>
+            </tr>
+            <tr class="table-card__row">
+              <td><span class="table-card__setup">BM25 only</span></td>
+              <td><span class="table-card__metric">2.760</span></td>
+              <td><span class="delta-pill delta-pill--negative">-0.140</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="lrr-panel-note">
+      <strong>What stands out:</strong> this slice behaves differently again. The best run is `vector only`, which improves correctness, completeness, and normalized precision, keeps structure flat, and gives back a little grounding. Hybrid helps only in a narrow range here, while BM25 and low-alpha hybrid both regress clearly.
     </div>
   </section>
 </div>

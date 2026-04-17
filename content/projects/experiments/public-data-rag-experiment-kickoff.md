@@ -1,17 +1,21 @@
 ---
-title: "Building a Public-Data RAG System for German Legal QA"
-date: 2026-04-01
+title: "Building a Public-Data RAG System End-to-End"
+date: 2026-04-17
 draft: true
-description: "An engineering case study of my German legal RAG project: building the ingestion, retrieval, and evaluation pipeline end-to-end with public data, measuring the baseline honestly, and outlining the next iteration path."
+description: "An engineering case study of an end-to-end public-data RAG system: using legal research as the example workflow to showcase ingestion, retrieval, evaluation, and the next iteration path."
 ---
 
 ## Introduction
 
 This project started with a practical question:
 
-How far can I get in German legal QA with only publicly available data?
+How far can I get in a legal research workflow with only publicly available data?
 
-I built this as an end-to-end RAG system, not just a retrieval prototype. The scope includes source discovery, ingestion, normalization, chunking, retrieval, and evaluation. My goal was to understand where quality actually breaks in a hard domain with fragmented public data, not to produce an inflated demo.
+I built this as an end-to-end RAG system, not just a retrieval prototype. The scope includes source discovery, ingestion, normalization, chunking, retrieval, and evaluation. The legal sphere is an example domain here, not the core point of the article. What I want to showcase is the full RAG workflow, the techniques involved, and where quality actually breaks once you move beyond a narrow demo.
+
+I picked legal as the example because I have worked in this sphere for the last five years. That gave me a rough understanding of the data available, the research needs of legal professionals, and the constraints that make this kind of public-data setup interesting to test.
+
+The concrete first legal area is still evolving. I am currently adapting the experiments away from a tenant-law-style example and toward professional legal research questions, and I will add the exact first domain later once that part of the setup is finalized.
 
 Another goal was to design a workflow that is measurable and easy to iterate on. I used a medallion-style structure to separate raw ingestion, structured processing, retrieval, and evaluation so that each layer can be improved independently.
 
@@ -31,23 +35,23 @@ The current state is promising but still early. The full loop is running end to 
 <div class="article-demo-cta">
   <div class="article-demo-cta__eyebrow">Interactive demo</div>
   <h3 class="article-demo-cta__title">Open the Legal RAG chat explorer</h3>
-  <p class="article-demo-cta__copy">Inspect one saved legal question across benchmark, vector, BM25, and hybrid retrieval and compare the answer with the quoted evidence trail.</p>
+  <p class="article-demo-cta__copy">Inspect one saved legal research question across benchmark, vector, BM25, and hybrid retrieval and compare the answer with the quoted evidence trail.</p>
   <a class="article-demo-cta__button" href="/projects/experiments/legal-rag-chat-explorer/">Open retrieval explorer</a>
 </div>
 
 ## Why This Experiment Exists
 
-The starting hypothesis was simple: retrieval should improve answer quality for legal questions.
+The starting hypothesis was simple: retrieval should improve answer quality for a domain with fragmented public knowledge.
 
-The reality is less simple. In German legal domains, high-value data is unevenly accessible:
+I used legal research for professionals as the concrete end-to-end use case because it is a domain I know reasonably well and because it makes the retrieval problem very visible. The exact first legal area will be added later, but the workflow focus is already clear: support research-oriented questions where source quality, grounding, and traceability matter. High-value public data is unevenly accessible:
 
 - A lot of detailed commentary is paywalled.
 - Public datasets are fragmented.
 - Judgments are hard to get and either paywalled or harshly protected.
 
-That means model choice is only one part of the problem. The bigger constraint is data logistics: sourcing, structuring, retrieval quality, and evaluation discipline.
+That makes it a useful case study for RAG techniques. Model choice is only one part of the problem. The bigger constraint is data logistics: sourcing, structuring, retrieval quality, and evaluation discipline.
 
-So I approached the problem from both sides: build the pipeline end-to-end while exploring different evaluation designs and document sourcing strategies.
+So I approached the problem from both sides: build the pipeline end-to-end while exploring different retrieval and evaluation techniques against one realistic example use case.
 
 ## What I Built End-to-End
 
@@ -105,7 +109,7 @@ The next Silver iteration is to tighten chunk and metadata quality. That include
 
 For retrieval, I wanted a baseline that is broad enough to compare approaches without pretending that one method already won. That is why I implemented vector, lexical (BM25), and hybrid retrieval paths instead of optimizing one retrieval mode too early.
 
-This matters in legal QA because lexical overlap still carries real signal for statute names, paragraph references, and recurring legal terminology, while semantic retrieval helps when the query and source use different wording. Hybrid retrieval is the practical compromise, not a theoretical preference.
+This matters in legal research because lexical overlap still carries real signal for statute names, paragraph references, and recurring legal terminology, while semantic retrieval helps when the query and source use different wording. Hybrid retrieval is the practical compromise, not a theoretical preference.
 
 The current tradeoff is simplicity versus ranking quality. The system can already compare modes and parameters, but ranking is still intentionally basic. I have not yet added the deeper reranking and filtering logic that would be needed to claim retrieval is fully tuned.
 
@@ -158,7 +162,7 @@ At the retrieval level, I compare vector, BM25, and hybrid retrieval rather than
 
 The core questions are:
 
-- which retrieval mode returns the most useful context for legal questions
+- which retrieval mode returns the most useful context for legal research questions
 - whether hybrid retrieval improves grounding without adding too much noise
 - how sensitive the system is to `top-k`, candidate limits, and hybrid weighting
 - whether metadata such as paragraph mentions can be used to filter or rerank results more effectively
@@ -197,7 +201,7 @@ It is easy to automate, easy to scale, and easy to adjust based on observed rele
 
 ## Current Results: Small But Real RAG Lift
 
-I now have two stable 10-question comparisons on fixed GerLayQA slices: one for Werkvertrag and one for Schuldrecht B2B. The results diverge enough that averaging them into one number hides the useful story, so I now show them separately instead of squashing them together.
+I now have three stable 10-question comparisons on fixed GerLayQA slices: Werkvertrag, Schuldrecht B2B, and GBR. The results diverge enough that averaging them into one number hides the useful story, so I now show them separately instead of squashing them together.
 
 That is still not a dramatic jump overall, but it is enough to show that retrieval can help in this setup when it is tuned carefully. Just turning retrieval on is not sufficient, and the best settings are not equally portable across slices.
 
@@ -209,9 +213,9 @@ Three things stand out from this split view:
 
 1. **Werkvertrag is where hybrid retrieval currently helps most.** The best run there is hybrid at `k=6` and `alpha=0.7`, with a `+0.335` weighted lift over the benchmark.
 2. **Schuldrecht B2B is much flatter.** The best run there is hybrid at `k=8` and `alpha=0.7`, but the gain is only `+0.040`, and several nearby settings regress below the benchmark.
-3. **The tuning signal is not universal.** A setup that works clearly in one slice does not transfer cleanly to the other, which is a useful reminder that retrieval behavior is still domain-sensitive even within closely related legal subsets.
+3. **GBR shifts the picture again.** Its best run is `vector only` at `+0.120`, which suggests the best retrieval mode is still slice-specific rather than stable across the whole benchmark.
 
-Looking at the dimensions, Werkvertrag improves across correctness, completeness, normalized precision, structure, and grounding. Schuldrecht B2B is much more mixed: its best run improves correctness, completeness, and normalized precision slightly, keeps structure flat, and gives back a bit of grounding.
+Looking at the dimensions, Werkvertrag improves across correctness, completeness, normalized precision, structure, and grounding. Schuldrecht B2B is much more mixed: its best run improves correctness, completeness, and normalized precision slightly, keeps structure flat, and gives back a bit of grounding. GBR sits in between: the best vector run improves correctness, completeness, and normalized precision, keeps structure flat, and sacrifices a bit of grounding.
 
 The practical interpretation is straightforward: retrieval quality matters more than the mere presence of retrieval. The current evidence does not support a broad claim that "RAG beats the benchmark" in this domain by default. It does support the narrower claim that tuned hybrid retrieval can produce a measurable, if still modest, improvement.
 
@@ -228,13 +232,13 @@ In other words: I now have a real system, not disconnected notebooks and one-off
 
 ## What Are The Next Steps
 
-This kickoff established the baseline. The next work is straightforward and can now be tracked as a concrete todo list.
+This kickoff established the baseline. The next work is straightforward and can now be tracked as a concrete todo list for the next iteration of the end-to-end RAG setup.
 
 <div class="next-steps-checklist">
   <div class="next-step-card">
     <span class="next-step-box" aria-hidden="true"></span>
     <div class="next-step-content">
-      <strong>Integrate judgments</strong> as a first-class source type and measure their impact on grounding and harder legal questions.
+      <strong>Integrate judgments</strong> as a first-class source type and measure their impact on grounding and harder legal research questions.
     </div>
   </div>
   <div class="next-step-card">
@@ -255,12 +259,18 @@ This kickoff established the baseline. The next work is straightforward and can 
       <strong>Tune retrieval quality</strong>: focus on top-k and alpha settings, candidate generation and reranking, deduplication and relevance filtering, and chunk / metadata quality.
     </div>
   </div>
+  <div class="next-step-card">
+    <span class="next-step-box" aria-hidden="true"></span>
+    <div class="next-step-content">
+      <strong>Explore reranking more explicitly</strong>: compare lightweight and stronger reranking approaches after initial retrieval to see whether candidate ordering, grounding, and final answer quality improve measurably.
+    </div>
+  </div>
 </div>
 
 ## Final Thought
 
 The core takeaway from this kickoff is straightforward:
 
-I did not prove that public-data RAG out of the box beats the benchmark in this domain right away. I did prove that I can run a full, repeatable RAG cycle and now improve it systematically.
+I did not prove that public-data RAG out of the box beats the benchmark right away. I did prove that I can run a full, repeatable RAG cycle on a realistic end-to-end use case and now improve it systematically.
 
 That is the right starting point for the next experiments.

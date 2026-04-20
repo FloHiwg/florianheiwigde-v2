@@ -164,7 +164,7 @@
         <p class="lrs-card-copy">Each row arrives as one canonical raw document with source information, cleaned markdown, and a stable content hash.</p>
         <pre class="lrs-example">document_id: bronze_1842
 source_type: search_intent
-raw_markdown: "Die ordentliche Kündigung ..."
+raw_markdown: "Der Unternehmer muss erkennbare Bedenken ..."
 content_hash: 8b9f...e21</pre>
       </section>
 
@@ -182,8 +182,8 @@ parser noise reduced</pre>
           <div class="lrs-stage-index">Step 2</div>
           <div class="lrs-stage-title">Shape metadata</div>
           <div class="lrs-stage-copy">Attach fields that make retrieval and debugging more precise, such as keywords, legal references, and quality signals.</div>
-          <pre class="lrs-example">keywords: kündigung, miete
-paragraph_refs: § 573 BGB
+          <pre class="lrs-example">keywords: werkvertrag, hinweispflicht
+paragraph_refs: § 633 BGB, § 241 Abs. 2 BGB
 quality_flags: weak_heading_map</pre>
         </section>
 
@@ -191,8 +191,8 @@ quality_flags: weak_heading_map</pre>
           <div class="lrs-stage-index">Step 3</div>
           <div class="lrs-stage-title">Generate chunks</div>
           <div class="lrs-stage-copy">Split the normalized document into coherent retrieval units so ranking works on meaningful legal passages instead of raw page-sized text.</div>
-          <pre class="lrs-example">chunk_01: "Die ordentliche Kündigung ..."
-chunk_02: "Ein berechtigtes Interesse ..."
+          <pre class="lrs-example">chunk_01: "Der Unternehmer muss erkennbare Bedenken ..."
+chunk_02: "Wird die Entwässerung nicht mitgedacht ..."
 chunk_count: 6</pre>
         </section>
       </div>
@@ -203,9 +203,9 @@ chunk_count: 6</pre>
         <p class="lrs-card-copy">The result is a chunk-level asset with structured metadata, better observability, and the shape needed for downstream ranking and filtering.</p>
         <pre class="lrs-example">document_id: bronze_1842
 chunk_id: bronze_1842_03
-chunk_text: "Ein berechtigtes Interesse ..."
-keywords: kündigung, eigenbedarf
-paragraph_refs: § 573 BGB
+chunk_text: "Wird die Entwässerung nicht mitgedacht ..."
+keywords: werkvertrag, entwässerung
+paragraph_refs: § 633 BGB, § 241 Abs. 2 BGB
 quality_flags: weak_heading_map</pre>
       </section>
     </div>

@@ -1,0 +1,587 @@
+{
+  "generated_at": "2026-04-20T08:48:27.534631+00:00",
+  "model_name": "google/gemini-2.0-flash-001",
+  "retrieval_source_id": "search_intent_discovery",
+  "session_id": "werkvertrag-gartenbauer-haeftung-001",
+  "question": "Unser Haus liegt am Hang; seitlich führt ein 4,5 m langer, gepflasterter Weg. Wegen der Hanglage sind die Steine im Laufe der Zeit nach rechts unten abgesackt. Ein Gartenbauer hat auf unser Bitten die Pflasterung aufgenommen, rechts entlang der 4,5 m L-Steine gesetzt und das Pflaster wieder verlegt (Rechnung ca. 3.000 € komplett bezahlt). Nach starkem Regen zeigt sich: Die neuen L-Steine verhindern das Abfließen nach rechts unten; nun läuft das Wasser am Weg entlang zum Haus und versickert an der Hauswand, sodass feuchte Kellerwände drohen. Eigentlich hätte man das Wasser sammeln und über einen Gully o.ä. an das vorhandene Regenrohr nach den 4,5 m anschließen müssen; das war im Angebot aber nicht vereinbart. Wer haftet jetzt und was ist konkret zu tun?",
+  "modes": {
+    "benchmark": {
+      "label": "Benchmark",
+      "retrieval_mode": null,
+      "top_k": null,
+      "alpha": null,
+      "answer": "Die Frage ist, ob der Gartenbauer für die drohenden Schäden am Haus haftet und welche konkreten Schritte nun zu unternehmen sind.\n\n1.  **Obersatz:** Möglicherweise steht Ihnen gegen den Gartenbauer ein Anspruch auf Schadensersatz wegen Schlechterfüllung des Werkvertrags gemäß § 634 Nr. 4, §§ 280 Abs. 1, 241 Abs. 2 BGB zu.\n\n2.  **Norm:** Gemäß § 634 Nr. 4 BGB kann der Besteller Schadensersatz statt der Leistung verlangen, wenn das Werk mangelhaft ist (§ 633 BGB) und die Voraussetzungen der §§ 280, 281, 283 oder 311a BGB vorliegen. Ein Mangel liegt vor, wenn das Werk nicht die vereinbarte Beschaffenheit aufweist (§ 633 Abs. 2 BGB). Gemäß § 280 Abs. 1 BGB hat der Schuldner (hier: der Gartenbauer) Schadensersatz zu leisten, wenn er eine Pflicht aus dem Schuldverhältnis verletzt hat. Eine solche Pflicht kann sich auch aus § 241 Abs. 2 BGB ergeben, wonach jede Partei des Schuldverhältnisses zur Rücksicht auf die Rechte, Rechtsgüter und Interessen des anderen Teils verpflichtet ist.\n\n3.  **Subsumtion:**\n\n    a.  **Werkvertrag:** Zwischen Ihnen und dem Gartenbauer besteht ein Werkvertrag über die Neuverlegung des Pflasters und das Setzen von L-Steinen.\n\n    b.  **Mangel:** Das Werk könnte mangelhaft sein, wenn es nicht die vereinbarte Beschaffenheit aufweist. Zwar war die Ableitung des Wassers nicht explizit vereinbart. Allerdings könnte sich aus den Umständen eine Nebenpflicht des Gartenbauers ergeben haben, Sie auf die drohenden Folgen der veränderten Wasserführung hinzuweisen und eine fachgerechte Lösung vorzuschlagen. Hierbei ist zu berücksichtigen, dass der Gartenbauer als Fachmann die örtlichen Gegebenheiten und die potenziellen Auswirkungen der L-Steine auf den Wasserabfluss erkennen musste. Das Unterlassen eines solchen Hinweises könnte eine Verletzung der Beratungspflicht darstellen, die zu einem Mangel des Werks führt (vgl. BGH, Urteil vom 26.09.2019 - VII ZR 24/19).\n\n    c.  **Pflichtverletzung:** Durch das Unterlassen des Hinweises und die Ausführung der Arbeiten ohne adäquate Wasserableitung hat der Gartenbauer möglicherweise seine Pflichten aus dem Werkvertrag verletzt (§ 241 Abs. 2 BGB).\n\n    d.  **Verschulden:** Grundsätzlich wird das Verschulden des Schuldners gemäß § 280 Abs. 1 S. 2 BGB vermutet. Der Gartenbauer müsste beweisen, dass er die Pflichtverletzung nicht zu vertreten hat.\n\n    e.  **Schaden:** Ihnen droht ein Schaden durch feuchte Kellerwände.\n\n4.  **Ergebnis:** Es besteht eine realistische Chance, dass Sie gegen den Gartenbauer einen Anspruch auf Schadensersatz gemäß § 634 Nr. 4, §§ 280 Abs. 1, 241 Abs. 2 BGB haben.\n\n**Konkrete Schritte:**\n\n1.  **Mängelanzeige:** Setzen Sie den Gartenbauer schriftlich über den Mangel in Kenntnis und fordern Sie ihn zur Nacherfüllung auf (d.h. zur Beseitigung des Mangels durch eine fachgerechte Wasserableitung). Setzen Sie hierfür eine angemessene Frist.\n2.  **Beweissicherung:** Dokumentieren Sie den Zustand der Pflasterung und die Wasserführung bei Regen, um den Mangel nachzuweisen.\n3.  **Kostenvoranschlag:** Holen Sie einen Kostenvoranschlag für die Beseitigung des Mangels durch eine andere Firma ein, falls der Gartenbauer nicht innerhalb der gesetzten Frist reagiert oder die Nacherfüllung ablehnt.\n4.  **Rechtliche Beratung:** Ziehen Sie einen Anwalt hinzu, um Ihre Ansprüche durchzusetzen, insbesondere wenn der Gartenbauer die Haftung ablehnt.",
+      "retrieved_context": "",
+      "sources": [
+
+      ]
+    },
+    "vector": {
+      "label": "Vector",
+      "retrieval_mode": "vector",
+      "top_k": 6,
+      "alpha": 0.7,
+      "answer": "Hier ist eine juristische Analyse der Situation:\n\n**Obersatz:** Es ist zu prüfen, ob der Gartenbauer für die drohenden Feuchtigkeitsschäden am Haus haftet und welche konkreten Maßnahmen nun zu ergreifen sind.\n\n**Norm:** In Betracht kommt ein Anspruch auf Schadensersatz gemäß § 634 Nr. 4, §§ 280 ff. BGB wegen einer mangelhaften Werkleistung.\n\n**Subsumtion:**\n\n1.  **Werkvertrag:** Zwischen Ihnen und dem Gartenbauer besteht ein Werkvertrag über die Pflasterarbeiten und das Setzen der L-Steine.\n2.  **Mangel:** Die Werkleistung des Gartenbauers ist mangelhaft im Sinne des § 633 Abs. 2 BGB. Obwohl die Pflasterung und das Setzen der L-Steine an sich ordnungsgemäß ausgeführt sein mögen, ist das Werk nicht frei von Sachmängeln, da es nicht die vereinbarte oder gewöhnliche Beschaffenheit aufweist. Die gewöhnliche Beschaffenheit eines solchen Weges beinhaltet, dass Oberflächenwasser schadlos abgeleitet wird. Durch die L-Steine wird nun das Wasser am Haus entlanggeleitet, was zu Feuchtigkeitsschäden führen kann. Dies stellt einen Mangel dar.\n3.  **Pflichtverletzung:** Der Gartenbauer hat seine Pflicht aus dem Werkvertrag verletzt, indem er ein mangelhaftes Werk erstellt hat (§ 280 Abs. 1 S. 1 BGB).\n4.  **Verschulden:** Grundsätzlich wird das Verschulden des Werkunternehmers vermutet (§ 280 Abs. 1 S. 2 BGB). Der Gartenbauer müsste beweisen, dass er den Mangel nicht zu vertreten hat. Hier könnte relevant sein, ob der Gartenbauer hätte erkennen müssen, dass die gewählte Ausführung zu Problemen mit der Wasserableitung führen würde. Relevant ist in diesem Zusammenhang, ob den Gartenbauer eine Prüfungs- und Hinweispflicht traf (siehe OLG Düsseldorf, NZBau 2001, 398, zitiert in Chunk 6). Eine solche Pflicht kann sich aus § 4 Nr. 3 VOB/B ergeben, aber auch ohne deren Einbeziehung aus dem Grundsatz von Treu und Glauben. Hätte der Gartenbauer Bedenken anmelden müssen und dies unterlassen, wäre ein Verschulden gegeben.\n5.  **Schaden:** Ihnen droht ein Schaden in Form von feuchten Kellerwänden und den daraus resultierenden Folgeschäden.\n6.  **Kausalität:** Die mangelhafte Werkleistung des Gartenbauers ist ursächlich für den drohenden Schaden.\n\n**Ergebnis:** Es besteht ein Anspruch auf Schadensersatz gegen den Gartenbauer. Konkret bedeutet dies, dass der Gartenbauer verpflichtet ist, den Mangel zu beseitigen und die drohenden Schäden zu verhindern. Dies kann beispielsweise durch den Einbau eines Entwässerungssystems (Gully mit Anschluss an das Regenrohr) geschehen.\n\n**Was ist konkret zu tun?**\n\n1.  **Mangelanzeige:** Setzen Sie den Gartenbauer schriftlich über den Mangel in Kenntnis und fordern Sie ihn zur Mängelbeseitigung innerhalb einer angemessenen Frist auf.\n2.  **Kostenvoranschlag:** Holen Sie einen Kostenvoranschlag für die notwendigen Arbeiten zur Mängelbeseitigung ein (Einbau eines Entwässerungssystems).\n3.  **Eigene Maßnahmen:** Sollte der Gartenbauer die Mängelbeseitigung verweigern oder die Frist verstreichen lassen, können Sie die Mängelbeseitigung selbst in Auftrag geben und die Kosten vom Gartenbauer ersetzt verlangen.\n4.  **Beweissicherung:** Dokumentieren Sie den Zustand (Fotos, Gutachten), um im Streitfall Beweise zu haben.\n",
+      "retrieved_context": "Retrieval mode: vector\nSource: search_intent_discovery\nTop-K returned: 6\n\n[Chunk 1] score=0.6034 chunk_id=451590\ntitle: Urteil OLG Düsseldorf 21. Zivilsenats vom 18.02.2015 (I-21 U 220/13)\ncanonical_url: https://nrwe.justiz.nrw.de/olgs/duesseldorf/j2015/I_21_U_220_13_Grund_und_Teilurteil_20150218.html\nsource_url: https://nrwe.justiz.nrw.de/olgs/duesseldorf/j2015/I_21_U_220_13_Grund_und_Teilurteil_20150218.html\nmentioned_paragraphs: -\nkeywords: Keller, Bauplanung, Bauausführung, Bodenplatte, Innenwände, Dach, Isolierung, Schlussrechnung, Abschlagszahlungen, Bautreppe\ntext: Nachdem die Baugrube für den Keller ausgehoben war, stellte sich heraus, dass nach dem Stand der Ausführung der Keller zu niedrig geraten würde, wenn er sich auf dem gleichen Niveau wie das Haupthaus befände. Ob die Ursache für die mangelnde Höhe des Kellers ein Fehler im Rahmen der Bauplanung oder der Bauausführung bei der Ausschachtung war, ist zwischen den Parteien streitig. Um im Keller die erforderliche Deckenhöhe zu erreichen, dünnte der Kläger die bereits eingebrachte kapillarbrechende Schicht aus und verzichtete auf eine Sauberkeitsschicht. Stattdessen fand eine so genannte Delta-Noppenbahn Verwendung. Die mit einer Stärke von 24 cm geplante Bodenplatte wurde letztlich mit einer Stärke von max. 20 cm betoniert. Im Einverständnis zwischen den Parteien wurde auf die Erstellung von nichttragenden Innenwänden im Kellerbereich verzichtet. Am 18.12.2004 waren die Arbeiten an dem Anbau…\n\n[Chunk 2] score=0.5975 chunk_id=445772\ntitle: Verbrauchervertrag vs. Verbraucherbauvertrag\ncanonical_url: https://www.gvw.com/aktuelles/blog/detail/verbrauchervertrag-vs-verbraucherbauvertrag\nsource_url: https://www.gvw.com/aktuelles/blog/detail/verbrauchervertrag-vs-verbraucherbauvertrag\nmentioned_paragraphs: -\nkeywords: Außenanlagen, Vertrag, Widerruf, Rückzahlung, Werkleistungen\ntext: Der Beklagte wurde von dem Kläger mit Vertrag vom 18. August 2020 für Arbeiten an Außenanlagen (Hof/Terrasse/Pflasterung) beauftragt. Die Parteien hatten den Vertrag an der Haustür des Klägers geschlossen. Vereinbart war die Reinigung und Versiegelung von Dachpfannen und Pflastersteinen sowie die Sanierung von Holz zu einem Preis von 21.000 Euro. Nachdem der Beklagte die Arbeiten teilweise erbracht hatte, widerrief der Kläger den Vertrag und machte eine Rückzahlung bereits geleisteter Abschlagszahlungen in Höhe von 12.500,- Euro geltend. Der Beklagte rechnete dagegen mit einen eigenen Anspruch für erbrachte Werkleistungen im Umfang von 8.050,- Euro auf.\n\n[Chunk 3] score=0.5911 chunk_id=449381\ntitle: Leistungsverweigerungsrecht nach § 275 II BGB bei Mangel der Mietsache (§ 535 BGB); Voraussetzung der Unmöglichkeit der (subjektiven) Mängelbeseitigung (§ 275 I BGB)\ncanonical_url: https://lorenz.userweb.mwn.de/urteile/viiizr342_03.htm\nsource_url: https://lorenz.userweb.mwn.de/urteile/viiizr342_03.htm\nmentioned_paragraphs: -\nkeywords: Erstgericht, Feuchtigkeitsschäden, Wasser, Sanierung, Aufwand, Vorteil, Betonwanne, Neuaufbau des Hauses\ntext: Das Erstgericht hatte im Zusammenhang mit den von den Klägern behaupteten Feuchtigkeitsschäden und dem Eintritt von Wasser ausgeführt: \"Eine vollständige Sanierung des Durchganges würde nur mit einem so hohen Aufwand möglich sein, daß der daraus resultierende Vorteil für die Kläger in keinem Verhältnis stünde. Nur durch eine vollständige Erneuerung der Betonwanne unter dem Haus wäre letztlich sicherzustellen, daß überhaupt kein Wasser mehr eintritt. Dies würde aber den Abriß und Neuaufbau des Hauses erfordern, wozu der Vorteil für die Kläger bei jedem Wetter trockenen Fußes zu ihrem Pkw zu gelangen in keinem Verhältnis steht. ...\"\n\n[Chunk 4] score=0.5832 chunk_id=446399\ntitle: BGH: Fiktive Mängelbeseitigungskosten als Schadensersatz statt der Leistung im Kauf- und Werkvertragsrecht - Teil 2\ncanonical_url: https://jura-online.de/blog/2020/12/02/bgh-fiktive-mangelbeseitigungskosten-als-schadensersatz-statt-der-leistung-im-kauf-und-werkvertragsrecht-teil-2/\nsource_url: https://jura-online.de/blog/2020/12/02/bgh-fiktive-mangelbeseitigungskosten-als-schadensersatz-statt-der-leistung-im-kauf-und-werkvertragsrecht-teil-2/\nmentioned_paragraphs: -\nkeywords: Natursteinplatten, Nacherfüllung, Mängelbeseitigungskosten, werkvertragliche Erfolgshaftung, fiktive Mängelbeseitigungskosten, Schadensersatz, Werklohn, Überkompensation, individuelle Beschaffenheit, Fußbodenheizung\ntext: - Der Besteller hat den Unternehmer beauftragt, den Boden im Erdgeschoss seines Einfamilienhauses mit weißen Natursteinplatten zu fliesen. Der vereinbarte Preis beträgt 40.000 Euro. Tatsächlich werden hellgraue Natursteinplatten verlegt. Der Austausch würde etwa 60.000 Euro netto kosten, da die Einbauküche wieder abgebaut, die Möbel ausgelagert, die verlegten Platten entfernt, die neuen Platten verlegt und die Familie vorübergehend in einem Hotel untergebracht werden muss. Der Unternehmer hat die Nacherfüllung nicht innerhalb der gesetzten Frist durchgeführt.Lasse der Besteller die Platten tatsächlich austauschen, könne er vom Unternehmer die kompletten Mängelbeseitigungskosten verlangen, obwohl diese die Vergütung erheblich übersteigen. Der Aufwand sei nicht unverhältnismäßig, da der Unternehmer der werkvertraglichen Erfolgshaftung unterliege.Entscheide er sich dagegen dafür, die Platt…\n\n[Chunk 5] score=0.5752 chunk_id=446484\ntitle: BGH zur Schadensberechnung bei Mängeln in Werkverträgen - ein Paradigmenwechsel\ncanonical_url: https://www.rechtsanwalt-ostfalk.de/index.php/blog/baur/bgh-zur-schadensberechnung-bei-maengeln-in-werkvertraegen-ein-paradigmenwechsel\nsource_url: https://www.rechtsanwalt-ostfalk.de/index.php/blog/baur/bgh-zur-schadensberechnung-bei-maengeln-in-werkvertraegen-ein-paradigmenwechsel\nmentioned_paragraphs: -\nkeywords: Sachverhalt, Schadensersatz, Mängel, Werkvertrag, Natursteinplatten, fiktive Mängelbeseitigungskosten, BGH\ntext: I. Sachverhalt Die Klägerin verlangt von den Beklagten Schadensersatz wegen Mängeln an Natursteinplatten, die im Außenbereich ihres Einfamilienhauses vom Beklagten aufgrund eines Werkvertrages verlegt wurden. Sie beauftragte 2002 einen Architekten mit der Planung der Außenanlagen und 2004 die beklagte Werkunternehmerin mit der Ausführung der Arbeiten. Die Beklagte ließ die Platten durch eine Nachunternehmerin verlegen. Nach Abnahme und Bezahlung der Arbeiten im Jahr 2005 traten ab 2007 erhebliche Mängel auf, darunter Risse, Ablösungen, Salzausspülungen und Durchfeuchtungen. In erster Instanz wurde der Klägerin ein Vorschuss für die Mängelbeseitigung zugesprochen. Während des Berufungsverfahrens verkaufte die Klägerin das Haus. Da sie damit die Absicht aufgab, den mangelnden tatsächlich beseitigen zu lassen, stellte sie die Klage auf Schadensersatz um. Nunmehr wollte sie also Schadensers…\n\n[Chunk 6] score=0.5703 chunk_id=447132\ntitle: Prüfungspflichten bei der Umsetzung von Plänen\ncanonical_url: https://www.bauingenieur24.de/artikel/pruefungspflichten-bei-der-umsetzung-von-plaenen\nsource_url: https://www.bauingenieur24.de/artikel/pruefungspflichten-bei-der-umsetzung-von-plaenen\nmentioned_paragraphs: § 4 Nr. 3 VOB/B\nkeywords: Architekt, Lichtgräben, Entwässerung, Gartenbauunternehmer, Prüfungs- und Hinweispflicht, OLG Düsseldorf, VOB/B, Treu und Glauben, Haftungsanteil\ntext: Im dritten Fall hatte ein Architekt abgeböschte Lichtgräben vor einer Souterrain-Wohnung geplant und dabei keine ausreichende Versickerungsmöglichkeit der bei starken Regenfällen zu erwartenden Wassermassen vorgesehen, was das OLG Düsseldorf als Fehler beurteilt hat (NZBau 2001, 398). Anders als in den oben besprochenen Fällen sah hier das Gericht aber auch einen Fehler des ausführenden Gartenbauunternehmers. Denn dieser sei verpflichtet gewesen, auf Bedenken gegen die vorgesehene Ausführung der Entwässerung am Fußpunkt der Böschungen (Sohle der Lichtgräben) hinzuweisen. Diese in § 4 Nr. 3 VOB/B zum Ausdruck gekommene Prüfungs- und Hinweispflicht habe dem Unternehmer unabhängig davon oblegen, ob die VOB/B vereinbart sei oder nicht, weil diese Regelung als Konkretisierung des allgemeinen Grundsatzes von Treu und Glauben einem allgemeingültigen Rechtsgedanken entspreche, der über die VOB…",
+      "sources": [
+        {
+          "rank": 1,
+          "score": 0.6033643928212873,
+          "title": "Urteil OLG Düsseldorf 21. Zivilsenats vom 18.02.2015 (I-21 U 220/13)",
+          "url": "https://nrwe.justiz.nrw.de/olgs/duesseldorf/j2015/I_21_U_220_13_Grund_und_Teilurteil_20150218.html",
+          "paragraphs": [
+
+          ],
+          "keywords": [
+            "Keller",
+            "Bauplanung",
+            "Bauausführung",
+            "Bodenplatte",
+            "Innenwände",
+            "Dach",
+            "Isolierung",
+            "Schlussrechnung",
+            "Abschlagszahlungen",
+            "Bautreppe"
+          ],
+          "quote": "Nachdem die Baugrube für den Keller ausgehoben war, stellte sich heraus, dass nach dem Stand der Ausführung der Keller zu niedrig geraten würde, wenn er sich auf dem gleichen Niveau wie das Haupthaus befände. Ob die Ursache für die mangelnde Höhe des Kellers ein Fehler im Rahmen der Bauplanung oder der Bauausführung b..."
+        },
+        {
+          "rank": 2,
+          "score": 0.5975082493496716,
+          "title": "Verbrauchervertrag vs. Verbraucherbauvertrag",
+          "url": "https://www.gvw.com/aktuelles/blog/detail/verbrauchervertrag-vs-verbraucherbauvertrag",
+          "paragraphs": [
+
+          ],
+          "keywords": [
+            "Außenanlagen",
+            "Vertrag",
+            "Widerruf",
+            "Rückzahlung",
+            "Werkleistungen"
+          ],
+          "quote": "Der Beklagte wurde von dem Kläger mit Vertrag vom 18. August 2020 für Arbeiten an Außenanlagen (Hof/Terrasse/Pflasterung) beauftragt. Die Parteien hatten den Vertrag an der Haustür des Klägers geschlossen. Vereinbart war die Reinigung und Versiegelung von Dachpfannen und Pflastersteinen sowie die Sanierung von Holz zu..."
+        },
+        {
+          "rank": 3,
+          "score": 0.5911080489834097,
+          "title": "Leistungsverweigerungsrecht nach § 275 II BGB bei Mangel der Mietsache (§ 535 BGB); Voraussetzung der Unmöglichkeit der (subjektiven) Mängelbeseitigung (§ 275 I BGB)",
+          "url": "https://lorenz.userweb.mwn.de/urteile/viiizr342_03.htm",
+          "paragraphs": [
+
+          ],
+          "keywords": [
+            "Erstgericht",
+            "Feuchtigkeitsschäden",
+            "Wasser",
+            "Sanierung",
+            "Aufwand",
+            "Vorteil",
+            "Betonwanne",
+            "Neuaufbau des Hauses"
+          ],
+          "quote": "Das Erstgericht hatte im Zusammenhang mit den von den Klägern behaupteten Feuchtigkeitsschäden und dem Eintritt von Wasser ausgeführt: \"Eine vollständige Sanierung des Durchganges würde nur mit einem so hohen Aufwand möglich sein, daß der daraus resultierende Vorteil für die Kläger in keinem Verhältnis stünde. Nur dur..."
+        },
+        {
+          "rank": 4,
+          "score": 0.5831712364641932,
+          "title": "BGH: Fiktive Mängelbeseitigungskosten als Schadensersatz statt der Leistung im Kauf- und Werkvertragsrecht - Teil 2",
+          "url": "https://jura-online.de/blog/2020/12/02/bgh-fiktive-mangelbeseitigungskosten-als-schadensersatz-statt-der-leistung-im-kauf-und-werkvertragsrecht-teil-2/",
+          "paragraphs": [
+
+          ],
+          "keywords": [
+            "Natursteinplatten",
+            "Nacherfüllung",
+            "Mängelbeseitigungskosten",
+            "werkvertragliche Erfolgshaftung",
+            "fiktive Mängelbeseitigungskosten",
+            "Schadensersatz",
+            "Werklohn",
+            "Überkompensation",
+            "individuelle Beschaffenheit",
+            "Fußbodenheizung"
+          ],
+          "quote": "- Der Besteller hat den Unternehmer beauftragt, den Boden im Erdgeschoss seines Einfamilienhauses mit weißen Natursteinplatten zu fliesen. Der vereinbarte Preis beträgt 40.000 Euro. Tatsächlich werden hellgraue Natursteinplatten verlegt. Der Austausch würde etwa 60.000 Euro netto kosten, da die Einbauküche wieder abge..."
+        },
+        {
+          "rank": 5,
+          "score": 0.5751756229166639,
+          "title": "BGH zur Schadensberechnung bei Mängeln in Werkverträgen - ein Paradigmenwechsel",
+          "url": "https://www.rechtsanwalt-ostfalk.de/index.php/blog/baur/bgh-zur-schadensberechnung-bei-maengeln-in-werkvertraegen-ein-paradigmenwechsel",
+          "paragraphs": [
+
+          ],
+          "keywords": [
+            "Sachverhalt",
+            "Schadensersatz",
+            "Mängel",
+            "Werkvertrag",
+            "Natursteinplatten",
+            "fiktive Mängelbeseitigungskosten",
+            "BGH"
+          ],
+          "quote": "I. Sachverhalt Die Klägerin verlangt von den Beklagten Schadensersatz wegen Mängeln an Natursteinplatten, die im Außenbereich ihres Einfamilienhauses vom Beklagten aufgrund eines Werkvertrages verlegt wurden. Sie beauftragte 2002 einen Architekten mit der Planung der Außenanlagen und 2004 die beklagte Werkunternehmeri..."
+        },
+        {
+          "rank": 6,
+          "score": 0.5702622032927647,
+          "title": "Prüfungspflichten bei der Umsetzung von Plänen",
+          "url": "https://www.bauingenieur24.de/artikel/pruefungspflichten-bei-der-umsetzung-von-plaenen",
+          "paragraphs": [
+            "§ 4 Nr. 3 VOB/B"
+          ],
+          "keywords": [
+            "Architekt",
+            "Lichtgräben",
+            "Entwässerung",
+            "Gartenbauunternehmer",
+            "Prüfungs- und Hinweispflicht",
+            "OLG Düsseldorf",
+            "VOB/B",
+            "Treu und Glauben",
+            "Haftungsanteil"
+          ],
+          "quote": "Im dritten Fall hatte ein Architekt abgeböschte Lichtgräben vor einer Souterrain-Wohnung geplant und dabei keine ausreichende Versickerungsmöglichkeit der bei starken Regenfällen zu erwartenden Wassermassen vorgesehen, was das OLG Düsseldorf als Fehler beurteilt hat (NZBau 2001, 398). Anders als in den oben besprochen..."
+        }
+      ]
+    },
+    "fts": {
+      "label": "FTS",
+      "retrieval_mode": "fts",
+      "top_k": 6,
+      "alpha": 0.7,
+      "answer": "Die Frage ist, ob der Gartenbauer für die drohenden feuchten Kellerwände haftet und welche Ansprüche bestehen.\n\n**1. Anspruchsgrundlage**\n\nEs könnte ein Anspruch auf Schadensersatz wegen mangelhafter Werkleistung gemäß § 634 Nr. 4, §§ 280 ff. BGB bestehen.\n\n**2. Voraussetzungen des Anspruchs**\n\n*   **Werkvertrag:** Zwischen Ihnen und dem Gartenbauer besteht ein Werkvertrag über die Pflasterarbeiten und das Setzen der L-Steine.\n*   **Mangel:** Die Werkleistung des Gartenbauers ist mangelhaft, § 633 BGB. Ein Mangel liegt vor, wenn die Werkleistung nicht die vereinbarte Beschaffenheit aufweist. Vereinbart war die Pflasterung und das Setzen von L-Steinen. Die Leistung ist mangelhaft, wenn sie nicht die gewöhnliche oder vertraglich vorausgesetzte Funktion erfüllt. Hier wurde durch die Ausführung das Abfließen des Wassers verhindert, was zu einem Schaden (drohende feuchte Kellerwände) führt. Dies stellt einen Mangel dar.\n*   **Pflichtverletzung:** Der Gartenbauer hat seine Pflicht zur mangelfreien Erstellung des Werkes verletzt.\n*   **Verschulden:** Der Gartenbauer müsste die Pflichtverletzung auch verschuldet haben, § 280 Abs. 1 S. 2 BGB. Verschulden wird vermutet, sodass der Gartenbauer beweisen müsste, dass er die Pflichtverletzung nicht zu vertreten hat. Hier könnte man argumentieren, dass ein Fachmann die Auswirkungen der L-Steine auf den Wasserabfluss hätte erkennen müssen.\n*   **Schaden:** Durch den Mangel drohen feuchte Kellerwände, was einen Schaden darstellt.\n*   **Kausalität:** Der Mangel muss ursächlich für den Schaden sein. Hier ist die Kausalität gegeben, da die feuchten Kellerwände drohen, weil das Wasser durch die L-Steine nicht abfließen kann.\n\n**3. Rechtsfolgen**\n\nGrundsätzlich haben Sie als Besteller eines mangelhaften Werkes zunächst einen Anspruch auf Nacherfüllung (§ 635 BGB). Da die L-Steine aber bereits verbaut sind, wäre eine Nachbesserung (Beseitigung des Mangels) unverhältnismäßig. In diesem Fall könnten Sie direkt Schadensersatz statt der Leistung verlangen (§ 634 Nr. 4, §§ 280, 281 BGB). Der Schadensersatz umfasst die Kosten, die Ihnen durch die drohenden feuchten Kellerwände entstehen (z.B. Sanierungskosten).\n\n**4. Mitverschulden**\n\nEs könnte ein Mitverschulden Ihrerseits gemäß § 254 BGB vorliegen. Sie haben den Gartenbauer beauftragt, die Pflasterung mit L-Steinen zu versehen, ohne explizit auf die Notwendigkeit eines Wasserablaufs hinzuweisen. Allerdings ist der Gartenbauer als Fachmann in der Pflicht, auf mögliche Probleme hinzuweisen und eine fachgerechte Lösung anzubieten.\n\n**5. Ergebnis**\n\nEs besteht wahrscheinlich ein Anspruch auf Schadensersatz gegen den Gartenbauer. Sie sollten den Gartenbauer schriftlich auffordern, den Schaden zu beheben und ihm eine Frist setzen. Ggf. ist es ratsam, einen Sachverständigen hinzuzuziehen, um den Schaden und die notwendigen Maßnahmen zur Behebung zu dokumentieren.\n",
+      "retrieved_context": "Retrieval mode: fts\nSource: search_intent_discovery\nTop-K returned: 6\n\n[Chunk 1] score=12.8000 chunk_id=451415\ntitle: -\ncanonical_url: https://refubium.fu-berlin.de/bitstream/handle/fub188/27647/M%C3%BCller_Software_als_Gegenstand_der_Produkthaftung.pdf?sequence=5&isAllowed=y\nsource_url: https://refubium.fu-berlin.de/bitstream/handle/fub188/27647/M%C3%BCller_Software_als_Gegenstand_der_Produkthaftung.pdf?sequence=5&isAllowed=y\nmentioned_paragraphs: -\nkeywords: -\ntext: ISBN 978-3-86888-143-1 9 Dr. Anne-Kathrin Müller, geb. 1980; Studium der Rechtswissenschaften an der Universität Potsdam; Referendariat im Gerichtsbezirk des OLG Brandenburg; von 2010 bis 2017 als Rechtsanwältin zugelassen; Mitarbeiterin beim Rundfunk Berlin-Brandenburg; wissenschaftliche Mitarbeiterin an der TU Berlin am Lehrstuhl für Technikrecht; seit 2019 Regierungsrätin im Bundesministerium für Bildung und Forschung. Das Fortschreiten der Digitalisierung stellt das Recht vor das grundlegende Problem, dass digitale Güter und Innovationen nur unzureichend von der analogen Rechtssprache erfasst werden. Zum Produkthaftungsgesetz wird seit langem diskutiert, ob Software in den Anwendungsbereich des ProdHaftG fällt. Mit einem Produktbegriff, der nur auf 'bewegliche Sachen' und 'Elektrizität' ausgelegt ist, beschreibt das das Produkthaftungsgesetz die gegenständliche Welt von 1985 (dem En…\n\n[Chunk 2] score=12.7000 chunk_id=446555\ntitle: Oberlandesgericht Düsseldorf, 21 U 4/17\ncanonical_url: https://nrwe.justiz.nrw.de/pdfdownload/downloadEntscheidung.php?entscheidung=/nrwe/olgs/duesseldorf/j2017/21_U_4_17_Urteil_20170613.html\nsource_url: https://nrwe.justiz.nrw.de/pdfdownload/downloadEntscheidung.php?entscheidung=/nrwe/olgs/duesseldorf/j2017/21_U_4_17_Urteil_20170613.html\nmentioned_paragraphs: §§ 634, 281 Abs. 1 BGB, §§ 314, 280 BGB, § 634 Nr. 4, 636, 280, 281 BGB, § 281 Abs. 1 Satz 1 BGB, § 633 Abs. 1 BGB, § 271 BGB, § 281 Abs. 1 BGB, § 323 Abs. 1 BGB, § 286 Abs. 1 BGB, § 635 BGB, § 281 Abs. 2 BGB, § 323 Abs. 2 BGB, § 281 Abs. 2 Alt. 1 BGB, § 323 Abs. 2 Alt. 2 BGB, § 314 Abs. 1 Satz 2 BGB, § 649 BGB\nkeywords: Berufung, unbegründet, Vertragsverletzung, Werkleistungen, Ersatzunternehmen, Mängelbeseitigung, Restarbeiten, Fertigstellungsmehrkosten, Mängelbeseitigungskosten, Werklohnforderung, Schadensersatz, Landgericht, Abnahme des Werkes, Abrechnungsverhältnis, Kündigung, wichtiger Grund, Mangel, Regeln der Technik, vertraglich geschuldete Beschaffenheit, Privatgutachter, Fälligkeit, Herstellungsfrist, Fristsetzung, Nacherfüllung, BGH, 8. Zivilsenat, Kaufrecht, Werkvertragsrecht, Kooperationsgebot, Warnfunktion, angemessene Zeit, unverzüglich, umgehend, sofortig, Verbrauchsgüterkauf-Richtlinie, Europäisches Recht, nationales Recht, Schuldner, Gläubiger, Pflichtverletzung, Schadensersatz statt der Leistung, Schreiben vom 3.8.2015, Whatsapp-Nachricht, Arbeitsunterbrechung, Sachverständiger O., Ortstermine, E-Mail vom 25.8.2015, Beginnfrist, anwaltliches Schreiben vom 31.08.2015, ernsthaft und endgültig verweigert, widersprüchliches Verhalten, Vertrauensverlust, Leistungsfähigkeit, Leistungswille, Drittunternehmer, Schadensersatzanspruch, außerordentliche Kündigung, Freistellungsanspruch, Verzugsschadensersatzanspruch\ntext: II) Im Übrigen ist die Berufung unbegründet, da die landgerichtlichen Erwägungen im Ergebnis den Berufungsangriffen standhalten und eine Abänderung der Entscheidung des Landgerichts nicht gerechtfertigt ist; den Klägern steht kein Zahlungsanspruch über den ihnen bereits vom Landgericht zuerkannten Betrag zu. Die Kläger begründen ihr Schadensersatzbegehren in Höhe von 30.611,43 € damit, dass sie aufgrund einer Vertragsverletzung des Beklagten, der die von ihm erbrachten Werkleistungen (Dachdeckerarbeiten) mangelhaft, unvollständig und nicht fristgerecht erbracht habe, berechtigt gewesen seien, ein Ersatzunternehmen mit der Beseitigung der Mängel der Werkleistung des Beklagten und mit deren Vollendung (Durchführung der ausstehenden Restarbeiten) zu beauftragen, und folglich die ihnen hierdurch entstandenen Fertigstellungsmehrkosten und Mängelbeseitigungskosten unter Anrechnung einer restl…\n\n[Chunk 3] score=11.6000 chunk_id=444455\ntitle: NACHTRÄGE AM BAU NACH VOB/B\ncanonical_url: https://www.kanzlei-am-steinmarkt.de/files/kas/upload/downloads/skripte/Baurecht/28-nachtraege-am-bau-nach-vob-b-01-03-2023.pdf\nsource_url: https://www.kanzlei-am-steinmarkt.de/files/kas/upload/downloads/skripte/Baurecht/28-nachtraege-am-bau-nach-vob-b-01-03-2023.pdf\nmentioned_paragraphs: -\nkeywords: -\ntext: NACHTRÄGE AM BAU NACH VOB/B DURCHSETZUNG UND ABWEHR VON NACHTRÄGEN NACH VOB/B UNTER BERÜCKSICHTIGUNG DER BAURECHTSREFORM 2018 Nachträge am Bau nach VOB/B Durchsetzung und Abwehr von Nachträgen nach VOB/B unter Berücksichtigung der Baurechtsreform 2018 - VORWORT Dieses Skript wendet sich an Bauleiter, Projektleiter, Baubetriebler, kurz an alle mit dem Bauwesen Befassten, die man mit dem Begriff 'Baumenschen' zusammenfassen kann. Ziel des Skriptes ist es, dem Auftragnehmer die Durchsetzung eines Nachtrags am Bau zu erleichtern. Die Nachtragsproblematik ist ein Teil des Vergütungsrechts, weil es um die Frage geht, ob der Auftragnehmer für geänderte Bauleistungen oder Bauumstände eine besondere zusätzliche Vergütung erhält. Die Problematik ist äußerst vielschichtig. Die Beantwortung der Frage, ob ein sogenannter 'Nachtrag' durchgesetzt oder abgewehrt werden kann, erfordert eine Zusammenarbe…\n\n[Chunk 4] score=10.8000 chunk_id=450793\ntitle: -\ncanonical_url: https://www.ihk.de/blueprint/servlet/resource/blob/6150360/5b8aebe11c2e53535cf24ff8a739d2ed/skript-it-vertragsrecht-knapp-500-seiten-stand-mai-2024--data.pdf\nsource_url: https://www.ihk.de/blueprint/servlet/resource/blob/6150360/5b8aebe11c2e53535cf24ff8a739d2ed/skript-it-vertragsrecht-knapp-500-seiten-stand-mai-2024--data.pdf\nmentioned_paragraphs: -\nkeywords: -\ntext: Prof. Dr. Thomas Hoeren Institut für Informations-, Telekommunikations- und Medienrecht Universität Münster Rechtsanwalt Stefan Pinelli, Wolfsburg ## IT-Vertragsrecht Stand: Mai 2024 ## Vorwort Die digitale Transformation von Gesellschaften, Institutionen sowie gerade unseres Wirtschaftslebens ist in vielen Teilen der Welt in aller Munde und allgegenwärtig. Die rasanten Entwicklungssprünge von Künstliche Intelligenz-Technologien und die Ansätze zu deren Nutzbarkeit für jedermann sind rund um die Uhr Gegenstand von Berichten. Doch auch im Jahre 2024 bleibt das Recht der Informationstechnologien für viele Juristinnen und Juristen unverändert ein Buch mit sieben Siegeln. Immer neue technische Spielarten, die es juristisch einzuordnen und zu bewerten gilt, machen es nahezu unmöglich, in dieser Rechtsmaterie en passant zu beraten. Ein hoher Spezialisierungsgrad, langjährige Expertise und vor…\n\n[Chunk 5] score=9.6000 chunk_id=451840\ntitle: Clausula rebus sic stantibus (Wegfall der Geschäftsgrundlage) und S 21 Finanzierungsvertrag\ncanonical_url: https://www.landtag-bw.de/resource/blob/23380/9b52098da453289804421b57ab979b7c/15_0616_D.pdf\nsource_url: https://www.landtag-bw.de/resource/blob/23380/9b52098da453289804421b57ab979b7c/15_0616_D.pdf\nmentioned_paragraphs: § 313 BGB, § 60 LVwVfG, § 242 BGB, § 60 Absatz 1 LVwVfG, § 313 Absatz 1 BGB, § 313 Absatz 2 BGB, § 313 Absatz 3 Satz 1 BGB, § 313 Absatz 3 Satz 2 BGB, § 60 Absatz 1 Satz 1 LVwVfG, § 60 Absatz 1 Satz 2 LVwVfG, § 313 Absatz 3 BGB, § 60 VwVfG, RGZ 103, 328 ff., BGHZ 120, 10, 23, BVerwG, Beschluss vom 25. Januar 2011 - 2 B 73/10, BGH, Urteil vom 5. Januar 1995 - IX ZR 85/94, BGH, Urteil vom 10. Oktober 1984 - VIII ZR 152/83, BGH, Urteil vom 26. Februar 1987 - IX ZR 98/86, BGH, Urteil vom 24. November 1995 - V ZR 164/94, BGH, Beschluss vom 23. März 2011 - VII ZR 216/08, BGH, Urteil vom 27. September 1991 - V ZR 191/90, RGZ 147, 42, 56, BGH, Urteil vom 25. Februar 1993, VII ZR 24/92, BGH, Urteil vom 30. April 2009 - I ZR 42/07, Verwaltungsgerichtshof Baden-Württemberg, Urteil vom 9. März 1999 - 8 S 2877/98, Verwaltungsgerichtshof Baden-Württemberg, Urteil vom 19. Dezember 1995 - 10 S 1140/94, BVerwGE 87, 77, 80 ff.\nkeywords: Reichsgericht, Bundesgerichtshof, Wegfall der Geschäftsgrundlage, Rechtsinstitut, Fallgruppen, Rechtsprechung, Bürgerliches Gesetzbuch, Landesverwaltungsverfahrensgesetz, Praxis, Entscheidung, Einwand, benachteiligte Partei, Geschäftsgrundlage, Vorstellung der Beteiligten, Geldentwertung, Wertverhältnis, Leistung, Gegenleistung, Einwand der veränderten Umstände, Valutaverschiebung, Äquivalenz, Vertragsschluss, Rechtsgrundsätze, subjektive Geschäftsgrundlage, objektive Geschäftsgrundlage, Vertragsinhalt, Geschäftswille, Störungen, Amts wegen, Einrede, Palandt, Wortlaut, öffentlich-rechtliche Verträge, Voraussetzungen, Rechtsfolgen, Auslegungsgrundsätze, Anwendungsvoraussetzung, Veränderung der Umstände, Unmöglichkeit, Unzumutbarkeit, Vertragsanpassung, Rücktrittsrecht, Kündigungsrecht, Dauerschuldverhältnisse, Parallelen, Gesetzgeber, lex specialis, Verwaltungsgerichtshof, Bundesverwaltungsgericht, Vertragstreue, schwerwiegende Veränderung, Wesentlichkeit, Einzelfall, schematische Abgrenzungen, Vertragspartner, Zumutbarkeit, einschneidend, untragbares Ergebnis, Recht und Gerechtigkeit, vertragliche Risikoverteilung, wirtschaftliche Änderungen, politische Änderungen, gesellschaftliche Änderungen, tatsächliche Umstände, rechtliche Bedingungen, Bestand, gemeinsame Grundlage, Interessenlage, nicht absehbare Nachteile, Risikorahmen, Treu und Glauben, Gleichwertigkeit, eklatantes Missverhältnis, rechtliche Würdigung, Folgewirkungen, Kommentarliteratur, Äquivalenzstörung, Kaufkraftentwertung, Sachleistung, Leistungserschwerungen, Schuldner, Wertsteigerung, Leistungserleichterungen, Rechtsänderungen, Eingriffe von hoher Hand, Gesetzesänderungen, Rechtsprechungsänderungen, Verwendungszweck, Zweckerreichung, Zweckfortfall, Risikobereiche, nachträgliche Ereignisse, nachträgliche Rechtsänderung, nachträgliche tatsächliche Entwicklung, Risikobetrachtung, Risiko, Vertragszweck, dispositives Recht, Gesellschaften, Kontrollwechsel, Mehrheitsverhältnisse, Gesellschaftsrecht, Trennungsprinzip, Vertragsidentität, Change of Control-Klauseln, Gestaltungsrechte, Risikotragung, bewirkt hat, Rechte herleiten, Rechtsgutachten, Demokratieprinzip, Rechtsstaatsprinzip, Volksabstimmung, gesetzlich verpflichtet, wissenschaftliche Studien, empirische Studien, Justizministerium Baden-Württemberg, Gerichte, richterliche Unabhängigkeit\ntext: 1. Aufgrund welcher Fallgruppen haben das Reichsgericht (RG) und der Bundesgerichtshof (BGH) das Rechtsinstitut 'Wegfall der Geschäftsgrundlage' entwickelt, und wie reflektiert die Rechtsprechung zu § 313 Bürgerliches Gesetz -buch (BGB) und § 60 Landesverwaltungsverfahrensgesetz (LVwVfG) diese Rechtsentwicklung in der Praxis? - a) Soweit ersichtlich, hat das Reichsgericht erstmals in einer Entscheidung vom 3. Februar 1922 (II 640/21, RGZ 103, 328 ff.) den Wegfall der Geschäfts -grundlage als einen Einwand der benachteiligten Partei nach § 242 BGB eingeordnet. Es bildete in der grundlegenden Entscheidung keine abstrakten Fallgruppen, sondern formulierte allgemein, es komme 'immer darauf an, ob die Grundlage des Geschäfts im Sinne einer beim Geschäftsschluss zutage getretenen Vorstel -lung der Beteiligten über den Bestand gewisser maßgebender Verhältnisse hin -fällig geworden ist'. In der…\n\n[Chunk 6] score=7.5000 chunk_id=443054\ntitle: Die Vergütung beim Werkvertrag\ncanonical_url: https://www.duncker-humblot.de/_files_media/leseproben/9783428462933.pdf\nsource_url: https://www.duncker-humblot.de/_files_media/leseproben/9783428462933.pdf\nmentioned_paragraphs: -\nkeywords: -\ntext: Schriften zum Bürgerlichen Recht Band 105. Die Vergütung beim Werkvertrag. Von Rainer Grimme. Duncker & Humblot - Berlin. RAIIER GRIMME. Die Vergütung beim Werkvertrag. Schriften zum Bürgerlichen Recht Band 105. Die Vergütung beim Werkvertrag. Die Vergütung beim Werkvertrag. Von Rainer Grimme. Von Rainer Grimme. Vincit Veritas ОДаН DUNCKER & Humblot I BERLIN. DUNCKER & Humblot / BERLIN. CIP-Kurztitelaufnahme der Deutschen Bibliothek. Grimme, Rainer: Die Vergütung beim Werkvertrag / von Rainer Grimme. - Berlin : Duncker u. Humblot, 1987. ISBN 3-428-06293-0. NE: GT (Schriften zum Bürgerlichen Recht ; Bd. 105). CIP-Kurztitelaufnahme der Deutschen Bibliothek. Grimme, Rainer: Die Vergütung beim Werkvertrag / von Rainer Grimme. Berlin : Duncker u. Humblot, 1987. (Schriften zum Bürgerlichen Recht; Bd. 105) ISBN 3-428-06293-0. NE:GT. Alle Rechte vorbehalten. © 1987 Duncker & Humblot GmbH, Berli…",
+      "sources": [
+        {
+          "rank": 1,
+          "score": 12.8,
+          "title": null,
+          "url": "https://refubium.fu-berlin.de/bitstream/handle/fub188/27647/M%C3%BCller_Software_als_Gegenstand_der_Produkthaftung.pdf?sequence=5&isAllowed=y",
+          "paragraphs": [
+
+          ],
+          "keywords": [
+
+          ],
+          "quote": "ISBN 978-3-86888-143-1 9 Dr. Anne-Kathrin Müller, geb. 1980; Studium der Rechtswissenschaften an der Universität Potsdam; Referendariat im Gerichtsbezirk des OLG Brandenburg; von 2010 bis 2017 als Rechtsanwältin zugelassen; Mitarbeiterin beim Rundfunk Berlin-Brandenburg; wissenschaftliche Mitarbeiterin an der TU Berli..."
+        },
+        {
+          "rank": 2,
+          "score": 12.7,
+          "title": "Oberlandesgericht Düsseldorf, 21 U 4/17",
+          "url": "https://nrwe.justiz.nrw.de/pdfdownload/downloadEntscheidung.php?entscheidung=/nrwe/olgs/duesseldorf/j2017/21_U_4_17_Urteil_20170613.html",
+          "paragraphs": [
+            "§§ 634, 281 Abs. 1 BGB",
+            "§§ 314, 280 BGB",
+            "§ 634 Nr. 4, 636, 280, 281 BGB",
+            "§ 281 Abs. 1 Satz 1 BGB",
+            "§ 633 Abs. 1 BGB",
+            "§ 271 BGB",
+            "§ 281 Abs. 1 BGB",
+            "§ 323 Abs. 1 BGB",
+            "§ 286 Abs. 1 BGB",
+            "§ 635 BGB",
+            "§ 281 Abs. 2 BGB",
+            "§ 323 Abs. 2 BGB",
+            "§ 281 Abs. 2 Alt. 1 BGB",
+            "§ 323 Abs. 2 Alt. 2 BGB",
+            "§ 314 Abs. 1 Satz 2 BGB",
+            "§ 649 BGB"
+          ],
+          "keywords": [
+            "Berufung",
+            "unbegründet",
+            "Vertragsverletzung",
+            "Werkleistungen",
+            "Ersatzunternehmen",
+            "Mängelbeseitigung",
+            "Restarbeiten",
+            "Fertigstellungsmehrkosten",
+            "Mängelbeseitigungskosten",
+            "Werklohnforderung",
+            "Schadensersatz",
+            "Landgericht",
+            "Abnahme des Werkes",
+            "Abrechnungsverhältnis",
+            "Kündigung",
+            "wichtiger Grund",
+            "Mangel",
+            "Regeln der Technik",
+            "vertraglich geschuldete Beschaffenheit",
+            "Privatgutachter",
+            "Fälligkeit",
+            "Herstellungsfrist",
+            "Fristsetzung",
+            "Nacherfüllung",
+            "BGH",
+            "8. Zivilsenat",
+            "Kaufrecht",
+            "Werkvertragsrecht",
+            "Kooperationsgebot",
+            "Warnfunktion",
+            "angemessene Zeit",
+            "unverzüglich",
+            "umgehend",
+            "sofortig",
+            "Verbrauchsgüterkauf-Richtlinie",
+            "Europäisches Recht",
+            "nationales Recht",
+            "Schuldner",
+            "Gläubiger",
+            "Pflichtverletzung",
+            "Schadensersatz statt der Leistung",
+            "Schreiben vom 3.8.2015",
+            "Whatsapp-Nachricht",
+            "Arbeitsunterbrechung",
+            "Sachverständiger O.",
+            "Ortstermine",
+            "E-Mail vom 25.8.2015",
+            "Beginnfrist",
+            "anwaltliches Schreiben vom 31.08.2015",
+            "ernsthaft und endgültig verweigert",
+            "widersprüchliches Verhalten",
+            "Vertrauensverlust",
+            "Leistungsfähigkeit",
+            "Leistungswille",
+            "Drittunternehmer",
+            "Schadensersatzanspruch",
+            "außerordentliche Kündigung",
+            "Freistellungsanspruch",
+            "Verzugsschadensersatzanspruch"
+          ],
+          "quote": "II) Im Übrigen ist die Berufung unbegründet, da die landgerichtlichen Erwägungen im Ergebnis den Berufungsangriffen standhalten und eine Abänderung der Entscheidung des Landgerichts nicht gerechtfertigt ist; den Klägern steht kein Zahlungsanspruch über den ihnen bereits vom Landgericht zuerkannten Betrag zu. Die Kläge..."
+        },
+        {
+          "rank": 3,
+          "score": 11.6,
+          "title": "NACHTRÄGE AM BAU NACH VOB/B",
+          "url": "https://www.kanzlei-am-steinmarkt.de/files/kas/upload/downloads/skripte/Baurecht/28-nachtraege-am-bau-nach-vob-b-01-03-2023.pdf",
+          "paragraphs": [
+
+          ],
+          "keywords": [
+
+          ],
+          "quote": "NACHTRÄGE AM BAU NACH VOB/B DURCHSETZUNG UND ABWEHR VON NACHTRÄGEN NACH VOB/B UNTER BERÜCKSICHTIGUNG DER BAURECHTSREFORM 2018 Nachträge am Bau nach VOB/B Durchsetzung und Abwehr von Nachträgen nach VOB/B unter Berücksichtigung der Baurechtsreform 2018 - VORWORT Dieses Skript wendet sich an Bauleiter, Projektleiter, Ba..."
+        },
+        {
+          "rank": 4,
+          "score": 10.8,
+          "title": null,
+          "url": "https://www.ihk.de/blueprint/servlet/resource/blob/6150360/5b8aebe11c2e53535cf24ff8a739d2ed/skript-it-vertragsrecht-knapp-500-seiten-stand-mai-2024--data.pdf",
+          "paragraphs": [
+
+          ],
+          "keywords": [
+
+          ],
+          "quote": "Prof. Dr. Thomas Hoeren Institut für Informations-, Telekommunikations- und Medienrecht Universität Münster Rechtsanwalt Stefan Pinelli, Wolfsburg ## IT-Vertragsrecht Stand: Mai 2024 ## Vorwort Die digitale Transformation von Gesellschaften, Institutionen sowie gerade unseres Wirtschaftslebens ist in vielen Teilen der..."
+        },
+        {
+          "rank": 5,
+          "score": 9.6,
+          "title": "Clausula rebus sic stantibus (Wegfall der Geschäftsgrundlage) und S 21 Finanzierungsvertrag",
+          "url": "https://www.landtag-bw.de/resource/blob/23380/9b52098da453289804421b57ab979b7c/15_0616_D.pdf",
+          "paragraphs": [
+            "§ 313 BGB",
+            "§ 60 LVwVfG",
+            "§ 242 BGB",
+            "§ 60 Absatz 1 LVwVfG",
+            "§ 313 Absatz 1 BGB",
+            "§ 313 Absatz 2 BGB",
+            "§ 313 Absatz 3 Satz 1 BGB",
+            "§ 313 Absatz 3 Satz 2 BGB",
+            "§ 60 Absatz 1 Satz 1 LVwVfG",
+            "§ 60 Absatz 1 Satz 2 LVwVfG",
+            "§ 313 Absatz 3 BGB",
+            "§ 60 VwVfG",
+            "RGZ 103, 328 ff.",
+            "BGHZ 120, 10, 23",
+            "BVerwG, Beschluss vom 25. Januar 2011 - 2 B 73/10",
+            "BGH, Urteil vom 5. Januar 1995 - IX ZR 85/94",
+            "BGH, Urteil vom 10. Oktober 1984 - VIII ZR 152/83",
+            "BGH, Urteil vom 26. Februar 1987 - IX ZR 98/86",
+            "BGH, Urteil vom 24. November 1995 - V ZR 164/94",
+            "BGH, Beschluss vom 23. März 2011 - VII ZR 216/08",
+            "BGH, Urteil vom 27. September 1991 - V ZR 191/90",
+            "RGZ 147, 42, 56",
+            "BGH, Urteil vom 25. Februar 1993, VII ZR 24/92",
+            "BGH, Urteil vom 30. April 2009 - I ZR 42/07",
+            "Verwaltungsgerichtshof Baden-Württemberg, Urteil vom 9. März 1999 - 8 S 2877/98",
+            "Verwaltungsgerichtshof Baden-Württemberg, Urteil vom 19. Dezember 1995 - 10 S 1140/94",
+            "BVerwGE 87, 77, 80 ff."
+          ],
+          "keywords": [
+            "Reichsgericht",
+            "Bundesgerichtshof",
+            "Wegfall der Geschäftsgrundlage",
+            "Rechtsinstitut",
+            "Fallgruppen",
+            "Rechtsprechung",
+            "Bürgerliches Gesetzbuch",
+            "Landesverwaltungsverfahrensgesetz",
+            "Praxis",
+            "Entscheidung",
+            "Einwand",
+            "benachteiligte Partei",
+            "Geschäftsgrundlage",
+            "Vorstellung der Beteiligten",
+            "Geldentwertung",
+            "Wertverhältnis",
+            "Leistung",
+            "Gegenleistung",
+            "Einwand der veränderten Umstände",
+            "Valutaverschiebung",
+            "Äquivalenz",
+            "Vertragsschluss",
+            "Rechtsgrundsätze",
+            "subjektive Geschäftsgrundlage",
+            "objektive Geschäftsgrundlage",
+            "Vertragsinhalt",
+            "Geschäftswille",
+            "Störungen",
+            "Amts wegen",
+            "Einrede",
+            "Palandt",
+            "Wortlaut",
+            "öffentlich-rechtliche Verträge",
+            "Voraussetzungen",
+            "Rechtsfolgen",
+            "Auslegungsgrundsätze",
+            "Anwendungsvoraussetzung",
+            "Veränderung der Umstände",
+            "Unmöglichkeit",
+            "Unzumutbarkeit",
+            "Vertragsanpassung",
+            "Rücktrittsrecht",
+            "Kündigungsrecht",
+            "Dauerschuldverhältnisse",
+            "Parallelen",
+            "Gesetzgeber",
+            "lex specialis",
+            "Verwaltungsgerichtshof",
+            "Bundesverwaltungsgericht",
+            "Vertragstreue",
+            "schwerwiegende Veränderung",
+            "Wesentlichkeit",
+            "Einzelfall",
+            "schematische Abgrenzungen",
+            "Vertragspartner",
+            "Zumutbarkeit",
+            "einschneidend",
+            "untragbares Ergebnis",
+            "Recht und Gerechtigkeit",
+            "vertragliche Risikoverteilung",
+            "wirtschaftliche Änderungen",
+            "politische Änderungen",
+            "gesellschaftliche Änderungen",
+            "tatsächliche Umstände",
+            "rechtliche Bedingungen",
+            "Bestand",
+            "gemeinsame Grundlage",
+            "Interessenlage",
+            "nicht absehbare Nachteile",
+            "Risikorahmen",
+            "Treu und Glauben",
+            "Gleichwertigkeit",
+            "eklatantes Missverhältnis",
+            "rechtliche Würdigung",
+            "Folgewirkungen",
+            "Kommentarliteratur",
+            "Äquivalenzstörung",
+            "Kaufkraftentwertung",
+            "Sachleistung",
+            "Leistungserschwerungen",
+            "Schuldner",
+            "Wertsteigerung",
+            "Leistungserleichterungen",
+            "Rechtsänderungen",
+            "Eingriffe von hoher Hand",
+            "Gesetzesänderungen",
+            "Rechtsprechungsänderungen",
+            "Verwendungszweck",
+            "Zweckerreichung",
+            "Zweckfortfall",
+            "Risikobereiche",
+            "nachträgliche Ereignisse",
+            "nachträgliche Rechtsänderung",
+            "nachträgliche tatsächliche Entwicklung",
+            "Risikobetrachtung",
+            "Risiko",
+            "Vertragszweck",
+            "dispositives Recht",
+            "Gesellschaften",
+            "Kontrollwechsel",
+            "Mehrheitsverhältnisse",
+            "Gesellschaftsrecht",
+            "Trennungsprinzip",
+            "Vertragsidentität",
+            "Change of Control-Klauseln",
+            "Gestaltungsrechte",
+            "Risikotragung",
+            "bewirkt hat",
+            "Rechte herleiten",
+            "Rechtsgutachten",
+            "Demokratieprinzip",
+            "Rechtsstaatsprinzip",
+            "Volksabstimmung",
+            "gesetzlich verpflichtet",
+            "wissenschaftliche Studien",
+            "empirische Studien",
+            "Justizministerium Baden-Württemberg",
+            "Gerichte",
+            "richterliche Unabhängigkeit"
+          ],
+          "quote": "1. Aufgrund welcher Fallgruppen haben das Reichsgericht (RG) und der Bundesgerichtshof (BGH) das Rechtsinstitut 'Wegfall der Geschäftsgrundlage' entwickelt, und wie reflektiert die Rechtsprechung zu § 313 Bürgerliches Gesetz -buch (BGB) und § 60 Landesverwaltungsverfahrensgesetz (LVwVfG) diese Rechtsentwicklung in der..."
+        },
+        {
+          "rank": 6,
+          "score": 7.5,
+          "title": "Die Vergütung beim Werkvertrag",
+          "url": "https://www.duncker-humblot.de/_files_media/leseproben/9783428462933.pdf",
+          "paragraphs": [
+
+          ],
+          "keywords": [
+
+          ],
+          "quote": "Schriften zum Bürgerlichen Recht Band 105. Die Vergütung beim Werkvertrag. Von Rainer Grimme. Duncker & Humblot - Berlin. RAIIER GRIMME. Die Vergütung beim Werkvertrag. Schriften zum Bürgerlichen Recht Band 105. Die Vergütung beim Werkvertrag. Die Vergütung beim Werkvertrag. Von Rainer Grimme. Von Rainer Grimme. Vinci..."
+        }
+      ]
+    },
+    "hybrid": {
+      "label": "Hybrid",
+      "retrieval_mode": "hybrid",
+      "top_k": 6,
+      "alpha": 0.7,
+      "answer": "**Obersatz:** Es ist zu prüfen, ob der Gartenbauer für die drohenden feuchten Kellerwände haftet und welche konkreten Maßnahmen zu ergreifen sind.\n\n**Norm:** In Betracht kommt ein Anspruch auf Schadensersatz gemäß § 280 Abs. 1 BGB i.V.m. dem Werkvertrag (§ 631 BGB). Dafür müsste der Gartenbauer eine Pflicht aus dem Werkvertrag verletzt haben, was zu einem Schaden geführt hat.\n\n**Subsumtion:**\n\n1.  **Werkvertrag:** Zwischen Ihnen und dem Gartenbauer besteht ein Werkvertrag gemäß § 631 BGB über die Pflasterarbeiten und das Setzen der L-Steine.\n2.  **Pflichtverletzung:** Eine Pflichtverletzung könnte darin liegen, dass die Ausführung der Arbeiten nicht den anerkannten Regeln der Technik entsprach oder eine vertraglich vereinbarte Beschaffenheit fehlte (§ 633 BGB). Hier stellt sich die Frage, ob der Gartenbauer bei der Ausführung der Pflasterarbeiten und dem Setzen der L-Steine hätte berücksichtigen müssen, dass das Oberflächenwasser ordnungsgemäß abgeleitet wird, um Schäden am Haus zu vermeiden.\n    *   **Prüfungs- und Hinweispflicht:** Nach § 4 Nr. 3 VOB/B (auch ohne deren Vereinbarung als Ausprägung von Treu und Glauben relevant, vgl. OLG Düsseldorf, NZBau 2001, 398) hat ein Unternehmer Bedenken gegen die vorgesehene Art der Ausführung unverzüglich dem Auftraggeber mitzuteilen. Wusste der Gartenbauer von der Hanglage und der bisherigen Entwässerungssituation, hätte er auf die Notwendigkeit einer geänderten Entwässerung hinweisen müssen. Dies gilt insbesondere, wenn die gewählte Ausführung (Setzen der L-Steine ohne Abflussmöglichkeit) erkennbar zu einer Beeinträchtigung führen konnte.\n    *   **Abweichung von anerkannten Regeln der Technik:** Auch ohne ausdrücklichen Hinweis könnte eine Pflichtverletzung vorliegen, wenn die Ausführung ohne adäquate Entwässerung den anerkannten Regeln der Technik widerspricht. Dies wäre der Fall, wenn es zum Standard gehört, bei solchen Hanglagen eine gezielte Entwässerung vorzusehen.\n3.  **Verschulden:** Der Gartenbauer müsste die Pflichtverletzung auch verschuldet haben (§ 276 BGB), also vorsätzlich oder fahrlässig gehandelt haben. Fahrlässigkeit liegt vor, wenn er die im Verkehr erforderliche Sorgfalt außer Acht gelassen hat. Dies wäre der Fall, wenn er die Notwendigkeit einer Entwässerung hätte erkennen können und müssen.\n4.  **Schaden:** Durch die drohenden feuchten Kellerwände entsteht ein Schaden. Dieser Schaden muss durch die Pflichtverletzung des Gartenbauers verursacht worden sein. Hier ist die Kausalität gegeben, da die fehlende oder mangelhafte Entwässerung aufgrund der L-Steine direkt zu dem Problem führt.\n\n**Ergebnis:**\n\nEs besteht eine hohe Wahrscheinlichkeit, dass der Gartenbauer für die drohenden feuchten Kellerwände haftet, da er möglicherweise seine Prüfungs- und Hinweispflicht verletzt hat oder die Arbeiten nicht fachgerecht ausgeführt hat.\n\n**Konkrete Maßnahmen:**\n\n1.  **Mängelanzeige:** Sie sollten den Gartenbauer unverzüglich schriftlich über den Mangel (fehlende Entwässerung, drohende Feuchtigkeitsschäden) informieren und ihn zur Nacherfüllung auffordern (§ 635 BGB). Setzen Sie ihm eine angemessene Frist zur Beseitigung des Mangels.\n2.  **Beweissicherung:** Dokumentieren Sie die Situation (Fotos, Gutachten), um den Mangel und den drohenden Schaden zu beweisen.\n3.  **Kostenvoranschlag:** Holen Sie einen Kostenvoranschlag für die notwendigen Maßnahmen zur Beseitigung des Problems (z.B. Installation eines Gullys und Anschluss an das Regenrohr) ein.\n4.  **Rechtliche Schritte:** Wenn der Gartenbauer die Nacherfüllung verweigert oder die Frist fruchtlos verstreicht, können Sie den Schaden selbst beseitigen lassen und die Kosten vom Gartenbauer als Schadensersatz verlangen (§ 280 BGB). Gegebenenfalls ist die Einschaltung eines Anwalts ratsam.\n",
+      "retrieved_context": "Retrieval mode: hybrid\nSource: search_intent_discovery\nTop-K returned: 6\n\n[Chunk 1] score=0.7000 chunk_id=451590\ntitle: Urteil OLG Düsseldorf 21. Zivilsenats vom 18.02.2015 (I-21 U 220/13)\ncanonical_url: https://nrwe.justiz.nrw.de/olgs/duesseldorf/j2015/I_21_U_220_13_Grund_und_Teilurteil_20150218.html\nsource_url: https://nrwe.justiz.nrw.de/olgs/duesseldorf/j2015/I_21_U_220_13_Grund_und_Teilurteil_20150218.html\nmentioned_paragraphs: -\nkeywords: Keller, Bauplanung, Bauausführung, Bodenplatte, Innenwände, Dach, Isolierung, Schlussrechnung, Abschlagszahlungen, Bautreppe\ntext: Nachdem die Baugrube für den Keller ausgehoben war, stellte sich heraus, dass nach dem Stand der Ausführung der Keller zu niedrig geraten würde, wenn er sich auf dem gleichen Niveau wie das Haupthaus befände. Ob die Ursache für die mangelnde Höhe des Kellers ein Fehler im Rahmen der Bauplanung oder der Bauausführung bei der Ausschachtung war, ist zwischen den Parteien streitig. Um im Keller die erforderliche Deckenhöhe zu erreichen, dünnte der Kläger die bereits eingebrachte kapillarbrechende Schicht aus und verzichtete auf eine Sauberkeitsschicht. Stattdessen fand eine so genannte Delta-Noppenbahn Verwendung. Die mit einer Stärke von 24 cm geplante Bodenplatte wurde letztlich mit einer Stärke von max. 20 cm betoniert. Im Einverständnis zwischen den Parteien wurde auf die Erstellung von nichttragenden Innenwänden im Kellerbereich verzichtet. Am 18.12.2004 waren die Arbeiten an dem Anbau…\n\n[Chunk 2] score=0.6729 chunk_id=445772\ntitle: Verbrauchervertrag vs. Verbraucherbauvertrag\ncanonical_url: https://www.gvw.com/aktuelles/blog/detail/verbrauchervertrag-vs-verbraucherbauvertrag\nsource_url: https://www.gvw.com/aktuelles/blog/detail/verbrauchervertrag-vs-verbraucherbauvertrag\nmentioned_paragraphs: -\nkeywords: Außenanlagen, Vertrag, Widerruf, Rückzahlung, Werkleistungen\ntext: Der Beklagte wurde von dem Kläger mit Vertrag vom 18. August 2020 für Arbeiten an Außenanlagen (Hof/Terrasse/Pflasterung) beauftragt. Die Parteien hatten den Vertrag an der Haustür des Klägers geschlossen. Vereinbart war die Reinigung und Versiegelung von Dachpfannen und Pflastersteinen sowie die Sanierung von Holz zu einem Preis von 21.000 Euro. Nachdem der Beklagte die Arbeiten teilweise erbracht hatte, widerrief der Kläger den Vertrag und machte eine Rückzahlung bereits geleisteter Abschlagszahlungen in Höhe von 12.500,- Euro geltend. Der Beklagte rechnete dagegen mit einen eigenen Anspruch für erbrachte Werkleistungen im Umfang von 8.050,- Euro auf.\n\n[Chunk 3] score=0.6433 chunk_id=449381\ntitle: Leistungsverweigerungsrecht nach § 275 II BGB bei Mangel der Mietsache (§ 535 BGB); Voraussetzung der Unmöglichkeit der (subjektiven) Mängelbeseitigung (§ 275 I BGB)\ncanonical_url: https://lorenz.userweb.mwn.de/urteile/viiizr342_03.htm\nsource_url: https://lorenz.userweb.mwn.de/urteile/viiizr342_03.htm\nmentioned_paragraphs: -\nkeywords: Erstgericht, Feuchtigkeitsschäden, Wasser, Sanierung, Aufwand, Vorteil, Betonwanne, Neuaufbau des Hauses\ntext: Das Erstgericht hatte im Zusammenhang mit den von den Klägern behaupteten Feuchtigkeitsschäden und dem Eintritt von Wasser ausgeführt: \"Eine vollständige Sanierung des Durchganges würde nur mit einem so hohen Aufwand möglich sein, daß der daraus resultierende Vorteil für die Kläger in keinem Verhältnis stünde. Nur durch eine vollständige Erneuerung der Betonwanne unter dem Haus wäre letztlich sicherzustellen, daß überhaupt kein Wasser mehr eintritt. Dies würde aber den Abriß und Neuaufbau des Hauses erfordern, wozu der Vorteil für die Kläger bei jedem Wetter trockenen Fußes zu ihrem Pkw zu gelangen in keinem Verhältnis steht. ...\"\n\n[Chunk 4] score=0.6065 chunk_id=446399\ntitle: BGH: Fiktive Mängelbeseitigungskosten als Schadensersatz statt der Leistung im Kauf- und Werkvertragsrecht - Teil 2\ncanonical_url: https://jura-online.de/blog/2020/12/02/bgh-fiktive-mangelbeseitigungskosten-als-schadensersatz-statt-der-leistung-im-kauf-und-werkvertragsrecht-teil-2/\nsource_url: https://jura-online.de/blog/2020/12/02/bgh-fiktive-mangelbeseitigungskosten-als-schadensersatz-statt-der-leistung-im-kauf-und-werkvertragsrecht-teil-2/\nmentioned_paragraphs: -\nkeywords: Natursteinplatten, Nacherfüllung, Mängelbeseitigungskosten, werkvertragliche Erfolgshaftung, fiktive Mängelbeseitigungskosten, Schadensersatz, Werklohn, Überkompensation, individuelle Beschaffenheit, Fußbodenheizung\ntext: - Der Besteller hat den Unternehmer beauftragt, den Boden im Erdgeschoss seines Einfamilienhauses mit weißen Natursteinplatten zu fliesen. Der vereinbarte Preis beträgt 40.000 Euro. Tatsächlich werden hellgraue Natursteinplatten verlegt. Der Austausch würde etwa 60.000 Euro netto kosten, da die Einbauküche wieder abgebaut, die Möbel ausgelagert, die verlegten Platten entfernt, die neuen Platten verlegt und die Familie vorübergehend in einem Hotel untergebracht werden muss. Der Unternehmer hat die Nacherfüllung nicht innerhalb der gesetzten Frist durchgeführt.Lasse der Besteller die Platten tatsächlich austauschen, könne er vom Unternehmer die kompletten Mängelbeseitigungskosten verlangen, obwohl diese die Vergütung erheblich übersteigen. Der Aufwand sei nicht unverhältnismäßig, da der Unternehmer der werkvertraglichen Erfolgshaftung unterliege.Entscheide er sich dagegen dafür, die Platt…\n\n[Chunk 5] score=0.5695 chunk_id=446484\ntitle: BGH zur Schadensberechnung bei Mängeln in Werkverträgen - ein Paradigmenwechsel\ncanonical_url: https://www.rechtsanwalt-ostfalk.de/index.php/blog/baur/bgh-zur-schadensberechnung-bei-maengeln-in-werkvertraegen-ein-paradigmenwechsel\nsource_url: https://www.rechtsanwalt-ostfalk.de/index.php/blog/baur/bgh-zur-schadensberechnung-bei-maengeln-in-werkvertraegen-ein-paradigmenwechsel\nmentioned_paragraphs: -\nkeywords: Sachverhalt, Schadensersatz, Mängel, Werkvertrag, Natursteinplatten, fiktive Mängelbeseitigungskosten, BGH\ntext: I. Sachverhalt Die Klägerin verlangt von den Beklagten Schadensersatz wegen Mängeln an Natursteinplatten, die im Außenbereich ihres Einfamilienhauses vom Beklagten aufgrund eines Werkvertrages verlegt wurden. Sie beauftragte 2002 einen Architekten mit der Planung der Außenanlagen und 2004 die beklagte Werkunternehmerin mit der Ausführung der Arbeiten. Die Beklagte ließ die Platten durch eine Nachunternehmerin verlegen. Nach Abnahme und Bezahlung der Arbeiten im Jahr 2005 traten ab 2007 erhebliche Mängel auf, darunter Risse, Ablösungen, Salzausspülungen und Durchfeuchtungen. In erster Instanz wurde der Klägerin ein Vorschuss für die Mängelbeseitigung zugesprochen. Während des Berufungsverfahrens verkaufte die Klägerin das Haus. Da sie damit die Absicht aufgab, den mangelnden tatsächlich beseitigen zu lassen, stellte sie die Klage auf Schadensersatz um. Nunmehr wollte sie also Schadensers…\n\n[Chunk 6] score=0.5468 chunk_id=447132\ntitle: Prüfungspflichten bei der Umsetzung von Plänen\ncanonical_url: https://www.bauingenieur24.de/artikel/pruefungspflichten-bei-der-umsetzung-von-plaenen\nsource_url: https://www.bauingenieur24.de/artikel/pruefungspflichten-bei-der-umsetzung-von-plaenen\nmentioned_paragraphs: § 4 Nr. 3 VOB/B\nkeywords: Architekt, Lichtgräben, Entwässerung, Gartenbauunternehmer, Prüfungs- und Hinweispflicht, OLG Düsseldorf, VOB/B, Treu und Glauben, Haftungsanteil\ntext: Im dritten Fall hatte ein Architekt abgeböschte Lichtgräben vor einer Souterrain-Wohnung geplant und dabei keine ausreichende Versickerungsmöglichkeit der bei starken Regenfällen zu erwartenden Wassermassen vorgesehen, was das OLG Düsseldorf als Fehler beurteilt hat (NZBau 2001, 398). Anders als in den oben besprochenen Fällen sah hier das Gericht aber auch einen Fehler des ausführenden Gartenbauunternehmers. Denn dieser sei verpflichtet gewesen, auf Bedenken gegen die vorgesehene Ausführung der Entwässerung am Fußpunkt der Böschungen (Sohle der Lichtgräben) hinzuweisen. Diese in § 4 Nr. 3 VOB/B zum Ausdruck gekommene Prüfungs- und Hinweispflicht habe dem Unternehmer unabhängig davon oblegen, ob die VOB/B vereinbart sei oder nicht, weil diese Regelung als Konkretisierung des allgemeinen Grundsatzes von Treu und Glauben einem allgemeingültigen Rechtsgedanken entspreche, der über die VOB…",
+      "sources": [
+        {
+          "rank": 1,
+          "score": 0.7,
+          "title": "Urteil OLG Düsseldorf 21. Zivilsenats vom 18.02.2015 (I-21 U 220/13)",
+          "url": "https://nrwe.justiz.nrw.de/olgs/duesseldorf/j2015/I_21_U_220_13_Grund_und_Teilurteil_20150218.html",
+          "paragraphs": [
+
+          ],
+          "keywords": [
+            "Keller",
+            "Bauplanung",
+            "Bauausführung",
+            "Bodenplatte",
+            "Innenwände",
+            "Dach",
+            "Isolierung",
+            "Schlussrechnung",
+            "Abschlagszahlungen",
+            "Bautreppe"
+          ],
+          "quote": "Nachdem die Baugrube für den Keller ausgehoben war, stellte sich heraus, dass nach dem Stand der Ausführung der Keller zu niedrig geraten würde, wenn er sich auf dem gleichen Niveau wie das Haupthaus befände. Ob die Ursache für die mangelnde Höhe des Kellers ein Fehler im Rahmen der Bauplanung oder der Bauausführung b..."
+        },
+        {
+          "rank": 2,
+          "score": 0.6728958786423399,
+          "title": "Verbrauchervertrag vs. Verbraucherbauvertrag",
+          "url": "https://www.gvw.com/aktuelles/blog/detail/verbrauchervertrag-vs-verbraucherbauvertrag",
+          "paragraphs": [
+
+          ],
+          "keywords": [
+            "Außenanlagen",
+            "Vertrag",
+            "Widerruf",
+            "Rückzahlung",
+            "Werkleistungen"
+          ],
+          "quote": "Der Beklagte wurde von dem Kläger mit Vertrag vom 18. August 2020 für Arbeiten an Außenanlagen (Hof/Terrasse/Pflasterung) beauftragt. Die Parteien hatten den Vertrag an der Haustür des Klägers geschlossen. Vereinbart war die Reinigung und Versiegelung von Dachpfannen und Pflastersteinen sowie die Sanierung von Holz zu..."
+        },
+        {
+          "rank": 3,
+          "score": 0.6432736864468602,
+          "title": "Leistungsverweigerungsrecht nach § 275 II BGB bei Mangel der Mietsache (§ 535 BGB); Voraussetzung der Unmöglichkeit der (subjektiven) Mängelbeseitigung (§ 275 I BGB)",
+          "url": "https://lorenz.userweb.mwn.de/urteile/viiizr342_03.htm",
+          "paragraphs": [
+
+          ],
+          "keywords": [
+            "Erstgericht",
+            "Feuchtigkeitsschäden",
+            "Wasser",
+            "Sanierung",
+            "Aufwand",
+            "Vorteil",
+            "Betonwanne",
+            "Neuaufbau des Hauses"
+          ],
+          "quote": "Das Erstgericht hatte im Zusammenhang mit den von den Klägern behaupteten Feuchtigkeitsschäden und dem Eintritt von Wasser ausgeführt: \"Eine vollständige Sanierung des Durchganges würde nur mit einem so hohen Aufwand möglich sein, daß der daraus resultierende Vorteil für die Kläger in keinem Verhältnis stünde. Nur dur..."
+        },
+        {
+          "rank": 4,
+          "score": 0.6065395574494212,
+          "title": "BGH: Fiktive Mängelbeseitigungskosten als Schadensersatz statt der Leistung im Kauf- und Werkvertragsrecht - Teil 2",
+          "url": "https://jura-online.de/blog/2020/12/02/bgh-fiktive-mangelbeseitigungskosten-als-schadensersatz-statt-der-leistung-im-kauf-und-werkvertragsrecht-teil-2/",
+          "paragraphs": [
+
+          ],
+          "keywords": [
+            "Natursteinplatten",
+            "Nacherfüllung",
+            "Mängelbeseitigungskosten",
+            "werkvertragliche Erfolgshaftung",
+            "fiktive Mängelbeseitigungskosten",
+            "Schadensersatz",
+            "Werklohn",
+            "Überkompensation",
+            "individuelle Beschaffenheit",
+            "Fußbodenheizung"
+          ],
+          "quote": "- Der Besteller hat den Unternehmer beauftragt, den Boden im Erdgeschoss seines Einfamilienhauses mit weißen Natursteinplatten zu fliesen. Der vereinbarte Preis beträgt 40.000 Euro. Tatsächlich werden hellgraue Natursteinplatten verlegt. Der Austausch würde etwa 60.000 Euro netto kosten, da die Einbauküche wieder abge..."
+        },
+        {
+          "rank": 5,
+          "score": 0.5695332783219401,
+          "title": "BGH zur Schadensberechnung bei Mängeln in Werkverträgen - ein Paradigmenwechsel",
+          "url": "https://www.rechtsanwalt-ostfalk.de/index.php/blog/baur/bgh-zur-schadensberechnung-bei-maengeln-in-werkvertraegen-ein-paradigmenwechsel",
+          "paragraphs": [
+
+          ],
+          "keywords": [
+            "Sachverhalt",
+            "Schadensersatz",
+            "Mängel",
+            "Werkvertrag",
+            "Natursteinplatten",
+            "fiktive Mängelbeseitigungskosten",
+            "BGH"
+          ],
+          "quote": "I. Sachverhalt Die Klägerin verlangt von den Beklagten Schadensersatz wegen Mängeln an Natursteinplatten, die im Außenbereich ihres Einfamilienhauses vom Beklagten aufgrund eines Werkvertrages verlegt wurden. Sie beauftragte 2002 einen Architekten mit der Planung der Außenanlagen und 2004 die beklagte Werkunternehmeri..."
+        },
+        {
+          "rank": 6,
+          "score": 0.5467923870830628,
+          "title": "Prüfungspflichten bei der Umsetzung von Plänen",
+          "url": "https://www.bauingenieur24.de/artikel/pruefungspflichten-bei-der-umsetzung-von-plaenen",
+          "paragraphs": [
+            "§ 4 Nr. 3 VOB/B"
+          ],
+          "keywords": [
+            "Architekt",
+            "Lichtgräben",
+            "Entwässerung",
+            "Gartenbauunternehmer",
+            "Prüfungs- und Hinweispflicht",
+            "OLG Düsseldorf",
+            "VOB/B",
+            "Treu und Glauben",
+            "Haftungsanteil"
+          ],
+          "quote": "Im dritten Fall hatte ein Architekt abgeböschte Lichtgräben vor einer Souterrain-Wohnung geplant und dabei keine ausreichende Versickerungsmöglichkeit der bei starken Regenfällen zu erwartenden Wassermassen vorgesehen, was das OLG Düsseldorf als Fehler beurteilt hat (NZBau 2001, 398). Anders als in den oben besprochen..."
+        }
+      ]
+    }
+  }
+}

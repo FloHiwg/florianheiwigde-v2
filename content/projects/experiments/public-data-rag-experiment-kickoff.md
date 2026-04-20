@@ -11,15 +11,17 @@ This project started with a practical question:
 
 How far can I get in a legal research workflow with only publicly available data?
 
-I built this as an end-to-end RAG system, not just a retrieval prototype. The scope includes source discovery, ingestion, normalization, chunking, retrieval, and evaluation. The legal sphere is an example domain here, not the core point of the article. What I want to showcase is the full RAG workflow, the techniques involved, and where quality actually breaks once you move beyond a narrow demo.
+I built this as an end-to-end RAG system, not just a retrieval prototype. The scope includes source discovery, ingestion, normalization, chunking, retrieval, and evaluation. The legal sphere is an example domain here, not the core point of the article. What I want to showcase is the full RAG workflow, the techniques involved, and where quality actually breaks once you move beyond a narrow demo. The overall retrieval-augmented generation pattern follows the original RAG paper by Lewis et al. ([Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks](https://proceedings.neurips.cc/paper/2020/hash/6b493230205f780e1bc26945df7481e5-Abstract.html)).
 
 I picked legal as the example because I have worked in this sphere for the last five years. That gave me a rough understanding of the data available, the research needs of legal professionals, and the constraints that make this kind of public-data setup interesting to test.
 
-The concrete first legal area is still evolving. I am currently adapting the experiments away from a tenant-law-style example and toward professional legal research questions, and I will add the exact first domain later once that part of the setup is finalized.
+The current benchmark slices already make the first concrete legal areas explicit: Werkvertrag, Schuldrecht B2B, and GBR. I am using those three areas as the first public research tracks while continuing to refine the broader professional legal research workflow around them.
 
-Another goal was to design a workflow that is measurable and easy to iterate on. I used a medallion-style structure to separate raw ingestion, structured processing, retrieval, and evaluation so that each layer can be improved independently.
+Another goal was to design a workflow that is measurable and easy to iterate on. I used a medallion-style structure to separate raw ingestion, structured processing, retrieval, and evaluation so that each layer can be improved independently, following the general Bronze/Silver layering pattern described by Databricks ([What is the medallion lakehouse architecture?](https://docs.databricks.com/aws/en/lakehouse/medallion)).
 
 The current benchmark vs RAG deltas are still weak, which is an important result in itself. What this project already demonstrates is the kind of engineering work I want to showcase: building real pipelines around messy data, making tradeoffs explicit, and evaluating systems honestly instead of treating early output as proof.
+
+None of the core building blocks here are proprietary tricks. The stack combines standard public RAG techniques: layered data preparation, chunking, hybrid retrieval, and dataset-based evaluation, all of which are common in production RAG systems as well as research workflows ([Retrieval-augmented generation (RAG) in Azure AI Search](https://learn.microsoft.com/en-us/azure/search/retrieval-augmented-generation-overview)).
 
 ## Project Snapshot
 
@@ -34,8 +36,8 @@ The current state is promising but still early. The full loop is running end to 
 
 <div class="article-demo-cta">
   <div class="article-demo-cta__eyebrow">Interactive demo</div>
-  <h3 class="article-demo-cta__title">Open the Legal RAG chat explorer</h3>
-  <p class="article-demo-cta__copy">Inspect one saved legal research question across benchmark, vector, BM25, and hybrid retrieval and compare the answer with the quoted evidence trail.</p>
+  <h3 class="article-demo-cta__title">Open the Legal Research Retrieval Replay</h3>
+  <p class="article-demo-cta__copy">Review one saved professional legal research workflow across benchmark, vector, BM25, and hybrid retrieval modes, and compare each output against its supporting evidence trail.</p>
   <a class="article-demo-cta__button" href="/projects/experiments/legal-rag-chat-explorer/">Open retrieval explorer</a>
 </div>
 
@@ -43,7 +45,7 @@ The current state is promising but still early. The full loop is running end to 
 
 The starting hypothesis was simple: retrieval should improve answer quality for a domain with fragmented public knowledge.
 
-I used legal research for professionals as the concrete end-to-end use case because it is a domain I know reasonably well and because it makes the retrieval problem very visible. The exact first legal area will be added later, but the workflow focus is already clear: support research-oriented questions where source quality, grounding, and traceability matter. High-value public data is unevenly accessible:
+I used legal research for professionals as the concrete end-to-end use case because it is a domain I know reasonably well and because it makes the retrieval problem very visible. The current public benchmark focuses on Werkvertrag, Schuldrecht B2B, and GBR, but the workflow focus is already clear: support research-oriented questions where source quality, grounding, and traceability matter. High-value public data is unevenly accessible:
 
 - A lot of detailed commentary is paywalled.
 - Public datasets are fragmented.
@@ -101,7 +103,7 @@ The current transformation includes:
 
 I deliberately put metadata extraction and chunk generation in the same stage because legal retrieval depends heavily on structure. It is not enough to store text embeddings alone. I want the system to know, where possible, which legal paragraphs are mentioned, which keywords characterize the chunk, and which quality issues appeared during parsing.
 
-The main tradeoff here is cost versus coherence. I chose LLM-based semantic chunking instead of naive token windows because legal explanations often break badly when split mechanically. The more coherent chunk boundaries are worth the added cost at this phase because retrieval quality is still a larger bottleneck than processing efficiency.
+The main tradeoff here is cost versus coherence. I chose LLM-based semantic chunking instead of naive token windows because legal explanations often break badly when split mechanically. The more coherent chunk boundaries are worth the added cost at this phase because retrieval quality is still a larger bottleneck than processing efficiency. That tradeoff is consistent with common RAG chunking guidance: chunking strategy materially affects retrieval quality, and the right choice depends on document structure, cost, and downstream retrieval behavior ([RAG chunking phase](https://learn.microsoft.com/azure/architecture/ai-ml/guide/rag/rag-chunking-phase)).
 
 The next Silver iteration is to tighten chunk and metadata quality. That includes better handling of noisy page structure, stronger paragraph-reference extraction, and more explicit quality flags for weak documents before they distort retrieval results.
 
@@ -109,11 +111,11 @@ The next Silver iteration is to tighten chunk and metadata quality. That include
 
 For retrieval, I wanted a baseline that is broad enough to compare approaches without pretending that one method already won. That is why I implemented vector, lexical (BM25), and hybrid retrieval paths instead of optimizing one retrieval mode too early.
 
-This matters in legal research because lexical overlap still carries real signal for statute names, paragraph references, and recurring legal terminology, while semantic retrieval helps when the query and source use different wording. Hybrid retrieval is the practical compromise, not a theoretical preference.
+This matters in legal research because lexical overlap still carries real signal for statute names, paragraph references, and recurring legal terminology, while semantic retrieval helps when the query and source use different wording. Hybrid retrieval is the practical compromise, not a theoretical preference, and it is also a standard public production pattern rather than a project-specific invention ([Hybrid search | Elastic Docs](https://www.elastic.co/docs/solutions/search/hybrid-search)).
 
 The current tradeoff is simplicity versus ranking quality. The system can already compare modes and parameters, but ranking is still intentionally basic. I have not yet added the deeper reranking and filtering logic that would be needed to claim retrieval is fully tuned.
 
-The next retrieval work is straightforward: tune `top-k`, tune the hybrid weighting, improve candidate filtering, and introduce reranking once the corpus quality is stable enough that those changes are worth measuring.
+The next retrieval work is straightforward: tune `top-k`, tune the hybrid weighting, improve candidate filtering, and introduce reranking once the corpus quality is stable enough that those changes are worth measuring. That second-stage reranking pattern is also well established in public retrieval stacks ([Retrieve & Re-Rank | Sentence Transformers](https://www.sbert.net/examples/applications/retrieve_rerank/README.html)).
 
 {{< legal-rag-retrieval-options >}}
 
@@ -126,19 +128,19 @@ I added repeatable workflows to compare:
 - benchmark-only generation
 - retrieval-augmented generation
 
-Both notebook and scripted execution paths exist. That is deliberate: notebooks are useful for close inspection, while scripted runs are necessary if I want repeated comparisons to stay consistent.
+Both notebook and scripted execution paths exist. That is deliberate: notebooks are useful for close inspection of individual research runs, while scripted runs are necessary if I want repeated comparisons to stay consistent across benchmark slices. That kind of dataset-based offline evaluation and experiment comparison is standard practice for LLM systems, not an extra presentation layer added after the fact ([LangSmith Evaluation](https://docs.langchain.com/langsmith/evaluation)).
 
 I also push experiments and datasets to LangSmith so runs can be inspected at trace level. That makes it easier to see not just whether RAG won or lost, but where the failure happened: retrieval, generation, or the benchmark setup itself.
 
 The biggest tradeoff in evaluation has been realism versus cleanliness. I tested different dataset options and evaluation paths:
 
-- Legal blog/forum QA looked promising at first, but collecting high-quality labels and validating correctness at scale was too costly for this phase.
-- Law-student exam questions provided clear target answers, but benchmark-only runs reached near-100% performance, a strong sign of leakage or memorization effects from public training data.
+- Legal blog and forum material looked promising at first, but collecting high-quality labels and validating correctness at scale was too costly for this phase.
+- Law-student exam prompts provided clear target answers, but benchmark-only runs reached near-100% performance, a strong sign of leakage or memorization effects from public training data.
 - That result reinforced an important follow-up question: how much proprietary legal commentary can models already reproduce without explicit retrieval context? I will tackle this in a separate experiment.
 
-The most useful current option came from a Hugging Face datasetit : [DomainLLM/gerlayqa-bgb-paraphrased](https://huggingface.co/datasets/DomainLLM/gerlayqa-bgb-paraphrased). It contains a large set of practical legal Q&A pairs across domains, often with law references, and is a better fit for this use case than academic exam-style prompts.
+The most useful current option came from a Hugging Face dataset: [DomainLLM/gerlayqa-bgb-paraphrased](https://huggingface.co/datasets/DomainLLM/gerlayqa-bgb-paraphrased). It contains a large set of practical legal research-style prompts and reference answers across domains, often with law references, and is a better fit for this use case than academic exam-style prompts.
 
-The next evaluation improvement is not mainly about more runs. It is about better benchmark hygiene: reducing leakage risk further, segmenting results by question type, and making failure analysis easier to inspect than a single aggregate score.
+The next evaluation improvement is not mainly about more runs. It is about better benchmark hygiene: reducing leakage risk further, segmenting results by research task type, and making failure analysis easier to inspect than a single aggregate score.
 
 {{< legal-rag-evaluation-options >}}
 
@@ -169,9 +171,9 @@ The core questions are:
 
 This is the layer where I expect a lot of the eventual quality lift to come from, so I want the article to show retrieval behavior directly, not just final answer scores.
 
-### 3. Answer quality
+### 3. Research output quality
 
-At the answer layer, I compare benchmark-only generation against retrieval-augmented generation across four dimensions:
+At the output layer, I compare benchmark-only generation against retrieval-augmented generation across four dimensions:
 
 - correctness
 - completeness
@@ -191,7 +193,7 @@ python scripts/run_gerlayqa_evaluation.py \
   --rag-alpha 0.7
 ```
 
-I also log runs to LangSmith so I can inspect traces, retrieved chunks, and answer behavior at the individual-question level when an aggregate score changes.
+I also log runs to LangSmith so I can inspect traces, retrieved chunks, and output behavior at the individual-task level when an aggregate score changes.
 
 ## Why I Still Favor the SEO-First Approach
 
@@ -201,7 +203,7 @@ It is easy to automate, easy to scale, and easy to adjust based on observed rele
 
 ## Current Results: Small But Real RAG Lift
 
-I now have three stable 10-question comparisons on fixed GerLayQA slices: Werkvertrag, Schuldrecht B2B, and GBR. The results diverge enough that averaging them into one number hides the useful story, so I now show them separately instead of squashing them together.
+I now have three stable 10-question comparisons on fixed GerLayQA slices: Werkvertrag, Schuldrecht B2B, and GBR. I am keeping the GerLayQA name visible in public copy because it is the actual benchmark currently backing these comparisons, but it should be read as the current baseline benchmark for these research slices rather than the full shape of the long-term workflow. The results diverge enough that averaging them into one number hides the useful story, so I now show them separately instead of squashing them together.
 
 That is still not a dramatic jump overall, but it is enough to show that retrieval can help in this setup when it is tuned carefully. Just turning retrieval on is not sufficient, and the best settings are not equally portable across slices.
 
@@ -274,3 +276,13 @@ The core takeaway from this kickoff is straightforward:
 I did not prove that public-data RAG out of the box beats the benchmark right away. I did prove that I can run a full, repeatable RAG cycle on a realistic end-to-end use case and now improve it systematically.
 
 That is the right starting point for the next experiments.
+
+## References
+
+1. Lewis, Patrick, Ethan Perez, Aleksandra Piktus, Fabio Petroni, Vladimir Karpukhin, Naman Goyal, Heinrich Kuttler, Mike Lewis, Wen-tau Yih, Tim Rocktaschel, Sebastian Riedel, and Douwe Kiela. "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks." *Advances in Neural Information Processing Systems* 33 (2020). [https://proceedings.neurips.cc/paper/2020/hash/6b493230205f780e1bc26945df7481e5-Abstract.html](https://proceedings.neurips.cc/paper/2020/hash/6b493230205f780e1bc26945df7481e5-Abstract.html)
+2. Databricks. "What is the medallion lakehouse architecture?" [https://docs.databricks.com/aws/en/lakehouse/medallion](https://docs.databricks.com/aws/en/lakehouse/medallion)
+3. Microsoft Learn. "RAG chunking phase." [https://learn.microsoft.com/azure/architecture/ai-ml/guide/rag/rag-chunking-phase](https://learn.microsoft.com/azure/architecture/ai-ml/guide/rag/rag-chunking-phase)
+4. Microsoft Learn. "Retrieval-augmented generation (RAG) in Azure AI Search." [https://learn.microsoft.com/en-us/azure/search/retrieval-augmented-generation-overview](https://learn.microsoft.com/en-us/azure/search/retrieval-augmented-generation-overview)
+5. Elastic Docs. "Hybrid search." [https://www.elastic.co/docs/solutions/search/hybrid-search](https://www.elastic.co/docs/solutions/search/hybrid-search)
+6. Sentence Transformers. "Retrieve & Re-Rank." [https://www.sbert.net/examples/applications/retrieve_rerank/README.html](https://www.sbert.net/examples/applications/retrieve_rerank/README.html)
+7. LangSmith Docs. "LangSmith Evaluation." [https://docs.langchain.com/langsmith/evaluation](https://docs.langchain.com/langsmith/evaluation)

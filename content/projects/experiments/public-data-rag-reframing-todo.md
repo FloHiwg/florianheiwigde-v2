@@ -5,7 +5,7 @@ This checklist tracks what still needs to change before the kickoff article and 
 - legal is an example domain, not the core point of the article
 - the use case is shifting away from a tenant-law-style example
 - the target workflow is legal professionals doing research
-- the first concrete legal area will be added later once the updated experiments are finalized
+- the first concrete public benchmark areas are Werkvertrag, Schuldrecht B2B, and GBR
 
 ## Kickoff Article
 
@@ -15,18 +15,17 @@ File: [public-data-rag-experiment-kickoff.md](/Users/flohiwg/dev/0_private/proje
 - Update the CTA copy once the explorer question changes, so it matches the new professional-research example instead of the current placeholder.
 - Rework the evaluation section so it no longer leans so heavily on "legal Q&A" wording and instead describes research tasks, research questions, and source-grounded professional workflows.
 - Done: no disclaimer is needed near the results section because the benchmark, experiment grid, and explorer are now updated.
-- Decide whether to keep the current GerLayQA result table as an interim benchmark or relabel it more carefully as a current baseline benchmark rather than implying it already matches the final target workflow.
+- Decision made: keep `GerLayQA` as the public benchmark name.
 
 ## Linked Explorer
 
 File: [_drafts/legal-rag-chat-explorer/index.html](/Users/flohiwg/dev/0_private/projects/florianheiwigde-v2/_drafts/legal-rag-chat-explorer/index.html)
 
-- Replace the current saved question, which is still termination / tenant-law flavored, with a professional legal research prompt.
+- The underlying data is already updated; only wording still needs retouching.
 - Update the page title, meta description, hero copy, and conversation intro so they describe a saved legal research workflow instead of one saved legal question.
-- Replace all tenant-law / rental / landlord source material in the replay payload with sources from the new professional domain once chosen.
 - Rewrite the answer texts in all four modes so they sound like research assistance for a legal professional, not end-user guidance.
 - Update the diagnostic copy in the "What Changed In This Mode" logic so it talks about research quality, authority, source reliability, and reranking opportunities rather than this single tenancy example.
-- Revisit the noisy-source heuristic once the corpus changes, because the current explanations are tuned to the existing dataset and failure pattern.
+- Revisit the noisy-source heuristic after the wording pass, because the current explanations may still reflect the earlier framing more than the updated professional-research framing.
 - Rename `session_id` and any visible labels that still encode the old example.
 
 ## Cross-Article Follow-Up
@@ -36,11 +35,11 @@ File: [adding-german-court-judgments-to-my-public-data-rag-system.md](/Users/flo
 - Update references to "harder legal questions" and "better legal QA system" so they align with the new professional legal research framing.
 - Make sure the follow-up article does not assume the old example domain once the kickoff article has been generalized.
 
-## Decisions To Make
+## Decisions Made
 
-- Decide whether the explorer should stay visible as an interim placeholder with a disclaimer or be hidden until the professional-research replay is ready.
-- Decide whether the first concrete legal area will appear in the explorer first or in both article and explorer at the same time.
-- Decide whether GerLayQA remains the benchmark name in public copy or whether it should be labeled more abstractly until the new experiment setup is in place.
+- Keep the explorer visible. The data is updated already; the remaining work is wording polish.
+- Use the same three concrete legal areas in the article and explorer: Werkvertrag, Schuldrecht B2B, and GBR.
+- Keep `GerLayQA` as the benchmark name in public copy.
 
 ## Public References To Research And Potentially Add To The Article
 

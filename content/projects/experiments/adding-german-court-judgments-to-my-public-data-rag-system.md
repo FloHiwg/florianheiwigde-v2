@@ -15,7 +15,7 @@ The next obvious question was whether I could make the corpus materially stronge
 
 That meant moving beyond legal guides, blog posts, and commentaries into a very different source type: German court judgments.
 
-This step mattered for a simple reason. If the system is supposed to answer practical legal questions in a grounded way, then access to actual judicial reasoning is much more valuable than relying only on secondary explanations. The challenge was not whether judgments were useful. The challenge was whether I could ingest and structure them cheaply enough to keep the project practical.
+This step mattered for a simple reason. If the system is supposed to support practical legal research in a grounded way, then access to actual judicial reasoning is much more valuable than relying only on secondary explanations. The challenge was not whether judgments were useful. The challenge was whether I could ingest and structure them cheaply enough to keep the project practical.
 
 I ended up adding more than 50,000 judgments from Open Legal Data, building a deterministic chunking pipeline for them, and then reworking parts of the retrieval stack that immediately became bottlenecks at this scale.
 
@@ -120,7 +120,7 @@ That is a much better shape for the retrieval layer. Python still does the final
 
 The most important outcome is not just that the system got faster. It is that the corpus is now qualitatively more useful.
 
-With judgments included, the retrieval system can return not only explanatory secondary content but also actual reasoning from courts across different years and jurisdictions. For legal questions where grounding matters, that is a meaningful improvement in source quality even before I rerun the full benchmark suite at larger scale.
+With judgments included, the retrieval system can return not only explanatory secondary content but also actual reasoning from courts across different years and jurisdictions. For legal research tasks where grounding matters, that is a meaningful improvement in source quality even before I rerun the full benchmark suite at larger scale.
 
 The retrieval architecture also held up the way I hoped:
 
@@ -148,7 +148,7 @@ This sequel closes one of the concrete follow-ups from the kickoff article, but 
   <div class="next-step-card">
     <span class="next-step-box next-step-box--done" aria-hidden="true"></span>
     <div class="next-step-content">
-      <strong>Integrate judgments</strong> as a first-class source type and measure their impact on grounding and harder legal questions.
+      <strong>Integrate judgments</strong> as a first-class source type and measure their impact on grounding and harder legal research tasks.
     </div>
   </div>
   <div class="next-step-card">
@@ -185,6 +185,6 @@ This iteration makes the project more serious.
 
 The corpus now includes a large judgment source, the Silver layer can adapt processing strategy to source structure, and the retrieval stack is much closer to something that can support larger-scale evaluation without collapsing under its own plumbing.
 
-The next step is to measure how much this corpus expansion actually improves answer quality on harder legal questions, especially where judgments should contribute better grounding than commentary-style sources alone.
+The next step is to measure how much this corpus expansion actually improves research output quality on harder legal research tasks, especially where judgments should contribute better grounding than commentary-style sources alone.
 
-That is the part I care about most. Adding more data is easy to celebrate too early. The useful result will be showing whether this particular data, processed in this particular way, produces a better legal QA system in practice.
+That is the part I care about most. Adding more data is easy to celebrate too early. The useful result will be showing whether this particular data, processed in this particular way, produces a better grounded legal research system in practice.

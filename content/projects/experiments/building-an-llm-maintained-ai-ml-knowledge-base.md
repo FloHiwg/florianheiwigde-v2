@@ -2,6 +2,9 @@
 title: "Building an LLM-Maintained AI/ML Knowledge Base"
 date: 2026-04-08
 description: "A case study of an Obsidian-based AI/ML knowledge base where raw sources, generated summaries, and a concept wiki are maintained incrementally with Claude Code."
+tags:
+  - "AI/ML knowledge base"
+  - "Wiki workflows"
 ---
 
 ## Introduction
@@ -131,3 +134,9 @@ If that works well, then my own queries and explorations start compounding insid
 Right now this is still a small system, but the basic loop exists: ingest articles, clean them up, summarize them, compile them into a wiki, maintain a compact QA index, search across the vault through a lightweight local interface, and use the wiki itself to drive discovery of what to add next.
 
 That is enough to make the project interesting already. The next question is whether I can grow the wiki far enough, and tighten the workflows enough, that the LLM can use it not just as a pile of notes but as a real working knowledge base.
+
+## AI/ML Knowledge Base Series
+
+- Part 1: Building an LLM-Maintained AI/ML Knowledge Base
+- Part 2: [Using My Knowledge Base to Build a Harness Engineering Podcast](/projects/experiments/using-my-knowledge-base-to-build-a-harness-engineering-podcast/)
+- Part 3: [Getting Books into My AI/ML Knowledge Base](/projects/experiments/getting-books-into-my-ai-ml-knowledge-base/)

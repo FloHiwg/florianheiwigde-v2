@@ -2,6 +2,9 @@
 title: "Using My Knowledge Base to Build a Harness Engineering Podcast"
 date: 2026-04-14
 description: "A practical workflow note on using my AI/ML knowledge base to turn podcast references, related sources, and wiki context into a new 60-minute NotebookLM podcast on harness engineering."
+tags:
+  - "AI/ML knowledge base"
+  - "Wiki workflows"
 ---
 
 ## Introduction
@@ -76,3 +79,9 @@ It covered the different articles and sources in a form that was more consolidat
 - reuse the resulting topic bundle in another format
 
 The main limitation right now is that the last step is still a bit manual because the `NotebookLM` notebook has to be kept in sync when the underlying wiki files change. But even with that, it is already a useful way to turn one source trail into a structured set of notes and then into a second-pass audio briefing.
+
+## AI/ML Knowledge Base Series
+
+- Part 1: [Building an LLM-Maintained AI/ML Knowledge Base](/projects/experiments/building-an-llm-maintained-ai-ml-knowledge-base/)
+- Part 2: Using My Knowledge Base to Build a Harness Engineering Podcast
+- Part 3: [Getting Books into My AI/ML Knowledge Base](/projects/experiments/getting-books-into-my-ai-ml-knowledge-base/)

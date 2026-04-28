@@ -1,0 +1,238 @@
+{{- $id := printf "legal-rag-judgment-comparison-%d" now.UnixNano -}}
+<style>
+  #{{ $id }} {
+    margin: 1.5rem 0 2rem;
+  }
+
+  #{{ $id }} .table-card__comparison-score {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.22rem;
+  }
+
+  #{{ $id }} .table-card__comparison-meta {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    color: var(--muted-foreground);
+  }
+
+  @media (max-width: 768px) {
+    #{{ $id }} .table-card__row {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    #{{ $id }} .table-card__row td:first-child {
+      grid-column: 1 / -1;
+      border-radius: 0.95rem 0.95rem 0 0;
+    }
+
+    #{{ $id }} .table-card__row td:nth-child(2) {
+      border-radius: 0 0 0 0.95rem;
+      border-right: none;
+      align-items: flex-start;
+    }
+
+    #{{ $id }} .table-card__row td:nth-child(3) {
+      border-radius: 0;
+      border-right: none;
+      align-items: flex-start;
+    }
+
+    #{{ $id }} .table-card__row td:nth-child(4) {
+      border-radius: 0 0 0.95rem 0;
+      align-items: flex-end;
+    }
+
+    #{{ $id }} .table-card__row td:nth-child(2)::before,
+    #{{ $id }} .table-card__row td:nth-child(3)::before,
+    #{{ $id }} .table-card__row td:nth-child(4)::before {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted-foreground);
+    }
+
+    #{{ $id }} .table-card__row td:nth-child(2)::before {
+      content: "Without";
+    }
+
+    #{{ $id }} .table-card__row td:nth-child(3)::before {
+      content: "With";
+    }
+
+    #{{ $id }} .table-card__row td:nth-child(4)::before {
+      content: "Change";
+    }
+  }
+</style>
+
+<div id="{{ $id }}">
+  <div class="table-card table-card--results">
+    <div class="table-card__header">
+      <div class="table-card__eyebrow">Werkvertrag · full rerun comparison</div>
+      <p class="table-card__summary">
+        Only setups rerun on both corpora are shown. The rerun <strong>benchmark-only</strong> result is still the best overall at <strong>3.655</strong>. The strongest retrieval setup is <strong>vector-only</strong> at <strong>3.580</strong>, which is still <strong>-0.075</strong> below that benchmark.
+      </p>
+    </div>
+    <div class="table-card__scroller">
+      <table>
+        <thead>
+          <tr>
+            <th>Setup</th>
+            <th>Without judgments</th>
+            <th>With judgments</th>
+            <th>Change in delta vs benchmark</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-card__row table-card__row--baseline">
+            <td><span class="table-card__setup">Benchmark only</span></td>
+            <td>
+              <span class="table-card__comparison-score">
+                <span class="table-card__metric">2.770</span>
+                <span class="table-card__comparison-meta">delta vs benchmark: 0.000</span>
+              </span>
+            </td>
+            <td>
+              <span class="table-card__comparison-score">
+                <span class="table-card__metric">3.655</span>
+                <span class="table-card__comparison-meta">delta vs benchmark: 0.000</span>
+              </span>
+            </td>
+            <td><span class="delta-pill delta-pill--neutral">0.000</span></td>
+          </tr>
+          <tr class="table-card__row">
+            <td>
+              <span class="table-card__setup">Hybrid</span>
+              <span class="table-card__setup-meta">k=6 · α=0.7</span>
+            </td>
+            <td>
+              <span class="table-card__comparison-score">
+                <span class="table-card__metric">3.105</span>
+                <span class="table-card__comparison-meta">delta vs benchmark: +0.335</span>
+              </span>
+            </td>
+            <td>
+              <span class="table-card__comparison-score">
+                <span class="table-card__metric">3.265</span>
+                <span class="table-card__comparison-meta">delta vs benchmark: -0.390</span>
+              </span>
+            </td>
+            <td><span class="delta-pill delta-pill--negative">-0.725</span></td>
+          </tr>
+          <tr class="table-card__row">
+            <td>
+              <span class="table-card__setup">Hybrid</span>
+              <span class="table-card__setup-meta">k=4 · α=0.7</span>
+            </td>
+            <td>
+              <span class="table-card__comparison-score">
+                <span class="table-card__metric">2.895</span>
+                <span class="table-card__comparison-meta">delta vs benchmark: +0.125</span>
+              </span>
+            </td>
+            <td>
+              <span class="table-card__comparison-score">
+                <span class="table-card__metric">3.545</span>
+                <span class="table-card__comparison-meta">delta vs benchmark: -0.110</span>
+              </span>
+            </td>
+            <td><span class="delta-pill delta-pill--negative">-0.235</span></td>
+          </tr>
+          <tr class="table-card__row">
+            <td>
+              <span class="table-card__setup">Hybrid</span>
+              <span class="table-card__setup-meta">k=8 · α=0.7</span>
+            </td>
+            <td>
+              <span class="table-card__comparison-score">
+                <span class="table-card__metric">3.055</span>
+                <span class="table-card__comparison-meta">delta vs benchmark: +0.285</span>
+              </span>
+            </td>
+            <td>
+              <span class="table-card__comparison-score">
+                <span class="table-card__metric">3.270</span>
+                <span class="table-card__comparison-meta">delta vs benchmark: -0.385</span>
+              </span>
+            </td>
+            <td><span class="delta-pill delta-pill--negative">-0.670</span></td>
+          </tr>
+          <tr class="table-card__row">
+            <td>
+              <span class="table-card__setup">Hybrid</span>
+              <span class="table-card__setup-meta">k=6 · α=0.5</span>
+            </td>
+            <td>
+              <span class="table-card__comparison-score">
+                <span class="table-card__metric">2.930</span>
+                <span class="table-card__comparison-meta">delta vs benchmark: +0.160</span>
+              </span>
+            </td>
+            <td>
+              <span class="table-card__comparison-score">
+                <span class="table-card__metric">3.055</span>
+                <span class="table-card__comparison-meta">delta vs benchmark: -0.600</span>
+              </span>
+            </td>
+            <td><span class="delta-pill delta-pill--negative">-0.760</span></td>
+          </tr>
+          <tr class="table-card__row">
+            <td>
+              <span class="table-card__setup">Hybrid</span>
+              <span class="table-card__setup-meta">k=6 · α=0.85</span>
+            </td>
+            <td>
+              <span class="table-card__comparison-score">
+                <span class="table-card__metric">3.090</span>
+                <span class="table-card__comparison-meta">delta vs benchmark: +0.320</span>
+              </span>
+            </td>
+            <td>
+              <span class="table-card__comparison-score">
+                <span class="table-card__metric">3.275</span>
+                <span class="table-card__comparison-meta">delta vs benchmark: -0.380</span>
+              </span>
+            </td>
+            <td><span class="delta-pill delta-pill--negative">-0.700</span></td>
+          </tr>
+          <tr class="table-card__row">
+            <td><span class="table-card__setup">Vector only</span></td>
+            <td>
+              <span class="table-card__comparison-score">
+                <span class="table-card__metric">2.850</span>
+                <span class="table-card__comparison-meta">delta vs benchmark: +0.080</span>
+              </span>
+            </td>
+            <td>
+              <span class="table-card__comparison-score">
+                <span class="table-card__metric">3.580</span>
+                <span class="table-card__comparison-meta">delta vs benchmark: -0.075</span>
+              </span>
+            </td>
+            <td><span class="delta-pill delta-pill--negative">-0.155</span></td>
+          </tr>
+          <tr class="table-card__row">
+            <td><span class="table-card__setup">BM25 only</span></td>
+            <td>
+              <span class="table-card__comparison-score">
+                <span class="table-card__metric">2.770</span>
+                <span class="table-card__comparison-meta">delta vs benchmark: 0.000</span>
+              </span>
+            </td>
+            <td>
+              <span class="table-card__comparison-score">
+                <span class="table-card__metric">2.920</span>
+                <span class="table-card__comparison-meta">delta vs benchmark: -0.735</span>
+              </span>
+            </td>
+            <td><span class="delta-pill delta-pill--negative">-0.735</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

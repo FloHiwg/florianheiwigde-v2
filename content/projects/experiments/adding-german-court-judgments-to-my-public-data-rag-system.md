@@ -1,6 +1,6 @@
 ---
 title: "Adding German Court Judgments to My Public-Data Legal RAG System"
-date: 2026-03-31
+date: 2026-04-23
 draft: true
 description: "A follow-up to my public-data legal RAG kickoff: why I added German court judgments, why I replaced LLM chunking with a deterministic pipeline, and what broke once the corpus reached real scale."
 ---
@@ -120,7 +120,15 @@ That is a much better shape for the retrieval layer. Python still does the final
 
 The most important outcome is not just that the system got faster. It is that the corpus is now qualitatively more useful.
 
-With judgments included, the retrieval system can return not only explanatory secondary content but also actual reasoning from courts across different years and jurisdictions. For legal research tasks where grounding matters, that is a meaningful improvement in source quality even before I rerun the full benchmark suite at larger scale.
+With judgments included, the retrieval system can return not only explanatory secondary content but also actual reasoning from courts across different years and jurisdictions. For legal research tasks where grounding matters, that is a meaningful improvement in source quality, but the full Werkvertrag rerun is more mixed than a simple "more data helps" story.
+
+For the Werkvertrag slice, I now have the full rerun for every setup that was directly comparable to the earlier corpus. The table below still focuses only on the overlap between the two corpora, but it now covers the full repeated set instead of the earlier partial snapshot.
+
+{{< legal-rag-judgment-comparison-table >}}
+
+The picture is interesting for exactly that reason. The full rerun benchmark is better than every retrieval setup, so the cleaner signal is the change in `delta vs benchmark`, not the raw score shift across corpora. In that rerun, `vector only` is still the strongest retrieval mode at `3.580`, but it lands at `-0.075` relative to the rerun benchmark. `Hybrid k=4` is close behind at `-0.110`, while the old hybrid leader at `k=6` and `alpha=0.7` drops to `-0.390`.
+
+That also means I should be careful about the claim here. The judgment expansion already improves the kinds of sources the system can ground answers in, but the retrieval layer still needs retuning on top of that larger corpus if I want the broader source base to translate into a stable benchmark win.
 
 The retrieval architecture also held up the way I hoped:
 

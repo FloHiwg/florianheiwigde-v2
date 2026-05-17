@@ -1,7 +1,6 @@
 ---
 title: "Building a Public-Data RAG System End-to-End"
-date: 2026-04-17
-draft: true
+date: 2026-05-05
 description: "An engineering case study of an end-to-end public-data RAG system: using legal research as the example workflow to showcase ingestion, retrieval, evaluation, and the next iteration path."
 ---
 

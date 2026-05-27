@@ -1,6 +1,6 @@
 ---
 title: "Adding German Court Judgments to My Public-Data RAG System"
-date: 2026-04-23
+date: 2026-05-25
 description: "A follow-up to my public-data RAG kickoff: why I added German court judgments as a new source type, why I replaced LLM chunking with a deterministic pipeline for structured documents, and what broke once the corpus reached real scale."
 ---
 

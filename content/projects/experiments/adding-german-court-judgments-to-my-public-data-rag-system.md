@@ -1,17 +1,16 @@
 ---
-title: "Adding German Court Judgments to My Public-Data Legal RAG System"
+title: "Adding German Court Judgments to My Public-Data RAG System"
 date: 2026-04-23
-draft: true
-description: "A follow-up to my public-data legal RAG kickoff: why I added German court judgments, why I replaced LLM chunking with a deterministic pipeline, and what broke once the corpus reached real scale."
+description: "A follow-up to my public-data RAG kickoff: why I added German court judgments as a new source type, why I replaced LLM chunking with a deterministic pipeline for structured documents, and what broke once the corpus reached real scale."
 ---
 
 ## Introduction
 
-In the first write-up on this project, I focused on the end-to-end foundation: ingestion, normalization, retrieval, and evaluation for a public-data legal RAG system.
+In the first write-up on this project, I focused on the end-to-end foundation: ingestion, normalization, retrieval, and evaluation for a public-data RAG system using legal research as the example workflow.
 
 Before getting into the pipeline changes, one quick shout-out: [Open Legal Data](https://openlegaldata.io/) is an excellent project and made this entire iteration much easier to explore in a realistic way.
 
-The next obvious question was whether I could make the corpus materially stronger by adding case law.
+The next engineering test was whether the corpus became materially stronger once it included case law.
 
 That meant moving beyond legal guides, blog posts, and commentaries into a very different source type: German court judgments.
 
@@ -120,7 +119,7 @@ That is a much better shape for the retrieval layer. Python still does the final
 
 The most important outcome is not just that the system got faster. It is that the corpus is now qualitatively more useful.
 
-With judgments included, the retrieval system can return not only explanatory secondary content but also actual reasoning from courts across different years and jurisdictions. For legal research tasks where grounding matters, that is a meaningful improvement in source quality, but the full Werkvertrag rerun is more mixed than a simple "more data helps" story.
+With judgments included, the retrieval system can return not only explanatory secondary content but also actual judicial reasoning across years and jurisdictions. For professional legal research workflows, that changes the quality of the evidence trail: the system can now ground research outputs in primary legal material, not only in commentary-style explanations. The full Werkvertrag rerun is still more mixed than a simple "more data helps" story.
 
 For the Werkvertrag slice, I now have the full rerun for every setup that was directly comparable to the earlier corpus. The table below still focuses only on the overlap between the two corpora, but it now covers the full repeated set instead of the earlier partial snapshot.
 
@@ -128,7 +127,7 @@ For the Werkvertrag slice, I now have the full rerun for every setup that was di
 
 The picture is interesting for exactly that reason. The full rerun benchmark is better than every retrieval setup, so the cleaner signal is the change in `delta vs benchmark`, not the raw score shift across corpora. In that rerun, `vector only` is still the strongest retrieval mode at `3.580`, but it lands at `-0.075` relative to the rerun benchmark. `Hybrid k=4` is close behind at `-0.110`, while the old hybrid leader at `k=6` and `alpha=0.7` drops to `-0.390`.
 
-That also means I should be careful about the claim here. The judgment expansion already improves the kinds of sources the system can ground answers in, but the retrieval layer still needs retuning on top of that larger corpus if I want the broader source base to translate into a stable benchmark win.
+That also means I should be careful about the claim here. The judgment expansion already improves the kinds of sources the system can use to ground research outputs, but the retrieval layer still needs retuning on top of that larger corpus if I want the broader source base to translate into a stable benchmark win.
 
 The retrieval architecture also held up the way I hoped:
 
@@ -156,7 +155,7 @@ This sequel closes one of the concrete follow-ups from the kickoff article, but 
   <div class="next-step-card">
     <span class="next-step-box next-step-box--done" aria-hidden="true"></span>
     <div class="next-step-content">
-      <strong>Integrate judgments</strong> as a first-class source type and measure their impact on grounding and harder legal research tasks.
+      <strong>Integrate judgments</strong> as a first-class source type and measure their impact on grounding for professional legal research tasks.
     </div>
   </div>
   <div class="next-step-card">
@@ -168,7 +167,7 @@ This sequel closes one of the concrete follow-ups from the kickoff article, but 
   <div class="next-step-card">
     <span class="next-step-box" aria-hidden="true"></span>
     <div class="next-step-content">
-      <strong>Build a stronger agent workflow</strong>: add a commentary sub-agent, a second retrieval pass using metadata filters, a direct legal-code lookup step for cited paragraphs, and a reviewer loop to compare answer quality with and without RAG.
+      <strong>Build a stronger agent workflow</strong>: add a commentary sub-agent, a second retrieval pass using metadata filters, a direct legal-code lookup step for cited paragraphs, and a reviewer loop to compare research-output quality, citation grounding, and source coverage with and without RAG.
     </div>
   </div>
   <div class="next-step-card">
@@ -193,6 +192,6 @@ This iteration makes the project more serious.
 
 The corpus now includes a large judgment source, the Silver layer can adapt processing strategy to source structure, and the retrieval stack is much closer to something that can support larger-scale evaluation without collapsing under its own plumbing.
 
-The next step is to measure how much this corpus expansion actually improves research output quality on harder legal research tasks, especially where judgments should contribute better grounding than commentary-style sources alone.
+The next step is to measure how much this corpus expansion actually improves research-output quality on harder professional legal research tasks, especially in the current Werkvertrag, Schuldrecht B2B, and GBR benchmark slices.
 
 That is the part I care about most. Adding more data is easy to celebrate too early. The useful result will be showing whether this particular data, processed in this particular way, produces a better grounded legal research system in practice.

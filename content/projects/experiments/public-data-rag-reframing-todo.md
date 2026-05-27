@@ -1,3 +1,10 @@
+---
+title: "kT"
+date: 2026-05-05
+draft: true
+description: ""
+---
+
 # Public-Data RAG Reframing Todo
 
 This checklist tracks what still needs to change before the kickoff article and linked explorer fully reflect the new framing:

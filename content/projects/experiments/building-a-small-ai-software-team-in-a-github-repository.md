@@ -1,5 +1,5 @@
 ---
-title: "Building a Small AI Software Team in a GitHub Repository"
+title: "Stop Prompting, Start Looping: A Small Autonomous Engineering Loop Example"
 date: 2026-06-15
 description: "How I built a forkable agent loop for agentic coding that turns mocked monitoring events into real GitHub Issues, isolated code changes, and pull requests."
 tags:

@@ -1,0 +1,195 @@
+{{- $id := printf "engineering-loop-explorer-%d" .Ordinal -}}
+<style>
+  #{{ $id }} {
+    margin: 1.8rem 0 2.2rem;
+    --el-border: rgba(24, 33, 38, 0.1);
+    --el-panel: rgba(255, 252, 247, 0.98);
+    --el-panel-bottom: rgba(246, 239, 229, 0.96);
+    --el-card: rgba(255, 255, 255, 0.74);
+    --el-muted: var(--demo-text-muted);
+    --el-strong: var(--demo-text-strong);
+    --el-warm-soft: rgba(217, 119, 87, 0.12);
+    --el-green: #2f7c5a;
+    --el-green-soft: rgba(47, 124, 90, 0.1);
+    --el-blue: #2f6fbb;
+    --el-blue-soft: rgba(47, 111, 187, 0.1);
+  }
+
+  .dark #{{ $id }} {
+    --el-border: rgba(255, 255, 255, 0.09);
+    --el-panel: rgba(43, 39, 34, 0.98);
+    --el-panel-bottom: rgba(30, 28, 26, 0.98);
+    --el-card: rgba(255, 255, 255, 0.05);
+    --el-warm-soft: rgba(224, 136, 102, 0.15);
+    --el-green: var(--demo-accent-success);
+    --el-green-soft: rgba(88, 194, 125, 0.12);
+    --el-blue: #73a9e6;
+    --el-blue-soft: rgba(115, 169, 230, 0.12);
+  }
+
+  #{{ $id }} .el-shell {
+    padding: 1.2rem;
+    border: 1px solid var(--el-border);
+    border-radius: var(--demo-radius-panel);
+    background:
+      radial-gradient(circle at top right, var(--el-warm-soft), transparent 34%),
+      linear-gradient(180deg, var(--el-panel), var(--el-panel-bottom));
+    box-shadow: 0 20px 60px var(--demo-shadow-soft);
+  }
+
+  #{{ $id }} .el-header {
+    display: grid;
+    gap: 0.35rem;
+    margin-bottom: 1rem;
+  }
+
+  #{{ $id }} .el-eyebrow,
+  #{{ $id }} .el-index,
+  #{{ $id }} .el-meta {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--el-muted);
+  }
+
+  #{{ $id }} .el-title,
+  #{{ $id }} .el-card-title {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--el-strong);
+  }
+
+  #{{ $id }} .el-copy {
+    margin: 0;
+    color: var(--el-muted);
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  #{{ $id }} .el-stages {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0.55rem;
+    margin-bottom: 0.8rem;
+  }
+
+  #{{ $id }} .el-stage {
+    display: grid;
+    align-content: start;
+    gap: 0.3rem;
+    min-height: 7rem;
+    padding: 0.75rem;
+    border: 1px solid var(--el-border);
+    border-radius: 0.9rem;
+    background: var(--el-card);
+    color: var(--el-strong);
+    text-align: left;
+    transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+  }
+
+  #{{ $id }} .el-stage:hover,
+  #{{ $id }} .el-stage:focus-visible {
+    transform: translateY(-2px);
+    border-color: var(--demo-accent-warm);
+    outline: none;
+  }
+
+  #{{ $id }} .el-stage[aria-selected="true"] {
+    border-color: var(--demo-accent-warm);
+    background: var(--el-warm-soft);
+  }
+
+  #{{ $id }} .el-stage-title {
+    font-family: var(--font-sans);
+    font-size: 0.86rem;
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  #{{ $id }} .el-stage-copy {
+    color: var(--el-muted);
+    font-size: 0.78rem;
+    line-height: 1.45;
+  }
+
+  #{{ $id }} .el-details {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr 1.1fr;
+    gap: 0.7rem;
+  }
+
+  #{{ $id }} .el-card {
+    display: grid;
+    gap: 0.38rem;
+    padding: 0.9rem;
+    border: 1px solid var(--el-border);
+    border-radius: 0.95rem;
+    background: var(--el-card);
+  }
+
+  #{{ $id }} .el-card--actor { border-color: rgba(217, 119, 87, 0.3); }
+  #{{ $id }} .el-card--control { border-color: color-mix(in srgb, var(--el-green) 34%, transparent); }
+  #{{ $id }} .el-card--artifact { border-color: color-mix(in srgb, var(--el-blue) 34%, transparent); }
+
+  @media (max-width: 920px) {
+    #{{ $id }} .el-stages { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    #{{ $id }} .el-details { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 520px) {
+    #{{ $id }} .el-shell { padding: 1rem; }
+    #{{ $id }} .el-stages { grid-template-columns: 1fr; }
+    #{{ $id }} .el-stage { min-height: 0; }
+  }
+</style>
+
+<section id="{{ $id }}" aria-labelledby="{{ $id }}-title">
+  <div class="el-shell">
+    <header class="el-header">
+      <div class="el-eyebrow">Interactive loop</div>
+      <div class="el-title" id="{{ $id }}-title">Click a stage to see who acts and what remains deterministic</div>
+      <p class="el-copy">The agents investigate and implement. Workflow code selects work, validates evidence, checks the result, and creates the handoff.</p>
+    </header>
+
+    <div class="el-stages" role="tablist" aria-label="Engineering loop stages">
+      <button class="el-stage" type="button" role="tab" aria-selected="true" data-stage="select"><span class="el-index">01</span><span class="el-stage-title">Select issue</span><span class="el-stage-copy">Find the oldest task without a pull request.</span></button>
+      <button class="el-stage" type="button" role="tab" aria-selected="false" data-stage="triage"><span class="el-index">02</span><span class="el-stage-title">Triage</span><span class="el-stage-copy">Explore the task without changing files.</span></button>
+      <button class="el-stage" type="button" role="tab" aria-selected="false" data-stage="isolate"><span class="el-index">03</span><span class="el-stage-title">Isolate</span><span class="el-stage-copy">Create or resume a dedicated worktree.</span></button>
+      <button class="el-stage" type="button" role="tab" aria-selected="false" data-stage="implement"><span class="el-index">04</span><span class="el-stage-title">Implement</span><span class="el-stage-copy">Make the smallest viable code change.</span></button>
+      <button class="el-stage" type="button" role="tab" aria-selected="false" data-stage="verify"><span class="el-index">05</span><span class="el-stage-title">Verify</span><span class="el-stage-copy">Run the repository's normal checks.</span></button>
+      <button class="el-stage" type="button" role="tab" aria-selected="false" data-stage="handoff"><span class="el-index">06</span><span class="el-stage-title">Open PR</span><span class="el-stage-copy">Push the branch and stop at review.</span></button>
+    </div>
+
+    <div class="el-details" aria-live="polite">
+      <article class="el-card el-card--actor"><div class="el-meta">Actor</div><div class="el-card-title" data-actor>Deterministic workflow</div><p class="el-copy" data-permission>No agent is needed to rank the marked issues.</p></article>
+      <article class="el-card el-card--control"><div class="el-meta">Control</div><div class="el-card-title" data-control>Oldest eligible issue wins</div><p class="el-copy" data-rule>Issues with an existing demo pull request are skipped.</p></article>
+      <article class="el-card el-card--artifact"><div class="el-meta">Visible evidence</div><div class="el-card-title" data-artifact>Selected GitHub Issue</div><p class="el-copy" data-output>The terminal prints the issue number and title before triage starts.</p></article>
+    </div>
+  </div>
+</section>
+
+<script>
+  (() => {
+    const root = document.getElementById("{{ $id }}");
+    if (!root) return;
+    const stages = {
+      select: ["Deterministic workflow", "No agent is needed to rank the marked issues.", "Oldest eligible issue wins", "Issues with an existing demo pull request are skipped.", "Selected GitHub Issue", "The terminal prints the issue number and title before triage starts."],
+      triage: ["Read-only triage agent", "It can inspect the event, issue, and repository but cannot edit files.", "Schema plus semantic validation", "Ready requires a testable success predicate and no unresolved ambiguities.", "Saved triage report", "Relevant files, constraints, risks, and the success predicate remain inspectable under runs/."],
+      isolate: ["Deterministic workflow", "The orchestrator creates or resumes the issue branch and worktree.", "One issue, one isolated checkout", "The main checkout must be clean and synchronized with origin/main.", "Worktree and branch", "The code-changing agent receives a dedicated directory instead of the main checkout."],
+      implement: ["Workspace-write implementation agent", "It may edit only inside the issue worktree.", "Smallest viable change", "The triage predicate and repository instructions constrain the implementation.", "Source and test changes", "The worktree contains the proposed implementation before any remote handoff."],
+      verify: ["Deterministic workflow", "The agent does not decide whether its own work passed.", "Run make check", "Formatting, linting, and tests must pass before commit and push.", "Check result", "A failed check stops the workflow with the worktree available for inspection."],
+      handoff: ["Deterministic workflow", "The workflow commits, pushes, and opens the pull request.", "Stop before review and merge", "The demo never approves or merges its own pull request.", "GitHub Pull Request", "The diff becomes the visible boundary where a human can inspect the agent's work."]
+    };
+    const fields = ["actor", "permission", "control", "rule", "artifact", "output"];
+    root.querySelectorAll("[data-stage]").forEach((button) => {
+      button.addEventListener("click", () => {
+        root.querySelectorAll("[data-stage]").forEach((candidate) => candidate.setAttribute("aria-selected", String(candidate === button)));
+        fields.forEach((field, index) => root.querySelector(`[data-${field}]`).textContent = stages[button.dataset.stage][index]);
+      });
+    });
+  })();
+</script>

@@ -1,0 +1,245 @@
+{{- $id := printf "engineering-loop-systems-%d" .Ordinal -}}
+<style>
+  #{{ $id }} {
+    margin: 1.8rem 0 2.2rem;
+    --els-border: rgba(24, 33, 38, 0.1);
+    --els-panel: rgba(255, 252, 247, 0.98);
+    --els-panel-bottom: rgba(246, 239, 229, 0.96);
+    --els-card: rgba(255, 255, 255, 0.74);
+    --els-muted: var(--demo-text-muted);
+    --els-strong: var(--demo-text-strong);
+    --els-warm-soft: rgba(217, 119, 87, 0.12);
+    --els-green: #2f7c5a;
+    --els-green-soft: rgba(47, 124, 90, 0.11);
+    --els-blue: #2f6fbb;
+    --els-blue-soft: rgba(47, 111, 187, 0.11);
+  }
+
+  .dark #{{ $id }} {
+    --els-border: rgba(255, 255, 255, 0.09);
+    --els-panel: rgba(43, 39, 34, 0.98);
+    --els-panel-bottom: rgba(30, 28, 26, 0.98);
+    --els-card: rgba(255, 255, 255, 0.05);
+    --els-warm-soft: rgba(224, 136, 102, 0.15);
+    --els-green: var(--demo-accent-success);
+    --els-green-soft: rgba(88, 194, 125, 0.12);
+    --els-blue: #73a9e6;
+    --els-blue-soft: rgba(115, 169, 230, 0.12);
+  }
+
+  #{{ $id }} .els-shell {
+    padding: 1.2rem;
+    border: 1px solid var(--els-border);
+    border-radius: var(--demo-radius-panel);
+    background:
+      radial-gradient(circle at top right, var(--els-warm-soft), transparent 34%),
+      linear-gradient(180deg, var(--els-panel), var(--els-panel-bottom));
+    box-shadow: 0 20px 60px var(--demo-shadow-soft);
+  }
+
+  #{{ $id }} .els-header {
+    display: grid;
+    gap: 0.35rem;
+    margin-bottom: 1rem;
+  }
+
+  #{{ $id }} .els-eyebrow,
+  #{{ $id }} .els-meta,
+  #{{ $id }} .els-badge {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--els-muted);
+  }
+
+  #{{ $id }} .els-title,
+  #{{ $id }} .els-node-title,
+  #{{ $id }} .els-step-title {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--els-strong);
+  }
+
+  #{{ $id }} .els-copy {
+    margin: 0;
+    color: var(--els-muted);
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  #{{ $id }} .els-map {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) 2.4rem minmax(0, 1.15fr) 2.4rem minmax(0, 0.9fr);
+    grid-template-areas:
+      "monitor arrow-a loop arrow-b github"
+      ". . loop arrow-c worktree";
+    gap: 0.65rem;
+    align-items: stretch;
+  }
+
+  #{{ $id }} .els-node {
+    display: grid;
+    align-content: center;
+    gap: 0.42rem;
+    min-height: 8.4rem;
+    padding: 0.9rem;
+    border: 1px solid var(--els-border);
+    border-radius: 0.95rem;
+    background: var(--els-card);
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+  }
+
+  #{{ $id }} [data-node="monitoring"] { grid-area: monitor; }
+  #{{ $id }} [data-node="loop-core"] { grid-area: loop; border-color: rgba(217, 119, 87, 0.3); background: var(--els-warm-soft); }
+  #{{ $id }} [data-node="github"] { grid-area: github; }
+  #{{ $id }} [data-node="worktree"] { grid-area: worktree; }
+
+  #{{ $id }} .els-node.is-active {
+    transform: translateY(-2px);
+    border-color: var(--els-blue);
+    background: var(--els-blue-soft);
+    box-shadow: 0 12px 30px rgba(47, 111, 187, 0.12);
+  }
+
+  #{{ $id }} [data-node="loop-core"].is-active {
+    border-color: var(--demo-accent-warm);
+    background: var(--els-warm-soft);
+  }
+
+  #{{ $id }} .els-badge {
+    width: fit-content;
+    padding: 0.2rem 0.45rem;
+    border-radius: var(--demo-radius-pill);
+    background: var(--els-green-soft);
+    color: var(--els-green);
+    letter-spacing: 0.04em;
+  }
+
+  #{{ $id }} .els-badge--mocked {
+    background: var(--els-warm-soft);
+    color: var(--demo-accent-warm);
+  }
+
+  #{{ $id }} .els-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--els-muted);
+    font-family: var(--font-mono);
+    font-size: 1.15rem;
+    transition: color 180ms ease, transform 180ms ease;
+  }
+
+  #{{ $id }} [data-edge="monitor-loop"] { grid-area: arrow-a; }
+  #{{ $id }} [data-edge="loop-github"] { grid-area: arrow-b; }
+  #{{ $id }} [data-edge="loop-worktree"] { grid-area: arrow-c; }
+  #{{ $id }} .els-arrow.is-active { color: var(--els-blue); transform: scale(1.2); }
+
+  #{{ $id }} .els-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 0.85rem;
+    padding: 0.9rem;
+    border: 1px solid var(--els-border);
+    border-radius: 0.95rem;
+    background: var(--els-card);
+  }
+
+  #{{ $id }} .els-step {
+    display: grid;
+    gap: 0.3rem;
+  }
+
+  #{{ $id }} .els-button {
+    flex: none;
+    padding: 0.68rem 0.9rem;
+    border: 1px solid var(--demo-accent-warm);
+    border-radius: 0.78rem;
+    background: var(--demo-accent-warm);
+    color: var(--demo-text-strong);
+    font-family: var(--font-sans);
+    font-weight: 600;
+    white-space: nowrap;
+    transition: transform 160ms ease, background 160ms ease;
+  }
+
+  #{{ $id }} .els-button:hover,
+  #{{ $id }} .els-button:focus-visible {
+    transform: translateY(-1px);
+    outline: none;
+  }
+
+  @media (max-width: 820px) {
+    #{{ $id }} .els-map {
+      grid-template-columns: 1fr;
+      grid-template-areas: "monitor" "arrow-a" "loop" "arrow-b" "github" "arrow-c" "worktree";
+    }
+    #{{ $id }} .els-arrow { min-height: 2rem; transform: rotate(90deg); }
+    #{{ $id }} .els-arrow.is-active { transform: rotate(90deg) scale(1.2); }
+  }
+
+  @media (max-width: 520px) {
+    #{{ $id }} .els-shell { padding: 1rem; }
+    #{{ $id }} .els-footer { align-items: stretch; flex-direction: column; }
+    #{{ $id }} .els-button { width: 100%; }
+  }
+</style>
+
+<section id="{{ $id }}" aria-labelledby="{{ $id }}-title">
+  <div class="els-shell">
+    <header class="els-header">
+      <div class="els-eyebrow">One task across four boundaries</div>
+      <div class="els-title" id="{{ $id }}-title">Follow the data from a mocked signal to a real pull request</div>
+      <p class="els-copy">Only the monitoring input is simulated. Use the button to trace what crosses each boundary during one run.</p>
+    </header>
+
+    <div class="els-map">
+      <article class="els-node is-active" data-node="monitoring"><span class="els-badge els-badge--mocked">Mocked input</span><div class="els-node-title">Monitoring</div><p class="els-copy">A readable JSONL event carries the failure and acceptance criteria.</p></article>
+      <div class="els-arrow is-active" data-edge="monitor-loop" aria-hidden="true">-&gt;</div>
+      <article class="els-node" data-node="loop-core"><span class="els-badge">Local orchestrator</span><div class="els-node-title">Engineering loop</div><p class="els-copy">Selects work, calls the two Codex roles, validates results, and runs checks.</p><div class="els-meta">Triage: read-only</div><div class="els-meta">Implementer: worktree-write</div></article>
+      <div class="els-arrow" data-edge="loop-github" aria-hidden="true">-&gt;</div>
+      <article class="els-node" data-node="github"><span class="els-badge">Real remote</span><div class="els-node-title">GitHub</div><p class="els-copy">Holds the issue first and the pull request at the end.</p></article>
+      <div class="els-arrow" data-edge="loop-worktree" aria-hidden="true">-&gt;</div>
+      <article class="els-node" data-node="worktree"><span class="els-badge">Real local Git</span><div class="els-node-title">Issue worktree</div><p class="els-copy">Contains the branch, source changes, tests, and commit for one task.</p></article>
+    </div>
+
+    <div class="els-footer" aria-live="polite">
+      <div class="els-step"><div class="els-meta" data-path-step>Step 1 of 4</div><div class="els-step-title" data-path-title>Monitoring event becomes a GitHub Issue</div><p class="els-copy" data-path-copy>Setup copies the task evidence into a marked issue in the reader's fork.</p></div>
+      <button class="els-button" type="button" data-next-path>Next connection</button>
+    </div>
+  </div>
+</section>
+
+<script>
+  (() => {
+    const root = document.getElementById("{{ $id }}");
+    if (!root) return;
+    const steps = [
+      { nodes: ["monitoring", "github"], edge: "monitor-loop", title: "Monitoring event becomes a GitHub Issue", copy: "Setup copies the task evidence into a marked issue in the reader's fork." },
+      { nodes: ["github", "loop-core"], edge: "loop-github", title: "The loop reads the issue and asks the triage agent", copy: "The read-only role explores the repository and returns a validated success predicate." },
+      { nodes: ["loop-core", "worktree"], edge: "loop-worktree", title: "The implementer changes code in an isolated worktree", copy: "Source edits, tests, and the commit stay on a task-specific branch." },
+      { nodes: ["worktree", "github"], edge: "loop-github", title: "The tested branch becomes a GitHub Pull Request", copy: "The loop pushes the branch, opens the handoff, and stops before review or merge." }
+    ];
+    let index = 0;
+    const render = () => {
+      const step = steps[index];
+      root.querySelectorAll("[data-node]").forEach((node) => node.classList.toggle("is-active", step.nodes.includes(node.dataset.node)));
+      root.querySelectorAll("[data-edge]").forEach((edge) => edge.classList.toggle("is-active", edge.dataset.edge === step.edge));
+      root.querySelector("[data-path-step]").textContent = `Step ${index + 1} of ${steps.length}`;
+      root.querySelector("[data-path-title]").textContent = step.title;
+      root.querySelector("[data-path-copy]").textContent = step.copy;
+      root.querySelector("[data-next-path]").textContent = index === steps.length - 1 ? "Start again" : "Next connection";
+    };
+    root.querySelector("[data-next-path]").addEventListener("click", () => {
+      index = (index + 1) % steps.length;
+      render();
+    });
+    render();
+  })();
+</script>

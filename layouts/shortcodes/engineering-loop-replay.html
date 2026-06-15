@@ -1,0 +1,341 @@
+{{- $id := printf "engineering-loop-replay-%d" .Ordinal -}}
+<style>
+  #{{ $id }} {
+    margin: 1.8rem 0 2.2rem;
+    --elr-border: rgba(24, 33, 38, 0.1);
+    --elr-panel: rgba(255, 252, 247, 0.98);
+    --elr-panel-bottom: rgba(246, 239, 229, 0.96);
+    --elr-card: rgba(255, 255, 255, 0.74);
+    --elr-muted: var(--demo-text-muted);
+    --elr-strong: var(--demo-text-strong);
+    --elr-warm-soft: rgba(217, 119, 87, 0.12);
+    --elr-green: #2f7c5a;
+    --elr-green-soft: rgba(47, 124, 90, 0.11);
+  }
+
+  .dark #{{ $id }} {
+    --elr-border: rgba(255, 255, 255, 0.09);
+    --elr-panel: rgba(43, 39, 34, 0.98);
+    --elr-panel-bottom: rgba(30, 28, 26, 0.98);
+    --elr-card: rgba(255, 255, 255, 0.05);
+    --elr-warm-soft: rgba(224, 136, 102, 0.15);
+    --elr-green: var(--demo-accent-success);
+    --elr-green-soft: rgba(88, 194, 125, 0.12);
+  }
+
+  #{{ $id }} .elr-shell {
+    padding: 1.2rem;
+    border: 1px solid var(--elr-border);
+    border-radius: var(--demo-radius-panel);
+    background:
+      radial-gradient(circle at top right, var(--elr-warm-soft), transparent 34%),
+      linear-gradient(180deg, var(--elr-panel), var(--elr-panel-bottom));
+    box-shadow: 0 20px 60px var(--demo-shadow-soft);
+  }
+
+  #{{ $id }} .elr-header {
+    display: grid;
+    gap: 0.35rem;
+    margin-bottom: 1rem;
+  }
+
+  #{{ $id }} .elr-eyebrow,
+  #{{ $id }} .elr-meta,
+  #{{ $id }} .elr-run-count,
+  #{{ $id }} .elr-command {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--elr-muted);
+  }
+
+  #{{ $id }} .elr-title,
+  #{{ $id }} .elr-lane-title,
+  #{{ $id }} .elr-card-title {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--elr-strong);
+  }
+
+  #{{ $id }} .elr-copy {
+    margin: 0;
+    color: var(--elr-muted);
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  #{{ $id }} .elr-board {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(9.5rem, 11rem) minmax(0, 1fr);
+    gap: 1rem;
+    align-items: stretch;
+  }
+
+  #{{ $id }} .elr-lane {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 0.7rem;
+    min-height: 20rem;
+    padding: 0.9rem;
+    border: 1px solid var(--elr-border);
+    border-radius: 1rem;
+    background: var(--elr-card);
+  }
+
+  #{{ $id }} .elr-lane--prs {
+    border-color: rgba(47, 124, 90, 0.28);
+    background:
+      radial-gradient(circle at bottom right, var(--elr-green-soft), transparent 50%),
+      var(--elr-card);
+  }
+
+  #{{ $id }} .elr-lane-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+  }
+
+  #{{ $id }} .elr-count {
+    min-width: 1.7rem;
+    padding: 0.18rem 0.45rem;
+    border-radius: var(--demo-radius-pill);
+    background: var(--elr-warm-soft);
+    color: var(--demo-accent-warm);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-align: center;
+  }
+
+  #{{ $id }} .elr-lane--prs .elr-count {
+    background: var(--elr-green-soft);
+    color: var(--elr-green);
+  }
+
+  #{{ $id }} .elr-cards {
+    display: grid;
+    align-content: start;
+    gap: 0.55rem;
+  }
+
+  #{{ $id }} .elr-card {
+    display: grid;
+    gap: 0.36rem;
+    padding: 0.75rem;
+    border: 1px solid var(--elr-border);
+    border-radius: 0.85rem;
+    background: var(--elr-panel);
+    transition: opacity 180ms ease, transform 180ms ease, border-color 180ms ease;
+  }
+
+  #{{ $id }} .elr-card.is-selected {
+    border-color: var(--demo-accent-warm);
+    transform: translateX(4px);
+  }
+
+  #{{ $id }} .elr-card.is-moving {
+    opacity: 0;
+    transform: translateX(2.5rem);
+  }
+
+  #{{ $id }} .elr-card.is-pr {
+    border-color: rgba(47, 124, 90, 0.28);
+    animation: {{ $id }}-arrive 260ms ease both;
+  }
+
+  @keyframes {{ $id }}-arrive {
+    from { opacity: 0; transform: translateX(-1rem); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  #{{ $id }} .elr-card-meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+    color: var(--elr-muted);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+  }
+
+  #{{ $id }} .elr-runner {
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    gap: 0.65rem;
+    min-width: 0;
+    text-align: center;
+  }
+
+  #{{ $id }} .elr-line {
+    width: 1px;
+    height: 3rem;
+    background: var(--elr-border);
+  }
+
+  #{{ $id }} .elr-primary,
+  #{{ $id }} .elr-secondary {
+    border-radius: 0.78rem;
+    transition: transform 160ms ease, background 160ms ease;
+  }
+
+  #{{ $id }} .elr-primary {
+    width: 100%;
+    padding: 0.68rem 0.9rem;
+    border: 1px solid var(--demo-accent-warm);
+    background: var(--demo-accent-warm);
+    color: var(--demo-text-strong);
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  #{{ $id }} .elr-secondary {
+    padding: 0.5rem 0.65rem;
+    border: 1px solid var(--elr-border);
+    color: var(--elr-muted);
+    font-size: 0.8rem;
+  }
+
+  #{{ $id }} .elr-primary:hover,
+  #{{ $id }} .elr-primary:focus-visible,
+  #{{ $id }} .elr-secondary:hover,
+  #{{ $id }} .elr-secondary:focus-visible {
+    transform: translateY(-1px);
+    outline: none;
+  }
+
+  #{{ $id }} .elr-primary:disabled {
+    cursor: default;
+    opacity: 0.55;
+    transform: none;
+  }
+
+  #{{ $id }} .elr-status {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.8rem;
+    padding: 0.8rem 0.9rem;
+    border: 1px solid var(--elr-border);
+    border-radius: 0.9rem;
+    background: var(--elr-card);
+  }
+
+  #{{ $id }} .elr-command {
+    color: var(--demo-accent-warm);
+    text-transform: none;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 820px) {
+    #{{ $id }} .elr-board { grid-template-columns: 1fr; }
+    #{{ $id }} .elr-runner { grid-template-columns: 1fr auto 1fr; }
+    #{{ $id }} .elr-line { width: 100%; height: 1px; }
+  }
+
+  @media (max-width: 520px) {
+    #{{ $id }} .elr-shell { padding: 1rem; }
+    #{{ $id }} .elr-status { grid-template-columns: 1fr; align-items: stretch; }
+    #{{ $id }} .elr-secondary { width: 100%; }
+  }
+</style>
+
+<section id="{{ $id }}" aria-labelledby="{{ $id }}-title">
+  <div class="elr-shell">
+    <header class="elr-header">
+      <div class="elr-eyebrow">Three runs, one loop</div>
+      <div class="elr-title" id="{{ $id }}-title">Each click processes exactly one issue</div>
+      <p class="elr-copy">Watch the queue shrink and the pull-request column grow. The orchestration stays the same; only the selected task changes.</p>
+    </header>
+
+    <div class="elr-board">
+      <section class="elr-lane" aria-labelledby="{{ $id }}-issues-title">
+        <div class="elr-lane-heading"><div class="elr-lane-title" id="{{ $id }}-issues-title">Issues waiting</div><span class="elr-count" data-waiting-count>3</span></div>
+        <div class="elr-cards" data-issue-lane></div>
+      </section>
+
+      <div class="elr-runner">
+        <div class="elr-line"></div>
+        <button class="elr-primary" type="button" data-run-loop>Run next loop</button>
+        <div class="elr-run-count" data-run-count>0 / 3 runs</div>
+        <div class="elr-line"></div>
+      </div>
+
+      <section class="elr-lane elr-lane--prs" aria-labelledby="{{ $id }}-prs-title">
+        <div class="elr-lane-heading"><div class="elr-lane-title" id="{{ $id }}-prs-title">Pull requests</div><span class="elr-count" data-pr-count>0</span></div>
+        <div class="elr-cards" data-pr-lane></div>
+      </section>
+    </div>
+
+    <div class="elr-status" aria-live="polite">
+      <code class="elr-command" data-command>$ make setup</code>
+      <p class="elr-copy" data-status>Three marked issues are ready. The oldest one will be selected first.</p>
+      <button class="elr-secondary" type="button" data-reset>Reset demo</button>
+    </div>
+  </div>
+</section>
+
+<script>
+  (() => {
+    const root = document.getElementById("{{ $id }}");
+    if (!root) return;
+    const tasks = [
+      { id: "division", issue: "#1", title: "Handle division by zero", type: "Monitoring failure" },
+      { id: "modulo", issue: "#2", title: "Add modulo support", type: "Missing operation" },
+      { id: "power", issue: "#3", title: "Add power support", type: "Missing operation" }
+    ];
+    let completed = 0;
+    const issueMarkup = (task, index) => `<article class="elr-card${index === 0 ? " is-selected" : ""}" data-task="${task.id}"><div class="elr-card-meta"><span>Issue ${task.issue}</span><span>${index === 0 ? "oldest" : "waiting"}</span></div><div class="elr-card-title">${task.title}</div><p class="elr-copy">${task.type}</p></article>`;
+    const reset = () => {
+      completed = 0;
+      root.querySelector("[data-issue-lane]").innerHTML = tasks.map(issueMarkup).join("");
+      root.querySelector("[data-pr-lane]").innerHTML = '<p class="elr-copy" data-empty>No pull request yet. The loop stops here after each run.</p>';
+      root.querySelector("[data-waiting-count]").textContent = "3";
+      root.querySelector("[data-pr-count]").textContent = "0";
+      root.querySelector("[data-run-count]").textContent = "0 / 3 runs";
+      root.querySelector("[data-command]").textContent = "$ make setup";
+      root.querySelector("[data-status]").textContent = "Three marked issues are ready. The oldest one will be selected first.";
+      root.querySelector("[data-run-loop]").disabled = false;
+      root.querySelector("[data-run-loop]").textContent = "Run next loop";
+    };
+    root.querySelector("[data-run-loop]").addEventListener("click", () => {
+      const issueLane = root.querySelector("[data-issue-lane]");
+      const card = issueLane.querySelector(".elr-card");
+      if (!card) return;
+      const button = root.querySelector("[data-run-loop]");
+      const task = tasks.find((candidate) => candidate.id === card.dataset.task);
+      button.disabled = true;
+      card.classList.add("is-moving");
+      root.querySelector("[data-command]").textContent = "$ make loop";
+      root.querySelector("[data-status]").textContent = `Running triage, implementation, and checks for ${task.title}...`;
+      window.setTimeout(() => {
+        card.remove();
+        completed += 1;
+        root.querySelector("[data-empty]")?.remove();
+        const pr = document.createElement("article");
+        pr.className = "elr-card is-pr";
+        pr.innerHTML = `<div class="elr-card-meta"><span>Pull request ${completed}</span><span>open</span></div><div class="elr-card-title">${task.title}</div><p class="elr-copy">Checks passed · branch pushed</p>`;
+        root.querySelector("[data-pr-lane]").append(pr);
+        const next = issueLane.querySelector(".elr-card");
+        if (next) {
+          next.classList.add("is-selected");
+          next.querySelector(".elr-card-meta span:last-child").textContent = "oldest";
+        }
+        root.querySelector("[data-waiting-count]").textContent = String(3 - completed);
+        root.querySelector("[data-pr-count]").textContent = String(completed);
+        root.querySelector("[data-run-count]").textContent = `${completed} / 3 runs`;
+        root.querySelector("[data-status]").textContent = next
+          ? `Pull request opened. Restarting the same loop will select ${next.querySelector(".elr-card-title").textContent}.`
+          : "Three runs produced three pull requests. The loop has no eligible issue left.";
+        if (next) button.disabled = false;
+        else button.textContent = "All issues processed";
+      }, 420);
+    });
+    root.querySelector("[data-reset]").addEventListener("click", reset);
+    reset();
+  })();
+</script>

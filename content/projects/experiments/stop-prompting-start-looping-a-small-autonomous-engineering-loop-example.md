@@ -20,13 +20,13 @@ tags:
 
 ## Introduction
 
-Over the last few weeks I kept reading articles and seeing posts from notable people in the agentic coding space sharing the same idea: they had stopped prompting models directly and started building agent loops instead. The claim is that an agent loop — something that observes state, decides what to do next, acts, and then repeats — is a more useful unit of autonomous engineering than a single prompted conversation.
+Over the last few weeks I kept reading articles and seeing posts from notable people in the agentic coding space sharing the same idea: they had stopped prompting models directly and started building agent loops instead. The claim is that an agent loop (something that observes state, decides what to do next, acts, and then repeats) is a more useful unit of autonomous engineering than a single prompted conversation.
 
 I wanted to see what that actually meant in practice, so I built a small forkable repository to try it out. The goal was not to build something production-ready, but to make the idea concrete enough that anyone can run it, inspect it, and understand what the loop is doing at each step.
 
 ## The Repository
 
-The application is a tiny Python calculator. It is intentionally uninteresting — the loop is the thing worth paying attention to, not the app.
+The application is a tiny Python calculator. It is intentionally uninteresting. The loop is the thing worth paying attention to, not the app.
 
 The monitoring system is a JSONL file with one event per task. Three tasks are waiting:
 
@@ -65,7 +65,7 @@ With setup complete, run:
 make loop
 ```
 
-The loop reads the monitoring events and the open GitHub Issues to decide what to work on next. It triages the next problem in line — checking whether the task is understood well enough to implement — and if it is ready, starts working on it. The command exits after opening one pull request.
+The loop reads the monitoring events and the open GitHub Issues to decide what to work on next. It triages the next problem in line, checking whether the task is understood well enough to implement, and if it is ready, starts working on it. The command exits after opening one pull request.
 
 {{< engineering-loop-explorer >}}
 
@@ -77,7 +77,7 @@ Running it three times matters. The same command, repeated, makes the core behav
 
 Each issue gets a branch named `loop-demo/issue-<number>` and a worktree under an ignored local directory. The main checkout stays clean while the implementation runs somewhere else.
 
-This matters for two reasons. First, it prevents in-progress work from interfering with the next loop run — the loop always starts from a clean default branch. Second, if a run stops halfway through, the next run can inspect and resume the same worktree instead of starting over.
+This matters for two reasons. First, it prevents in-progress work from interfering with the next loop run; the loop always starts from a clean default branch. Second, if a run stops halfway through, the next run can inspect and resume the same worktree instead of starting over.
 
 It also makes the mental model concrete:
 
@@ -98,13 +98,13 @@ When the loop starts, it prints elapsed-time progress so you can follow what it 
 [   4.3s] Running the read-only triage agent. This can take a minute.
 ```
 
-The triage step is read-only context engineering: the agent receives the monitoring event, the GitHub Issue, and the repository, and its job is to identify the relevant files, any constraints or risks, and a testable success condition. The result is schema-validated — and then validated a second time for meaning. A `ready` result that still contains unresolved ambiguities is rejected. The agent makes judgments; deterministic orchestration code owns the transitions.
+The triage step is read-only context engineering: the agent receives the monitoring event, the GitHub Issue, and the repository, and its job is to identify the relevant files, any constraints or risks, and a testable success condition. The result is schema-validated and then validated a second time for meaning. A `ready` result that still contains unresolved ambiguities is rejected. The agent makes judgments; deterministic orchestration code owns the transitions.
 
 After triage, an implementation agent runs inside the dedicated worktree. It edits the code, but does not decide whether the result is accepted. Deterministic Python code runs `make check`, commits and pushes the branch, and opens the pull request via GitHub automation.
 
 {{< engineering-loop-systems >}}
 
-The pull request is part of the verification surface. During the first real run, the diff showed existing files as newly added because the branch had been created from a local `main` that was ahead of `origin/main`. The local tests had passed and the internal loop state looked fine — the problem only appeared at the handoff boundary. Setup and every loop run now require the default branch to match `origin/main` exactly before any work begins.
+The pull request is part of the verification surface. During the first real run, the diff showed existing files as newly added because the branch had been created from a local `main` that was ahead of `origin/main`. The local tests had passed and the internal loop state looked fine; the problem only appeared at the handoff boundary. Setup and every loop run now require the default branch to match `origin/main` exactly before any work begins.
 
 {{< figure src="/images/engineering-loop-github-pr-diff.webp" alt="GitHub pull request diff showing changes to the calculator API and its division-by-zero tests" caption="The repaired pull request shows the intended result: two existing files modified, with the API behavior and its tests visible in the diff." class="blog-post-figure" >}}
 

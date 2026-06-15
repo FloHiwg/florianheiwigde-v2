@@ -1,10 +1,13 @@
 ---
 title: "Building a Small AI Software Team in a GitHub Repository"
 date: 2026-06-15
-description: "How I built a forkable engineering loop that turns mocked monitoring events into real GitHub Issues, isolated code changes, and pull requests."
+description: "How I built a forkable agent loop for agentic coding that turns mocked monitoring events into real GitHub Issues, isolated code changes, and pull requests."
 tags:
-  - "Agentic engineering"
-  - "Codex"
+  - "Agentic coding"
+  - "Agent loop"
+  - "GitHub automation"
+  - "Autonomous engineering"
+  - "Orchestration"
   - "GitHub"
 ---
 
@@ -17,7 +20,7 @@ tags:
 
 ## Introduction
 
-Over the last few weeks I kept reading articles and seeing posts from notable people in the AI coding space sharing the same idea: they had stopped prompting models directly and started building loops instead. The claim is that a loop — something that observes state, decides what to do next, acts, and then repeats — is a more useful unit than a single prompted conversation.
+Over the last few weeks I kept reading articles and seeing posts from notable people in the agentic coding space sharing the same idea: they had stopped prompting models directly and started building agent loops instead. The claim is that an agent loop — something that observes state, decides what to do next, acts, and then repeats — is a more useful unit of autonomous engineering than a single prompted conversation.
 
 I wanted to see what that actually meant in practice, so I built a small forkable repository to try it out. The goal was not to build something production-ready, but to make the idea concrete enough that anyone can run it, inspect it, and understand what the loop is doing at each step.
 
@@ -95,9 +98,9 @@ When the loop starts, it prints elapsed-time progress so you can follow what it 
 [   4.3s] Running the read-only triage agent. This can take a minute.
 ```
 
-The triage step is read-only. It receives the monitoring event, the GitHub Issue, and the repository. Its job is to identify the relevant files, any constraints or risks, and a testable success condition. The result is schema-validated — and then validated a second time for meaning. A `ready` result that still contains unresolved ambiguities is rejected. The agent makes judgments; deterministic code owns the transitions.
+The triage step is read-only context engineering: the agent receives the monitoring event, the GitHub Issue, and the repository, and its job is to identify the relevant files, any constraints or risks, and a testable success condition. The result is schema-validated — and then validated a second time for meaning. A `ready` result that still contains unresolved ambiguities is rejected. The agent makes judgments; deterministic orchestration code owns the transitions.
 
-After triage, an implementation agent runs inside the dedicated worktree. It edits the code, but does not decide whether the result is accepted. Deterministic Python code runs `make check`, commits and pushes the branch, and opens the pull request.
+After triage, an implementation agent runs inside the dedicated worktree. It edits the code, but does not decide whether the result is accepted. Deterministic Python code runs `make check`, commits and pushes the branch, and opens the pull request via GitHub automation.
 
 {{< engineering-loop-systems >}}
 
